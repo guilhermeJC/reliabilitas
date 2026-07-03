@@ -1,0 +1,36 @@
+# Segredos — NUNCA versionar (CLAUDE.md §12)
+.env
+.env.*
+!.env.example
+config/deploy.env
+*.pem
+*.key
+
+# Dependências e builds (M04)
+node_modules/
+.next/
+out/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Vercel / Supabase locais
+.vercel/
+.supabase/
+
+# SO / editores
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Obsidian (se o vault enxergar esta pasta no futuro)
+.obsidian/
+.trash/
+
+# Temporários
+*.log
+*.tmp
+~$*
