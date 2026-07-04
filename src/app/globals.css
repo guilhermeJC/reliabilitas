@@ -1,0 +1,17 @@
+@import 'tailwindcss';
+
+/* Tokens do design congelado (M02 — DESIGN_wireframe §1). Semântica fixa: não reutilizar. */
+:root {
+  --navy-900: #12233f; /* chrome: header + árvore */
+  --navy-700: #1a3a6b; /* hero */
+  --accent: #e8510a; /* laranja industrial — só funcional */
+  --fw-a: #7f77dd; /* Framework A — diagnóstico */
+  --fw-b: #1d9e75; /* Framework B — prescrição */
+  --wikilink: #2f6fce;
+  --gray-tech: #374151;
+}
+
+body {
+  color: var(--gray-tech);
+  background: #f7f8fa;
+}
