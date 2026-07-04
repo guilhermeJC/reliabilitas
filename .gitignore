@@ -1,3 +1,7 @@
+# Documentos fundadores — SENSÍVEIS, local-only, nunca versionar (D28)
+docs/*
+!docs/README.md
+
 # Segredos — NUNCA versionar (CLAUDE.md §12)
 .env
 .env.*
