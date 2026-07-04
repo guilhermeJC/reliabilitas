@@ -15,3 +15,38 @@ body {
   color: var(--gray-tech);
   background: #f7f8fa;
 }
+
+/* Tipografia mínima do corpo da nota (Fase 0) — layout definitivo no Dia 2 */
+.nota-corpo {
+  font-size: 15px;
+  line-height: 1.7;
+}
+.nota-corpo h2 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--navy-700);
+}
+.nota-corpo p,
+.nota-corpo ul,
+.nota-corpo table {
+  margin-bottom: 0.75rem;
+}
+.nota-corpo ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.nota-corpo a.wikilink {
+  color: var(--wikilink);
+  text-decoration: underline;
+}
+.nota-corpo table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.nota-corpo th,
+.nota-corpo td {
+  border: 1px solid #e3e8f0;
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+}
