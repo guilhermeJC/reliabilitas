@@ -1,4 +1,5 @@
 import { readdir, readFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { Client } from 'pg';
 import { loadEnv } from './env';
@@ -20,7 +21,12 @@ async function main() {
   const dir = path.join(process.cwd(), 'data', 'migrations');
   const files = (await readdir(dir)).filter((f) => f.endsWith('.sql')).sort();
 
-  const client = new Client({ connectionString: url, ssl: { rejectUnauthorized: false } });
+  // TLS com verificação completa. Se a cadeia do Supabase exigir CA própria,
+  // baixe-a (Dashboard → Settings → Database → SSL) e aponte SUPABASE_DB_CA no .env.
+  const ca = process.env.SUPABASE_DB_CA
+    ? readFileSync(process.env.SUPABASE_DB_CA, 'utf8')
+    : undefined;
+  const client = new Client({ connectionString: url, ssl: ca ? { ca } : true });
   await client.connect();
   try {
     await client.query(

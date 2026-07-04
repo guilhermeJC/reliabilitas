@@ -7,12 +7,15 @@ import type { Locale } from '@/lib/content/schema';
 
 const WIKILINK_RE = /\[\[([^\][|]+)(?:\|([^\][]+))?\]\]/g;
 
+const HTML_ESCAPES: Record<string, string> = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+};
+
 function escapeHtml(s: string): string {
-  return s
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;');
+  return s.replace(/[&<>"]/g, (c) => HTML_ESCAPES[c]);
 }
 
 export function renderNoteHtml(corpoMd: string, locale: Locale): string {
