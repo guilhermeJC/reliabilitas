@@ -41,6 +41,10 @@ jobs:
       - name: Testes (Vitest)
         run: npm test
 
+      # Validação de conteúdo (BR-006/BR-001/BR-008 — build falha se inválido)
+      - name: Ingest dry-run
+        run: npm run ingest:dry
+
       # Prova de deployability (small releases — cada commit em main é production-ready)
       - name: Build de produção
         run: npm run build
