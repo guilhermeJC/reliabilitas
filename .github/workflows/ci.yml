@@ -1,0 +1,46 @@
+name: CI
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      # Estágio 1 — estilo/lint/tipos
+      - name: Prettier
+        run: npm run format:check
+      - name: ESLint
+        run: npm run lint
+      - name: TypeScript
+        run: npm run typecheck
+
+      # Estágio 2 — audit de dependências
+      - name: npm audit
+        run: npm audit --audit-level=high
+
+      # Estágio 3 — scanner de segurança estático
+      - name: Semgrep
+        run: |
+          pipx install semgrep
+          semgrep scan --config p/default --error
+
+      # Estágio 4 — suíte de testes
+      - name: Testes (Vitest)
+        run: npm test
+
+      # Prova de deployability (small releases — cada commit em main é production-ready)
+      - name: Build de produção
+        run: npm run build
