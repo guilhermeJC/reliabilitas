@@ -24,6 +24,10 @@ secoes:
   - componentes
   - modos_falha
 componentes: []
+tags:
+  - cavitação
+  - NPSH
+  - curva da bomba
 revisado_em: 2026-07-04
 ---
 

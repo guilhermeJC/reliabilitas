@@ -24,6 +24,10 @@ secoes:
   - componentes
   - modos_falha
 componentes: []
+tags:
+  - cavitation
+  - NPSH
+  - pump curve
 revisado_em: 2026-07-04
 ---
 
