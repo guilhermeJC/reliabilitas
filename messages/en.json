@@ -1,0 +1,61 @@
+{
+  "header": {
+    "tagline": "Industrial reliability knowledge, open to everyone",
+    "switchTo": "Ler em português"
+  },
+  "tree": {
+    "title": "Taxonomy",
+    "notas": "{count, plural, one {# note} other {# notes}}"
+  },
+  "home": {
+    "titulo": "RELIABILITAS",
+    "sub": "Industrial reliability knowledge — open to everyone.",
+    "prova": "Phase 0 (foundation). Pipeline proof:"
+  },
+  "nota": {
+    "backlinks": "Referenced by",
+    "fontes": "Sources",
+    "revisado": "Reviewed on",
+    "semente": "Seed note — summary view of this taxonomy level",
+    "arquivadaTitulo": "Archived note",
+    "arquivadaTexto": "This content has been superseded or removed from the collection. Browse the taxonomy on the side to find the current version.",
+    "modosFalha": "Failure modes",
+    "secoes": "On this page"
+  },
+  "niveis": {
+    "beginner": "Understand",
+    "beginnerSub": "Beginner",
+    "specialist": "Apply",
+    "specialistSub": "Specialist",
+    "engineer": "Master",
+    "engineerSub": "Engineer"
+  },
+  "fw": {
+    "aTitulo": "Framework A — Diagnosis",
+    "aSub": "How the failure behaves over time (Nowlan & Heap)",
+    "bTitulo": "Framework B — Prescription",
+    "bSub": "Applicable and effective task (SAE JA1011 / Moubray)",
+    "categoria": "Category",
+    "beta": "Weibull β",
+    "decisao": "Decision",
+    "periodicidade": "Periodicity",
+    "temPf": "Detectable P-F",
+    "evidente": "Evident failure",
+    "pfTipico": "Typical P-F",
+    "sim": "Yes",
+    "nao": "No",
+    "decisoes": {
+      "tbm": "TBM",
+      "cbm": "CBM",
+      "proof_test": "Proof Test",
+      "rtf": "RTF",
+      "redesenho": "Redesign"
+    }
+  },
+  "plano": {
+    "titulo": "Maintenance plan",
+    "tarefa": "Task",
+    "metodo": "Method",
+    "periodicidade": "Periodicity"
+  }
+}

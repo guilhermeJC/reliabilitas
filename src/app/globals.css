@@ -1,5 +1,11 @@
 @import 'tailwindcss';
 
+/* Tipografia decidida (DEV-015): IBM Plex Sans (UI/títulos) + JetBrains Mono (dados). */
+@theme inline {
+  --font-sans: var(--font-plex), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jbmono), ui-monospace, 'Cascadia Mono', monospace;
+}
+
 /* Tokens do design congelado (M02 — DESIGN_wireframe §1). Semântica fixa: não reutilizar. */
 :root {
   --navy-900: #12233f; /* chrome: header + árvore */
@@ -12,11 +18,12 @@
 }
 
 body {
+  font-family: var(--font-sans);
   color: var(--gray-tech);
   background: #f7f8fa;
 }
 
-/* Tipografia mínima do corpo da nota (Fase 0) — layout definitivo no Dia 2 */
+/* Corpo da nota (D09 — legibilidade de handbook: 15px/1.7, DESIGN §4.1) */
 .nota-corpo {
   font-size: 15px;
   line-height: 1.7;
@@ -24,6 +31,16 @@ body {
 .nota-corpo h2 {
   margin: 1.5rem 0 0.5rem;
   font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--navy-700);
+  scroll-margin-top: 4.5rem; /* âncoras da nav "nesta página" (T02) */
+}
+.nota-corpo h2:first-child {
+  margin-top: 0;
+}
+.nota-corpo h3 {
+  margin: 1rem 0 0.4rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--navy-700);
 }
@@ -40,6 +57,13 @@ body {
   color: var(--wikilink);
   text-decoration: underline;
 }
+.nota-corpo code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: #f1f4f9;
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
 .nota-corpo table {
   border-collapse: collapse;
   width: 100%;
@@ -49,4 +73,12 @@ body {
   border: 1px solid #e3e8f0;
   padding: 0.4rem 0.6rem;
   text-align: left;
+}
+
+/* Acessibilidade: foco visível em todo o shell (DESIGN §4.6) */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }

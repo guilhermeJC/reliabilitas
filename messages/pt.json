@@ -1,0 +1,61 @@
+{
+  "header": {
+    "tagline": "Conhecimento de confiabilidade industrial, aberto a todos",
+    "switchTo": "Ler em inglês"
+  },
+  "tree": {
+    "title": "Taxonomia",
+    "notas": "{count, plural, one {# nota} other {# notas}}"
+  },
+  "home": {
+    "titulo": "RELIABILITAS",
+    "sub": "O conhecimento de confiabilidade que a indústria precisa — acessível a todos.",
+    "prova": "Fase 0 (fundação). Prova do pipeline:"
+  },
+  "nota": {
+    "backlinks": "Referenciada por",
+    "fontes": "Fontes",
+    "revisado": "Revisado em",
+    "semente": "Nota-semente — visão resumida deste nível taxonômico",
+    "arquivadaTitulo": "Nota arquivada",
+    "arquivadaTexto": "Este conteúdo foi substituído ou retirado do acervo. Navegue pela taxonomia ao lado para encontrar a versão vigente.",
+    "modosFalha": "Modos de falha",
+    "secoes": "Nesta página"
+  },
+  "niveis": {
+    "beginner": "Entender",
+    "beginnerSub": "Beginner",
+    "specialist": "Aplicar",
+    "specialistSub": "Specialist",
+    "engineer": "Dominar",
+    "engineerSub": "Engineer"
+  },
+  "fw": {
+    "aTitulo": "Framework A — Diagnóstico",
+    "aSub": "Como a falha se comporta no tempo (Nowlan & Heap)",
+    "bTitulo": "Framework B — Prescrição",
+    "bSub": "Tarefa aplicável e eficaz (SAE JA1011 / Moubray)",
+    "categoria": "Categoria",
+    "beta": "β Weibull",
+    "decisao": "Decisão",
+    "periodicidade": "Periodicidade",
+    "temPf": "P-F detectável",
+    "evidente": "Falha evidente",
+    "pfTipico": "P-F típico",
+    "sim": "Sim",
+    "nao": "Não",
+    "decisoes": {
+      "tbm": "TBM",
+      "cbm": "CBM",
+      "proof_test": "Proof Test",
+      "rtf": "RTF",
+      "redesenho": "Redesenho"
+    }
+  },
+  "plano": {
+    "titulo": "Plano de manutenção",
+    "tarefa": "Tarefa",
+    "metodo": "Método",
+    "periodicidade": "Periodicidade"
+  }
+}
