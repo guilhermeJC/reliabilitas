@@ -10,7 +10,7 @@ export default defineConfig({
   test: {
     environment: 'node',
     include: ['tests/**/*.test.ts'],
-    passWithNoTests: true,
+    // F9: glob quebrado deve FALHAR, não passar em silêncio (invariante TDD).
     coverage: {
       provider: 'v8',
       include: ['src/lib/**', 'scripts/**'],
