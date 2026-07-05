@@ -12,6 +12,18 @@
     "sub": "Industrial reliability knowledge — open to everyone.",
     "prova": "Phase 0 (foundation). Pipeline proof:"
   },
+  "busca": {
+    "titulo": "Search",
+    "placeholder": "Search failures, components or standards…",
+    "botao": "Search",
+    "resultadosPara": "Results for “{termo}”",
+    "nenhum": "Nothing found for “{termo}”.",
+    "dica": "Try broader terms — e.g. cavitation, NPSH, bearing.",
+    "sugestoes": "Or explore the handbooks:",
+    "anterior": "← Previous",
+    "proxima": "Next →",
+    "pagina": "Page {n}"
+  },
   "nota": {
     "backlinks": "Referenced by",
     "fontes": "Sources",

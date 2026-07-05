@@ -98,21 +98,19 @@ describe.runIf(habilitado)('busca_notas — FTS ponderada e parametrizada (F04/F
     });
 
     it('nota draft com termo exclusivo não é encontrada', async () => {
-      const ins = await admin()
-        .from('notas')
-        .upsert(
-          {
-            slug: slugDraft,
-            tipo_nota: 'classe',
-            locale: 'pt',
-            titulo: 'Nota fantasma zzfantasmabusca',
-            status: 'draft',
-            taxonomia: [],
-            frontmatter: {},
-            corpo_md: 'Rascunho com termo exclusivo zzfantasmabusca.',
-          },
-          { onConflict: 'slug,locale' },
-        );
+      const ins = await admin().from('notas').upsert(
+        {
+          slug: slugDraft,
+          tipo_nota: 'classe',
+          locale: 'pt',
+          titulo: 'Nota fantasma zzfantasmabusca',
+          status: 'draft',
+          taxonomia: [],
+          frontmatter: {},
+          corpo_md: 'Rascunho com termo exclusivo zzfantasmabusca.',
+        },
+        { onConflict: 'slug,locale' },
+      );
       expect(ins.error).toBeNull();
       const r = await busca('zzfantasmabusca', 'pt');
       expect(r).toEqual([]);
@@ -121,52 +119,55 @@ describe.runIf(habilitado)('busca_notas — FTS ponderada e parametrizada (F04/F
 });
 
 // Funções SQL do índice (migration 0002) — só local (exige a conexão direta do db:apply).
-describe.runIf(habilitado && !!dbUrl)('funções do índice FTS (md_para_texto / configs unaccent)', () => {
-  async function sql<T>(text: string, params: unknown[] = []): Promise<T[]> {
-    const ca = process.env.SUPABASE_DB_CA
-      ? readFileSync(process.env.SUPABASE_DB_CA, 'utf8')
-      : undefined;
-    const c = new PgClient({ connectionString: dbUrl, ssl: ca ? { ca } : true });
-    await c.connect();
-    try {
-      const r = await c.query(text, params as never[]);
-      return r.rows as T[];
-    } finally {
-      await c.end();
+describe.runIf(habilitado && !!dbUrl)(
+  'funções do índice FTS (md_para_texto / configs unaccent)',
+  () => {
+    async function sql<T>(text: string, params: unknown[] = []): Promise<T[]> {
+      const ca = process.env.SUPABASE_DB_CA
+        ? readFileSync(process.env.SUPABASE_DB_CA, 'utf8')
+        : undefined;
+      const c = new PgClient({ connectionString: dbUrl, ssl: ca ? { ca } : true });
+      await c.connect();
+      try {
+        const r = await c.query(text, params as never[]);
+        return r.rows as T[];
+      } finally {
+        await c.end();
+      }
     }
-  }
 
-  it('md_para_texto: conteúdo de code fence fica FORA do índice', async () => {
-    const [row] = await sql<{ t: string }>(
-      "select public.md_para_texto('antes\n```js\nsegredoDeCodigo()\n```\ndepois') as t",
-    );
-    expect(row.t).not.toContain('segredoDeCodigo');
-    expect(row.t).toContain('antes');
-    expect(row.t).toContain('depois');
-  });
+    it('md_para_texto: conteúdo de code fence fica FORA do índice', async () => {
+      const [row] = await sql<{ t: string }>(
+        "select public.md_para_texto('antes\n```js\nsegredoDeCodigo()\n```\ndepois') as t",
+      );
+      expect(row.t).not.toContain('segredoDeCodigo');
+      expect(row.t).toContain('antes');
+      expect(row.t).toContain('depois');
+    });
 
-  it('md_para_texto: wikilink indexa o rótulo, descarta o alvo', async () => {
-    const [row] = await sql<{ t: string }>(
-      "select public.md_para_texto('veja [[alvo-tecnico-oculto|Rótulo Visível]] aqui') as t",
-    );
-    expect(row.t).toContain('Rótulo Visível');
-    expect(row.t).not.toContain('alvo-tecnico-oculto');
-  });
+    it('md_para_texto: wikilink indexa o rótulo, descarta o alvo', async () => {
+      const [row] = await sql<{ t: string }>(
+        "select public.md_para_texto('veja [[alvo-tecnico-oculto|Rótulo Visível]] aqui') as t",
+      );
+      expect(row.t).toContain('Rótulo Visível');
+      expect(row.t).not.toContain('alvo-tecnico-oculto');
+    });
 
-  it('md_para_texto: marcas de heading/ênfase removidas, texto preservado', async () => {
-    const [row] = await sql<{ t: string }>(
-      "select public.md_para_texto('## Título **forte**') as t",
-    );
-    expect(row.t).not.toContain('#');
-    expect(row.t).not.toContain('*');
-    expect(row.t).toContain('Título');
-    expect(row.t).toContain('forte');
-  });
+    it('md_para_texto: marcas de heading/ênfase removidas, texto preservado', async () => {
+      const [row] = await sql<{ t: string }>(
+        "select public.md_para_texto('## Título **forte**') as t",
+      );
+      expect(row.t).not.toContain('#');
+      expect(row.t).not.toContain('*');
+      expect(row.t).toContain('Título');
+      expect(row.t).toContain('forte');
+    });
 
-  it('config pt_unaccent: consulta sem acento casa com documento acentuado', async () => {
-    const [row] = await sql<{ ok: boolean }>(
-      "select to_tsvector('public.pt_unaccent', 'Cavitação no impelidor') @@ websearch_to_tsquery('public.pt_unaccent', 'cavitacao') as ok",
-    );
-    expect(row.ok).toBe(true);
-  });
-});
+    it('config pt_unaccent: consulta sem acento casa com documento acentuado', async () => {
+      const [row] = await sql<{ ok: boolean }>(
+        "select to_tsvector('public.pt_unaccent', 'Cavitação no impelidor') @@ websearch_to_tsquery('public.pt_unaccent', 'cavitacao') as ok",
+      );
+      expect(row.ok).toBe(true);
+    });
+  },
+);

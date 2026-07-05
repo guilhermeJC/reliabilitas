@@ -12,6 +12,18 @@
     "sub": "O conhecimento de confiabilidade que a indústria precisa — acessível a todos.",
     "prova": "Fase 0 (fundação). Prova do pipeline:"
   },
+  "busca": {
+    "titulo": "Busca",
+    "placeholder": "Busque por falha, componente ou norma…",
+    "botao": "Buscar",
+    "resultadosPara": "Resultados para “{termo}”",
+    "nenhum": "Nada encontrado para “{termo}”.",
+    "dica": "Tente termos mais gerais — ex.: cavitação, NPSH, rolamento.",
+    "sugestoes": "Ou explore os handbooks:",
+    "anterior": "← Anteriores",
+    "proxima": "Próximos →",
+    "pagina": "Página {n}"
+  },
   "nota": {
     "backlinks": "Referenciada por",
     "fontes": "Fontes",

@@ -1,11 +1,9 @@
 import 'server-only';
-import { createClient } from '@supabase/supabase-js';
 import type { Locale } from '@/lib/content/schema';
 import { classificaNotaView } from '@/lib/content/nota-view';
+import { admin } from '@/lib/db/client';
 
-// D11/BR-004 — invariante: o banco só é tocado AQUI, com service key, em código
-// server-only. Jamais criar endpoint público que exponha estas funções; o visitante
-// recebe exclusivamente o preload SSR da página.
+// D11/BR-004 — invariante do acesso a dados: ver src/lib/db/client.ts.
 
 export interface Nota {
   slug: string;
@@ -30,15 +28,6 @@ export type NotaView =
   | { estado: 'published'; nota: Nota }
   | { estado: 'archived'; nota: null }
   | { estado: 'missing'; nota: null };
-
-function admin() {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SECRET_KEY;
-  if (!url || !key) {
-    throw new Error('Supabase não configurado — defina SUPABASE_URL e SUPABASE_SECRET_KEY no .env');
-  }
-  return createClient(url, key, { auth: { persistSession: false } });
-}
 
 // F15: archived é distinguido de inexistente; draft/review respondem como missing.
 export async function getNotaView(slug: string, locale: Locale): Promise<NotaView> {
