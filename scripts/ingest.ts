@@ -86,7 +86,7 @@ async function main() {
   }
 
   const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const key = process.env.SUPABASE_SECRET_KEY;
   if (!url || !key) {
     console.error('SUPABASE_URL/SUPABASE_SECRET_KEY ausentes no .env.');
     process.exit(1);
