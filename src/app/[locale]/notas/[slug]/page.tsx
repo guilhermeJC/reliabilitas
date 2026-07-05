@@ -193,6 +193,7 @@ export default async function NotaPage({ params }: PageParams) {
             <article
               className="nota-corpo mt-6 rounded-lg border bg-white p-6 md:p-8"
               style={{ borderColor: '#e3e8f0' }}
+              // nosemgrep: typescript.react.security.audit.react-dangerouslysetinnerhtml.react-dangerouslysetinnerhtml -- falso positivo documentado (DEV-017): HTML gerado server-side de conteúdo autoral validado no ingest (BR-006/F3/F8); DOMPurify é requisito do gate da Fase 3 (BR-013)
               dangerouslySetInnerHTML={{ __html: corpoHtml }}
             />
           </>
