@@ -12,6 +12,10 @@ import '../globals.css';
 // Shell "sala de controle" (DESIGN_wireframe §1): chrome navy abraça o conteúdo.
 // Tipografia DEV-015: IBM Plex Sans (UI/títulos) + JetBrains Mono (dados) via
 // next/font — self-hosted, compatível com CSP font-src 'self'.
+// Build HERMÉTICO: a árvore (TreeNav) consulta o banco, então nada aqui
+// pré-renderiza em build (o CI não tem credenciais — e não deve ter).
+// ISR/prerender entram no Dia 5 (G6) com estratégia própria na Vercel.
+export const dynamic = 'force-dynamic';
 
 const plexSans = IBM_Plex_Sans({
   subsets: ['latin'],
@@ -31,10 +35,6 @@ export const metadata: Metadata = {
   title: { default: 'RELIABILITAS', template: '%s · RELIABILITAS' },
   description: 'O conhecimento de confiabilidade que a indústria precisa — acessível a todos.',
 };
-
-export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
-}
 
 export default async function LocaleLayout({
   children,
