@@ -26,4 +26,25 @@ describe('renderNoteHtml — Markdown com mecânica Obsidian (D09)', () => {
     expect(html).toContain('href="https://emerson.com"');
     expect(html).not.toContain('wikilink');
   });
+
+  describe('F3 — href seguro por construção (injeção de atributo)', () => {
+    it('alvo com aspas e atributo de evento NÃO vira link (fica texto literal)', () => {
+      const html = renderNoteHtml('Veja [[x" onmouseover="alert(1)|clique aqui]].', 'pt');
+      expect(html).not.toMatch(/<a[^>]*onmouseover/);
+      expect(html).not.toContain('href="/pt/notas/x"');
+      expect(html).toContain('[[x'); // literal preservado — o curador vê o erro
+    });
+
+    it('alvo fora do padrão de slug (maiúsculas/espaços) vira texto, não link', () => {
+      const html = renderNoteHtml('Ver [[Bomba Centrífuga]].', 'pt');
+      expect(html).not.toContain('<a ');
+      expect(html).toContain('[[Bomba Centrífuga]]');
+    });
+
+    it('slug canônico segue virando link normalmente', () => {
+      const html = renderNoteHtml('Ver [[bomba-centrifuga|a bomba]].', 'pt');
+      expect(html).toContain('href="/pt/notas/bomba-centrifuga"');
+      expect(html).toContain('>a bomba</a>');
+    });
+  });
 });
