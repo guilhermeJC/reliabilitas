@@ -1,6 +1,10 @@
 name: CI
 
-on: [push, pull_request]
+# F18: push só em main (evita run duplicado no mesmo branch quando há PR aberto).
+on:
+  push:
+    branches: [main]
+  pull_request:
 
 permissions:
   contents: read
@@ -41,6 +45,20 @@ jobs:
       # Estágio 4 — suíte de testes
       - name: Testes (Vitest)
         run: npm test
+
+      # Estágio 4b — RLS contra a instância viva (F6: guarda de regressão do D11).
+      # Secrets do repositório; em fork-PR eles não existem — pular com aviso, não falhar.
+      - name: Testes de RLS (instância viva)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ]; then
+            echo "::warning::secrets do Supabase ausentes — testes de RLS pulados"
+            exit 0
+          fi
+          SUPABASE_DB_TESTS=1 npx vitest run tests/integration
 
       # Validação de conteúdo (BR-006/BR-001/BR-008 — build falha se inválido)
       - name: Ingest dry-run
