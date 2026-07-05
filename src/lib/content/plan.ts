@@ -12,6 +12,14 @@ export interface NotaRow {
   taxonomia: string[];
   frontmatter: Record<string, unknown>;
   corpo_md: string;
+  revisado_em: string | null;
+}
+
+// F10: YAML entrega Date (gray-matter) ou string — a coluna date recebe YYYY-MM-DD.
+function normalizaData(v: unknown): string | null {
+  if (v instanceof Date) return v.toISOString().slice(0, 10);
+  if (typeof v === 'string' && v.trim() !== '') return v;
+  return null;
 }
 
 export interface ArestaRow {
@@ -42,6 +50,7 @@ export function buildPlan(parsed: NotaParsed[]): IngestPlan {
       taxonomia: n.fm.taxonomia,
       frontmatter: fm,
       corpo_md: n.corpo,
+      revisado_em: normalizaData(n.fm.revisado_em),
     });
 
     const add = (destino: string, tipo: ArestaRow['tipo']) => {
