@@ -27,6 +27,39 @@ describe('renderNoteHtml — Markdown com mecânica Obsidian (D09)', () => {
     expect(html).not.toContain('wikilink');
   });
 
+  describe('headings ganham id para âncoras (T02 — nav "nesta página")', () => {
+    it('gera id kebab-case sem acentos a partir do texto do heading', () => {
+      const html = renderNoteHtml('## Princípio de funcionamento\n\nTexto.', 'pt');
+      expect(html).toContain('<h2 id="principio-de-funcionamento">');
+    });
+
+    it('preserva a formatação inline do heading no texto renderizado', () => {
+      const html = renderNoteHtml('## Tipos e **diferenças**', 'pt');
+      expect(html).toContain('id="tipos-e-diferencas"');
+      expect(html).toContain('<strong>diferenças</strong>');
+    });
+  });
+
+  describe('F14 — wikilinks não são convertidos dentro de código', () => {
+    it('code fence preserva [[slug]] como texto de código', () => {
+      const html = renderNoteHtml('```\nexemplo [[cavitacao]] em código\n```', 'pt');
+      expect(html).toContain('<code>');
+      expect(html).not.toContain('<a ');
+      expect(html).toContain('[[cavitacao]]');
+    });
+
+    it('inline code preserva [[slug]] como texto', () => {
+      const html = renderNoteHtml('Use `[[cavitacao]]` para linkar.', 'pt');
+      expect(html).not.toContain('<a ');
+      expect(html).toContain('[[cavitacao]]');
+    });
+
+    it('wikilink em texto normal segue virando link', () => {
+      const html = renderNoteHtml('Texto com [[cavitacao]] normal.', 'pt');
+      expect(html).toContain('href="/pt/notas/cavitacao"');
+    });
+  });
+
   describe('F3 — href seguro por construção (injeção de atributo)', () => {
     it('alvo com aspas e atributo de evento NÃO vira link (fica texto literal)', () => {
       const html = renderNoteHtml('Veja [[x" onmouseover="alert(1)|clique aqui]].', 'pt');
