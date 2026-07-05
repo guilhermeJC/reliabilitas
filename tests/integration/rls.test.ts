@@ -11,8 +11,8 @@ try {
 }
 
 const url = process.env.SUPABASE_URL;
-const anonKey = process.env.SUPABASE_PUBLISHABLE_KEY ?? process.env.SUPABASE_ANON_KEY;
-const secretKey = process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY;
+const anonKey = process.env.SUPABASE_PUBLISHABLE_KEY;
+const secretKey = process.env.SUPABASE_SECRET_KEY;
 const habilitado = process.env.SUPABASE_DB_TESTS === '1' && !!url && !!anonKey && !!secretKey;
 
 describe.runIf(habilitado)('RLS — dados navegáveis nunca abertos (D11/BR-004)', () => {
@@ -23,10 +23,11 @@ describe.runIf(habilitado)('RLS — dados navegáveis nunca abertos (D11/BR-004)
     expect(r.error!.code).toBe('42501'); // permission denied
   });
 
-  it('anon NÃO lê a tabela de arestas', async () => {
+  it('anon NÃO lê a tabela de arestas (permissão negada)', async () => {
     const anon = createClient(url!, anonKey!, { auth: { persistSession: false } });
     const r = await anon.from('arestas').select('origem_slug').limit(1);
     expect(r.error).not.toBeNull();
+    expect(r.error!.code).toBe('42501'); // permission denied
   });
 
   it('anon NÃO escreve na tabela de notas', async () => {
@@ -40,6 +41,7 @@ describe.runIf(habilitado)('RLS — dados navegáveis nunca abertos (D11/BR-004)
       frontmatter: {},
     });
     expect(r.error).not.toBeNull();
+    expect(r.error!.code).toBe('42501'); // permission denied
   });
 
   it('service role lê normalmente (rotas server-only)', async () => {
