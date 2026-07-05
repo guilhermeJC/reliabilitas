@@ -127,6 +127,9 @@ export default async function NotaPage({ params }: PageParams) {
   const ehHandbook = nota.tipo_nota === 'tipo';
   const niveis = ehModoFalha ? splitNiveis(nota.corpo_md) : null;
   const resumo = nota.frontmatter.resumo as string | undefined;
+  // HTML server-side de conteúdo autoral validado (BR-006/F3/F8 — ver render.ts).
+  // Sanitização client (DOMPurify) vira requisito no gate da Fase 3 (conteúdo de terceiros).
+  const corpoHtml = niveis ? '' : renderNoteHtml(nota.corpo_md, locale as Locale);
 
   return (
     <div className="px-4 py-8 md:px-8">
@@ -190,7 +193,7 @@ export default async function NotaPage({ params }: PageParams) {
             <article
               className="nota-corpo mt-6 rounded-lg border bg-white p-6 md:p-8"
               style={{ borderColor: '#e3e8f0' }}
-              dangerouslySetInnerHTML={{ __html: renderNoteHtml(nota.corpo_md, locale as Locale) }}
+              dangerouslySetInnerHTML={{ __html: corpoHtml }}
             />
           </>
         )}
