@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { validateFrontmatter } from '@/lib/content/schema';
+import { validateFrontmatter, validateNiveisCorpo } from '@/lib/content/schema';
 
 // Fixtures mínimas válidas por tipo de nota (contrato: DOCS_base §E + DOCS_regras BR-005/BR-006)
 const modoFalhaValido = {
@@ -11,10 +11,10 @@ const modoFalhaValido = {
   taxonomia: ['transferencia-de-fluidos-liquidos', 'bombas', 'dinamicas', 'bomba-centrifuga'],
   iso14224_code: 'OTH/ERO',
   fontes: ['Karassik (2008), cap. 2'],
+  revisado_em: '2026-07-04',
   fw_a: { categoria: 'mixed_complex', beta: 'variável' },
   fw_b: { tem_pf: true, evidente: true, decisao: 'cbm', periodicidade: 'P-F/2' },
   pf_tipico: 'dias–semanas',
-  niveis: ['beginner', 'specialist', 'engineer'],
   plano_manutencao: [
     {
       tarefa: 'Análise de vibração',
@@ -33,6 +33,7 @@ const handbookValido = {
   taxonomia: ['transferencia-de-fluidos-liquidos', 'bombas', 'dinamicas'],
   iso14224_code: 'PU',
   fontes: ['Karassik (2008)'],
+  revisado_em: '2026-07-04',
   secoes: [
     'classificacao',
     'principio',
@@ -54,6 +55,7 @@ const sementeValida = {
   status: 'published',
   taxonomia: ['transferencia-de-fluidos-liquidos'],
   fontes: ['ISO 14224:2016'],
+  revisado_em: '2026-07-04',
   resumo: 'Família de equipamentos que transferem líquidos por adição de energia.',
 };
 
@@ -98,11 +100,45 @@ describe('validateFrontmatter — BR-006 (frontmatter inválido derruba o build)
     if (!r.ok) expect(r.issues.map((i) => i.path).join()).toContain('fw_b.decisao');
   });
 
-  it('rejeita modo_falha sem os 3 níveis de leitura', () => {
-    const invalido = { ...modoFalhaValido, niveis: ['beginner', 'specialist'] };
+  it('F7: rejeita campo desconhecido — typo não some em silêncio (BR-006 estrito)', () => {
+    const invalido = { ...modoFalhaValido, pf_typico: 'dias' }; // typo de pf_tipico
     const r = validateFrontmatter(invalido);
     expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.issues.map((i) => i.path).join()).toContain('niveis');
+    if (!r.ok) expect(r.issues.map((i) => `${i.path} ${i.message}`).join()).toContain('pf_typico');
+  });
+
+  it('F7: aceita tags (allowlist — insumo manual da busca FTS em PT)', () => {
+    const r = validateFrontmatter({ ...sementeValida, tags: ['npsh', 'cavitacao'] });
+    expect(r.ok).toBe(true);
+  });
+
+  it('F8: rejeita o campo niveis — os 3 níveis vivem no corpo, não no frontmatter', () => {
+    const invalido = { ...modoFalhaValido, niveis: ['beginner', 'specialist', 'engineer'] };
+    const r = validateFrontmatter(invalido);
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.issues.map((i) => `${i.path} ${i.message}`).join()).toContain('niveis');
+  });
+
+  it('F10: rejeita nota published sem revisado_em (sitemap/SEO leem data real)', () => {
+    const invalido: Record<string, unknown> = { ...sementeValida };
+    delete invalido.revisado_em;
+    const r = validateFrontmatter(invalido);
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.issues.map((i) => i.path).join()).toContain('revisado_em');
+  });
+
+  it('F10: draft sem revisado_em segue aceito (obrigatória só na publicação)', () => {
+    const draft: Record<string, unknown> = { ...sementeValida, status: 'draft' };
+    delete draft.revisado_em;
+    const r = validateFrontmatter(draft);
+    expect(r.ok).toBe(true);
+  });
+
+  it('F20: rejeita o stub anatomia — o schema real nasce no Dia 4 com BR-009 hard', () => {
+    const invalido = { ...handbookValido, anatomia: { foto: null, corte_svg: 'x.svg' } };
+    const r = validateFrontmatter(invalido);
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.issues.map((i) => `${i.path} ${i.message}`).join()).toContain('anatomia');
   });
 
   it('rejeita fontes vazias (BR-002 — citação obrigatória)', () => {
@@ -166,5 +202,41 @@ describe('validateFrontmatter — BR-006 (frontmatter inválido derruba o build)
       expect(r.ok).toBe(false);
       if (!r.ok) expect(r.issues.map((i) => i.message).join()).toContain('RTF');
     });
+  });
+});
+
+describe('validateNiveisCorpo — F8: os 3 níveis são seções reais do corpo (DEV-006/Spec §5)', () => {
+  const corpoCompleto = [
+    '## Beginner',
+    'O que é e por que acontece.',
+    '## Specialist',
+    'Fw A → Fw B, P-F e plano.',
+    '## Engineer',
+    'Weibull, equações e bibliografia.',
+  ].join('\n\n');
+
+  it('aceita corpo com os 3 headings preenchidos', () => {
+    expect(validateNiveisCorpo(corpoCompleto)).toEqual([]);
+  });
+
+  it('acusa heading ausente apontando o nível que falta', () => {
+    const semEngineer = corpoCompleto.replace(/## Engineer[\s\S]*$/, '');
+    const issues = validateNiveisCorpo(semEngineer);
+    expect(issues.length).toBeGreaterThan(0);
+    expect(issues.map((i) => i.message).join()).toContain('Engineer');
+  });
+
+  it('acusa seção vazia — heading presente sem conteúdo real não entrega profundidade', () => {
+    const beginnerVazio = corpoCompleto.replace('O que é e por que acontece.', '');
+    const issues = validateNiveisCorpo(beginnerVazio);
+    expect(issues.length).toBeGreaterThan(0);
+    expect(issues.map((i) => i.message).join()).toContain('Beginner');
+  });
+
+  it('não exige headings de outros tipos de corpo (só valida o que recebe)', () => {
+    const issues = validateNiveisCorpo(
+      '## Beginner\n\nx\n\n## Specialist\n\ny\n\n## Engineer\n\nz',
+    );
+    expect(issues).toEqual([]);
   });
 });

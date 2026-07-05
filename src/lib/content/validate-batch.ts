@@ -1,7 +1,8 @@
-import type { NotaFrontmatter } from './schema';
+import { validateNiveisCorpo, type NotaFrontmatter } from './schema';
 
 // Validação de LOTE (o acervo inteiro após o parse individual BR-006):
 // BR-001 (cadeia-pai publicada), BR-008 (bilíngue), unicidade slug+locale,
+// F8 (3 níveis no corpo do modo de falha publicado),
 // wikilinks órfãos (warning — F01: renderiza como texto, loga alerta).
 
 export interface NotaParsed {
@@ -46,6 +47,13 @@ export function validateBatch(notas: NotaParsed[]): BatchResult {
   for (const n of notas) {
     const { fm } = n;
     if (fm.status !== 'published') continue;
+
+    // F8 — modo de falha só publica com as 3 seções de nível reais no corpo
+    if (fm.tipo_nota === 'modo_falha') {
+      for (const issue of validateNiveisCorpo(n.corpo)) {
+        errors.push({ file: n.file, message: `F8: ${issue.message}` });
+      }
+    }
 
     // BR-008 — toda nota publicada existe em PT e EN
     const outroLocale = fm.locale === 'pt' ? 'en' : 'pt';

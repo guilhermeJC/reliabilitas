@@ -25,10 +25,6 @@ fw_b:
   decisao: cbm
   periodicidade: 'P-F/2 (inspeção mensal típica; contínuo via monitoramento online)'
 pf_tipico: 'dias a semanas (erosão); minutos (colapso severo de desempenho)'
-niveis:
-  - beginner
-  - specialist
-  - engineer
 plano_manutencao:
   - tarefa: 'Análise de vibração'
     metodo: 'Espectro + envelope; energia banda larga em alta frequência'

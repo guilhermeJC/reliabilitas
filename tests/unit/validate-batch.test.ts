@@ -2,6 +2,10 @@ import { describe, expect, it } from 'vitest';
 import { validateBatch, type NotaParsed } from '@/lib/content/validate-batch';
 import type { NotaFrontmatter } from '@/lib/content/schema';
 
+// Corpo canônico de modo de falha (F8: 3 headings obrigatórios, DEV-006)
+const CORPO_MODO_FALHA =
+  '## Beginner\n\nO que é.\n\n## Specialist\n\nComo detectar.\n\n## Engineer\n\nA matemática.';
+
 function nota(
   over: Partial<NotaFrontmatter> & { slug: string },
   wikilinks: string[] = [],
@@ -16,7 +20,8 @@ function nota(
     resumo: 'resumo',
     ...over,
   } as NotaFrontmatter;
-  return { fm, corpo: '', file: `content/${fm.locale}/${fm.tipo_nota}/${fm.slug}.md`, wikilinks };
+  const corpo = fm.tipo_nota === 'modo_falha' ? CORPO_MODO_FALHA : '';
+  return { fm, corpo, file: `content/${fm.locale}/${fm.tipo_nota}/${fm.slug}.md`, wikilinks };
 }
 
 // Cadeia mínima válida PT+EN: classe → família → princípio → tipo → modo_falha
@@ -107,5 +112,23 @@ describe('validateBatch — regras de publicação do acervo', () => {
     const r = validateBatch(lote);
     expect(r.errors).toEqual([]);
     expect(r.warnings.some((w) => w.message.includes('nota-que-nao-existe'))).toBe(true);
+  });
+
+  it('F8: modo_falha publicado sem os 3 níveis no corpo é erro de lote', () => {
+    const lote = [...cadeiaCompleta('pt'), ...cadeiaCompleta('en')];
+    lote[4] = { ...lote[4], corpo: '## Beginner\n\nSó o básico.' };
+    const r = validateBatch(lote);
+    expect(r.errors.some((e) => e.message.includes('Specialist'))).toBe(true);
+    expect(r.errors.some((e) => e.message.includes('Engineer'))).toBe(true);
+  });
+
+  it('F8: modo_falha em draft não exige os headings (validação só na publicação)', () => {
+    const lote = [
+      ...cadeiaCompleta('pt'),
+      ...cadeiaCompleta('en'),
+      { ...nota({ slug: 'erosao', tipo_nota: 'modo_falha', status: 'draft' }), corpo: 'rascunho' },
+    ];
+    const r = validateBatch(lote);
+    expect(r.errors).toEqual([]);
   });
 });
