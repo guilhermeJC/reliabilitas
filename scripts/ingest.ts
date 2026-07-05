@@ -1,17 +1,20 @@
 import { readdir, readFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import matter from 'gray-matter';
-import { createClient } from '@supabase/supabase-js';
+import { Client } from 'pg';
 import { validateFrontmatter } from '../src/lib/content/schema';
 import { extractWikilinks, uniqueTargets } from '../src/lib/content/wikilinks';
 import { validateBatch, type NotaParsed } from '../src/lib/content/validate-batch';
 import { buildPlan } from '../src/lib/content/plan';
+import { writePlan } from '../src/lib/db/ingest-writer';
 import { loadEnv } from './env';
 
-// Ingest v1 (F06): content/**.md → valida (BR-006 individual, BR-001/BR-008 em lote)
-// → plano → upsert em notas + substituição das arestas. Build FALHA se inválido.
+// Ingest v1 (F06): content/**.md → valida (BR-006 individual, BR-001/BR-008/F2/F8 em lote)
+// → plano → gravação ATÔMICA via Postgres (F4: transação única; F1: reconciliação).
 // v1 assume content/ como acervo-fonte completo (validação de lote é autocontida).
 // --dry-run: valida e imprime o plano sem tocar o banco (roda no CI).
+// Gravação real exige SUPABASE_DB_URL (mesma conexão do db:apply, TLS verificado).
 
 async function walk(dir: string): Promise<string[]> {
   const out: string[] = [];
@@ -85,29 +88,28 @@ async function main() {
     return;
   }
 
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SECRET_KEY;
-  if (!url || !key) {
-    console.error('SUPABASE_URL/SUPABASE_SECRET_KEY ausentes no .env.');
+  // F4/F1 — gravação atômica direto no Postgres (transação única + reconciliação).
+  const url = process.env.SUPABASE_DB_URL;
+  if (!url) {
+    console.error(
+      'SUPABASE_DB_URL ausente no .env — a gravação do ingest usa Postgres direto (F4).\n' +
+        'Obtenha em: Supabase Dashboard → Settings → Database → Connection string (Session mode).',
+    );
     process.exit(1);
   }
-  const db = createClient(url, key, { auth: { persistSession: false } });
-
-  const up = await db
-    .from('notas')
-    .upsert(plan.notas, { onConflict: 'slug,locale' })
-    .select('slug');
-  if (up.error) throw new Error(`upsert notas: ${up.error.message}`);
-
-  // v1: arestas são derivadas — substituição integral a cada ingest (acervo pequeno).
-  const del = await db.from('arestas').delete().neq('origem_slug', '');
-  if (del.error) throw new Error(`limpeza arestas: ${del.error.message}`);
-  if (plan.arestas.length > 0) {
-    const ins = await db.from('arestas').insert(plan.arestas);
-    if (ins.error) throw new Error(`insert arestas: ${ins.error.message}`);
+  const ca = process.env.SUPABASE_DB_CA
+    ? readFileSync(process.env.SUPABASE_DB_CA, 'utf8')
+    : undefined;
+  const db = new Client({ connectionString: url, ssl: ca ? { ca } : true });
+  await db.connect();
+  try {
+    const r = await writePlan(db, plan);
+    console.log(
+      `✓ Ingest concluído: ${r.gravadas} notas gravadas · ${r.removidas} removidas (reconciliação) · ${plan.arestas.length} arestas.`,
+    );
+  } finally {
+    await db.end();
   }
-
-  console.log(`✓ Ingest concluído: ${up.data?.length ?? 0} notas gravadas.`);
 }
 
 main().catch((e) => {
