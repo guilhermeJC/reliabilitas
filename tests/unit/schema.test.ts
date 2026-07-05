@@ -162,6 +162,13 @@ describe('validateFrontmatter — BR-006 (frontmatter inválido derruba o build)
     if (!r.ok) expect(r.issues.map((i) => i.path).join()).toContain('taxonomia');
   });
 
+  it('F2: rejeita handbook com taxonomia vazia (handbook nunca é raiz da árvore)', () => {
+    const invalido = { ...handbookValido, taxonomia: [] };
+    const r = validateFrontmatter(invalido);
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.issues.map((i) => i.path).join()).toContain('taxonomia');
+  });
+
   it('rejeita handbook sem seção essencial (modos_falha ausente)', () => {
     const invalido = {
       ...handbookValido,

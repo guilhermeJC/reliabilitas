@@ -119,6 +119,10 @@ const modoFalhaSchema = baseSchema
 // nasce no Dia 4, quando BR-009 (foto + SVG) vira validação hard junto com os arquivos.
 const handbookSchema = baseSchema
   .extend({
+    // F2: handbook nunca é raiz — exige a cadeia Classe→Família→Princípio acima dele.
+    taxonomia: z
+      .array(slugSchema)
+      .min(1, 'taxonomia: handbook de tipo exige cadeia-pai (F2/BR-001)'),
     secoes: z.array(z.enum(SECOES_HANDBOOK)),
     componentes: z.array(slugSchema).default([]),
   })

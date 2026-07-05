@@ -131,4 +131,62 @@ describe('validateBatch — regras de publicação do acervo', () => {
     const r = validateBatch(lote);
     expect(r.errors).toEqual([]);
   });
+
+  it('F2: cadeia contraditória entre nota e pai é erro (taxonomia do pai + pai = taxonomia do filho)', () => {
+    const lote = [...cadeiaCompleta('pt'), ...cadeiaCompleta('en')].map((n) =>
+      n.fm.slug === 'dinamicas' && n.fm.locale === 'pt'
+        ? { ...n, fm: { ...n.fm, taxonomia: ['bombas'] } as NotaFrontmatter }
+        : n,
+    );
+    const r = validateBatch(lote);
+    expect(r.errors.some((e) => e.message.includes('F2') && e.message.includes('dinamicas'))).toBe(
+      true,
+    );
+  });
+
+  it('F2: gêmeas de locale com taxonomia divergente é erro', () => {
+    const lote = [...cadeiaCompleta('pt'), ...cadeiaCompleta('en')].map((n) =>
+      n.fm.slug === 'cavitacao' && n.fm.locale === 'en'
+        ? {
+            ...n,
+            fm: {
+              ...n.fm,
+              taxonomia: ['transferencia-de-fluidos-liquidos', 'bombas', 'dinamicas'],
+            } as NotaFrontmatter,
+          }
+        : n,
+    );
+    const r = validateBatch(lote);
+    expect(r.errors.some((e) => e.message.includes('F2') && e.message.includes('gêmea'))).toBe(
+      true,
+    );
+  });
+
+  it('F2: gêmeas de locale com tipo_nota divergente é erro', () => {
+    const lote = [...cadeiaCompleta('pt'), ...cadeiaCompleta('en')].map((n) =>
+      n.fm.slug === 'bombas' && n.fm.locale === 'en'
+        ? { ...n, fm: { ...n.fm, tipo_nota: 'componente' } as NotaFrontmatter }
+        : n,
+    );
+    const r = validateBatch(lote);
+    expect(r.errors.some((e) => e.message.includes('F2') && e.message.includes('bombas'))).toBe(
+      true,
+    );
+  });
+
+  it('F5: wikilink de nota publicada para nota em draft gera warning (404 em produção)', () => {
+    const lote = [
+      ...cadeiaCompleta('pt'),
+      ...cadeiaCompleta('en'),
+      nota({ slug: 'erosao-impelidor', tipo_nota: 'familia', locale: 'pt', status: 'draft' }),
+    ];
+    lote[4] = { ...lote[4], wikilinks: ['erosao-impelidor'] };
+    const r = validateBatch(lote);
+    expect(r.errors).toEqual([]);
+    expect(
+      r.warnings.some(
+        (w) => w.message.includes('erosao-impelidor') && w.message.includes('não publicada'),
+      ),
+    ).toBe(true);
+  });
 });
