@@ -1,4 +1,5 @@
 import { Marked } from 'marked';
+import katex from 'katex';
 import { SLUG_RE, type Locale } from '@/lib/content/schema';
 import { notaPath } from '@/lib/routes';
 
@@ -10,6 +11,10 @@ import { notaPath } from '@/lib/routes';
 // (SLUG_RE); qualquer outro alvo permanece texto literal, o que torna injeção de
 // atributo estruturalmente impossível. Rótulos são escapados.
 // (Alvo inválido também é acusado no lote — wikilink órfão/não publicado.)
+// Dia 3 — KaTeX server-side (convenção do trilho de conteúdo): $...$ inline
+// (cifrão SEM espaço encostado — "R$ 100" nunca dispara) e $$...$$ bloco.
+// trust:false SEMPRE (TeX não vira javascript:/HTML arbitrário) e
+// throwOnError:false (TeX inválido degrada para o fonte em vermelho).
 
 const WIKILINK_TOKEN_RE = /^\[\[([^\][|]+)(?:\|([^\][]+))?\]\]/;
 
@@ -52,6 +57,49 @@ function wikilinkExtension(locale: Locale) {
   };
 }
 
+const KATEX_OPTS = { trust: false, throwOnError: false } as const;
+
+interface KatexToken {
+  type: 'katexInline' | 'katexBloco';
+  raw: string;
+  tex: string;
+}
+
+// Inline: $...$ em uma linha, sem espaço encostado nos cifrões (moeda imune).
+const KATEX_INLINE_RE = /^\$(?!\s)([^$\n]+?)(?<!\s)\$/;
+
+const katexInline = {
+  name: 'katexInline',
+  level: 'inline' as const,
+  start(src: string) {
+    return src.indexOf('$');
+  },
+  tokenizer(src: string): KatexToken | undefined {
+    const m = KATEX_INLINE_RE.exec(src);
+    if (!m) return undefined;
+    return { type: 'katexInline', raw: m[0], tex: m[1] };
+  },
+  renderer(token: object) {
+    return katex.renderToString((token as KatexToken).tex, KATEX_OPTS);
+  },
+};
+
+const katexBloco = {
+  name: 'katexBloco',
+  level: 'block' as const,
+  start(src: string) {
+    return src.indexOf('$$');
+  },
+  tokenizer(src: string): KatexToken | undefined {
+    const m = /^\$\$([\s\S]+?)\$\$/.exec(src);
+    if (!m) return undefined;
+    return { type: 'katexBloco', raw: m[0], tex: m[1].trim() };
+  },
+  renderer(token: object) {
+    return katex.renderToString((token as KatexToken).tex, { ...KATEX_OPTS, displayMode: true });
+  },
+};
+
 // Headings ganham id kebab-case (âncoras do T02 — nav "nesta página").
 export function slugifyHeading(texto: string): string {
   return texto
@@ -68,7 +116,7 @@ const instancias = new Map<Locale, Marked>();
 function markedDe(locale: Locale): Marked {
   let m = instancias.get(locale);
   if (!m) {
-    m = new Marked({ extensions: [wikilinkExtension(locale)] });
+    m = new Marked({ extensions: [wikilinkExtension(locale), katexInline, katexBloco] });
     m.use({
       renderer: {
         heading({ tokens, depth, text }) {

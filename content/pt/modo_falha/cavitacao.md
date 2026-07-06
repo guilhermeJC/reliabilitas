@@ -62,10 +62,10 @@ NPSHa > NPSHr + margem — razão NPSHa/NPSHr típica de 1,1 a 2,5 conforme ener
 
 **NPSH disponível:**
 
-NPSHa = (P_sucção − P_vapor)/(ρg) + z − h_f
+$$NPSH_a = \frac{P_{\text{sucção}} - P_{\text{vapor}}}{\rho g} + z - h_f$$
 
 **Detecção quantitativa.** Espectro de vibração: energia banda larga em alta frequência (sem raia discreta dominante), modulada pela passagem de pás (BPF = n_pás × N). Queda de head ≥ 3% no teste de NPSH define o NPSHr de catálogo (HI).
 
-**Confiabilidade.** Tratando a erosão como desgaste: Weibull com β ≈ 1,5–3 sobre o tempo em condição cavitante; o intervalo P-F observado (dias a semanas entre vibração detectável e perda funcional) sustenta a periodicidade P-F/2 mensal (Moubray, cap. 8). _Calculadora Weibull ao vivo entra no Dia 3._
+**Confiabilidade.** Tratando a erosão como desgaste: Weibull com β ≈ 1,5–3 sobre o tempo em condição cavitante; o intervalo P-F observado (dias a semanas entre vibração detectável e perda funcional) sustenta a periodicidade P-F/2 mensal (Moubray, cap. 8). Use a calculadora Weibull abaixo com $\beta$ entre 1,5 e 3 para sensibilidade de $R(t)$ e MTTF.
 
 **Bibliografia primária.** Karassik cap. 2 (NPSH, comportamento fora do BEP) · ANSI/HI 9.6.1 (margens) · Moubray RCM II cap. 8 (P-F) · Nowlan & Heap (padrões de falha).

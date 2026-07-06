@@ -20,6 +20,8 @@ import { FwCards } from '@/components/fw-cards';
 import { PlanoTable } from '@/components/plano-table';
 import { NivelSelector, type NivelLabel } from '@/components/nivel-selector';
 import { WeibullCalc } from '@/components/calc/weibull-calc';
+// CSS do KaTeX só onde há fórmula (corpo de nota) — fora do bundle global.
+import 'katex/dist/katex.min.css';
 
 // Página de nota — T03 (modo de falha, seletor de 3 níveis), T02 (handbook,
 // seções ancoradas) e nota-semente (layout curto). Conteúdo autoral do curador

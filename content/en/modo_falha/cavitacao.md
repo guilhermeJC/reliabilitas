@@ -62,10 +62,10 @@ NPSHa > NPSHr + margin — typical NPSHa/NPSHr ratio 1.1–2.5 depending on suct
 
 **Available NPSH:**
 
-NPSHa = (P_suction − P_vapor)/(ρg) + z − h_f
+$$NPSH_a = \frac{P_{\text{suction}} - P_{\text{vapor}}}{\rho g} + z - h_f$$
 
 **Quantitative detection.** Vibration spectrum: broadband high-frequency energy (no dominant discrete peak), modulated by vane passing (BPF = n_vanes × N). Head drop ≥ 3% in the NPSH test defines the catalog NPSHr (HI).
 
-**Reliability.** Treating erosion as wear-out: Weibull with β ≈ 1.5–3 over time under cavitating condition; the observed P-F interval (days to weeks between detectable vibration and functional loss) supports monthly P-F/2 periodicity (Moubray, ch. 8). _Live Weibull calculator lands on Day 3._
+**Reliability.** Treating erosion as wear-out: Weibull with β ≈ 1.5–3 over time under cavitating condition; the observed P-F interval (days to weeks between detectable vibration and functional loss) supports monthly P-F/2 periodicity (Moubray, ch. 8). Use the Weibull calculator below with $\beta$ between 1.5 and 3 for $R(t)$ and MTTF sensitivity.
 
 **Primary bibliography.** Karassik ch. 2 (NPSH, off-BEP behavior) · ANSI/HI 9.6.1 (margins) · Moubray RCM II ch. 8 (P-F) · Nowlan & Heap (failure patterns).
