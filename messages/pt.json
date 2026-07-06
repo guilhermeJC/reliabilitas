@@ -10,7 +10,18 @@
   "home": {
     "titulo": "RELIABILITAS",
     "sub": "O conhecimento de confiabilidade que a indústria precisa — acessível a todos.",
-    "prova": "Fase 0 (fundação). Prova do pipeline:"
+    "heroLinha": "O que é a falha, como detectá-la, que estratégia usar e qual a matemática — por equipamento, com fonte citada, de graça.",
+    "ativosTitulo": "Handbooks por ativo",
+    "emBreve": "em breve",
+    "metodoTitulo": "O método",
+    "metodoIntro": "Todo modo de falha atravessa dois frameworks, nesta ordem:",
+    "metodoATitulo": "Framework A — Diagnóstico",
+    "metodoATexto": "Como a falha se comporta no tempo: categoria e β de Weibull (Nowlan & Heap).",
+    "metodoBTitulo": "Framework B — Prescrição",
+    "metodoBTexto": "A tarefa aplicável e eficaz: TBM, CBM, Proof Test ou RTF (SAE JA1011 / Moubray).",
+    "niveisLinha": "Cada modo de falha em 3 níveis de leitura — Entender, Aplicar, Dominar — em PT e EN.",
+    "apoieTitulo": "Apoie o projeto",
+    "apoieTexto": "Free para sempre para pessoas. Doações mantêm a infraestrutura no ar."
   },
   "busca": {
     "titulo": "Busca",

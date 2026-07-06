@@ -10,7 +10,18 @@
   "home": {
     "titulo": "RELIABILITAS",
     "sub": "Industrial reliability knowledge — open to everyone.",
-    "prova": "Phase 0 (foundation). Pipeline proof:"
+    "heroLinha": "What the failure is, how to detect it, which strategy to use and the math behind it — per asset, with cited sources, for free.",
+    "ativosTitulo": "Handbooks by asset",
+    "emBreve": "coming soon",
+    "metodoTitulo": "The method",
+    "metodoIntro": "Every failure mode goes through two frameworks, in this order:",
+    "metodoATitulo": "Framework A — Diagnosis",
+    "metodoATexto": "How the failure behaves over time: category and Weibull β (Nowlan & Heap).",
+    "metodoBTitulo": "Framework B — Prescription",
+    "metodoBTexto": "The applicable and effective task: TBM, CBM, Proof Test or RTF (SAE JA1011 / Moubray).",
+    "niveisLinha": "Every failure mode in 3 reading levels — Understand, Apply, Master — in PT and EN.",
+    "apoieTitulo": "Support the project",
+    "apoieTexto": "Free forever for individuals. Donations keep the infrastructure running."
   },
   "busca": {
     "titulo": "Search",
