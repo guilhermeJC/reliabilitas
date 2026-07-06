@@ -55,6 +55,33 @@ export async function listPublicadas(locale: Locale): Promise<NotaResumo[]> {
   return (data ?? []) as NotaResumo[];
 }
 
+// Grafo local (Dia 3): TODAS as arestas tocando a nota, nos dois sentidos.
+// Duas queries .eq parametrizadas (nunca montar filtro .or com string do URL).
+export interface ArestaNota {
+  origem_slug: string;
+  destino_slug: string;
+  tipo: string;
+}
+
+export async function getArestasDaNota(slug: string, locale: Locale): Promise<ArestaNota[]> {
+  const db = admin();
+  const [saida, entrada] = await Promise.all([
+    db
+      .from('arestas')
+      .select('origem_slug,destino_slug,tipo')
+      .eq('origem_slug', slug)
+      .eq('locale', locale),
+    db
+      .from('arestas')
+      .select('origem_slug,destino_slug,tipo')
+      .eq('destino_slug', slug)
+      .eq('locale', locale),
+  ]);
+  if (saida.error) throw new Error(`getArestasDaNota(${slug}): ${saida.error.message}`);
+  if (entrada.error) throw new Error(`getArestasDaNota(${slug}): ${entrada.error.message}`);
+  return [...(saida.data ?? []), ...(entrada.data ?? [])] as ArestaNota[];
+}
+
 // Backlinks: quem aponta para esta nota (arestas de wikilink/componente — D16).
 export async function getBacklinks(slug: string, locale: Locale): Promise<NotaResumo[]> {
   const db = admin();

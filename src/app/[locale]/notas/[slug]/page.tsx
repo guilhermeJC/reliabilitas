@@ -3,7 +3,14 @@ import { notFound } from 'next/navigation';
 import { hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
-import { getNotaView, getBacklinks, listPublicadas, type Nota } from '@/lib/db/notas';
+import {
+  getNotaView,
+  getBacklinks,
+  getArestasDaNota,
+  listPublicadas,
+  type Nota,
+} from '@/lib/db/notas';
+import { GrafoLocal } from '@/components/grafo-local';
 import { renderNoteHtml } from '@/lib/markdown/render';
 import { splitNiveis, extractH2 } from '@/lib/content/niveis';
 import { NIVEIS_LEITURA, type Locale } from '@/lib/content/schema';
@@ -118,9 +125,10 @@ export default async function NotaPage({ params }: PageParams) {
   }
 
   const nota = view.nota;
-  const [acervo, backlinks] = await Promise.all([
+  const [acervo, backlinks, arestas] = await Promise.all([
     listPublicadas(locale as Locale),
     getBacklinks(slug, locale as Locale),
+    getArestasDaNota(slug, locale as Locale),
   ]);
   const titulos = new Map(acervo.map((n) => [n.slug, n.titulo]));
 
@@ -217,6 +225,13 @@ export default async function NotaPage({ params }: PageParams) {
           </>
         )}
 
+        <GrafoLocal
+          slug={nota.slug}
+          arestas={arestas}
+          acervo={acervo}
+          locale={locale as Locale}
+          titulo={t('grafo')}
+        />
         <Rodape nota={nota} />
         <Backlinks notas={backlinks} locale={locale as Locale} />
       </div>

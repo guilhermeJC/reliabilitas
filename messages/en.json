@@ -88,7 +88,8 @@
     "arquivadaTitulo": "Archived note",
     "arquivadaTexto": "This content has been superseded or removed from the collection. Browse the taxonomy on the side to find the current version.",
     "modosFalha": "Failure modes",
-    "secoes": "On this page"
+    "secoes": "On this page",
+    "grafo": "Local graph"
   },
   "niveis": {
     "beginner": "Understand",
