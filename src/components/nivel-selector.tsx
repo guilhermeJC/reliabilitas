@@ -17,9 +17,12 @@ export interface NivelLabel {
 export function NivelSelector({
   paineis,
   labels,
+  extras,
 }: {
   paineis: Record<Nivel, string>;
   labels: Record<Nivel, NivelLabel>;
+  // Conteúdo interativo por nível (ex.: calculadora Weibull no Engineer — F05)
+  extras?: Partial<Record<Nivel, React.ReactNode>>;
 }) {
   const [ativo, setAtivo] = useState<Nivel>('beginner');
   const tabsRef = useRef<Map<Nivel, HTMLButtonElement>>(new Map());
@@ -82,16 +85,18 @@ export function NivelSelector({
         })}
       </div>
       {NIVEIS_LEITURA.map((nivel) => (
-        <article
+        <div
           key={nivel}
           role="tabpanel"
           id={`painel-${nivel}`}
           aria-labelledby={`tab-${nivel}`}
           hidden={nivel !== ativo}
-          className="nota-corpo rounded-b-lg border bg-white p-6 md:p-8"
+          className="rounded-b-lg border bg-white p-6 md:p-8"
           style={{ borderColor: '#e3e8f0' }}
-          dangerouslySetInnerHTML={{ __html: paineis[nivel] }}
-        />
+        >
+          <article className="nota-corpo" dangerouslySetInnerHTML={{ __html: paineis[nivel] }} />
+          {extras?.[nivel] && <div className="mt-6">{extras[nivel]}</div>}
+        </div>
       ))}
     </div>
   );

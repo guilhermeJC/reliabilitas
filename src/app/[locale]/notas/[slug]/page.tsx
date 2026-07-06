@@ -12,6 +12,7 @@ import { Backlinks } from '@/components/backlinks';
 import { FwCards } from '@/components/fw-cards';
 import { PlanoTable } from '@/components/plano-table';
 import { NivelSelector, type NivelLabel } from '@/components/nivel-selector';
+import { WeibullCalc } from '@/components/calc/weibull-calc';
 
 // Página de nota — T03 (modo de falha, seletor de 3 níveis), T02 (handbook,
 // seções ancoradas) e nota-semente (layout curto). Conteúdo autoral do curador
@@ -126,6 +127,9 @@ export default async function NotaPage({ params }: PageParams) {
   const ehModoFalha = nota.tipo_nota === 'modo_falha';
   const ehHandbook = nota.tipo_nota === 'tipo';
   const niveis = ehModoFalha ? splitNiveis(nota.corpo_md) : null;
+  // F05: β editorial do frontmatter semeia a calculadora quando for numérico
+  // (string descritiva como "variável (…β>1)" cai no default didático).
+  const betaEditorial = Number((nota.frontmatter.fw_a as { beta?: unknown } | undefined)?.beta);
   const resumo = nota.frontmatter.resumo as string | undefined;
   // HTML server-side de conteúdo autoral validado (BR-006/F3/F8 — ver render.ts).
   // Sanitização client (DOMPurify) vira requisito no gate da Fase 3 (conteúdo de terceiros).
@@ -157,6 +161,13 @@ export default async function NotaPage({ params }: PageParams) {
                   ]),
                 ) as Record<(typeof NIVEIS_LEITURA)[number], NivelLabel>
               }
+              extras={{
+                engineer: (
+                  <WeibullCalc
+                    betaInicial={Number.isFinite(betaEditorial) ? betaEditorial : undefined}
+                  />
+                ),
+              }}
             />
             <FwCards
               fwA={nota.frontmatter.fw_a as never}

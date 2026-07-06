@@ -1,11 +1,18 @@
 import { describe, expect, it } from 'vitest';
-import { buscaPath, notaPath } from '@/lib/routes';
+import { buscaPath, calculadorasPath, notaPath } from '@/lib/routes';
 
 // F11: a rota de nota nasce em UM lugar — render, páginas e componentes consomem daqui.
 describe('notaPath — fonte única da rota de nota (F11)', () => {
   it('monta a rota canônica por locale', () => {
     expect(notaPath('pt', 'cavitacao')).toBe('/pt/notas/cavitacao');
     expect(notaPath('en', 'bomba-centrifuga')).toBe('/en/notas/bomba-centrifuga');
+  });
+});
+
+describe('calculadorasPath — rota das calculadoras (F05)', () => {
+  it('monta a rota por locale', () => {
+    expect(calculadorasPath('pt')).toBe('/pt/calculadoras');
+    expect(calculadorasPath('en')).toBe('/en/calculadoras');
   });
 });
 

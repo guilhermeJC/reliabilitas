@@ -20,8 +20,53 @@
     "metodoBTitulo": "Framework B — Prescrição",
     "metodoBTexto": "A tarefa aplicável e eficaz: TBM, CBM, Proof Test ou RTF (SAE JA1011 / Moubray).",
     "niveisLinha": "Cada modo de falha em 3 níveis de leitura — Entender, Aplicar, Dominar — em PT e EN.",
+    "calculadorasLink": "Calculadoras de confiabilidade →",
     "apoieTitulo": "Apoie o projeto",
     "apoieTexto": "Free para sempre para pessoas. Doações mantêm a infraestrutura no ar."
+  },
+  "calc": {
+    "titulo": "Calculadoras de confiabilidade",
+    "intro": "Três ferramentas do dia a dia do engenheiro de confiabilidade — 100% no seu navegador: nenhum dado sai desta página.",
+    "weibull": {
+      "titulo": "Weibull 2 parâmetros",
+      "fwA": "Leitura Fw A",
+      "beta": "β — parâmetro de forma",
+      "eta": "η — vida característica",
+      "tempo": "t — tempo de missão",
+      "mttf": "MTTF = η·Γ(1+1/β)",
+      "b10": "Vida B10",
+      "porHora": "falhas/h",
+      "invalido": "Entradas inválidas: β e η devem ser positivos.",
+      "rodape": "R(t) = exp(−(t/η)^β) · h(t) = (β/η)·(t/η)^(β−1). Validada contra Smith (2004) e propriedades conhecidas (R(η)=e⁻¹). A categoria editorial da nota prevalece sobre esta leitura didática."
+    },
+    "categorias": {
+      "infant": "Mortalidade infantil (β<1)",
+      "random": "Aleatória (β≈1)",
+      "wear_out": "Desgaste (β>1)"
+    },
+    "disp": {
+      "titulo": "MTBF · MTTR · Disponibilidade",
+      "mtbf": "MTBF — tempo médio entre falhas",
+      "mttr": "MTTR — tempo médio de reparo",
+      "resultado": "Disponibilidade inerente Ai",
+      "indisponibilidade": "Indisponibilidade anual",
+      "porHora": "falhas/h",
+      "horasAno": "h/ano",
+      "invalido": "Entradas inválidas: MTBF > 0 e MTTR ≥ 0.",
+      "rodape": "Ai = MTBF/(MTBF+MTTR) — disponibilidade inerente (Smith 2004, cap. 2). Ano de referência: 8760 h."
+    },
+    "pf": {
+      "titulo": "Intervalo P-F",
+      "pf": "Intervalo P-F (unidade livre)",
+      "inspecao": "Intervalo de inspeção praticado",
+      "recomendado": "Recomendado (P-F/2)",
+      "chances": "Chances de detecção na janela",
+      "margem": "Margem (P-F − inspeção)",
+      "adequado": "Adequado",
+      "inadequado": "Rever intervalo",
+      "invalido": "Entradas inválidas: valores positivos.",
+      "rodape": "Tarefa sob condição só é eficaz se a inspeção couber na janela P-F — prática consagrada: inspeção ≤ P-F/2 (Moubray, RCM II cap. 8)."
+    }
   },
   "busca": {
     "titulo": "Busca",

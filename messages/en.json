@@ -20,8 +20,53 @@
     "metodoBTitulo": "Framework B — Prescription",
     "metodoBTexto": "The applicable and effective task: TBM, CBM, Proof Test or RTF (SAE JA1011 / Moubray).",
     "niveisLinha": "Every failure mode in 3 reading levels — Understand, Apply, Master — in PT and EN.",
+    "calculadorasLink": "Reliability calculators →",
     "apoieTitulo": "Support the project",
     "apoieTexto": "Free forever for individuals. Donations keep the infrastructure running."
+  },
+  "calc": {
+    "titulo": "Reliability calculators",
+    "intro": "Three everyday tools for the reliability engineer — 100% in your browser: no data leaves this page.",
+    "weibull": {
+      "titulo": "2-parameter Weibull",
+      "fwA": "Fw A reading",
+      "beta": "β — shape parameter",
+      "eta": "η — characteristic life",
+      "tempo": "t — mission time",
+      "mttf": "MTTF = η·Γ(1+1/β)",
+      "b10": "B10 life",
+      "porHora": "failures/h",
+      "invalido": "Invalid inputs: β and η must be positive.",
+      "rodape": "R(t) = exp(−(t/η)^β) · h(t) = (β/η)·(t/η)^(β−1). Validated against Smith (2004) and known properties (R(η)=e⁻¹). The note's editorial category prevails over this didactic reading."
+    },
+    "categorias": {
+      "infant": "Infant mortality (β<1)",
+      "random": "Random (β≈1)",
+      "wear_out": "Wear-out (β>1)"
+    },
+    "disp": {
+      "titulo": "MTBF · MTTR · Availability",
+      "mtbf": "MTBF — mean time between failures",
+      "mttr": "MTTR — mean time to repair",
+      "resultado": "Inherent availability Ai",
+      "indisponibilidade": "Annual downtime",
+      "porHora": "failures/h",
+      "horasAno": "h/yr",
+      "invalido": "Invalid inputs: MTBF > 0 and MTTR ≥ 0.",
+      "rodape": "Ai = MTBF/(MTBF+MTTR) — inherent availability (Smith 2004, ch. 2). Reference year: 8760 h."
+    },
+    "pf": {
+      "titulo": "P-F interval",
+      "pf": "P-F interval (any unit)",
+      "inspecao": "Current inspection interval",
+      "recomendado": "Recommended (P-F/2)",
+      "chances": "Detection chances in the window",
+      "margem": "Margin (P-F − inspection)",
+      "adequado": "Adequate",
+      "inadequado": "Review interval",
+      "invalido": "Invalid inputs: positive values.",
+      "rodape": "An on-condition task is only effective if inspection fits the P-F window — consecrated practice: inspection ≤ P-F/2 (Moubray, RCM II ch. 8)."
+    }
   },
   "busca": {
     "titulo": "Search",

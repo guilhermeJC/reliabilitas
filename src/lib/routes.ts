@@ -7,6 +7,11 @@ export function notaPath(locale: Locale, slug: string): string {
   return `/${locale}/notas/${slug}`;
 }
 
+// F05: página das calculadoras (indexável — SEO/GEO; client-side puro).
+export function calculadorasPath(locale: Locale): string {
+  return `/${locale}/calculadoras`;
+}
+
 // T05: página 1 fica fora da URL (canônica); termo sempre codificado.
 export function buscaPath(locale: Locale, q?: string, pagina = 1): string {
   const base = `/${locale}/busca`;

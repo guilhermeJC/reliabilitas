@@ -5,7 +5,7 @@ import { routing } from '@/i18n/routing';
 import { listPublicadas } from '@/lib/db/notas';
 import { gridAtivos } from '@/lib/content/ativos';
 import { DOACAO_LINKS } from '@/lib/apoio';
-import { buscaPath, notaPath } from '@/lib/routes';
+import { buscaPath, calculadorasPath, notaPath } from '@/lib/routes';
 import type { Locale } from '@/lib/content/schema';
 
 // T01 — Home real (Dia 3): hero navy com busca central, grid dos 5 ativos (D07),
@@ -114,6 +114,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </div>
           </div>
           <p className="mt-3 text-sm text-slate-500">{t('niveisLinha')}</p>
+          <p className="mt-2 text-sm">
+            <a href={calculadorasPath(locale as Locale)} style={{ color: 'var(--wikilink)' }}>
+              {t('calculadorasLink')}
+            </a>
+          </p>
 
           {/* Apoio (F07 parcial) — só renderiza quando o fundador configurar os links */}
           {DOACAO_LINKS.length > 0 && (
