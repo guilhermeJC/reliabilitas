@@ -124,6 +124,10 @@
     "titulo": "Maintenance plan",
     "tarefa": "Task",
     "metodo": "Method",
-    "periodicidade": "Periodicity"
+    "periodicidade": "Periodicity",
+    "equipamento": "Equipment",
+    "modoFalha": "Failure mode",
+    "exportCsv": "CSV (SAP-PM/Maximo)",
+    "exportMd": "Markdown"
   }
 }

@@ -124,6 +124,10 @@
     "titulo": "Plano de manutenção",
     "tarefa": "Tarefa",
     "metodo": "Método",
-    "periodicidade": "Periodicidade"
+    "periodicidade": "Periodicidade",
+    "equipamento": "Equipamento",
+    "modoFalha": "Modo de falha",
+    "exportCsv": "CSV (SAP-PM/Maximo)",
+    "exportMd": "Markdown"
   }
 }

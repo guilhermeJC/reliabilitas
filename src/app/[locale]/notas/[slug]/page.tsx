@@ -174,7 +174,14 @@ export default async function NotaPage({ params }: PageParams) {
               fwB={nota.frontmatter.fw_b as never}
               pfTipico={nota.frontmatter.pf_tipico as string | undefined}
             />
-            <PlanoTable plano={nota.frontmatter.plano_manutencao as never} />
+            <PlanoTable
+              plano={nota.frontmatter.plano_manutencao as never}
+              contexto={{
+                equipamento: titulos.get(nota.taxonomia.at(-1) ?? '') ?? '',
+                modoFalha: nota.titulo,
+              }}
+              slug={nota.slug}
+            />
           </>
         ) : (
           <>
