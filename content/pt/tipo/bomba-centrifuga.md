@@ -28,6 +28,9 @@ tags:
   - cavitação
   - NPSH
   - curva da bomba
+anatomia:
+  svg: /anatomia/bomba-centrifuga.svg
+  alt: 'Corte esquemático meridional de bomba centrífuga horizontal (OH1) com componentes numerados de 1 a 8'
 revisado_em: 2026-07-04
 ---
 
@@ -47,9 +50,16 @@ Regras físicas que regem operação confiável:
 
 ## Anatomia
 
-_Trio visual (D18): foto real + diagrama em corte SVG entram no Dia 4 do desenvolvimento; render 3D progressivo._
+![Corte esquemático meridional de bomba centrífuga horizontal (OH1) com componentes numerados](/anatomia/bomba-centrifuga.svg)
 
-Elementos principais: impelidor (fechado/semiaberto/aberto), voluta, eixo, rolamentos, selo mecânico (ou gaxeta), caixa de selagem, anéis de desgaste, acoplamento.
+1. **Voluta (carcaça espiral)** — coleta o fluido do impelidor e converte velocidade em pressão pela expansão progressiva de seção.
+2. **Impelidor** — o coração da máquina: pás curvadas para trás transferem energia ao fluido (equação de Euler).
+3. **Eixo** — transmite o torque do acionador ao impelidor; dimensionado por rigidez (deflexão no selo) tanto quanto por resistência.
+4. **[[selo-mecanico|Selo mecânico]]** — vedação dinâmica entre eixo e carcaça; principal item de custo recorrente junto com os rolamentos.
+5. **[[rolamento|Rolamentos]]** — suportam as cargas radiais e axiais; origem de 45–55% das falhas do conjunto.
+6. **Bocal de sucção** — entrada axial; a região de menor pressão de todo o sistema — onde nasce a [[cavitacao|cavitação]].
+7. **Bocal de recalque** — saída tangencial da voluta, na pressão de descarga.
+8. **Caixa de mancais** — abriga os rolamentos e o sistema de lubrificação (banho de óleo, névoa ou graxa).
 
 ## Tipos e diferenças
 

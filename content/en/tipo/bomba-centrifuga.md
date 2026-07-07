@@ -28,6 +28,9 @@ tags:
   - cavitation
   - NPSH
   - pump curve
+anatomia:
+  svg: /anatomia/bomba-centrifuga.svg
+  alt: 'Schematic meridional cross-section of a horizontal overhung (OH1) centrifugal pump with components numbered 1 to 8'
 revisado_em: 2026-07-04
 ---
 
@@ -47,9 +50,16 @@ Physical rules that govern reliable operation:
 
 ## Anatomy
 
-_Visual trio (D18): real photo + SVG cross-section diagram land on development Day 4; 3D render progressively._
+![Schematic meridional cross-section of a horizontal overhung (OH1) centrifugal pump with numbered components](/anatomia/bomba-centrifuga.svg)
 
-Main elements: impeller (closed/semi-open/open), volute, shaft, bearings, mechanical seal (or packing), stuffing box, wear rings, coupling.
+1. **Volute (spiral casing)** — collects fluid from the impeller and converts velocity into pressure through progressive section expansion.
+2. **Impeller** — the heart of the machine: backward-curved vanes transfer energy to the fluid (Euler's equation).
+3. **Shaft** — transmits driver torque to the impeller; sized for stiffness (deflection at the seal) as much as for strength.
+4. **[[selo-mecanico|Mechanical seal]]** — dynamic sealing between shaft and casing; the main recurring cost item together with bearings.
+5. **[[rolamento|Bearings]]** — carry radial and axial loads; origin of 45–55% of assembly failures.
+6. **Suction nozzle** — axial inlet; the lowest-pressure region of the whole system — where [[cavitacao|cavitation]] is born.
+7. **Discharge nozzle** — tangential outlet of the volute, at discharge pressure.
+8. **Bearing housing** — houses the bearings and the lubrication system (oil bath, mist or grease).
 
 ## Types and differences
 

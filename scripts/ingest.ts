@@ -1,5 +1,5 @@
 import { readdir, readFile } from 'node:fs/promises';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import matter from 'gray-matter';
 import { Client } from 'pg';
@@ -64,7 +64,10 @@ async function main() {
     process.exit(1);
   }
 
-  const lote = validateBatch(parsed);
+  // BR-009 hard: asset de anatomia referenciado precisa existir em public/
+  const lote = validateBatch(parsed, {
+    existeAsset: (caminho) => existsSync(path.join(process.cwd(), 'public', caminho)),
+  });
   for (const w of lote.warnings) console.warn(`⚠ ${w.file}: ${w.message}`);
   if (lote.errors.length > 0) {
     for (const e of lote.errors) console.error(`✗ ${e.file}: ${e.message}`);

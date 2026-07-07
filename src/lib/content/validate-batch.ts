@@ -24,7 +24,13 @@ export interface BatchResult {
 
 const key = (slug: string, locale: string) => `${slug}::${locale}`;
 
-export function validateBatch(notas: NotaParsed[]): BatchResult {
+export interface BatchOptions {
+  // BR-009 hard: o asset de anatomia referenciado precisa existir em public/.
+  // Predicado injetado: o ingest passa fs.existsSync; testes passam fakes.
+  existeAsset?: (caminho: string) => boolean;
+}
+
+export function validateBatch(notas: NotaParsed[], opts: BatchOptions = {}): BatchResult {
   const errors: BatchIssue[] = [];
   const warnings: BatchIssue[] = [];
 
@@ -52,6 +58,23 @@ export function validateBatch(notas: NotaParsed[]): BatchResult {
     if (fm.tipo_nota === 'modo_falha') {
       for (const issue of validateNiveisCorpo(n.corpo)) {
         errors.push({ file: n.file, message: `F8: ${issue.message}` });
+      }
+    }
+
+    // BR-009 hard — anatomia referenciada precisa existir fisicamente
+    if (opts.existeAsset && 'anatomia' in fm) {
+      const anatomia = fm.anatomia as { svg: string; foto?: { arquivo: string } };
+      if (!opts.existeAsset(anatomia.svg)) {
+        errors.push({
+          file: n.file,
+          message: `BR-009: asset de anatomia '${anatomia.svg}' não existe em public/`,
+        });
+      }
+      if (anatomia.foto && !opts.existeAsset(anatomia.foto.arquivo)) {
+        errors.push({
+          file: n.file,
+          message: `BR-009: foto de anatomia '${anatomia.foto.arquivo}' não existe em public/`,
+        });
       }
     }
 

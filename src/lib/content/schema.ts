@@ -115,8 +115,27 @@ const modoFalhaSchema = baseSchema
     }
   });
 
-// F20: sub-schema 'anatomia' removido — era stub sem força; o contrato real dos assets
-// nasce no Dia 4, quando BR-009 (foto + SVG) vira validação hard junto com os arquivos.
+// BR-009 HARD (Dia 4 — encerra a exceção DEV-005): handbook de Tipo só publica
+// com anatomia ilustrada. SVG PRÓPRIO obrigatório (visual primário, DEV-025);
+// foto opcional e, quando existe, exige fonte + licença + crédito — o manifest
+// de proveniência vive no próprio frontmatter (BR-003: nunca rehosting sem licença).
+const anatomiaSchema = z.strictObject({
+  svg: z
+    .string()
+    .regex(/^\/anatomia\/[a-z0-9-]+\.svg$/, 'anatomia.svg: caminho /anatomia/<slug>.svg (asset próprio)'),
+  alt: z.string().min(1, 'anatomia.alt: descrição acessível obrigatória'),
+  foto: z
+    .strictObject({
+      arquivo: z
+        .string()
+        .regex(/^\/anatomia\/[a-z0-9-]+\.(jpg|jpeg|png|webp)$/, 'anatomia.foto.arquivo: /anatomia/<slug>.<ext>'),
+      fonte: z.string().url('anatomia.foto.fonte: URL da origem'),
+      licenca: z.string().min(1, 'anatomia.foto.licenca: licença explícita (ex.: CC BY-SA 4.0)'),
+      credito: z.string().min(1, 'anatomia.foto.credito: autor/portal creditado'),
+    })
+    .optional(),
+});
+
 const handbookSchema = baseSchema
   .extend({
     // F2: handbook nunca é raiz — exige a cadeia Classe→Família→Princípio acima dele.
@@ -125,6 +144,7 @@ const handbookSchema = baseSchema
       .min(1, 'taxonomia: handbook de tipo exige cadeia-pai (F2/BR-001)'),
     secoes: z.array(z.enum(SECOES_HANDBOOK)),
     componentes: z.array(slugSchema).default([]),
+    anatomia: anatomiaSchema,
   })
   .superRefine((v, ctx) => {
     const faltantes = SECOES_ESSENCIAIS.filter((s) => !v.secoes.includes(s));

@@ -1,0 +1,124 @@
+<svg viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, 'JetBrains Mono', Consolas, monospace">
+  <!-- RELIABILITAS — anatomia: bomba centrífuga horizontal overhung (OH1),
+       corte esquemático meridional. Asset PRÓPRIO (DEV-025/BR-009).
+       Callouts numerados: a legenda vive no corpo da nota (traduzível).
+       1 voluta · 2 impelidor · 3 eixo · 4 selo mecânico · 5 rolamentos
+       6 sucção · 7 recalque · 8 caixa de mancais -->
+  <defs>
+    <marker id="seta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#E8510A"/>
+    </marker>
+  </defs>
+
+  <!-- ================== FLUXO (setas de processo) ================== -->
+  <g stroke="#7f8ba3" stroke-width="2.5" fill="none" stroke-dasharray="7 5">
+    <path d="M 30 300 H 130" marker-end="url(#seta)"/>
+    <path d="M 300 118 V 52" marker-end="url(#seta)"/>
+  </g>
+  <text x="34" y="288" font-size="13" fill="#7f8ba3">fluxo</text>
+
+  <!-- ================== BOCAL DE RECALQUE (7) ================== -->
+  <g stroke="#12233F" stroke-width="3" fill="#eef1f6">
+    <path d="M 268 130 V 78 H 332 V 130"/>
+    <rect x="256" y="64" width="88" height="16" rx="2" fill="#dfe5ee"/>
+  </g>
+
+  <!-- ================== VOLUTA / CARCAÇA (1) ================== -->
+  <g stroke="#12233F" stroke-width="4" fill="#f6f8fb">
+    <path d="M 300 132
+             a 168 168 0 1 0 168 168
+             l 0 -62
+             a 106 106 0 1 1 -106 -106 z"/>
+  </g>
+
+  <!-- ================== BOCAL DE SUCÇÃO (6) ================== -->
+  <g stroke="#12233F" stroke-width="3" fill="#eef1f6">
+    <path d="M 132 268 H 196 V 332 H 132"/>
+    <rect x="116" y="256" width="16" height="88" rx="2" fill="#dfe5ee"/>
+  </g>
+
+  <!-- ================== IMPELIDOR (2) ================== -->
+  <g stroke="#12233F" stroke-width="3" fill="#dfe5ee">
+    <circle cx="300" cy="300" r="96"/>
+    <!-- pás curvadas para trás -->
+    <g fill="none" stroke-width="3.5">
+      <path d="M 300 300 Q 336 268 388 276"/>
+      <path d="M 300 300 Q 332 336 324 388"/>
+      <path d="M 300 300 Q 264 332 212 324"/>
+      <path d="M 300 300 Q 268 264 276 212"/>
+      <path d="M 300 300 Q 346 312 380 350"/>
+      <path d="M 300 300 Q 288 346 250 380"/>
+      <path d="M 300 300 Q 254 288 220 250"/>
+      <path d="M 300 300 Q 312 254 350 220"/>
+    </g>
+    <circle cx="300" cy="300" r="30" fill="#c8d2e0"/>
+  </g>
+
+  <!-- ================== EIXO (3) ================== -->
+  <rect x="300" y="288" width="470" height="24" fill="#c8d2e0" stroke="#12233F" stroke-width="3"/>
+
+  <!-- ================== SELO MECÂNICO (4) ================== -->
+  <g stroke="#12233F" stroke-width="3">
+    <rect x="452" y="268" width="26" height="64" fill="#b9c6d8"/>
+    <rect x="482" y="276" width="14" height="48" fill="#dfe5ee"/>
+  </g>
+
+  <!-- ================== CAIXA DE MANCAIS (8) + ROLAMENTOS (5) ================== -->
+  <g stroke="#12233F" stroke-width="3" fill="#f6f8fb">
+    <rect x="520" y="240" width="230" height="120" rx="10"/>
+  </g>
+  <!-- rolamentos: anel externo + esferas -->
+  <g stroke="#12233F" stroke-width="2.5" fill="#ffffff">
+    <rect x="556" y="252" width="30" height="96" rx="4"/>
+    <circle cx="571" cy="270" r="7" fill="#c8d2e0"/>
+    <circle cx="571" cy="300" r="7" fill="#c8d2e0"/>
+    <circle cx="571" cy="330" r="7" fill="#c8d2e0"/>
+    <rect x="676" y="252" width="30" height="96" rx="4"/>
+    <circle cx="691" cy="270" r="7" fill="#c8d2e0"/>
+    <circle cx="691" cy="300" r="7" fill="#c8d2e0"/>
+    <circle cx="691" cy="330" r="7" fill="#c8d2e0"/>
+  </g>
+
+  <!-- ponta do eixo (acoplamento) -->
+  <rect x="770" y="292" width="36" height="16" fill="#dfe5ee" stroke="#12233F" stroke-width="2.5"/>
+
+  <!-- base -->
+  <g stroke="#12233F" stroke-width="3" fill="#dfe5ee">
+    <rect x="220" y="470" width="560" height="18" rx="3"/>
+    <path d="M 560 360 L 540 470 M 700 360 L 720 470" fill="none"/>
+  </g>
+
+  <!-- ================== CALLOUTS ================== -->
+  <g stroke="#E8510A" stroke-width="2" fill="none">
+    <path d="M 150 168 L 216 214"/>  <!-- 1 voluta -->
+    <path d="M 448 448 L 356 364"/>  <!-- 2 impelidor -->
+    <path d="M 420 232 L 420 288"/>  <!-- 3 eixo -->
+    <path d="M 466 424 L 466 336"/>  <!-- 4 selo -->
+    <path d="M 630 180 L 600 250"/>  <!-- 5 rolamentos -->
+    <path d="M 96 396 L 140 340"/>   <!-- 6 sucção -->
+    <path d="M 396 74 L 348 74"/>    <!-- 7 recalque -->
+    <path d="M 800 220 L 744 248"/>  <!-- 8 caixa de mancais -->
+  </g>
+  <g font-size="17" font-weight="bold" text-anchor="middle">
+    <g fill="#ffffff" stroke="#E8510A" stroke-width="2.5">
+      <circle cx="138" cy="158" r="15"/>
+      <circle cx="460" cy="460" r="15"/>
+      <circle cx="420" cy="218" r="15"/>
+      <circle cx="466" cy="440" r="15"/>
+      <circle cx="638" cy="164" r="15"/>
+      <circle cx="88" cy="410" r="15"/>
+      <circle cx="412" cy="74" r="15"/>
+      <circle cx="814" cy="212" r="15"/>
+    </g>
+    <g fill="#E8510A">
+      <text x="138" y="164">1</text>
+      <text x="460" y="466">2</text>
+      <text x="420" y="224">3</text>
+      <text x="466" y="446">4</text>
+      <text x="638" y="170">5</text>
+      <text x="88" y="416">6</text>
+      <text x="412" y="80">7</text>
+      <text x="814" y="218">8</text>
+    </g>
+  </g>
+</svg>
