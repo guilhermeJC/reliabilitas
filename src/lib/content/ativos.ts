@@ -12,12 +12,18 @@ export interface AtivoPlanejado {
   titulo: Record<Locale, string>;
 }
 
+// Os 5 REAIS do M01.4 §3 (D01/D10): 3 equipamentos (tipo) + 2 componentes
+// transversais — rolamento e selo são modelados UMA vez e referenciados pelos
+// equipamentos-pai via wikilink (DRY taxonômico).
 export const ATIVOS_MVP: AtivoPlanejado[] = [
   { slug: 'bomba-centrifuga', titulo: { pt: 'Bomba Centrífuga', en: 'Centrifugal Pump' } },
   { slug: 'rolamento', titulo: { pt: 'Rolamento', en: 'Rolling Bearing' } },
   { slug: 'selo-mecanico', titulo: { pt: 'Selo Mecânico', en: 'Mechanical Seal' } },
-  { slug: 'motor-eletrico', titulo: { pt: 'Motor Elétrico', en: 'Electric Motor' } },
-  { slug: 'valvula', titulo: { pt: 'Válvula', en: 'Valve' } },
+  {
+    slug: 'motor-inducao-trifasico',
+    titulo: { pt: 'Motor de Indução Trifásico', en: 'Three-Phase Induction Motor' },
+  },
+  { slug: 'valvula-de-controle', titulo: { pt: 'Válvula de Controle', en: 'Control Valve' } },
 ];
 
 export interface CardAtivo {
@@ -27,7 +33,10 @@ export interface CardAtivo {
 
 export function gridAtivos(acervo: NotaResumo[], locale: Locale): CardAtivo[] {
   const handbooks = new Map(
-    acervo.filter((n) => n.tipo_nota === 'tipo').map((n) => [n.slug, n]),
+    // tipo (equipamento) E componente (D10) são "casas" de ativo; modo de falha não.
+    acervo
+      .filter((n) => n.tipo_nota === 'tipo' || n.tipo_nota === 'componente')
+      .map((n) => [n.slug, n]),
   );
 
   const cards: CardAtivo[] = ATIVOS_MVP.map((ativo) => {

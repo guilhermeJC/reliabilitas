@@ -25,15 +25,15 @@ describe('gridAtivos — os 5 ativos do MVP na ordem D07', () => {
     }
   });
 
-  it('sempre os 5 do MVP, na ordem D07', () => {
+  it('sempre os 5 REAIS do MVP (M01.4/D01/D10), na ordem D07', () => {
     const grid = gridAtivos([], 'pt');
     expect(grid).toHaveLength(ATIVOS_MVP.length);
     expect(grid.map((c) => c.titulo)).toEqual([
       'Bomba Centrífuga',
       'Rolamento',
       'Selo Mecânico',
-      'Motor Elétrico',
-      'Válvula',
+      'Motor de Indução Trifásico',
+      'Válvula de Controle',
     ]);
   });
 
@@ -43,12 +43,20 @@ describe('gridAtivos — os 5 ativos do MVP na ordem D07', () => {
       'Centrifugal Pump',
       'Rolling Bearing',
       'Mechanical Seal',
-      'Electric Motor',
-      'Valve',
+      'Three-Phase Induction Motor',
+      'Control Valve',
     ]);
   });
 
-  it('só tipo_nota=tipo conta como handbook (modo de falha não vira card)', () => {
+  it('COMPONENTE publicado (D10: rolamento/selo) também vira card linkado', () => {
+    const comComponente: NotaResumo[] = [
+      { slug: 'rolamento', tipo_nota: 'componente', titulo: 'Rolamento', taxonomia: ['a'] },
+    ];
+    const grid = gridAtivos(comComponente, 'pt');
+    expect(grid[1]).toEqual({ titulo: 'Rolamento', slug: 'rolamento' });
+  });
+
+  it('modo de falha nunca vira card (só tipo e componente)', () => {
     const soModoFalha: NotaResumo[] = [
       { slug: 'rolamento', tipo_nota: 'modo_falha', titulo: 'Rolamento (falha)', taxonomia: [] },
     ];
