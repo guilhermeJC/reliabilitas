@@ -1,7 +1,24 @@
 {
   "header": {
     "tagline": "Industrial reliability knowledge, open to everyone",
-    "switchTo": "Ler em português"
+    "switchTo": "Ler em português",
+    "apoiar": "Support"
+  },
+  "erro404": {
+    "titulo": "Page not found",
+    "texto": "This address doesn't exist or the content hasn't been published yet. The collection grows by asset — never by cutting quality.",
+    "home": "← Home",
+    "busca": "Search the collection",
+    "calculadoras": "Calculators"
+  },
+  "apoio": {
+    "titulo": "Support RELIABILITAS",
+    "missao": "RELIABILITAS exists to give maintenance and reliability professionals — from technician to engineer — free access, in PT and EN, to the rigorous knowledge usually locked behind paid standards and expensive training.",
+    "promessa": "For individuals it is free forever: no paywall, no sign-up, no cookies. Donations are what keep the infrastructure running.",
+    "canaisTitulo": "Donation channels",
+    "canaisEmBreve": "Donation channels (Pix, PayPal and Ko-fi) will be published here soon.",
+    "destinoTitulo": "Where your donation goes",
+    "destinoTexto": "Hosting, database and domain infrastructure (~R$ 130/month). Any surplus funds collection growth: new assets, failure modes and translations. No ads, no data selling — ever."
   },
   "tree": {
     "title": "Taxonomy",

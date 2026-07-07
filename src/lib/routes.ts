@@ -7,6 +7,17 @@ export function notaPath(locale: Locale, slug: string): string {
   return `/${locale}/notas/${slug}`;
 }
 
+// T08/DEV-026: apoio ao projeto (doações — D23/D24).
+export function apoioPath(locale: Locale): string {
+  return `/${locale}/apoiar`;
+}
+
+// T09: sugerir correção — carrega a página de origem para contexto do curador.
+export function sugerirPath(locale: Locale, pagina?: string): string {
+  const base = `/${locale}/sugerir`;
+  return pagina ? `${base}?pagina=${encodeURIComponent(pagina)}` : base;
+}
+
 // F05: página das calculadoras (indexável — SEO/GEO; client-side puro).
 export function calculadorasPath(locale: Locale): string {
   return `/${locale}/calculadoras`;

@@ -1,7 +1,24 @@
 {
   "header": {
     "tagline": "Conhecimento de confiabilidade industrial, aberto a todos",
-    "switchTo": "Ler em inglês"
+    "switchTo": "Ler em inglês",
+    "apoiar": "Apoiar"
+  },
+  "erro404": {
+    "titulo": "Página não encontrada",
+    "texto": "O endereço não existe ou o conteúdo ainda não foi publicado. O acervo cresce por equipamento — nunca por cortes de qualidade.",
+    "home": "← Início",
+    "busca": "Buscar no acervo",
+    "calculadoras": "Calculadoras"
+  },
+  "apoio": {
+    "titulo": "Apoie o RELIABILITAS",
+    "missao": "O RELIABILITAS existe para dar a profissionais de manutenção e confiabilidade — do técnico ao engenheiro — acesso gratuito, em PT e EN, ao conhecimento rigoroso que normalmente fica trancado em normas pagas e treinamentos caros.",
+    "promessa": "Para pessoas, é free para sempre: sem paywall, sem cadastro, sem cookies. Doações são o que mantém a infraestrutura no ar.",
+    "canaisTitulo": "Canais de doação",
+    "canaisEmBreve": "Os canais de doação (Pix, PayPal e Ko-fi) serão publicados aqui em breve.",
+    "destinoTitulo": "Para onde vai a doação",
+    "destinoTexto": "Infraestrutura de hospedagem, banco de dados e domínio (~R$ 130/mês). Excedentes financiam a expansão do acervo: novos equipamentos, modos de falha e traduções. Sem anúncios, sem venda de dados — nunca."
   },
   "tree": {
     "title": "Taxonomia",
