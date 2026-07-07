@@ -11,6 +11,7 @@ import {
   type Nota,
 } from '@/lib/db/notas';
 import { GrafoLocal } from '@/components/grafo-local';
+import { notaPath, sugerirPath } from '@/lib/routes';
 import { renderNoteHtml } from '@/lib/markdown/render';
 import { splitNiveis, extractH2 } from '@/lib/content/niveis';
 import { NIVEIS_LEITURA, type Locale } from '@/lib/content/schema';
@@ -74,7 +75,7 @@ function Badges({ nota }: { nota: Nota }) {
   );
 }
 
-async function Rodape({ nota }: { nota: Nota }) {
+async function Rodape({ nota, locale }: { nota: Nota; locale: Locale }) {
   const t = await getTranslations('nota');
   const fontes = (nota.frontmatter.fontes as string[] | undefined) ?? [];
   return (
@@ -91,11 +92,21 @@ async function Rodape({ nota }: { nota: Nota }) {
           </ul>
         </>
       )}
-      {nota.revisado_em && (
-        <p className="mt-3 font-mono text-xs text-slate-500">
-          {t('revisado')} {nota.revisado_em}
-        </p>
-      )}
+      <p className="mt-3 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+        {nota.revisado_em && (
+          <span className="font-mono text-xs text-slate-500">
+            {t('revisado')} {nota.revisado_em}
+          </span>
+        )}
+        {/* T09: toda nota oferece o canal curado de correção */}
+        <a
+          href={sugerirPath(locale, notaPath(locale, nota.slug))}
+          className="text-xs underline-offset-2 hover:underline"
+          style={{ color: 'var(--wikilink)' }}
+        >
+          {t('sugerirCorrecao')}
+        </a>
+      </p>
     </footer>
   );
 }
@@ -234,7 +245,7 @@ export default async function NotaPage({ params }: PageParams) {
           locale={locale as Locale}
           titulo={t('grafo')}
         />
-        <Rodape nota={nota} />
+        <Rodape nota={nota} locale={locale as Locale} />
         <Backlinks notas={backlinks} locale={locale as Locale} />
       </div>
     </div>

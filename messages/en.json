@@ -11,6 +11,19 @@
     "busca": "Search the collection",
     "calculadoras": "Calculators"
   },
+  "sugerir": {
+    "titulo": "Suggest a correction",
+    "intro": "Found a technical error, an outdated source or something worth reviewing? The collection is curated — every suggestion is read by the curator before any change.",
+    "paginaRotulo": "Page",
+    "mensagemRotulo": "Your suggestion",
+    "mensagemPlaceholder": "Describe the issue and, if possible, cite the correct source…",
+    "contatoRotulo": "E-mail (optional — only if you want a reply)",
+    "contatoPlaceholder": "you@example.com",
+    "enviar": "Send suggestion",
+    "sucesso": "Suggestion received — thank you for improving the collection.",
+    "erro": "Could not send: the message must be between {min} and {max} characters and the e-mail (if filled) must be valid.",
+    "limite": "Too many suggestions from this address in a short time. Please wait a bit and try again."
+  },
   "apoio": {
     "titulo": "Support RELIABILITAS",
     "missao": "RELIABILITAS exists to give maintenance and reliability professionals — from technician to engineer — free access, in PT and EN, to the rigorous knowledge usually locked behind paid standards and expensive training.",
@@ -106,7 +119,8 @@
     "arquivadaTexto": "This content has been superseded or removed from the collection. Browse the taxonomy on the side to find the current version.",
     "modosFalha": "Failure modes",
     "secoes": "On this page",
-    "grafo": "Local graph"
+    "grafo": "Local graph",
+    "sugerirCorrecao": "Suggest a correction"
   },
   "niveis": {
     "beginner": "Understand",

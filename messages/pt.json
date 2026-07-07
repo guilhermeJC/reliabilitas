@@ -11,6 +11,19 @@
     "busca": "Buscar no acervo",
     "calculadoras": "Calculadoras"
   },
+  "sugerir": {
+    "titulo": "Sugerir correção",
+    "intro": "Achou um erro técnico, uma fonte desatualizada ou algo que mereça revisão? O acervo é curado — toda sugestão é lida pelo curador antes de qualquer mudança.",
+    "paginaRotulo": "Página",
+    "mensagemRotulo": "Sua sugestão",
+    "mensagemPlaceholder": "Descreva o problema e, se possível, cite a fonte correta…",
+    "contatoRotulo": "E-mail (opcional — só se quiser resposta)",
+    "contatoPlaceholder": "voce@exemplo.com",
+    "enviar": "Enviar sugestão",
+    "sucesso": "Sugestão recebida — obrigado por melhorar o acervo.",
+    "erro": "Não foi possível enviar: a mensagem precisa ter entre {min} e {max} caracteres e o e-mail (se preenchido) deve ser válido.",
+    "limite": "Muitas sugestões em pouco tempo deste endereço. Aguarde um pouco e tente de novo."
+  },
   "apoio": {
     "titulo": "Apoie o RELIABILITAS",
     "missao": "O RELIABILITAS existe para dar a profissionais de manutenção e confiabilidade — do técnico ao engenheiro — acesso gratuito, em PT e EN, ao conhecimento rigoroso que normalmente fica trancado em normas pagas e treinamentos caros.",
@@ -106,7 +119,8 @@
     "arquivadaTexto": "Este conteúdo foi substituído ou retirado do acervo. Navegue pela taxonomia ao lado para encontrar a versão vigente.",
     "modosFalha": "Modos de falha",
     "secoes": "Nesta página",
-    "grafo": "Grafo local"
+    "grafo": "Grafo local",
+    "sugerirCorrecao": "Sugerir correção"
   },
   "niveis": {
     "beginner": "Entender",
