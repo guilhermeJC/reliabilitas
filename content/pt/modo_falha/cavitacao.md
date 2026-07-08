@@ -5,7 +5,7 @@ locale: pt
 titulo: 'Cavitação'
 status: published
 taxonomia:
-  - transferencia-de-fluidos-liquidos
+  - adicao-de-energia
   - bombas
   - dinamicas
   - bomba-centrifuga

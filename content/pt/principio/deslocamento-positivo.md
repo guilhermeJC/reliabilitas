@@ -5,7 +5,7 @@ locale: pt
 titulo: 'Bombas de Deslocamento Positivo'
 status: published
 taxonomia:
-  - transferencia-de-fluidos-liquidos
+  - adicao-de-energia
   - bombas
 fontes:
   - 'Hydraulic Institute — ANSI/HI 3.1-3.5 (Rotary Pumps) e 6.1-6.5 (Reciprocating Pumps)'
@@ -20,6 +20,12 @@ Consequências diretas para operação e confiabilidade:
 
 - **Vazão constante, pressão livre** — a bomba gera a pressão que o sistema impuser; operar contra descarga bloqueada rompe o componente mais fraco. **Válvula de alívio é obrigatória**, não opcional.
 - **Autoescorvantes** e capazes de altas pressões com fluidos viscosos, onde a centrífuga perde eficiência.
-- Dois grandes ramos: **alternativas** (pistão, êmbolo, diafragma — pulsação de vazão) e **rotativas** (engrenagem, parafuso, lóbulos, palhetas — vazão mais suave).
 
-Modos de falha dominantes migram das faces de selagem e válvulas (alternativas) para folgas e desgaste de elementos rotativos. *(tipos detalhados na Fase 1)*
+## Tipos usuais
+
+*(handbooks por tipo na Fase 1)*
+
+- **Alternativas** — volume confinado por movimento retilíneo, vazão pulsante: pistão, êmbolo (*plunger*) e diafragma (isolamento total do processo — fluidos perigosos);
+- **Rotativas** — volume confinado por rotação, vazão mais suave: engrenagens externas e internas, lóbulos, parafuso simples/duplo/triplo, palhetas, **cavidade progressiva** (Mono — a escolha clássica para polpas, lamas e multifásico viscoso), peristáltica (o tubo flexível é o único elemento molhado) e rotor flexível.
+
+Modos de falha dominantes migram das faces de selagem e válvulas (alternativas) para folgas e desgaste de elementos rotativos.

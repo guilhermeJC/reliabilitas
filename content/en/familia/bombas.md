@@ -5,7 +5,7 @@ locale: en
 titulo: 'Pumps'
 status: published
 taxonomia:
-  - transferencia-de-fluidos-liquidos
+  - adicao-de-energia
 iso14224_code: 'PU'
 fontes:
   - 'ISO 14224:2016, table A.4 (equipment class PU)'
@@ -35,7 +35,7 @@ An important standards point: under the **Hydraulic Institute** classification, 
 
 The family splits into fundamental principles — the choice between them defines the physics, the characteristic curve and the dominant failure modes:
 
-- [[dinamicas|Dynamic (rotodynamic)]] — energy is transferred continuously by a rotating impeller (Euler's equation); e.g. centrifugal, axial. Flow varies with system pressure.
+- [[dinamicas|Rotodynamic]] — energy is transferred continuously by a rotating impeller (Euler's equation); e.g. centrifugal, axial. Flow varies with system pressure.
 - [[deslocamento-positivo|Positive displacement]] — discrete volumes are captured and displaced (gear, piston, screw). Flow nearly independent of pressure; requires a relief valve.
 - [[efeito-especial|Special effect]] — no moving parts, driven by a motive fluid or gas (ejector, air lift, hydraulic ram). Robust and cheap, with low efficiency.
 

@@ -2,10 +2,10 @@
 slug: dinamicas
 tipo_nota: principio
 locale: pt
-titulo: 'Bombas Dinâmicas (Rotodinâmicas)'
+titulo: 'Bombas Rotodinâmicas'
 status: published
 taxonomia:
-  - transferencia-de-fluidos-liquidos
+  - adicao-de-energia
   - bombas
 fontes:
   - 'Karassik et al., Pump Handbook, 4ª ed. (2008), cap. 2'
@@ -23,4 +23,13 @@ Características que governam a operação e a confiabilidade:
 - **Leis de afinidade** — Q ∝ N, H ∝ N², P ∝ N³: a rotação é a alavanca de controle mais eficiente.
 - **NPSH** — a margem entre NPSH disponível e requerido define a suscetibilidade à [[cavitacao|cavitação]].
 
-Tipo principal no acervo: [[bomba-centrifuga|Bomba Centrífuga]].
+## Tipos usuais
+
+Os critérios abaixo são **ortogonais** — uma mesma bomba combina um de cada:
+
+- **Geometria do fluxo**: centrífuga **radial** (a dominante), de **fluxo misto** e **axial** — a velocidade específica cresce nessa ordem; a **helicoaxial** estende o princípio a misturas multifásicas (gás + líquido);
+- **Estágios**: monoestágio × multiestágio (altas pressões);
+- **Construção/instalação**: horizontal, vertical, in-line, submersa, bipartida axialmente (*split case*), turbina vertical e de poço profundo, autoescorvante;
+- **Serviço**: criogênica, de circulação, *booster*.
+
+*(handbooks por tipo na Fase 1)* — Tipo principal no acervo: [[bomba-centrifuga|Bomba Centrífuga]].

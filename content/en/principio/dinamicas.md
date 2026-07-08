@@ -2,10 +2,10 @@
 slug: dinamicas
 tipo_nota: principio
 locale: en
-titulo: 'Dynamic Pumps (Rotodynamic)'
+titulo: 'Rotodynamic Pumps'
 status: published
 taxonomia:
-  - transferencia-de-fluidos-liquidos
+  - adicao-de-energia
   - bombas
 fontes:
   - 'Karassik et al., Pump Handbook, 4th ed. (2008), ch. 2'
@@ -23,4 +23,13 @@ Traits that govern operation and reliability:
 - **Affinity laws** — Q ∝ N, H ∝ N², P ∝ N³: speed is the most efficient control lever.
 - **NPSH** — the margin between available and required NPSH sets the susceptibility to [[cavitacao|cavitation]].
 
-Main type in the collection: [[bomba-centrifuga|Centrifugal Pump]].
+## Usual types
+
+The criteria below are **orthogonal** — a given pump combines one of each:
+
+- **Flow geometry**: **radial** centrifugal (the dominant one), **mixed-flow** and **axial** — specific speed grows in that order; the **helico-axial** extends the principle to multiphase mixtures (gas + liquid);
+- **Staging**: single-stage × multistage (high pressures);
+- **Construction/installation**: horizontal, vertical, in-line, submersible, axially split case, vertical turbine and deep-well, self-priming;
+- **Service**: cryogenic, circulating, booster.
+
+*(handbooks per type in Phase 1)* — Main type in the collection: [[bomba-centrifuga|Centrifugal Pump]].

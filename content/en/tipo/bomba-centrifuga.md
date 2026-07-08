@@ -5,7 +5,7 @@ locale: en
 titulo: 'Centrifugal Pump'
 status: published
 taxonomia:
-  - transferencia-de-fluidos-liquidos
+  - adicao-de-energia
   - bombas
   - dinamicas
 iso14224_code: 'PU'
@@ -46,7 +46,7 @@ revisado_em: 2026-07-06
 
 ## Classification
 
-A **rotodynamic** machine — principle [[dinamicas|Dynamic]], family Pumps, class Fluid Transfer — Liquids (the full chain is in the breadcrumb above). Class **PU** at level 6 (*equipment unit*) of the ISO 14224:2016 taxonomy. The fundamental distinction from positive-displacement pumps: the centrifugal transfers energy to the fluid **continuously, through change of angular momentum** — not by trapping volumes. The direct practical consequence: delivered flow depends on the system resistance (the pump operates where its curve crosses the system curve), and running against a closed valve does not produce immediate destructive overpressure, but heating and recirculation.
+A **rotodynamic** machine — principle [[dinamicas|Rotodynamic]], family Pumps, class Energy Addition to the Fluid (the full chain is in the breadcrumb above). Class **PU** at level 6 (*equipment unit*) of the ISO 14224:2016 taxonomy. The fundamental distinction from positive-displacement pumps: the centrifugal transfers energy to the fluid **continuously, through change of angular momentum** — not by trapping volumes. The direct practical consequence: delivered flow depends on the system resistance (the pump operates where its curve crosses the system curve), and running against a closed valve does not produce immediate destructive overpressure, but heating and recirculation.
 
 It is the most numerous rotating equipment in the process industry — typically **more than 80% of the rotating fleet** of a refinery or chemical plant — and accounts for **30–40% of rotating-equipment maintenance cost** (Bloch & Geitner). That double condition (ubiquity + cost) makes the centrifugal pump the first asset of any serious reliability program.
 

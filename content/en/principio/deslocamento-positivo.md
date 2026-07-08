@@ -5,7 +5,7 @@ locale: en
 titulo: 'Positive Displacement Pumps'
 status: published
 taxonomia:
-  - transferencia-de-fluidos-liquidos
+  - adicao-de-energia
   - bombas
 fontes:
   - 'Hydraulic Institute — ANSI/HI 3.1-3.5 (Rotary Pumps) and 6.1-6.5 (Reciprocating Pumps)'
@@ -20,6 +20,12 @@ Direct consequences for operation and reliability:
 
 - **Constant flow, free pressure** — the pump generates whatever pressure the system imposes; running against a blocked discharge ruptures the weakest component. **A relief valve is mandatory**, not optional.
 - **Self-priming** and capable of high pressures with viscous fluids, where the centrifugal loses efficiency.
-- Two major branches: **reciprocating** (piston, plunger, diaphragm — pulsating flow) and **rotary** (gear, screw, lobe, vane — smoother flow).
 
-Dominant failure modes shift from sealing faces and valves (reciprocating) to clearances and wear of rotary elements. *(types detailed in Phase 1)*
+## Usual types
+
+*(handbooks per type in Phase 1)*
+
+- **Reciprocating** — volume trapped by rectilinear motion, pulsating flow: piston, plunger and diaphragm (total process isolation — hazardous fluids);
+- **Rotary** — volume trapped by rotation, smoother flow: external and internal gear, lobe, single/twin/triple screw, vane, **progressing cavity** (Mono — the classic choice for slurries, sludges and viscous multiphase), peristaltic (the flexible hose is the only wetted element) and flexible impeller.
+
+Dominant failure modes shift from sealing faces and valves (reciprocating) to clearances and wear of rotary elements.

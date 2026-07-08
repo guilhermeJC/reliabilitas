@@ -5,7 +5,7 @@ locale: en
 titulo: 'Special-Effect Pumps'
 status: published
 taxonomia:
-  - transferencia-de-fluidos-liquidos
+  - adicao-de-energia
   - bombas
 fontes:
   - 'Hydraulic Institute — Types and Nomenclature of Pumps (special-effect: jet, gas lift, hydraulic ram)'
@@ -16,10 +16,13 @@ resumo: 'Principle of kinetic pumps with NO moving parts: energy comes from a mo
 
 The third principle of the [[bombas|Pumps]] family, alongside the [[dinamicas|rotodynamic]] and the [[deslocamento-positivo|positive-displacement]] ones. Under the **Hydraulic Institute** classification, these are **kinetic pumps with no moving parts**: the energy that moves the liquid comes not from a rotor or piston, but from a **motive fluid or gas**.
 
-The three in-scope types:
+The in-scope types:
 
 - **Ejector / eductor (jet pump)** — a high-velocity motive-fluid jet creates low pressure (Venturi effect) that entrains and pressurizes the drawn liquid. No moving parts; used for priming, deep wells and process vacuum.
 - **Air lift** — compressed air injected at the base of a column lowers the mixture's mean density, which rises by buoyancy. Ideal for abrasive or solids-laden liquids (nothing is in contact).
 - **Hydraulic ram** — harnesses the kinetic energy of a water stream (water hammer) to lift a fraction of the flow to great height, with no external power.
+- **Electromagnetic pump** — an electromagnetic field directly drives **liquid metals** (sodium, lead-bismuth — reactor circuits and metallurgy). No moving parts, no sealing.
+
+Classification boundaries (taxonomic honesty): **regenerative (peripheral)**, **vortex** (recessed impeller) and **disc** (viscous drag, Tesla-type) pumps are sometimes listed as "special effect", but **they have a rotor** — the Hydraulic Institute treats them in the kinetic branch next to the rotodynamic ones. The "flexible hose pump" is the **peristaltic** — it lives in [[deslocamento-positivo|Positive Displacement]].
 
 Common advantage: robustness and low cost (few or no moving parts). The price: **low efficiency** versus rotodynamic pumps. *(per-type handbooks in Phase 1 — they require their own anatomy)*

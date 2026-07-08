@@ -5,7 +5,7 @@ locale: pt
 titulo: 'Bomba Centrífuga'
 status: published
 taxonomia:
-  - transferencia-de-fluidos-liquidos
+  - adicao-de-energia
   - bombas
   - dinamicas
 iso14224_code: 'PU'
@@ -46,7 +46,7 @@ revisado_em: 2026-07-06
 
 ## Classificação
 
-Máquina **rotodinâmica** — princípio [[dinamicas|Dinâmicas]], família Bombas, classe Transferência de Fluidos — Líquidos (a cadeia completa está no caminho acima). Classe **PU** no nível 6 (*equipment unit*) da taxonomia ISO 14224:2016. A distinção fundamental frente às bombas de deslocamento positivo: a centrífuga transfere energia ao fluido **continuamente, por variação de quantidade de movimento angular** — não por confinamento de volume. Consequência prática direta: a vazão entregue depende da resistência do sistema (a bomba opera onde sua curva cruza a curva do sistema), e operar contra válvula fechada não gera sobrepressão destrutiva imediata, mas aquecimento e recirculação.
+Máquina **rotodinâmica** — princípio [[dinamicas|Rotodinâmicas]], família Bombas, classe Adição de Energia ao Fluido (a cadeia completa está no caminho acima). Classe **PU** no nível 6 (*equipment unit*) da taxonomia ISO 14224:2016. A distinção fundamental frente às bombas de deslocamento positivo: a centrífuga transfere energia ao fluido **continuamente, por variação de quantidade de movimento angular** — não por confinamento de volume. Consequência prática direta: a vazão entregue depende da resistência do sistema (a bomba opera onde sua curva cruza a curva do sistema), e operar contra válvula fechada não gera sobrepressão destrutiva imediata, mas aquecimento e recirculação.
 
 É o equipamento rotativo mais numeroso da indústria de processo — tipicamente **mais de 80% do parque rotativo** de uma refinaria ou planta química — e responde por **30–40% dos custos de manutenção de rotativos** (Bloch & Geitner). Essa dupla condição (onipresença + custo) faz da bomba centrífuga o primeiro ativo de qualquer programa sério de confiabilidade.
 
