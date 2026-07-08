@@ -6,6 +6,8 @@ import { routing } from '@/i18n/routing';
 import { WeibullCalc } from '@/components/calc/weibull-calc';
 import { DisponibilidadeCalc } from '@/components/calc/disponibilidade-calc';
 import { PFCalc } from '@/components/calc/pf-calc';
+import { GuiaCalculadoras } from '@/components/calc/guia-calculadoras';
+import type { Locale } from '@/lib/content/schema';
 
 // F05/BR-012 — página das 3 calculadoras (AFC do Dia 3: página índice + embeds).
 // INDEXÁVEL (SEO/GEO): é conteúdo-ferramenta, não resultado de busca. As contas
@@ -39,6 +41,10 @@ export default async function CalculadorasPage({
           {t('titulo')}
         </h1>
         <p className="mt-2 text-sm text-slate-600">{t('intro')}</p>
+        {/* Guia How to use no COMEÇO da página (revisão do fundador, 08/07) */}
+        <div className="mt-6">
+          <GuiaCalculadoras locale={locale as Locale} />
+        </div>
         <div className="mt-6 space-y-5">
           <WeibullCalc />
           <DisponibilidadeCalc />

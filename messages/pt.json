@@ -169,6 +169,41 @@
   "calc": {
     "titulo": "Calculadoras de confiabilidade",
     "intro": "Três ferramentas do dia a dia do engenheiro de confiabilidade — 100% no seu navegador: nenhum dado sai desta página.",
+    "guia": {
+      "titulo": "Guia — How to use",
+      "sub": "A teoria por trás das três ferramentas, o que é cada parâmetro, de onde tirar os números e como ler os resultados. Nem todo mundo precisa saber isso de cor — é para isso que este guia existe.",
+      "fluxoTitulo": "O fluxo em 30 segundos",
+      "fluxoTexto": "As três calculadoras respondem às três perguntas quantitativas do método: a Weibull lê COMO a falha se comporta no tempo (Framework A); MTBF·MTTR·Disponibilidade medem o IMPACTO da falha e do reparo; e o intervalo P-F dimensiona a INSPEÇÃO quando a estratégia é sob condição (Framework B).",
+      "ondeTitulo": "De onde vêm os números",
+      "ondeTexto": "A matéria-prima é o seu histórico de manutenção (CMMS/SAP-PM/Maximo): datas de falha, horas de operação e tempos de reparo — sempre POR MODO DE FALHA. Misturar modos de falha diferentes numa mesma amostra é o erro nº 1 da análise. Sem histórico suficiente, use valores típicos da literatura (as notas do acervo citam o β e o P-F típicos de cada modo de falha) ou bancos setoriais (ex.: OREDA para óleo e gás).",
+      "labelTeoria": "A teoria",
+      "labelParametros": "O que é cada parâmetro",
+      "labelEstimar": "Como estimar / medir",
+      "labelUsar": "Como usar a ferramenta",
+      "weibull": {
+        "titulo": "1 · Weibull 2 parâmetros — ler o comportamento da falha",
+        "teoria": "A distribuição de Weibull é o canivete-suíço da confiabilidade porque um único parâmetro de forma (β) reproduz os três regimes de falha. A confiabilidade é R(t) = exp(−(t/η)^β) — a probabilidade de o item chegar vivo à idade t. A taxa de falha instantânea é h(t) = (β/η)·(t/η)^(β−1).",
+        "parametros": "β (beta, parâmetro de forma) — lê o padrão de falha: β < 1 = mortalidade infantil (a taxa de falha CAI com o tempo — o perigo é o começo da vida); β ≈ 1 = aleatória (taxa constante — o item não envelhece; idade não prediz falha); β > 1 = desgaste (a taxa SOBE com a idade — existe zona de desgaste). η (eta, vida característica) — a idade em que 63,2% da população já falhou, qualquer que seja o β; é o 'fator de escala' da curva. t (tempo de missão) — o horizonte que você quer avaliar (ex.: a campanha até a próxima parada).",
+        "estimar": "Colete os tempos-até-falha do MESMO modo de falha (mínimo prático: 5–7 falhas). Itens que ainda não falharam ou foram preventivamente trocados entram como suspensões (censura) — ignorá-los distorce o β. Estimação: papel de Weibull / regressão de median ranks ou máxima verossimilhança (planilhas e softwares de confiabilidade fazem isso). Sem dados próprios: parta do β típico citado na literatura e nas notas do acervo e calibre o η com a vida média observada na sua planta.",
+        "usar": "Insira β e η (e o t da missão nos campos deslizantes). Leia: MTTF — a vida média = η·Γ(1+1/β); B10 — a idade em que 10% da população falha (o critério clássico de seleção de rolamentos); R(t) e h(t) no tempo de missão; e a leitura Fw A automática (a categoria diagnóstica que alimenta o seletor de estratégia)."
+      },
+      "disp": {
+        "titulo": "2 · MTBF · MTTR · Disponibilidade — medir o impacto",
+        "teoria": "Para itens reparáveis o ciclo é operar → falhar → reparar → operar. A disponibilidade inerente Ai = MTBF/(MTBF+MTTR) é a fração do tempo em que o ativo está apto, considerando só o tempo técnico de reparo (sem logística, sobressalente ou espera). É a régua de projeto — a disponibilidade operacional medida em campo será sempre menor.",
+        "parametros": "MTBF (tempo médio ENTRE falhas — itens reparáveis) — horas de operação ÷ número de falhas no período. Use horas de OPERAÇÃO, não horas-calendário: um ativo que roda 60% do tempo 'envelhece' 60%. MTTR (tempo médio de reparo) — soma dos tempos de restauração ÷ número de reparos, do início da intervenção à devolução apta a operar.",
+        "estimar": "Os dois saem direto do CMMS; janelas de 12–24 meses dão amostras razoáveis. Armadilhas clássicas: contar preventiva como falha (não é), perder as falhas 'pequenas' resolvidas pela própria operação sem nota, e misturar modos de falha com dinâmicas diferentes no mesmo MTBF.",
+        "usar": "Insira MTBF e MTTR. Leia Ai (em %) e a indisponibilidade anual sobre 8 760 h — o número que conversa com a gerência: horas paradas esperadas por ano por esse par falha+reparo."
+      },
+      "pf": {
+        "titulo": "3 · Intervalo P-F — dimensionar a inspeção",
+        "teoria": "Entre o ponto P (a falha torna-se DETECTÁVEL: vibração sobe, temperatura muda, espessura cai) e o ponto F (a função é perdida) existe uma janela — o intervalo P-F. Tarefa sob condição só é eficaz se a inspeção couber DENTRO dessa janela; a prática consagrada é inspecionar a cada P-F/2, garantindo pelo menos duas chances de detecção antes de F (Moubray, RCM II, cap. 8).",
+        "parametros": "Intervalo P-F — o tempo típico entre o primeiro sintoma detectável e a falha funcional. Atenção: ele depende do modo de falha E DA TÉCNICA de detecção — para o mesmo rolamento, ultrassom/envelope enxerga antes (P-F maior) do que o espectro de vibração, que enxerga antes do que temperatura ou ruído audível. Intervalo de inspeção — a periodicidade que a sua rota pratica hoje (semanal, mensal…).",
+        "estimar": "Três fontes, nesta ordem: casos históricos seus (tempo entre o primeiro alarme e a falha nos eventos que 'escaparam' da rota); a experiência dos especialistas de preditiva da planta; a literatura da técnica — as notas de modo de falha do acervo trazem o P-F típico citado. Na dúvida, seja conservador: assuma o P-F menor.",
+        "usar": "Insira o intervalo P-F e o intervalo de inspeção praticado (a unidade é livre — dias, semanas — desde que a mesma nos dois). Leia o recomendado (P-F/2), quantas chances de detecção a sua rota dá dentro da janela, a margem restante e o veredito adequado / rever intervalo."
+      },
+      "fontes": "Referências do guia: Smith — Reliability, Maintainability and Risk (2004) · Moubray — RCM II (1997), cap. 8 · Nowlan & Heap (1978). A teoria completa dos dois frameworks está em O método.",
+      "metodoLink": "O método (Framework A → Framework B) →"
+    },
     "weibull": {
       "titulo": "Weibull 2 parâmetros",
       "fwA": "Leitura Fw A",

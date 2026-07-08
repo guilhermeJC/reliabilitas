@@ -168,6 +168,41 @@
   },
   "calc": {
     "titulo": "Reliability calculators",
+    "guia": {
+      "titulo": "Guide — How to use",
+      "sub": "The theory behind the three tools, what each parameter actually is, where the numbers come from and how to read the results. Not everyone carries this by heart — that is what this guide is for.",
+      "fluxoTitulo": "The flow in 30 seconds",
+      "fluxoTexto": "The three calculators answer the method's three quantitative questions: Weibull reads HOW the failure behaves over time (Framework A); MTBF·MTTR·Availability measure the IMPACT of failure and repair; and the P-F interval sizes the INSPECTION when the strategy is on-condition (Framework B).",
+      "ondeTitulo": "Where the numbers come from",
+      "ondeTexto": "The raw material is your maintenance history (CMMS/SAP-PM/Maximo): failure dates, operating hours and repair times — always PER FAILURE MODE. Mixing different failure modes in one sample is the number-one analysis mistake. Without enough history, use typical values from the literature (the collection's notes cite the typical β and P-F of each failure mode) or industry databases (e.g. OREDA for oil & gas).",
+      "labelTeoria": "The theory",
+      "labelParametros": "What each parameter is",
+      "labelEstimar": "How to estimate / measure it",
+      "labelUsar": "How to use the tool",
+      "weibull": {
+        "titulo": "1 · 2-parameter Weibull — reading the failure behavior",
+        "teoria": "The Weibull distribution is reliability's Swiss-army knife because a single shape parameter (β) reproduces all three failure regimes. Reliability is R(t) = exp(−(t/η)^β) — the probability that the item reaches age t alive. The instantaneous failure rate is h(t) = (β/η)·(t/η)^(β−1).",
+        "parametros": "β (beta, shape parameter) — reads the failure pattern: β < 1 = infant mortality (failure rate FALLS with time — the danger is early life); β ≈ 1 = random (constant rate — the item does not age; age does not predict failure); β > 1 = wear-out (rate RISES with age — a wear zone exists). η (eta, characteristic life) — the age by which 63.2% of the population has failed, whatever the β; it is the curve's scale factor. t (mission time) — the horizon you want to assess (e.g. the campaign until the next shutdown).",
+        "estimar": "Collect times-to-failure of the SAME failure mode (practical minimum: 5–7 failures). Items that have not failed or were preventively replaced enter as suspensions (censoring) — ignoring them distorts β. Estimation: Weibull paper / median-rank regression or maximum likelihood (spreadsheets and reliability software do this). Without your own data: start from the typical β cited in the literature and in the collection's notes and calibrate η with the average life observed at your plant.",
+        "usar": "Enter β and η (and the mission t in the sliders). Read: MTTF — the mean life = η·Γ(1+1/β); B10 — the age by which 10% of the population fails (the classic bearing-selection criterion); R(t) and h(t) at the mission time; and the automatic Fw A reading (the diagnostic category that feeds the strategy selector)."
+      },
+      "disp": {
+        "titulo": "2 · MTBF · MTTR · Availability — measuring the impact",
+        "teoria": "For repairable items the cycle is operate → fail → repair → operate. Inherent availability Ai = MTBF/(MTBF+MTTR) is the fraction of time the asset is fit for duty, considering only the technical repair time (no logistics, spares or waiting). It is the design ruler — the operational availability measured in the field will always be lower.",
+        "parametros": "MTBF (mean time BETWEEN failures — repairable items) — operating hours ÷ number of failures in the period. Use OPERATING hours, not calendar hours: an asset running 60% of the time 'ages' 60%. MTTR (mean time to repair) — sum of restoration times ÷ number of repairs, from start of intervention to return in fit condition.",
+        "estimar": "Both come straight from the CMMS; 12–24 month windows give reasonable samples. Classic traps: counting preventive work as failure (it is not), missing the 'small' failures fixed by operations without a work order, and mixing failure modes with different dynamics into one MTBF.",
+        "usar": "Enter MTBF and MTTR. Read Ai (in %) and the annual unavailability over 8,760 h — the number management understands: expected downtime hours per year for this failure+repair pair."
+      },
+      "pf": {
+        "titulo": "3 · P-F interval — sizing the inspection",
+        "teoria": "Between point P (the failure becomes DETECTABLE: vibration rises, temperature shifts, thickness drops) and point F (the function is lost) there is a window — the P-F interval. An on-condition task is only effective if the inspection fits INSIDE that window; consecrated practice is to inspect every P-F/2, guaranteeing at least two detection chances before F (Moubray, RCM II, ch. 8).",
+        "parametros": "P-F interval — the typical time between the first detectable symptom and functional failure. Note: it depends on the failure mode AND the detection TECHNIQUE — for the same bearing, ultrasound/enveloping sees it earlier (larger P-F) than the vibration spectrum, which sees it earlier than temperature or audible noise. Inspection interval — the periodicity your route practices today (weekly, monthly…).",
+        "estimar": "Three sources, in this order: your own historical cases (time between first alarm and failure in the events that 'escaped' the route); the experience of the plant's condition-monitoring specialists; the technique's literature — the collection's failure-mode notes carry the cited typical P-F. When in doubt, be conservative: assume the smaller P-F.",
+        "usar": "Enter the P-F interval and the practiced inspection interval (any unit — days, weeks — as long as it is the same in both). Read the recommended value (P-F/2), how many detection chances your route gives inside the window, the remaining margin and the adequate / review verdict."
+      },
+      "fontes": "Guide references: Smith — Reliability, Maintainability and Risk (2004) · Moubray — RCM II (1997), ch. 8 · Nowlan & Heap (1978). The full theory of the two frameworks lives in The method.",
+      "metodoLink": "The method (Framework A → Framework B) →"
+    },
     "intro": "Three everyday tools for the reliability engineer — 100% in your browser: no data leaves this page.",
     "weibull": {
       "titulo": "2-parameter Weibull",
