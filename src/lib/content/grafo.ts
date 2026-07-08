@@ -26,7 +26,13 @@ export interface LigacaoGrafo {
   slug: string; // vizinho ligado ao centro
   x: number;
   y: number;
+  hierarquico: boolean; // taxonomia/componente = hierarquia; wikilink = associação
 }
+
+// Taxonomia e componente exprimem a ÁRVORE (pai/filho, D10); wikilink é
+// associação livre. Distinguir os dois impede que um link de prosa a um
+// ancestral distante faça um Tipo parecer filho direto da Classe (Ponto 1).
+const TIPOS_HIERARQUICOS = new Set(['taxonomia', 'componente']);
 
 export interface GrafoLocal {
   nos: NoGrafo[];
@@ -43,13 +49,18 @@ export function montaGrafoLocal(
 
   // Vizinhos únicos: qualquer aresta tocando o centro; self-loops e
   // não-publicados ficam de fora. Ordem estável (inserção) → layout estável.
+  // Um vizinho é hierárquico se QUALQUER aresta que o liga ao centro for de
+  // taxonomia/componente (a hierarquia vence a mera associação por wikilink).
   const vizinhos = new Map<string, NotaResumo>();
+  const hierarquicos = new Set<string>();
   for (const a of arestas) {
     const outro =
       a.origem_slug === centro ? a.destino_slug : a.destino_slug === centro ? a.origem_slug : null;
-    if (!outro || outro === centro || vizinhos.has(outro)) continue;
+    if (!outro || outro === centro) continue;
     const nota = acervo.get(outro);
-    if (nota) vizinhos.set(outro, nota);
+    if (!nota) continue;
+    if (!vizinhos.has(outro)) vizinhos.set(outro, nota);
+    if (TIPOS_HIERARQUICOS.has(a.tipo)) hierarquicos.add(outro);
   }
 
   if (!centroNota || vizinhos.size === 0) return { nos: [], ligacoes: [] };
@@ -66,7 +77,7 @@ export function montaGrafoLocal(
     const x = GRAFO_RX * Math.cos(angulo);
     const y = GRAFO_RY * Math.sin(angulo);
     nos.push({ slug: nota.slug, titulo: nota.titulo, tipo_nota: nota.tipo_nota, x, y, central: false });
-    ligacoes.push({ slug: nota.slug, x, y });
+    ligacoes.push({ slug: nota.slug, x, y, hierarquico: hierarquicos.has(nota.slug) });
     i++;
   }
 

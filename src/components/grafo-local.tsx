@@ -53,8 +53,19 @@ export function GrafoLocal({
         aria-label={titulo}
         className="mx-auto mt-2 block w-full max-w-xl"
       >
+        {/* hierarquia (taxonomia/componente) = linha sólida; associação
+            (wikilink) = tracejada clara — a árvore lê-se de imediato */}
         {g.ligacoes.map((l) => (
-          <line key={l.slug} x1={0} y1={0} x2={l.x} y2={l.y} stroke="#d3dae6" strokeWidth="1" />
+          <line
+            key={l.slug}
+            x1={0}
+            y1={0}
+            x2={l.x}
+            y2={l.y}
+            stroke={l.hierarquico ? '#9fb0c8' : '#dbe1ea'}
+            strokeWidth={l.hierarquico ? 1.5 : 1}
+            strokeDasharray={l.hierarquico ? undefined : '4 4'}
+          />
         ))}
         {g.nos.map((no) => (
           <a key={no.slug} href={notaPath(locale, no.slug)}>

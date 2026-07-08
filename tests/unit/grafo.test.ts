@@ -70,3 +70,52 @@ describe('montaGrafoLocal — vizinhança 1 da nota atual', () => {
     expect(g.ligacoes).toHaveLength(0);
   });
 });
+
+describe('ligação hierárquica × associativa (correção do achatamento — Ponto 1 do fundador)', () => {
+  const acervo: NotaResumo[] = [
+    { slug: 'bomba-centrifuga', tipo_nota: 'tipo', titulo: 'Bomba Centrífuga', taxonomia: [] },
+    { slug: 'dinamicas', tipo_nota: 'principio', titulo: 'Dinâmicas', taxonomia: [] },
+    { slug: 'cavitacao', tipo_nota: 'modo_falha', titulo: 'Cavitação', taxonomia: [] },
+    { slug: 'rolamento', tipo_nota: 'componente', titulo: 'Rolamento', taxonomia: [] },
+    { slug: 'transferencia', tipo_nota: 'classe', titulo: 'Transferência', taxonomia: [] },
+  ];
+
+  it('aresta de taxonomia marca a ligação como hierárquica', () => {
+    const g = montaGrafoLocal(
+      'bomba-centrifuga',
+      [{ origem_slug: 'bomba-centrifuga', destino_slug: 'dinamicas', tipo: 'taxonomia' }],
+      acervo,
+    );
+    expect(g.ligacoes.find((l) => l.slug === 'dinamicas')!.hierarquico).toBe(true);
+  });
+
+  it('aresta de componente também é hierárquica (D10)', () => {
+    const g = montaGrafoLocal(
+      'bomba-centrifuga',
+      [{ origem_slug: 'bomba-centrifuga', destino_slug: 'rolamento', tipo: 'componente' }],
+      acervo,
+    );
+    expect(g.ligacoes.find((l) => l.slug === 'rolamento')!.hierarquico).toBe(true);
+  });
+
+  it('SOMENTE wikilink (associativo, sem taxonomia) → NÃO hierárquico', () => {
+    const g = montaGrafoLocal(
+      'bomba-centrifuga',
+      [{ origem_slug: 'bomba-centrifuga', destino_slug: 'transferencia', tipo: 'wikilink' }],
+      acervo,
+    );
+    expect(g.ligacoes.find((l) => l.slug === 'transferencia')!.hierarquico).toBe(false);
+  });
+
+  it('havendo taxonomia E wikilink para o mesmo vizinho, a hierarquia vence', () => {
+    const g = montaGrafoLocal(
+      'cavitacao',
+      [
+        { origem_slug: 'cavitacao', destino_slug: 'bomba-centrifuga', tipo: 'wikilink' },
+        { origem_slug: 'cavitacao', destino_slug: 'bomba-centrifuga', tipo: 'taxonomia' },
+      ],
+      acervo,
+    );
+    expect(g.ligacoes.find((l) => l.slug === 'bomba-centrifuga')!.hierarquico).toBe(true);
+  });
+});
