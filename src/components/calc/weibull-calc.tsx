@@ -103,38 +103,30 @@ export function WeibullCalc({ betaInicial = 2 }: { betaInicial?: number }) {
                     label={`R(${fmt(tempo)}h)`}
                     valor={R === null ? '—' : `${(R * 100).toFixed(2)}%`}
                     destaque
-                    significa={
-                      R === null
-                        ? undefined
-                        : t('sig.r', { p: (R * 100).toFixed(2), t: fmt(tempo) })
-                    }
+                    significa={R === null ? undefined : t('sig.r', { t: fmt(tempo) })}
                   />
                   <LinhaResultado
                     label={`F(${fmt(tempo)}h)`}
                     valor={F === null ? '—' : `${(F * 100).toFixed(2)}%`}
-                    significa={
-                      F === null
-                        ? undefined
-                        : t('sig.f', { p: (F * 100).toFixed(2), t: fmt(tempo) })
-                    }
+                    significa={F === null ? undefined : t('sig.f', { t: fmt(tempo) })}
                   />
                   <LinhaResultado
                     label={`h(${fmt(tempo)}h)`}
                     valor={H === null ? '—' : `${fmt(H)} ${t('porHora')}`}
-                    significa={H === null ? undefined : t('sig.h', { t: fmt(tempo) })}
+                    significa={H === null ? undefined : t('sig.h')}
                   />
                   <LinhaResultado
                     label={t('mttf')}
                     valor={`${fmt(modelo.mttf)} h`}
                     conversao={tCalc('emDias', { n: fmt(modelo.mttf / 24, 1) })}
                     destaque
-                    significa={t('sig.mttf', { v: fmt(modelo.mttf) })}
+                    significa={t('sig.mttf')}
                   />
                   <LinhaResultado
                     label={t('b10')}
                     valor={`${fmt(b10)} h`}
                     conversao={tCalc('emDias', { n: fmt(b10 / 24, 1) })}
-                    significa={t('sig.b10', { v: fmt(b10) })}
+                    significa={t('sig.b10')}
                   />
                 </>
               );

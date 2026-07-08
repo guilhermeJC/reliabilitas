@@ -72,7 +72,7 @@ export function LinhaResultado({
           )}
         </span>
       </div>
-      {significa && <p className="mt-0.5 text-xs leading-snug text-slate-500">{significa}</p>}
+      {significa && <p className="text-[11px] leading-snug text-slate-400">{significa}</p>}
     </div>
   );
 }

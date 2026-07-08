@@ -48,12 +48,12 @@ export function PFCalc() {
                 label={t('recomendado')}
                 valor={fmt(r.recomendado, 2)}
                 destaque
-                significa={t('sig.recomendado', { v: fmt(r.recomendado, 2) })}
+                significa={t('sig.recomendado')}
               />
               <LinhaResultado
                 label={t('chances')}
                 valor={String(r.chancesDeteccao)}
-                significa={t('sig.chances', { v: String(r.chancesDeteccao) })}
+                significa={t('sig.chances')}
               />
               <LinhaResultado
                 label={t('margem')}

@@ -32,12 +32,12 @@ export function DisponibilidadeCalc() {
                 label={t('resultado')}
                 valor={`${(r.disponibilidade * 100).toFixed(4)}%`}
                 destaque
-                significa={t('sig.ai', { p: (r.disponibilidade * 100).toFixed(4) })}
+                significa={t('sig.ai')}
               />
               <LinhaResultado
                 label="λ"
                 valor={`${fmt(r.lambda)} ${t('porHora')}`}
-                significa={t('sig.lambda', { v: fmt(r.lambda) })}
+                significa={t('sig.lambda')}
               />
               <LinhaResultado
                 label={t('indisponibilidade')}
@@ -45,7 +45,7 @@ export function DisponibilidadeCalc() {
                 conversao={tCalc('emDiasAno', {
                   n: fmt(r.indisponibilidadeAnualHoras / 24, 1),
                 })}
-                significa={t('sig.indisp', { v: fmt(r.indisponibilidadeAnualHoras, 1) })}
+                significa={t('sig.indisp')}
               />
             </>
           ) : (
