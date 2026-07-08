@@ -169,9 +169,13 @@
   "calc": {
     "titulo": "Calculadoras de confiabilidade",
     "intro": "Três ferramentas do dia a dia do engenheiro de confiabilidade — 100% no seu navegador: nenhum dado sai desta página.",
+    "emDias": "≈ {n} dias",
+    "emDiasAno": "≈ {n} dias/ano",
     "guia": {
       "titulo": "Guia — How to use",
       "sub": "A teoria por trás das três ferramentas, o que é cada parâmetro, de onde tirar os números e como ler os resultados. Nem todo mundo precisa saber isso de cor — é para isso que este guia existe.",
+      "abrir": "Abrir o guia completo",
+      "voltar": "← Voltar às calculadoras",
       "fluxoTitulo": "O fluxo em 30 segundos",
       "fluxoTexto": "As três calculadoras respondem às três perguntas quantitativas do método: a Weibull lê COMO a falha se comporta no tempo (Framework A); MTBF·MTTR·Disponibilidade medem o IMPACTO da falha e do reparo; e o intervalo P-F dimensiona a INSPEÇÃO quando a estratégia é sob condição (Framework B).",
       "ondeTitulo": "De onde vêm os números",
@@ -214,7 +218,14 @@
       "b10": "Vida B10",
       "porHora": "falhas/h",
       "invalido": "Entradas inválidas: β e η devem ser positivos.",
-      "rodape": "R(t) = exp(−(t/η)^β) · h(t) = (β/η)·(t/η)^(β−1). Validada contra Smith (2004) e propriedades conhecidas (R(η)=e⁻¹). A categoria editorial da nota prevalece sobre esta leitura didática."
+      "rodape": "R(t) = exp(−(t/η)^β) · h(t) = (β/η)·(t/η)^(β−1). Validada contra Smith (2004) e propriedades conhecidas (R(η)=e⁻¹). A categoria editorial da nota prevalece sobre esta leitura didática.",
+      "sig": {
+        "r": "Existe {p}% de probabilidade de o equipamento continuar funcionando após {t} horas.",
+        "f": "Até {t} horas, {p}% da população deste item já terá falhado (F = 1 − R).",
+        "h": "Para um item que chegou funcionando a {t} h, este é o risco de falhar na próxima hora.",
+        "mttf": "Vida média até a falha: em média, um item deste conjunto falha com {v} horas de operação.",
+        "b10": "Aos {v} h, 10% da população já falhou — 90% ainda opera. Critério clássico de rolamentos."
+      }
     },
     "categorias": {
       "infant": "Mortalidade infantil (β<1)",
@@ -230,7 +241,12 @@
       "porHora": "falhas/h",
       "horasAno": "h/ano",
       "invalido": "Entradas inválidas: MTBF > 0 e MTTR ≥ 0.",
-      "rodape": "Ai = MTBF/(MTBF+MTTR) — disponibilidade inerente (Smith 2004, cap. 2). Ano de referência: 8760 h."
+      "rodape": "Ai = MTBF/(MTBF+MTTR) — disponibilidade inerente (Smith 2004, cap. 2). Ano de referência: 8760 h.",
+      "sig": {
+        "ai": "O ativo fica apto {p}% do tempo, considerando apenas o tempo técnico de reparo.",
+        "lambda": "Frequência média de falhas: {v} falha(s) por hora de operação (λ = 1/MTBF).",
+        "indisp": "Espere ≈ {v} horas paradas por ano com esse par MTBF/MTTR — o número que conversa com a gerência."
+      }
     },
     "pf": {
       "titulo": "Intervalo P-F",
@@ -242,7 +258,12 @@
       "adequado": "Adequado",
       "inadequado": "Rever intervalo",
       "invalido": "Entradas inválidas: valores positivos.",
-      "rodape": "Tarefa sob condição só é eficaz se a inspeção couber na janela P-F — prática consagrada: inspeção ≤ P-F/2 (Moubray, RCM II cap. 8)."
+      "rodape": "Tarefa sob condição só é eficaz se a inspeção couber na janela P-F — prática consagrada: inspeção ≤ P-F/2 (Moubray, RCM II cap. 8).",
+      "sig": {
+        "recomendado": "Inspecione no máximo a cada {v} (metade do P-F) para garantir ao menos 2 chances de detecção.",
+        "chances": "Sua rota atual dá {v} oportunidade(s) de flagrar o sintoma antes da falha funcional.",
+        "margem": "Folga entre a janela P-F e o intervalo praticado — se ficar negativa, a rota não chega a tempo."
+      }
     }
   },
   "busca": {

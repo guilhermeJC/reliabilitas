@@ -44,9 +44,22 @@ export function PFCalc() {
         <div className="rounded-md bg-slate-50 px-4 py-2">
           {r ? (
             <>
-              <LinhaResultado label={t('recomendado')} valor={fmt(r.recomendado, 2)} destaque />
-              <LinhaResultado label={t('chances')} valor={String(r.chancesDeteccao)} />
-              <LinhaResultado label={t('margem')} valor={fmt(r.margem, 2)} />
+              <LinhaResultado
+                label={t('recomendado')}
+                valor={fmt(r.recomendado, 2)}
+                destaque
+                significa={t('sig.recomendado', { v: fmt(r.recomendado, 2) })}
+              />
+              <LinhaResultado
+                label={t('chances')}
+                valor={String(r.chancesDeteccao)}
+                significa={t('sig.chances', { v: String(r.chancesDeteccao) })}
+              />
+              <LinhaResultado
+                label={t('margem')}
+                valor={fmt(r.margem, 2)}
+                significa={t('sig.margem')}
+              />
             </>
           ) : (
             <p className="py-2 text-sm text-slate-500">{t('invalido')}</p>

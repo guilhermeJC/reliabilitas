@@ -168,9 +168,13 @@
   },
   "calc": {
     "titulo": "Reliability calculators",
+    "emDias": "≈ {n} days",
+    "emDiasAno": "≈ {n} days/yr",
     "guia": {
       "titulo": "Guide — How to use",
       "sub": "The theory behind the three tools, what each parameter actually is, where the numbers come from and how to read the results. Not everyone carries this by heart — that is what this guide is for.",
+      "abrir": "Open the full guide",
+      "voltar": "← Back to the calculators",
       "fluxoTitulo": "The flow in 30 seconds",
       "fluxoTexto": "The three calculators answer the method's three quantitative questions: Weibull reads HOW the failure behaves over time (Framework A); MTBF·MTTR·Availability measure the IMPACT of failure and repair; and the P-F interval sizes the INSPECTION when the strategy is on-condition (Framework B).",
       "ondeTitulo": "Where the numbers come from",
@@ -214,7 +218,14 @@
       "b10": "B10 life",
       "porHora": "failures/h",
       "invalido": "Invalid inputs: β and η must be positive.",
-      "rodape": "R(t) = exp(−(t/η)^β) · h(t) = (β/η)·(t/η)^(β−1). Validated against Smith (2004) and known properties (R(η)=e⁻¹). The note's editorial category prevails over this didactic reading."
+      "rodape": "R(t) = exp(−(t/η)^β) · h(t) = (β/η)·(t/η)^(β−1). Validated against Smith (2004) and known properties (R(η)=e⁻¹). The note's editorial category prevails over this didactic reading.",
+      "sig": {
+        "r": "There is a {p}% probability that the equipment is still running after {t} hours.",
+        "f": "By {t} hours, {p}% of this item's population will already have failed (F = 1 − R).",
+        "h": "For an item still running at {t} h, this is the risk of failing in the next hour.",
+        "mttf": "Mean life to failure: on average, an item of this set fails at {v} operating hours.",
+        "b10": "At {v} h, 10% of the population has failed — 90% still operates. The classic bearing criterion."
+      }
     },
     "categorias": {
       "infant": "Infant mortality (β<1)",
@@ -230,7 +241,12 @@
       "porHora": "failures/h",
       "horasAno": "h/yr",
       "invalido": "Invalid inputs: MTBF > 0 and MTTR ≥ 0.",
-      "rodape": "Ai = MTBF/(MTBF+MTTR) — inherent availability (Smith 2004, ch. 2). Reference year: 8760 h."
+      "rodape": "Ai = MTBF/(MTBF+MTTR) — inherent availability (Smith 2004, ch. 2). Reference year: 8760 h.",
+      "sig": {
+        "ai": "The asset is fit for duty {p}% of the time, considering only the technical repair time.",
+        "lambda": "Average failure frequency: {v} failure(s) per operating hour (λ = 1/MTBF).",
+        "indisp": "Expect ≈ {v} downtime hours per year with this MTBF/MTTR pair — the number management understands."
+      }
     },
     "pf": {
       "titulo": "P-F interval",
@@ -242,7 +258,12 @@
       "adequado": "Adequate",
       "inadequado": "Review interval",
       "invalido": "Invalid inputs: positive values.",
-      "rodape": "An on-condition task is only effective if inspection fits the P-F window — consecrated practice: inspection ≤ P-F/2 (Moubray, RCM II ch. 8)."
+      "rodape": "An on-condition task is only effective if inspection fits the P-F window — consecrated practice: inspection ≤ P-F/2 (Moubray, RCM II ch. 8).",
+      "sig": {
+        "recomendado": "Inspect at most every {v} (half the P-F) to guarantee at least 2 detection chances.",
+        "chances": "Your current route gives {v} opportunity(ies) to catch the symptom before functional failure.",
+        "margem": "Slack between the P-F window and the practiced interval — if it goes negative, the route cannot get there in time."
+      }
     }
   },
   "busca": {

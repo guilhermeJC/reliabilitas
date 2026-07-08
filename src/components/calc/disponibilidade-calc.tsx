@@ -9,6 +9,7 @@ import { CampoNumero, LinhaResultado, fmt } from '@/components/calc/campos';
 
 export function DisponibilidadeCalc() {
   const t = useTranslations('calc.disp');
+  const tCalc = useTranslations('calc');
   const [mtbf, setMtbf] = useState(1000);
   const [mttr, setMttr] = useState(10);
 
@@ -31,11 +32,20 @@ export function DisponibilidadeCalc() {
                 label={t('resultado')}
                 valor={`${(r.disponibilidade * 100).toFixed(4)}%`}
                 destaque
+                significa={t('sig.ai', { p: (r.disponibilidade * 100).toFixed(4) })}
               />
-              <LinhaResultado label="λ" valor={`${fmt(r.lambda)} ${t('porHora')}`} />
+              <LinhaResultado
+                label="λ"
+                valor={`${fmt(r.lambda)} ${t('porHora')}`}
+                significa={t('sig.lambda', { v: fmt(r.lambda) })}
+              />
               <LinhaResultado
                 label={t('indisponibilidade')}
                 valor={`${fmt(r.indisponibilidadeAnualHoras, 1)} ${t('horasAno')}`}
+                conversao={tCalc('emDiasAno', {
+                  n: fmt(r.indisponibilidadeAnualHoras / 24, 1),
+                })}
+                significa={t('sig.indisp', { v: fmt(r.indisponibilidadeAnualHoras, 1) })}
               />
             </>
           ) : (

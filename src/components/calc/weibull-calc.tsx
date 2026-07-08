@@ -27,6 +27,7 @@ const CORES_CATEGORIA: Record<string, string> = {
 export function WeibullCalc({ betaInicial = 2 }: { betaInicial?: number }) {
   const t = useTranslations('calc.weibull');
   const tCat = useTranslations('calc.categorias');
+  const tCalc = useTranslations('calc');
   const [beta, setBeta] = useState(() =>
     Number.isFinite(betaInicial) && betaInicial > 0 ? Math.min(betaInicial, 5) : 2,
   );
@@ -91,35 +92,53 @@ export function WeibullCalc({ betaInicial = 2 }: { betaInicial?: number }) {
 
         <div className="rounded-md bg-slate-50 px-4 py-2">
           {modelo ? (
-            <>
-              <LinhaResultado
-                label={`R(${fmt(tempo)}h)`}
-                valor={
-                  modelo.confiabilidade(tempo) === null
-                    ? '—'
-                    : `${(modelo.confiabilidade(tempo)! * 100).toFixed(2)}%`
-                }
-                destaque
-              />
-              <LinhaResultado
-                label={`F(${fmt(tempo)}h)`}
-                valor={
-                  modelo.falhaAcumulada(tempo) === null
-                    ? '—'
-                    : `${(modelo.falhaAcumulada(tempo)! * 100).toFixed(2)}%`
-                }
-              />
-              <LinhaResultado
-                label={`h(${fmt(tempo)}h)`}
-                valor={
-                  modelo.taxaFalha(tempo) === null
-                    ? '—'
-                    : `${fmt(modelo.taxaFalha(tempo)!)} ${t('porHora')}`
-                }
-              />
-              <LinhaResultado label={t('mttf')} valor={`${fmt(modelo.mttf)} h`} destaque />
-              <LinhaResultado label={t('b10')} valor={`${fmt(modelo.vidaB(10))} h`} />
-            </>
+            (() => {
+              const R = modelo.confiabilidade(tempo);
+              const F = modelo.falhaAcumulada(tempo);
+              const H = modelo.taxaFalha(tempo);
+              const b10 = modelo.vidaB(10);
+              return (
+                <>
+                  <LinhaResultado
+                    label={`R(${fmt(tempo)}h)`}
+                    valor={R === null ? '—' : `${(R * 100).toFixed(2)}%`}
+                    destaque
+                    significa={
+                      R === null
+                        ? undefined
+                        : t('sig.r', { p: (R * 100).toFixed(2), t: fmt(tempo) })
+                    }
+                  />
+                  <LinhaResultado
+                    label={`F(${fmt(tempo)}h)`}
+                    valor={F === null ? '—' : `${(F * 100).toFixed(2)}%`}
+                    significa={
+                      F === null
+                        ? undefined
+                        : t('sig.f', { p: (F * 100).toFixed(2), t: fmt(tempo) })
+                    }
+                  />
+                  <LinhaResultado
+                    label={`h(${fmt(tempo)}h)`}
+                    valor={H === null ? '—' : `${fmt(H)} ${t('porHora')}`}
+                    significa={H === null ? undefined : t('sig.h', { t: fmt(tempo) })}
+                  />
+                  <LinhaResultado
+                    label={t('mttf')}
+                    valor={`${fmt(modelo.mttf)} h`}
+                    conversao={tCalc('emDias', { n: fmt(modelo.mttf / 24, 1) })}
+                    destaque
+                    significa={t('sig.mttf', { v: fmt(modelo.mttf) })}
+                  />
+                  <LinhaResultado
+                    label={t('b10')}
+                    valor={`${fmt(b10)} h`}
+                    conversao={tCalc('emDias', { n: fmt(b10 / 24, 1) })}
+                    significa={t('sig.b10', { v: fmt(b10) })}
+                  />
+                </>
+              );
+            })()
           ) : (
             <p className="py-2 text-sm text-slate-500">{t('invalido')}</p>
           )}

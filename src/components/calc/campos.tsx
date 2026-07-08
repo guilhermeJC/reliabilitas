@@ -37,27 +37,42 @@ export function CampoNumero({
   );
 }
 
+// Revisão do fundador (08/07): resultado em horas ganha a conversão em DIAS ao
+// lado (horas segue sendo a unidade canônica) e uma linha "significa" que
+// traduz o número em linguagem de operação.
 export function LinhaResultado({
   label,
   valor,
   destaque = false,
+  conversao,
+  significa,
 }: {
   label: string;
   valor: string;
   destaque?: boolean;
+  conversao?: string;
+  significa?: string;
 }) {
   return (
-    <div className="flex items-baseline justify-between gap-3 py-1">
-      <span className="text-sm text-slate-600">{label}</span>
-      <span
-        className="font-mono text-sm"
-        style={{
-          color: destaque ? 'var(--navy-700)' : undefined,
-          fontWeight: destaque ? 500 : 400,
-        }}
-      >
-        {valor}
-      </span>
+    <div className="border-b border-slate-200/70 py-1.5 last:border-b-0">
+      <div className="flex items-baseline justify-between gap-3">
+        <span className="text-sm text-slate-600">{label}</span>
+        <span className="text-right">
+          <span
+            className="font-mono text-sm"
+            style={{
+              color: destaque ? 'var(--navy-700)' : undefined,
+              fontWeight: destaque ? 500 : 400,
+            }}
+          >
+            {valor}
+          </span>
+          {conversao && (
+            <span className="ml-1.5 font-mono text-xs text-slate-400">{conversao}</span>
+          )}
+        </span>
+      </div>
+      {significa && <p className="mt-0.5 text-xs leading-snug text-slate-500">{significa}</p>}
     </div>
   );
 }

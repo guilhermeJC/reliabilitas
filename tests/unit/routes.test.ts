@@ -35,6 +35,11 @@ describe('calculadorasPath — rota das calculadoras (F05)', () => {
     expect(calculadorasPath('pt')).toBe('/pt/calculadoras');
     expect(calculadorasPath('en')).toBe('/en/calculadoras');
   });
+
+  it('subpágina do guia How to use (revisão do fundador 08/07)', () => {
+    expect(calculadorasPath('pt', 'guia')).toBe('/pt/calculadoras/guia');
+    expect(calculadorasPath('en', 'guia')).toBe('/en/calculadoras/guia');
+  });
 });
 
 describe('metodoPath — método e frameworks clicáveis (revisão 4 do fundador)', () => {

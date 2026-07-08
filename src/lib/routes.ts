@@ -19,8 +19,11 @@ export function sugerirPath(locale: Locale, pagina?: string): string {
 }
 
 // F05: página das calculadoras (indexável — SEO/GEO; client-side puro).
-export function calculadorasPath(locale: Locale): string {
-  return `/${locale}/calculadoras`;
+// 'guia' = How to use em página própria (revisão do fundador 08/07 — não
+// alongar a página das ferramentas).
+export function calculadorasPath(locale: Locale, secao?: 'guia'): string {
+  const base = `/${locale}/calculadoras`;
+  return secao ? `${base}/${secao}` : base;
 }
 
 // Revisão 4 do fundador: o método vira destino navegável — página do pipeline
