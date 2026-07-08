@@ -23,6 +23,13 @@ export function calculadorasPath(locale: Locale): string {
   return `/${locale}/calculadoras`;
 }
 
+// Revisão 4 do fundador: o método vira destino navegável — página do pipeline
+// Fw A→B com o seletor de estratégia + uma página por framework.
+export function metodoPath(locale: Locale, secao?: 'framework-a' | 'framework-b'): string {
+  const base = `/${locale}/metodo`;
+  return secao ? `${base}/${secao}` : base;
+}
+
 // T05: página 1 fica fora da URL (canônica); termo sempre codificado.
 export function buscaPath(locale: Locale, q?: string, pagina = 1): string {
   const base = `/${locale}/busca`;

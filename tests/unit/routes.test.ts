@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { apoioPath, buscaPath, calculadorasPath, notaPath, sugerirPath } from '@/lib/routes';
+import {
+  apoioPath,
+  buscaPath,
+  calculadorasPath,
+  metodoPath,
+  notaPath,
+  sugerirPath,
+} from '@/lib/routes';
 
 // F11: a rota de nota nasce em UM lugar — render, páginas e componentes consomem daqui.
 describe('notaPath — fonte única da rota de nota (F11)', () => {
@@ -27,6 +34,18 @@ describe('calculadorasPath — rota das calculadoras (F05)', () => {
   it('monta a rota por locale', () => {
     expect(calculadorasPath('pt')).toBe('/pt/calculadoras');
     expect(calculadorasPath('en')).toBe('/en/calculadoras');
+  });
+});
+
+describe('metodoPath — método e frameworks clicáveis (revisão 4 do fundador)', () => {
+  it('monta a rota do método por locale', () => {
+    expect(metodoPath('pt')).toBe('/pt/metodo');
+    expect(metodoPath('en')).toBe('/en/metodo');
+  });
+
+  it('subpáginas dos frameworks', () => {
+    expect(metodoPath('pt', 'framework-a')).toBe('/pt/metodo/framework-a');
+    expect(metodoPath('en', 'framework-b')).toBe('/en/metodo/framework-b');
   });
 });
 
