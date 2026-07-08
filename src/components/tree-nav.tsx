@@ -110,8 +110,11 @@ export async function TreeNav({ locale }: { locale: Locale }) {
   const totalEquip = equipamentos.reduce((s, n) => s + 1 + n.descendentes, 0);
 
   return (
+    // Travada no scroll (revisão do fundador 08/07): sticky logo abaixo do header
+    // (h-14), altura exata da viewport restante e scroll INTERNO próprio — a
+    // navegação nunca some quando o conteúdo da página rola.
     <aside
-      className="w-full shrink-0 md:min-h-[calc(100vh-3.5rem)] md:w-[280px]"
+      className="w-full shrink-0 md:sticky md:top-14 md:h-[calc(100vh-3.5rem)] md:w-[280px] md:self-start md:overflow-y-auto"
       style={{ background: 'var(--navy-900)' }}
     >
       <nav aria-label={t('title')} className="px-2 py-3">
