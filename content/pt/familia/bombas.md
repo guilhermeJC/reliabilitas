@@ -36,7 +36,7 @@ Ponto de norma importante: pela classificação do **Hydraulic Institute**, os t
 A família divide-se em princípios fundamentais — a escolha entre eles define a física, a curva característica e os modos de falha dominantes:
 
 - [[dinamicas|Dinâmicas (rotodinâmicas)]] — a energia é transferida continuamente por um impelidor rotativo (equação de Euler); ex.: centrífugas, axiais. Vazão varia com a pressão do sistema.
-- **Deslocamento positivo** — volumes discretos são capturados e deslocados (engrenagens, pistão, parafuso). Vazão quase independente da pressão; exige válvula de alívio. *(nota-semente na Fase 1)*
-- **Efeito especial** — sem partes móveis, acionadas por fluido ou gás motriz (ejetor, air lift, aríete). Robustas e baratas, com rendimento baixo. *(escopo da Fase 1)*
+- [[deslocamento-positivo|Deslocamento positivo]] — volumes discretos são capturados e deslocados (engrenagens, pistão, parafuso). Vazão quase independente da pressão; exige válvula de alívio.
+- [[efeito-especial|Efeito especial]] — sem partes móveis, acionadas por fluido ou gás motriz (ejetor, air lift, aríete). Robustas e baratas, com rendimento baixo.
 
 Mais de 80% dos ativos rotativos de uma planta de processo típica são bombas — dominadas pela [[bomba-centrifuga|bomba centrífuga]].

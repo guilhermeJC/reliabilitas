@@ -36,7 +36,7 @@ An important standards point: under the **Hydraulic Institute** classification, 
 The family splits into fundamental principles — the choice between them defines the physics, the characteristic curve and the dominant failure modes:
 
 - [[dinamicas|Dynamic (rotodynamic)]] — energy is transferred continuously by a rotating impeller (Euler's equation); e.g. centrifugal, axial. Flow varies with system pressure.
-- **Positive displacement** — discrete volumes are captured and displaced (gear, piston, screw). Flow nearly independent of pressure; requires a relief valve. *(seed note in Phase 1)*
-- **Special effect** — no moving parts, driven by a motive fluid or gas (ejector, air lift, hydraulic ram). Robust and cheap, with low efficiency. *(Phase 1 scope)*
+- [[deslocamento-positivo|Positive displacement]] — discrete volumes are captured and displaced (gear, piston, screw). Flow nearly independent of pressure; requires a relief valve.
+- [[efeito-especial|Special effect]] — no moving parts, driven by a motive fluid or gas (ejector, air lift, hydraulic ram). Robust and cheap, with low efficiency.
 
 More than 80% of the rotating assets in a typical process plant are pumps — dominated by the [[bomba-centrifuga|centrifugal pump]].
