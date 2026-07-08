@@ -35,7 +35,10 @@
   },
   "tree": {
     "title": "Taxonomia",
-    "notas": "{count, plural, one {# nota} other {# notas}}"
+    "notas": "{count, plural, one {# nota} other {# notas}}",
+    "equipamentos": "Equipamentos",
+    "componentes": "Componentes",
+    "falhas": "Falhas"
   },
   "home": {
     "titulo": "RELIABILITAS",

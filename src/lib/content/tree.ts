@@ -14,6 +14,45 @@ export interface TreeNode extends NotaResumo {
   descendentes: number;
 }
 
+// A barra lateral é dividida em 3 grupos (revisão do fundador 06/07): a árvore
+// de EQUIPAMENTOS (a taxonomia classe→família→princípio→tipo), a lista de
+// COMPONENTES transversais (D10) e a lista de FALHAS (modos de falha, tirados de
+// baixo do equipamento e reunidos num grupo próprio, com o pai como contexto).
+const TIPOS_EQUIPAMENTO = new Set(['classe', 'familia', 'principio', 'tipo', 'marca_modelo']);
+
+export interface FalhaItem {
+  slug: string;
+  titulo: string;
+  equipamento: string | null; // título do equipamento-pai imediato (contexto)
+}
+
+export interface SidebarGroups {
+  equipamentos: TreeNode[];
+  componentes: NotaResumo[];
+  falhas: FalhaItem[];
+}
+
+export function buildGroups(notas: NotaResumo[]): SidebarGroups {
+  const titulos = new Map(notas.map((n) => [n.slug, n.titulo]));
+  const porTitulo = (a: { titulo: string }, b: { titulo: string }) =>
+    a.titulo.localeCompare(b.titulo);
+
+  const equipamentos = buildTree(notas.filter((n) => TIPOS_EQUIPAMENTO.has(n.tipo_nota)));
+
+  const componentes = notas.filter((n) => n.tipo_nota === 'componente').sort(porTitulo);
+
+  const falhas: FalhaItem[] = notas
+    .filter((n) => n.tipo_nota === 'modo_falha')
+    .sort(porTitulo)
+    .map((n) => ({
+      slug: n.slug,
+      titulo: n.titulo,
+      equipamento: titulos.get(n.taxonomia.at(-1) ?? '') ?? null,
+    }));
+
+  return { equipamentos, componentes, falhas };
+}
+
 export function buildTree(notas: NotaResumo[]): TreeNode[] {
   const nos = new Map<string, TreeNode>();
   for (const n of notas) {

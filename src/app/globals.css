@@ -75,6 +75,23 @@ body {
   text-align: left;
 }
 
+/* Barra lateral em <details> nativo (sem JS): remove o marcador padrão e gira o
+   chevron ao abrir. Colapsável e acessível por construção. */
+.tree-group > summary,
+.tree-branch > summary {
+  list-style: none;
+}
+.tree-group > summary::-webkit-details-marker,
+.tree-branch > summary::-webkit-details-marker {
+  display: none;
+}
+.tree-chevron {
+  transition: transform 0.15s ease;
+}
+details[open] > summary .tree-chevron {
+  transform: rotate(90deg);
+}
+
 /* Acessibilidade: foco visível em todo o shell (DESIGN §4.6) */
 a:focus-visible,
 button:focus-visible,

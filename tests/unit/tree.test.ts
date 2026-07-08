@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildTree } from '@/lib/content/tree';
+import { buildTree, buildGroups } from '@/lib/content/tree';
 import type { NotaResumo } from '@/lib/content/tree';
 
 // Árvore taxonômica lateral (T04 parcial/D16): derivada das notas publicadas,
@@ -75,3 +75,71 @@ describe('buildTree — árvore taxonômica derivada do acervo publicado', () =>
     expect(raizes[0].titulo).toBe('Transferência de Fluidos — Líquidos');
   });
 });
+
+describe('buildGroups — barra lateral em 3 grupos (revisão do fundador)', () => {
+  const notas: NotaResumo[] = [
+    { slug: 'transferencia', tipo_nota: 'classe', titulo: 'Transferência', taxonomia: [] },
+    { slug: 'bombas', tipo_nota: 'familia', titulo: 'Bombas', taxonomia: ['transferencia'] },
+    {
+      slug: 'dinamicas',
+      tipo_nota: 'principio',
+      titulo: 'Dinâmicas',
+      taxonomia: ['transferencia', 'bombas'],
+    },
+    {
+      slug: 'bomba-centrifuga',
+      tipo_nota: 'tipo',
+      titulo: 'Bomba Centrífuga',
+      taxonomia: ['transferencia', 'bombas', 'dinamicas'],
+    },
+    {
+      slug: 'cavitacao',
+      tipo_nota: 'modo_falha',
+      titulo: 'Cavitação',
+      taxonomia: ['transferencia', 'bombas', 'dinamicas', 'bomba-centrifuga'],
+    },
+    { slug: 'selo-mecanico', tipo_nota: 'componente', titulo: 'Selo Mecânico', taxonomia: [] },
+    { slug: 'rolamento', tipo_nota: 'componente', titulo: 'Rolamento', taxonomia: [] },
+  ];
+
+  it('Equipamentos = árvore só de classe/família/princípio/tipo (sem falhas nem componentes)', () => {
+    const { equipamentos } = buildGroups(notas);
+    expect(equipamentos).toHaveLength(1); // raiz Transferência
+    expect(equipamentos[0].slug).toBe('transferencia');
+    const todos = flatten(equipamentos).map((n) => n.slug);
+    expect(todos).toContain('bomba-centrifuga');
+    expect(todos).not.toContain('cavitacao'); // falha vai para o grupo Falhas
+    expect(todos).not.toContain('rolamento'); // componente vai para o grupo Componentes
+  });
+
+  it('o Tipo vira folha no grupo Equipamentos (o modo de falha não pendura mais nele)', () => {
+    const { equipamentos } = buildGroups(notas);
+    const bc = flatten(equipamentos).find((n) => n.slug === 'bomba-centrifuga')!;
+    expect(bc.children).toHaveLength(0);
+  });
+
+  it('Componentes = lista de notas componente, ordenada por título', () => {
+    const { componentes } = buildGroups(notas);
+    expect(componentes.map((c) => c.slug)).toEqual(['rolamento', 'selo-mecanico']);
+  });
+
+  it('Falhas = modos de falha com o equipamento-pai resolvido para contexto', () => {
+    const { falhas } = buildGroups(notas);
+    expect(falhas).toEqual([
+      { slug: 'cavitacao', titulo: 'Cavitação', equipamento: 'Bomba Centrífuga' },
+    ]);
+  });
+
+  it('falha sem pai conhecido não quebra (equipamento null)', () => {
+    const so: NotaResumo[] = [
+      { slug: 'x', tipo_nota: 'modo_falha', titulo: 'X', taxonomia: ['inexistente'] },
+    ];
+    expect(buildGroups(so).falhas[0].equipamento).toBeNull();
+  });
+});
+
+function flatten(
+  nos: import('@/lib/content/tree').TreeNode[],
+): import('@/lib/content/tree').TreeNode[] {
+  return nos.flatMap((n) => [n, ...flatten(n.children)]);
+}
