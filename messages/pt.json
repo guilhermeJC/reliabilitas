@@ -26,12 +26,15 @@
   },
   "apoio": {
     "titulo": "Apoie o RELIABILITAS",
-    "missao": "O RELIABILITAS existe para dar a profissionais de manutenção e confiabilidade — do técnico ao engenheiro — acesso gratuito, em PT e EN, ao conhecimento rigoroso que normalmente fica trancado em normas pagas e treinamentos caros.",
-    "promessa": "Para pessoas, é free para sempre: sem paywall, sem cadastro, sem cookies. Doações são o que mantém a infraestrutura no ar.",
+    "missao": "O RELIABILITAS existe para dar a profissionais de engenharia, confiabilidade e manutenção — do estagiário ao engenheiro — acesso gratuito, em PT e EN, ao conhecimento técnico que normalmente fica trancado em normas pagas e treinamentos caros.",
+    "promessa": "Para pessoa física, é SEMPRE free: sem paywall, sem cadastro obrigatório.",
+    "promessaDoacoes": "Doações são o que mantém a infraestrutura no ar.",
     "canaisTitulo": "Canais de doação",
     "canaisEmBreve": "Os canais de doação (Pix, PayPal e Ko-fi) serão publicados aqui em breve.",
     "destinoTitulo": "Para onde vai a doação",
-    "destinoTexto": "Infraestrutura de hospedagem, banco de dados e domínio (~R$ 130/mês). Excedentes financiam a expansão do acervo: novos equipamentos, modos de falha e traduções. Sem anúncios, sem venda de dados — nunca."
+    "destinoItem1": "Infraestrutura de hospedagem, banco de dados, domínio, etc.",
+    "destinoItem2": "Apoio ao idealizador :)",
+    "destinoExpansao": "A ideia é que a expansão do acervo seja principalmente impulsionada pelos próprios usuários: novos equipamentos, modos de falha, etc."
   },
   "tree": {
     "title": "Taxonomia",

@@ -26,12 +26,15 @@
   },
   "apoio": {
     "titulo": "Support RELIABILITAS",
-    "missao": "RELIABILITAS exists to give maintenance and reliability professionals — from technician to engineer — free access, in PT and EN, to the rigorous knowledge usually locked behind paid standards and expensive training.",
-    "promessa": "For individuals it is free forever: no paywall, no sign-up, no cookies. Donations are what keep the infrastructure running.",
+    "missao": "RELIABILITAS exists to give engineering, reliability and maintenance professionals — from intern to engineer — free access, in PT and EN, to the technical knowledge usually locked behind paid standards and expensive training.",
+    "promessa": "For individuals, it is ALWAYS free: no paywall, no mandatory sign-up.",
+    "promessaDoacoes": "Donations are what keep the infrastructure running.",
     "canaisTitulo": "Donation channels",
     "canaisEmBreve": "Donation channels (Pix, PayPal and Ko-fi) will be published here soon.",
     "destinoTitulo": "Where your donation goes",
-    "destinoTexto": "Hosting, database and domain infrastructure (~R$ 130/month). Any surplus funds collection growth: new assets, failure modes and translations. No ads, no data selling — ever."
+    "destinoItem1": "Hosting infrastructure, database, domain, etc.",
+    "destinoItem2": "Support for the creator :)",
+    "destinoExpansao": "The idea is that collection growth is driven mainly by the users themselves: new equipment, failure modes, and more."
   },
   "tree": {
     "title": "Taxonomy",

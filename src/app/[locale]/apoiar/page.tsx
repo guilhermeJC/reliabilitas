@@ -34,6 +34,7 @@ export default async function ApoiarPage({ params }: { params: Promise<{ locale:
         </h1>
         <p className="mt-4 text-[15px] leading-relaxed text-slate-700">{t('missao')}</p>
         <p className="mt-3 text-[15px] leading-relaxed text-slate-700">{t('promessa')}</p>
+        <p className="mt-3 text-[15px] leading-relaxed text-slate-700">{t('promessaDoacoes')}</p>
 
         <div className="mt-8 rounded-lg border bg-white p-6" style={{ borderColor: '#e3e8f0' }}>
           <h2 className="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500">
@@ -63,7 +64,11 @@ export default async function ApoiarPage({ params }: { params: Promise<{ locale:
           <h2 className="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500">
             {t('destinoTitulo')}
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-slate-600">{t('destinoTexto')}</p>
+          <ul className="mt-3 list-disc space-y-1 pl-5 text-sm leading-relaxed text-slate-600">
+            <li>{t('destinoItem1')}</li>
+            <li>{t('destinoItem2')}</li>
+          </ul>
+          <p className="mt-3 text-sm leading-relaxed text-slate-600">{t('destinoExpansao')}</p>
         </div>
       </div>
     </div>
