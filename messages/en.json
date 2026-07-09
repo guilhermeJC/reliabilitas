@@ -191,10 +191,12 @@
       "onde2": "Collection notes: every failure mode cites the typical β and P-F from the literature.",
       "onde3": "Industry databases (e.g. OREDA for oil & gas) when there is no own history.",
       "ondeAviso": "Mistake #1: mixing different failure modes in the same sample. Each analysis uses the data of ONE failure mode.",
+      "labelOQueE": "What it is",
       "labelTeoria": "The theory",
       "labelParametros": "What each parameter is",
       "labelEstimar": "How to estimate / measure it",
       "labelUsar": "How to use",
+      "expandirDica": "Click each tool to open its explanation.",
       "weibull": {
         "titulo": "2-parameter Weibull",
         "pergunta": "How does the failure behave over time?",

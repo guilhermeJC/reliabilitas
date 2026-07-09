@@ -192,10 +192,12 @@
       "onde2": "Notas do acervo: cada modo de falha cita o β e o P-F típicos da literatura.",
       "onde3": "Bancos setoriais (ex.: OREDA para óleo e gás), quando não há histórico próprio.",
       "ondeAviso": "O erro nº 1: misturar modos de falha diferentes na mesma amostra. Cada análise usa os dados de UM modo de falha.",
+      "labelOQueE": "O que é",
       "labelTeoria": "A teoria",
       "labelParametros": "O que é cada parâmetro",
       "labelEstimar": "Como estimar / medir",
       "labelUsar": "Como usar",
+      "expandirDica": "Clique em cada ferramenta para abrir a explicação.",
       "weibull": {
         "titulo": "Weibull 2 parâmetros",
         "pergunta": "Como a falha se comporta no tempo?",

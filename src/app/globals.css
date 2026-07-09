@@ -92,6 +92,16 @@ details[open] > summary .tree-chevron {
   transform: rotate(90deg);
 }
 
+/* Acordeão do guia das calculadoras (revisão do fundador 09/07): <details>
+   nativo — janelas que abrem ao clicar, sem JS, conteúdo íntegro no SSR
+   (BR-010). Mesmo mecanismo do chevron da barra lateral. */
+.acc > summary {
+  list-style: none;
+}
+.acc > summary::-webkit-details-marker {
+  display: none;
+}
+
 /* Acessibilidade: foco visível em todo o shell (DESIGN §4.6) */
 a:focus-visible,
 button:focus-visible,
