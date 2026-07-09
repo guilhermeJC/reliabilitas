@@ -29,9 +29,16 @@ async function main() {
   const client = new Client({ connectionString: url, ssl: ca ? { ca } : true });
   await client.connect();
   try {
+    // D11/BR-004: qualquer tabela criada em public.* nasce SEM RLS por default.
+    // A schema_migrations foi flaggada pelo Supabase Advisor em 06/07/2026
+    // ('rls_disabled_in_public') justamente por esta razão. Blindada aqui: as
+    // 4 instruções são idempotentes (create-if-not-exists, enable RLS não erra
+    // se já ligada, revoke idem) — novos ambientes já nascem fechados.
     await client.query(
       'create table if not exists public.schema_migrations (name text primary key, applied_at timestamptz not null default now())',
     );
+    await client.query('alter table public.schema_migrations enable row level security');
+    await client.query('revoke all on table public.schema_migrations from anon, authenticated');
     const done = new Set(
       (await client.query('select name from public.schema_migrations')).rows.map(
         (r: { name: string }) => r.name,
