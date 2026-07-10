@@ -2,7 +2,8 @@
   "header": {
     "tagline": "Conhecimento de confiabilidade industrial, aberto a todos",
     "switchTo": "Ler em inglês",
-    "apoiar": "Apoiar"
+    "apoiar": "Apoiar",
+    "sidebarToggle": "Recolher/expandir a árvore"
   },
   "erro404": {
     "titulo": "Página não encontrada",
@@ -41,7 +42,9 @@
     "notas": "{count, plural, one {# nota} other {# notas}}",
     "equipamentos": "Equipamentos",
     "componentes": "Componentes",
-    "falhas": "Falhas"
+    "falhas": "Falhas",
+    "collapse": "Recolher árvore",
+    "expand": "Expandir árvore"
   },
   "home": {
     "titulo": "RELIABILITAS",
@@ -53,6 +56,9 @@
     "handbooks": "{count, plural, one {# handbook} other {# handbooks}}",
     "emBreve": "em breve",
     "demaisTitulo": "Estrutura pronta para os próximos handbooks:",
+    "handbooksPublicadosTitulo": "Handbooks publicados",
+    "handbooksPublicadosIntro": "O conteúdo já publicado, agrupado pela classe funcional. A árvore lateral cobre a taxonomia completa — aqui, só o entregue.",
+    "componentesGrupo": "Componentes transversais",
     "metodoTitulo": "O método",
     "metodoIntro": "Todo modo de falha do acervo atravessa dois frameworks, nesta ordem — clique para entender cada um:",
     "metodoATitulo": "Framework A — Diagnóstico",

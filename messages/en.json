@@ -2,7 +2,8 @@
   "header": {
     "tagline": "Industrial reliability knowledge, open to everyone",
     "switchTo": "Ler em português",
-    "apoiar": "Support"
+    "apoiar": "Support",
+    "sidebarToggle": "Collapse/expand the tree"
   },
   "erro404": {
     "titulo": "Page not found",
@@ -41,7 +42,9 @@
     "notas": "{count, plural, one {# note} other {# notes}}",
     "equipamentos": "Equipment",
     "componentes": "Components",
-    "falhas": "Failures"
+    "falhas": "Failures",
+    "collapse": "Collapse tree",
+    "expand": "Expand tree"
   },
   "home": {
     "titulo": "RELIABILITAS",
@@ -53,6 +56,9 @@
     "handbooks": "{count, plural, one {# handbook} other {# handbooks}}",
     "emBreve": "coming soon",
     "demaisTitulo": "Structure ready for the next handbooks:",
+    "handbooksPublicadosTitulo": "Published handbooks",
+    "handbooksPublicadosIntro": "What is already published, grouped by functional class. The side tree covers the full taxonomy — here, only the delivered.",
+    "componentesGrupo": "Cross-cutting components",
     "metodoTitulo": "The method",
     "metodoIntro": "Every failure mode in the collection goes through two frameworks, in this order — click to understand each one:",
     "metodoATitulo": "Framework A — Diagnosis",

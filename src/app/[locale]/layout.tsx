@@ -4,7 +4,9 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { IBM_Plex_Sans, JetBrains_Mono } from 'next/font/google';
 import { routing } from '@/i18n/routing';
+import { getTranslations } from 'next-intl/server';
 import { SiteHeader } from '@/components/site-header';
+import { SidebarShell } from '@/components/sidebar-shell';
 import { TreeNav } from '@/components/tree-nav';
 import type { Locale } from '@/lib/content/schema';
 import '../globals.css';
@@ -46,16 +48,26 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
+  const tTree = await getTranslations('tree');
 
   return (
     <html lang={locale} className={`${plexSans.variable} ${jetBrainsMono.variable}`}>
       <body>
         <NextIntlClientProvider>
           <SiteHeader locale={locale as Locale} />
-          <div className="mx-auto flex w-full max-w-7xl">
-            <TreeNav locale={locale as Locale} />
-            <main className="min-w-0 flex-1">{children}</main>
-          </div>
+          {/* Rodada 6 (09/07): shell client controla o toggle da arvore
+              (localStorage + evento do hamburger). SSR sempre renderiza
+              aberta — BR-010 intacto. */}
+          <SidebarShell
+            sidebar={<TreeNav locale={locale as Locale} />}
+            labels={{
+              nav: tTree('title'),
+              collapse: tTree('collapse'),
+              expand: tTree('expand'),
+            }}
+          >
+            {children}
+          </SidebarShell>
         </NextIntlClientProvider>
       </body>
     </html>

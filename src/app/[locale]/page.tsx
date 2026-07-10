@@ -3,15 +3,15 @@ import { hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { listPublicadas } from '@/lib/db/notas';
-import { clusterAcervo } from '@/lib/content/ativos';
+import { handbooksPublicados } from '@/lib/content/ativos';
 import { DOACAO_LINKS } from '@/lib/apoio';
 import { buscaPath, calculadorasPath, metodoPath, notaPath } from '@/lib/routes';
 import type { Locale } from '@/lib/content/schema';
 
-// T01 v2 (revisão 4 do fundador): hero navy com busca central; acervo
-// CLUSTERIZADO pelos grupos funcionais da taxonomia (escala para 100+ ativos);
-// método com os dois frameworks CLICÁVEIS + CTA do seletor de estratégia.
-// Render dinâmico herdado do layout [locale] (build hermético; ISR no Dia 5/G6).
+// T01 v3 (revisão 6 do fundador — 09/07): a Home passa a começar pelo MÉTODO
+// (o "por quê" do projeto). Os handbooks vão para o FINAL — só os publicados,
+// agrupados por classe funcional, sem "em breve" e sem "estrutura pronta". A
+// árvore lateral já expõe toda a taxonomia; a Home foca em conteúdo entregue.
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -21,7 +21,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const tBusca = await getTranslations('busca');
 
   const acervo = await listPublicadas(locale as Locale);
-  const { clusters, demaisClasses } = clusterAcervo(acervo, locale as Locale);
+  const grupos = handbooksPublicados(acervo, locale as Locale);
 
   return (
     <div>
@@ -56,91 +56,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
       <div className="px-4 py-10 md:px-8">
         <div className="mx-auto max-w-4xl">
-          {/* Acervo clusterizado por grupo funcional (revisão 4 — item 1) */}
-          <h2
-            className="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500"
-            id="ativos"
-          >
-            {t('ativosTitulo')}
-          </h2>
-          <p className="mt-2 text-sm text-slate-600">{t('ativosIntro')}</p>
-          <div className="mt-4 grid gap-3 md:grid-cols-2">
-            {clusters.map((cluster) => {
-              const publicados = cluster.itens.filter((i) => i.slug).length;
-              const titulo = cluster.titulo ?? t('componentesCluster');
-              return (
-                <section
-                  key={cluster.slug}
-                  className="rounded-lg border border-l-4 bg-white p-4"
-                  style={{ borderColor: '#d3dae6', borderLeftColor: 'var(--navy-700)' }}
-                >
-                  <header className="flex items-baseline justify-between gap-2">
-                    {cluster.titulo ? (
-                      <a
-                        href={notaPath(locale as Locale, cluster.slug)}
-                        className="text-sm font-medium hover:underline"
-                        style={{ color: 'var(--navy-700)' }}
-                      >
-                        {titulo}
-                      </a>
-                    ) : (
-                      <span className="text-sm font-medium" style={{ color: 'var(--navy-700)' }}>
-                        {titulo}
-                      </span>
-                    )}
-                    <span className="shrink-0 font-mono text-[11px] text-slate-400">
-                      {t('handbooks', { count: publicados })}
-                    </span>
-                  </header>
-                  <ul className="mt-3 flex flex-wrap gap-2">
-                    {cluster.itens.map((item) =>
-                      item.slug ? (
-                        <li key={item.titulo}>
-                          <a
-                            href={notaPath(locale as Locale, item.slug)}
-                            className="block rounded-md border px-3 py-1.5 text-sm font-medium transition-colors hover:border-slate-400"
-                            style={{ borderColor: '#d3dae6', color: 'var(--navy-700)' }}
-                          >
-                            {item.titulo}
-                          </a>
-                        </li>
-                      ) : (
-                        <li key={item.titulo}>
-                          <span
-                            className="block rounded-md border border-dashed px-3 py-1.5 text-sm text-slate-400"
-                            style={{ borderColor: '#d3dae6' }}
-                          >
-                            {item.titulo}
-                            <span className="ml-1.5 text-[10px] uppercase tracking-wide">
-                              {t('emBreve')}
-                            </span>
-                          </span>
-                        </li>
-                      ),
-                    )}
-                  </ul>
-                </section>
-              );
-            })}
-          </div>
-          {demaisClasses.length > 0 && (
-            <p className="mt-4 flex flex-wrap items-baseline gap-x-2 gap-y-1.5 text-sm text-slate-500">
-              <span>{t('demaisTitulo')}</span>
-              {demaisClasses.map((c) => (
-                <a
-                  key={c.slug}
-                  href={notaPath(locale as Locale, c.slug)}
-                  className="rounded-md border px-2.5 py-0.5 text-[13px] transition-colors hover:border-slate-400"
-                  style={{ borderColor: '#d3dae6', color: 'var(--navy-700)' }}
-                >
-                  {c.titulo}
-                </a>
-              ))}
-            </p>
-          )}
-
           {/* O método — Fw A → Fw B clicáveis (semântica fixa: roxo → verde) */}
-          <h2 className="mt-12 text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500">
+          <h2 className="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500">
             {t('metodoTitulo')}
           </h2>
           <p className="mt-2 text-sm text-slate-600">{t('metodoIntro')}</p>
@@ -209,7 +126,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           {/* Apoio (F07 parcial) — só renderiza quando o fundador configurar os links */}
           {DOACAO_LINKS.length > 0 && (
             <div
-              className="mt-12 rounded-lg border bg-white p-5 text-sm"
+              className="mt-10 rounded-lg border bg-white p-5 text-sm"
               style={{ borderColor: '#e3e8f0' }}
             >
               <h2 className="font-medium" style={{ color: 'var(--navy-700)' }}>
@@ -230,6 +147,57 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 ))}
               </p>
             </div>
+          )}
+
+          {/* Handbooks publicados — no FIM da Home (rodada 6), agrupados por
+              classe. Só o entregue, sem "em breve" e sem promessas. */}
+          {grupos.length > 0 && (
+            <section className="mt-12 border-t pt-8" style={{ borderColor: '#e3e8f0' }}>
+              <h2
+                className="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500"
+                id="handbooks-publicados"
+              >
+                {t('handbooksPublicadosTitulo')}
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
+                {t('handbooksPublicadosIntro')}
+              </p>
+              <div className="mt-4 space-y-4">
+                {grupos.map((g) => (
+                  <div key={g.classe}>
+                    {g.classeTitulo ? (
+                      <a
+                        href={notaPath(locale as Locale, g.classe)}
+                        className="text-[13px] font-medium hover:underline"
+                        style={{ color: 'var(--navy-700)' }}
+                      >
+                        {g.classeTitulo}
+                      </a>
+                    ) : (
+                      <span
+                        className="text-[13px] font-medium"
+                        style={{ color: 'var(--navy-700)' }}
+                      >
+                        {t('componentesGrupo')}
+                      </span>
+                    )}
+                    <ul className="mt-1.5 flex flex-wrap gap-2">
+                      {g.itens.map((it) => (
+                        <li key={it.slug}>
+                          <a
+                            href={notaPath(locale as Locale, it.slug)}
+                            className="inline-block rounded-md border px-3 py-1 text-sm transition-colors hover:border-slate-400"
+                            style={{ borderColor: '#d3dae6', color: 'var(--navy-700)' }}
+                          >
+                            {it.titulo}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </section>
           )}
         </div>
       </div>
