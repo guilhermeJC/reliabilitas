@@ -106,7 +106,9 @@ function Grupo({
 
 export async function TreeNav({ locale }: { locale: Locale }) {
   const t = await getTranslations('tree');
-  const { equipamentos, componentes, falhas } = buildGroups(await listPublicadas(locale));
+  const { equipamentos, componentes, falhas, estrategias } = buildGroups(
+    await listPublicadas(locale),
+  );
   const totalEquip = equipamentos.reduce((s, n) => s + 1 + n.descendentes, 0);
 
   return (
@@ -155,6 +157,26 @@ export async function TreeNav({ locale }: { locale: Locale }) {
             ))}
           </ul>
         </Grupo>
+
+        {/* 4º grupo (sessão 5): estratégias de manutenção — nível 8 da taxonomia,
+            transversal como Componentes; só renderiza quando existirem notas. */}
+        {estrategias.length > 0 && (
+          <Grupo titulo={t('estrategias')} count={estrategias.length}>
+            <ul>
+              {estrategias.map((e: NotaResumo) => (
+                <li key={e.slug}>
+                  <a
+                    href={notaPath(locale, e.slug)}
+                    className={linkCls}
+                    style={{ paddingLeft: '24px' }}
+                  >
+                    <span>{e.titulo}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </Grupo>
+        )}
       </nav>
     </div>
   );

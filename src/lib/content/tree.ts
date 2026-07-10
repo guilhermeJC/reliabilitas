@@ -30,6 +30,7 @@ export interface SidebarGroups {
   equipamentos: TreeNode[];
   componentes: NotaResumo[];
   falhas: FalhaItem[];
+  estrategias: NotaResumo[];
 }
 
 export function buildGroups(notas: NotaResumo[]): SidebarGroups {
@@ -50,7 +51,11 @@ export function buildGroups(notas: NotaResumo[]): SidebarGroups {
       equipamento: titulos.get(n.taxonomia.at(-1) ?? '') ?? null,
     }));
 
-  return { equipamentos, componentes, falhas };
+  // 4º grupo (sessão 5): estratégias de manutenção (nível 8 da taxonomia) são
+  // transversais como os componentes — lista plana, ordenada por título.
+  const estrategias = notas.filter((n) => n.tipo_nota === 'estrategia').sort(porTitulo);
+
+  return { equipamentos, componentes, falhas, estrategias };
 }
 
 export function buildTree(notas: NotaResumo[]): TreeNode[] {

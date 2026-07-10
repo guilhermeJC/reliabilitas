@@ -138,6 +138,43 @@ describe('buildGroups — barra lateral em 3 grupos (revisão do fundador)', () 
   });
 });
 
+describe('buildGroups — grupo Estratégias (nível 8 da taxonomia, sessão 5)', () => {
+  const comEstrategias: NotaResumo[] = [
+    { slug: 'transferencia', tipo_nota: 'classe', titulo: 'Transferência', taxonomia: [] },
+    {
+      slug: 'cavitacao',
+      tipo_nota: 'modo_falha',
+      titulo: 'Cavitação',
+      taxonomia: ['transferencia'],
+    },
+    { slug: 'rolamento', tipo_nota: 'componente', titulo: 'Rolamento', taxonomia: [] },
+    {
+      slug: 'tbm',
+      tipo_nota: 'estrategia',
+      titulo: 'TBM — Manutenção Baseada no Tempo',
+      taxonomia: [],
+    },
+    {
+      slug: 'cbm',
+      tipo_nota: 'estrategia',
+      titulo: 'CBM — Manutenção Baseada em Condição',
+      taxonomia: [],
+    },
+  ];
+
+  it('Estratégias = lista de notas estrategia, ordenada por título', () => {
+    const { estrategias } = buildGroups(comEstrategias);
+    expect(estrategias.map((e) => e.slug)).toEqual(['cbm', 'tbm']);
+  });
+
+  it('estratégias não vazam para os outros grupos', () => {
+    const { equipamentos, componentes, falhas } = buildGroups(comEstrategias);
+    expect(flatten(equipamentos).map((n) => n.slug)).not.toContain('cbm');
+    expect(componentes.map((c) => c.slug)).not.toContain('cbm');
+    expect(falhas.map((f) => f.slug)).not.toContain('cbm');
+  });
+});
+
 function flatten(
   nos: import('@/lib/content/tree').TreeNode[],
 ): import('@/lib/content/tree').TreeNode[] {
