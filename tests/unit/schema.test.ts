@@ -252,3 +252,37 @@ describe('validateNiveisCorpo — F8: os 3 níveis são seções reais do corpo 
     expect(issues).toEqual([]);
   });
 });
+
+describe('plano_manutencao — estrutura minima PRO-MNT-001 par. 8 (sessao 5)', () => {
+  it('aceita os campos opcionais condicao, criterio e acao por tarefa', () => {
+    const fm = {
+      ...modoFalhaValido,
+      plano_manutencao: [
+        {
+          tarefa: 'Analise de vibracao',
+          metodo: 'Espectro + envelope',
+          periodicidade: 'Mensal (P-F/2)',
+          condicao: 'Em operacao, carga estavel',
+          criterio: 'RMS 10-25 kHz <= 2x baseline',
+          acao: 'Confirmar com ultrassom; auditar NPSHa',
+        },
+      ],
+    };
+    expect(validateFrontmatter(fm).ok).toBe(true);
+  });
+
+  it('campo desconhecido na tarefa segue derrubando o build (schema estrito, F7)', () => {
+    const fm = {
+      ...modoFalhaValido,
+      plano_manutencao: [
+        {
+          tarefa: 'X',
+          metodo: 'Y',
+          periodicidade: 'Z',
+          duracao: '2h',
+        },
+      ],
+    };
+    expect(validateFrontmatter(fm).ok).toBe(false);
+  });
+});

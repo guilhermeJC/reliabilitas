@@ -86,6 +86,12 @@ const modoFalhaSchema = baseSchema
           tarefa: z.string().min(1),
           metodo: z.string().min(1),
           periodicidade: z.string().min(1),
+          // Estrutura mínima PRO-MNT-001 §8 (sessão 5): condição de contorno
+          // (§8.2), critério de aceitação quantitativo (§8.3) e ação em desvio.
+          // Opcionais no schema; a exigência de preenchê-los é editorial.
+          condicao: z.string().min(1).optional(),
+          criterio: z.string().min(1).optional(),
+          acao: z.string().min(1).optional(),
         }),
       )
       .min(1, 'plano_manutencao: exigido em todo modo de falha (F02)'),

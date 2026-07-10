@@ -201,6 +201,8 @@ export default async function NotaPage({ params }: PageParams) {
                 equipamento: titulos.get(nota.taxonomia.at(-1) ?? '') ?? '',
                 modoFalha: nota.titulo,
               }}
+              fwA={nota.frontmatter.fw_a as never}
+              fwB={nota.frontmatter.fw_b as never}
               slug={nota.slug}
             />
           </>

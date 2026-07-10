@@ -15,7 +15,9 @@ interface FwB {
 }
 
 // Vocabulário canônico do método (IT-MNT-001 §3–4) — termos técnicos, não UI.
-const CATEGORIAS: Record<string, string> = {
+// Exportado para o contexto do plano exportável (sessão 5): o CSV/MD carrega a
+// classificação Fw A por extenso.
+export const CATEGORIAS: Record<string, string> = {
   infant: 'Infant Mortality',
   random: 'Random',
   wear_out: 'Wear-out',

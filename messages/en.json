@@ -422,6 +422,11 @@
     "periodicidade": "Periodicity",
     "equipamento": "Equipment",
     "modoFalha": "Failure mode",
+    "fwA": "Fw A (diagnosis)",
+    "fwB": "Fw B (prescription)",
+    "condicao": "Boundary condition",
+    "criterio": "Acceptance criterion",
+    "acao": "Action on deviation",
     "exportCsv": "CSV (SAP-PM/Maximo)",
     "exportMd": "Markdown"
   }

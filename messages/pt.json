@@ -422,6 +422,11 @@
     "periodicidade": "Periodicidade",
     "equipamento": "Equipamento",
     "modoFalha": "Modo de falha",
+    "fwA": "Fw A (diagnóstico)",
+    "fwB": "Fw B (prescrição)",
+    "condicao": "Condição de contorno",
+    "criterio": "Critério de aceitação",
+    "acao": "Ação em desvio",
     "exportCsv": "CSV (SAP-PM/Maximo)",
     "exportMd": "Markdown"
   }
