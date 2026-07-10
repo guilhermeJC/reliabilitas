@@ -215,24 +215,24 @@ Changing position on this axis changes the **dominant failure mode**: the sealed
 
 | Model | A1 hydraulics | A2 stages | A3 config. | A4 sealing | A5 standard | Typical service |
 | --- | --- | --- | --- | --- | --- | --- |
-| Goulds 3196 | Radial | 1 | OH1 | Sealed | ASME B73.1 | Chemical process |
-| KSB Meganorm | Radial | 1 | OH1 | Sealed | ISO 2858 | General industry/water |
-| Flowserve HPX | Radial | 1 | OH2 | Sealed API 682 | API 610 | Refining |
-| Grundfos CR | Radial | Multi | Vertical in-line | Sealed | — | Utilities/pressure boosting |
+| [[goulds-3196|Goulds 3196]] | Radial | 1 | OH1 | Sealed | ASME B73.1 | Chemical process |
+| [[ksb-meganorm|KSB Meganorm]] | Radial | 1 | OH1 | Sealed | ISO 2858 | General industry/water |
+| [[flowserve-hpx|Flowserve HPX]] | Radial | 1 | OH2 | Sealed API 682 | API 610 | Refining |
+| [[grundfos-cr|Grundfos CR]] | Radial | Multi | Vertical in-line | Sealed | — | Utilities/pressure boosting |
 | Sulzer AHLSTAR | Radial/Francis | 1 | OH | Sealed | ISO 5199 | Pulp & paper |
 
-The individual brand/model sheets (taxonomy level 5) detail each one — in production in this editorial phase.
+Each model linked in the first column has its **own sheet** (taxonomy level 5 — Brand/Model) with axis positions, catalog ranges, official documentation and a reliability reading; Sulzer AHLSTAR gets its sheet as the collection expands.
 
 ## Brands and models
 
 Market references cited as reality anchors, each with the construction difference that defines it (official links; D05 — never catalog rehosting):
 
-- **[Goulds 3196 (ITT)](https://www.gouldspumps.com/)** — the world archetype of ASME B73.1 and the most-installed chemical process pump in the world; decades of field history and full dimensional interchangeability across generations — the spare-parts argument that sustains the ANSI standard.
-- **[KSB Meganorm / Megabloc](https://www.ksb.com/)** — the ISO 2858 line with the largest presence in Brazil (local manufacturing); Meganorm with coupling and baseplate, Megabloc close-coupled (impeller on the motor shaft end — less alignment, no baseplate).
-- **[Flowserve](https://www.flowserve.com/)** — full API 610 portfolio (OH2/BB/VS — e.g., HPX, the refining OH2 line) and a strong sealing heritage (Durametallic legacy); the reference when service demands integrated API 682.
+- **[[goulds-3196|Goulds 3196 (ITT)]]** ([official site](https://www.gouldspumps.com/)) — the world archetype of ASME B73.1 and the most-installed chemical process pump in the world; decades of field history and full dimensional interchangeability across generations — the spare-parts argument that sustains the ANSI standard.
+- **[[ksb-meganorm|KSB Meganorm / Megabloc]]** ([official site](https://www.ksb.com/)) — the ISO 2858 line with the largest presence in Brazil (local manufacturing); Meganorm with coupling and baseplate, Megabloc close-coupled (impeller on the motor shaft end — less alignment, no baseplate).
+- **[[flowserve-hpx|Flowserve HPX]]** ([official site](https://www.flowserve.com/)) — the refining OH2 from Flowserve's full API 610 portfolio (OH2/BB/VS), with a strong sealing heritage (Durametallic legacy); the reference when service demands integrated API 682.
 - **[Sulzer](https://www.sulzer.com/)** — the reference in multistage BB (boiler feedwater, pipelines) and in pulp & paper process lines (AHLSTAR — pumping fibrous, gas-laden stock).
-- **[Grundfos](https://www.grundfos.com/)** — dominance in vertical in-line multistage (CR series) and packaged systems with integrated VFD and electronics — the "smart off-the-shelf product" end of the spectrum.
-- **[Imbil](https://www.imbil.com.br/)** — relevant Brazilian manufacturer in sanitation, irrigation and general industry; the local alternative for lead time and support in the Brazilian market.
+- **[[grundfos-cr|Grundfos CR]]** ([official site](https://www.grundfos.com/)) — dominance in vertical in-line multistage (CR series) and packaged systems with integrated VFD and electronics — the "smart off-the-shelf product" end of the spectrum.
+- **[[imbil-ini|Imbil INI]]** ([official site](https://www.imbil.com.br/)) — relevant Brazilian manufacturer in sanitation, irrigation and general industry; the local alternative for lead time and support in the Brazilian market.
 
 ## Industry and applications
 

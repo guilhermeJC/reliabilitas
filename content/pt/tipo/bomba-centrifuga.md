@@ -215,24 +215,24 @@ Trocar de posição neste eixo troca o **modo de falha dominante**: a selada fal
 
 | Modelo | E1 hidráulica | E2 estágios | E3 config. | E4 vedação | E5 norma | Serviço típico |
 | --- | --- | --- | --- | --- | --- | --- |
-| Goulds 3196 | Radial | 1 | OH1 | Selada | ASME B73.1 | Processo químico |
-| KSB Meganorm | Radial | 1 | OH1 | Selada | ISO 2858 | Indústria geral/água |
-| Flowserve HPX | Radial | 1 | OH2 | Selada API 682 | API 610 | Refino |
-| Grundfos CR | Radial | Multi | Vertical in-line | Selada | — | Utilidades/pressurização |
+| [[goulds-3196|Goulds 3196]] | Radial | 1 | OH1 | Selada | ASME B73.1 | Processo químico |
+| [[ksb-meganorm|KSB Meganorm]] | Radial | 1 | OH1 | Selada | ISO 2858 | Indústria geral/água |
+| [[flowserve-hpx|Flowserve HPX]] | Radial | 1 | OH2 | Selada API 682 | API 610 | Refino |
+| [[grundfos-cr|Grundfos CR]] | Radial | Multi | Vertical in-line | Selada | — | Utilidades/pressurização |
 | Sulzer AHLSTAR | Radial/Francis | 1 | OH | Selada | ISO 5199 | Papel & celulose |
 
-As fichas individuais de marca/modelo (nível 5 da taxonomia) detalham cada um — em produção nesta fase editorial.
+Cada modelo linkado na primeira coluna tem **ficha própria** (nível 5 da taxonomia — Marca/Modelo) com posição nos eixos, faixas de catálogo, documentação oficial e leitura de confiabilidade; a Sulzer AHLSTAR ganha ficha na expansão do acervo.
 
 ## Marcas e modelos
 
 Referências de mercado citadas como âncora de realidade, com a diferença construtiva que define cada uma (links oficiais; D05 — nunca rehosting de catálogo):
 
-- **[Goulds 3196 (ITT)](https://www.gouldspumps.com/)** — o arquétipo mundial da ASME B73.1 e a bomba de processo químico mais instalada do mundo; décadas de histórico de campo e intercambiabilidade dimensional total entre gerações — o argumento de estoque de sobressalentes que sustenta o padrão ANSI.
-- **[KSB Meganorm / Megabloc](https://www.ksb.com/pt-br)** — a linha ISO 2858 de maior presença no Brasil (fabricação local); Meganorm com acoplamento e base, Megabloc monobloco (impelidor na ponta do eixo do motor — menos alinhamento, menos base).
-- **[Flowserve](https://www.flowserve.com/)** — portfólio API 610 completo (OH2/BB/VS — ex.: HPX, linha OH2 de refino) e forte presença em selos (legado Durametallic); referência quando o serviço exige API 682 integrado.
+- **[[goulds-3196|Goulds 3196 (ITT)]]** ([site oficial](https://www.gouldspumps.com/)) — o arquétipo mundial da ASME B73.1 e a bomba de processo químico mais instalada do mundo; décadas de histórico de campo e intercambiabilidade dimensional total entre gerações — o argumento de estoque de sobressalentes que sustenta o padrão ANSI.
+- **[[ksb-meganorm|KSB Meganorm / Megabloc]]** ([site oficial](https://www.ksb.com/pt-br)) — a linha ISO 2858 de maior presença no Brasil (fabricação local); Meganorm com acoplamento e base, Megabloc monobloco (impelidor na ponta do eixo do motor — menos alinhamento, menos base).
+- **[[flowserve-hpx|Flowserve HPX]]** ([site oficial](https://www.flowserve.com/)) — a OH2 de refino do portfólio API 610 completo da Flowserve (OH2/BB/VS), com forte presença em selos (legado Durametallic); referência quando o serviço exige API 682 integrado.
 - **[Sulzer](https://www.sulzer.com/)** — referência em BB multiestágio (água de caldeira, oleodutos) e nas linhas de processo para papel & celulose (AHLSTAR — bombeio de polpa fibrosa com gás).
-- **[Grundfos](https://www.grundfos.com/)** — domínio em verticais in-line multiestágio (série CR) e sistemas prontos com VFD e eletrônica integrados — o extremo "produto de prateleira inteligente" do espectro.
-- **[Imbil](https://www.imbil.com.br/)** — fabricante nacional relevante em saneamento, irrigação e indústria geral; alternativa local com prazo e assistência no mercado brasileiro.
+- **[[grundfos-cr|Grundfos CR]]** ([site oficial](https://www.grundfos.com/)) — domínio em verticais in-line multiestágio (série CR) e sistemas prontos com VFD e eletrônica integrados — o extremo "produto de prateleira inteligente" do espectro.
+- **[[imbil-ini|Imbil INI]]** ([site oficial](https://www.imbil.com.br/)) — fabricante nacional relevante em saneamento, irrigação e indústria geral; alternativa local com prazo e assistência no mercado brasileiro.
 
 ## Indústria e aplicações
 
