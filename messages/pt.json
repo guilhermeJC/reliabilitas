@@ -303,6 +303,26 @@
       "fontes": "Referências do guia: Smith — Reliability, Maintainability and Risk (2004) · Moubray — RCM II (1997), cap. 8 · Nowlan & Heap (1978). A teoria completa dos dois frameworks está em O método.",
       "metodoLink": "O método (Framework A → Framework B) →"
     },
+    "curvaHq": {
+      "titulo": "Curva H–Q viva — a bomba no sistema",
+      "sub": "A bomba não escolhe onde opera: mova a rotação (curva da bomba, leis de afinidade) ou a altura estática (curva do sistema) e veja o ponto de operação seguir a interseção. Valores em % do BEP nominal.",
+      "rotacao": "Rotação (VFD)",
+      "rotacaoSig": "Afinidade: Q∝N, H∝N², potência∝N³ — e o NPSHr também cai com N².",
+      "estatica": "Altura estática do sistema",
+      "estaticaSig": "Nível de tanque, pressão de destino — a parte da curva do sistema que não depende da vazão.",
+      "bomba": "Curva da bomba",
+      "sistema": "Curva do sistema",
+      "vazao": "Vazão no ponto",
+      "vazaoSig": "{pct}% da vazão de BEP da rotação atual (POR saudável: 70–120%)",
+      "head": "Head no ponto",
+      "shutoffMsg": "A bomba não vence a altura estática nesta rotação — vazão zero (shutoff). Todo o excesso de potência vira calor: cenário de dead-heading.",
+      "status": {
+        "por": "Dentro do POR",
+        "recirculacao": "Baixa vazão — recirculação",
+        "runout": "Alta vazão — run-out",
+        "shutoff": "Shutoff"
+      }
+    },
     "weibull": {
       "titulo": "Weibull 2 parâmetros",
       "fwA": "Leitura Fw A",

@@ -303,6 +303,26 @@
       "metodoLink": "The method (Framework A → Framework B) →"
     },
     "intro": "Three everyday tools for the reliability engineer — 100% in your browser: no data leaves this page.",
+    "curvaHq": {
+      "titulo": "Live H–Q curve — the pump in the system",
+      "sub": "The pump does not choose where it operates: move the speed (pump curve, affinity laws) or the static head (system curve) and watch the operating point follow the intersection. Values in % of nominal BEP.",
+      "rotacao": "Speed (VFD)",
+      "rotacaoSig": "Affinity: Q∝N, H∝N², power∝N³ — and NPSHr also falls with N².",
+      "estatica": "System static head",
+      "estaticaSig": "Tank level, destination pressure — the part of the system curve that does not depend on flow.",
+      "bomba": "Pump curve",
+      "sistema": "System curve",
+      "vazao": "Flow at the point",
+      "vazaoSig": "{pct}% of the current speed's BEP flow (healthy POR: 70–120%)",
+      "head": "Head at the point",
+      "shutoffMsg": "The pump cannot overcome the static head at this speed — zero flow (shutoff). All excess power becomes heat: the dead-heading scenario.",
+      "status": {
+        "por": "Inside the POR",
+        "recirculacao": "Low flow — recirculation",
+        "runout": "High flow — run-out",
+        "shutoff": "Shutoff"
+      }
+    },
     "weibull": {
       "titulo": "2-parameter Weibull",
       "fwA": "Fw A reading",

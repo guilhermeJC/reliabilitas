@@ -19,6 +19,7 @@ import { Breadcrumb } from '@/components/breadcrumb';
 import { Backlinks } from '@/components/backlinks';
 import { FwCards } from '@/components/fw-cards';
 import { PlanoTable } from '@/components/plano-table';
+import { CurvaHq } from '@/components/calc/curva-hq';
 import { NivelSelector, type NivelLabel } from '@/components/nivel-selector';
 import { WeibullCalc } from '@/components/calc/weibull-calc';
 // CSS do KaTeX só onde há fórmula (corpo de nota) — fora do bundle global.
@@ -237,6 +238,13 @@ export default async function NotaPage({ params }: PageParams) {
               // nosemgrep: typescript.react.security.audit.react-dangerouslysetinnerhtml.react-dangerouslysetinnerhtml -- falso positivo documentado (DEV-017): HTML gerado server-side de conteúdo autoral validado no ingest (BR-006/F3/F8); DOMPurify é requisito do gate da Fase 3 (BR-013)
               dangerouslySetInnerHTML={{ __html: corpoHtml }}
             />
+            {/* Curva H-Q viva (sessão 5): handbooks de máquinas ROTODINÂMICAS —
+                a curva e as leis de afinidade valem para o princípio inteiro. */}
+            {ehHandbook && nota.taxonomia.includes('dinamicas') && (
+              <div className="mt-6">
+                <CurvaHq />
+              </div>
+            )}
           </>
         )}
 
