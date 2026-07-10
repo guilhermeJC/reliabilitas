@@ -15,12 +15,16 @@
   --fw-b: #1d9e75; /* Framework B — prescrição */
   --wikilink: #2f6fce;
   --gray-tech: #374151;
+  /* Rodada 8 (10/07): canvas ligeiramente mais escuro para que painéis
+     brancos (Handbooks, apoio, guia) ganhem relevo — convenção de
+     app-shells (Notion/Linear/Obsidian). Contraste WCAG intacto. */
+  --canvas: #eef1f6;
 }
 
 body {
   font-family: var(--font-sans);
   color: var(--gray-tech);
-  background: #f7f8fa;
+  background: var(--canvas);
 }
 
 /* Corpo da nota (D09 — legibilidade de handbook: 15px/1.7, DESIGN §4.1) */
