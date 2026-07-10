@@ -1,0 +1,46 @@
+{
+  "// Perfil do workspace RELIABILITAS": "Congela EOL/spelling e habilita file nesting para a raiz — só configuração-de-visual do Explorer, ninguém precisa dela para rodar. Regenera automaticamente com Ctrl+Shift+P → 'Preferences: Open Workspace Settings'.",
+
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "files.eol": "\n",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+
+  "eslint.experimental.useFlatConfig": true,
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+
+  "// Rodada 5 (09/07) — Agrupa arquivos da raiz por afinidade": "Não move nada em disco; só clusteriza no Explorer para a raiz parar de parecer uma pilha. Padrão aceito por Next/Vite/Nx.",
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "package.json": "package-lock.json, pnpm-lock.yaml, yarn.lock, bun.lockb, .npmrc, .nvmrc, .node-version, skills-lock.json",
+    "tsconfig.json": "tsconfig.*.json, tsconfig.tsbuildinfo",
+    "next.config.ts": "next-env.d.ts, next.config.*, postcss.config.*, tailwind.config.*",
+    ".env.example": ".env, .env.*",
+    ".gitignore": ".gitattributes, .prettierignore, .prettierrc, .prettierrc.*, .editorconfig",
+    "eslint.config.mjs": ".eslintignore, .eslintrc.*",
+    "vitest.config.ts": "vitest.config.*, vitest.setup.*",
+    "README.md": "CHANGELOG.md, CLAUDE.md, LICENSE, LICENCE, CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md"
+  },
+
+  "// Search: acelera excluindo o mundo gerado": "",
+  "search.exclude": {
+    "**/.next": true,
+    "**/coverage": true,
+    "**/node_modules": true,
+    "**/tsconfig.tsbuildinfo": true
+  },
+  "files.watcherExclude": {
+    "**/.next/**": true,
+    "**/coverage/**": true,
+    "**/node_modules/**": true
+  },
+
+  "// Extensions recomendadas (o VS Code sugere ao abrir)": "",
+  "extensions.ignoreRecommendations": false
+}

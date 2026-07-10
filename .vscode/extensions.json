@@ -1,0 +1,11 @@
+{
+  "// Recomendações do workspace — o VS Code oferece ao clonar o repo": "",
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "bradlc.vscode-tailwindcss",
+    "vitest.explorer",
+    "ms-vscode.vscode-typescript-next"
+  ],
+  "unwantedRecommendations": []
+}

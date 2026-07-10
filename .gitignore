@@ -28,6 +28,7 @@ Thumbs.db
 desktop.ini
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
 .idea/
 
 # Obsidian (se o vault enxergar esta pasta no futuro)
