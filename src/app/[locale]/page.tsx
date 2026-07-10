@@ -55,7 +55,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </section>
 
       <div className="px-4 py-10 md:px-8">
-        <div className="mx-auto max-w-4xl">
+        <div className="content-col mx-auto">
           {/* O método — Fw A → Fw B clicáveis (semântica fixa: roxo → verde) */}
           <h2 className="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500">
             {t('metodoTitulo')}
@@ -150,9 +150,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           )}
 
           {/* Handbooks publicados — no FIM da Home (rodada 6), agrupados por
-              classe. Só o entregue, sem "em breve" e sem promessas. */}
+              classe. Painel branco definido (rodada 7): separa o "acervo
+              entregue" do bloco de método/ferramentas acima, em vez de um
+              salto de espaço em branco. */}
           {grupos.length > 0 && (
-            <section className="mt-12 border-t pt-8" style={{ borderColor: '#e3e8f0' }}>
+            <section
+              className="mt-12 rounded-xl border bg-white p-6 md:p-8"
+              style={{ borderColor: '#e3e8f0' }}
+            >
               <h2
                 className="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500"
                 id="handbooks-publicados"
@@ -162,7 +167,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
                 {t('handbooksPublicadosIntro')}
               </p>
-              <div className="mt-4 space-y-4">
+              <div className="mt-5 space-y-4">
                 {grupos.map((g) => (
                   <div key={g.classe}>
                     {g.classeTitulo ? (

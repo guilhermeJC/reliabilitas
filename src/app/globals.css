@@ -102,6 +102,20 @@ details[open] > summary .tree-chevron {
   display: none;
 }
 
+/* App-shell full-bleed (rodada 7 do fundador, 10/07): a coluna de conteúdo do
+   dashboard (Home) tem largura de leitura confortável e CRESCE quando a barra
+   lateral é recolhida — o espaço liberado vira conteúdo, não margem. O seletor
+   de irmão adjacente lê o data-collapsed da <aside> da SidebarShell (aside e
+   main são irmãos no flex). Prosa (notas) mantém largura fixa de leitura de
+   propósito — só o dashboard expande. */
+.content-col {
+  max-width: 64rem; /* ~1024px */
+  transition: max-width 0.2s ease-out;
+}
+aside[data-collapsed='true'] + main .content-col {
+  max-width: 78rem; /* ~1248px — mais largo com a árvore recolhida */
+}
+
 /* Acessibilidade: foco visível em todo o shell (DESIGN §4.6) */
 a:focus-visible,
 button:focus-visible,

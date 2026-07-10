@@ -68,7 +68,7 @@ export function SidebarShell({
   }, []);
 
   return (
-    <div className="mx-auto flex w-full max-w-7xl">
+    <div className="flex w-full">
       <aside
         aria-label={labels.nav}
         data-collapsed={collapsed ? 'true' : undefined}
