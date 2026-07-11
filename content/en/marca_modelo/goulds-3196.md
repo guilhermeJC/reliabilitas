@@ -47,6 +47,24 @@ Horizontal single-stage overhung process pump (OH1, foot-mounted), *back pull-ou
 
 Back pull-out construction (the rotating assembly comes out without disturbing the piping), open impeller with external clearance adjustment (light-solids and corrosive services), a wide materials chart (ductile, 316, CD4MCu, nickel alloys). The i-FRAME generation adds a vibration/temperature sensor on the bearing housing and an extended power-end warranty.
 
+## Line variants
+
+| Variant | What it solves |
+| --- | --- |
+| 3196 (STi · MTi · LTi · XLT-i) | The same ANSI hydraulics on 4 power-end frames of increasing size |
+| LF 3196 | Low flow / high head with dedicated hydraulics — avoids running the standard 3196 far from BEP |
+| HT 3196 | High temperature (thermal services up to the line limit, 371 °C / 700 °F) |
+| CV 3196 | Recessed (vortex) impeller for solids and fibres |
+| 3198 | PFA-lined internals for severe chemicals |
+
+Catalog materials: ductile iron, 316SS, **CD4MCu (duplex)**, Alloy 20, Hastelloy C — the chemistry chart that sustains the standard in chemical plants.
+
+## Differentials and points of attention
+
+- **i-FRAME / i-ALERT**: factory-embedded vibration + temperature sensor on the bearing housing, with local alarm and app readout — native continuous monitoring on the ANSI workhorse.
+- **Open impeller with external clearance adjustment**: restores volumetric efficiency without disassembling the pump — but the adjustment is mandatory after intervention and for service temperature (official IOM procedure); wrong clearance = lost efficiency or contact.
+- **The classic ANSI-class point of attention** (rotating-equipment literature): smaller groups have a more slender shaft — in severe service, check deflection (L³/D⁴) and consider the next frame group up.
+
 ## Where it shines / limitations
 
 **Shines** as the chemical workhorse: a giant installed population, parts anywhere, failure history documented over decades — the lowest-risk choice for B73.1 service. **Limitations**: it is a B73.1 platform — for hot/high-pressure hydrocarbons the step up is an API 610 OH2 ([[flowserve-hpx|e.g., Flowserve HPX]]); the open impeller gives up some efficiency versus closed designs.

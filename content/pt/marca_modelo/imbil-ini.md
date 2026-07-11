@@ -23,7 +23,7 @@ revisado_em: 2026-07-10
 
 ## Identificação
 
-Bomba centrífuga horizontal monoestágio **normalizada** — dimensões conforme **ISO 2858** (NBR correspondente) e construção mecânica alinhada à ANSI B73.1 — do fabricante brasileiro **Imbil** (Itapira/SP). Construção *back pull-out*, sucção horizontal e recalque vertical. A variante **INI BLOC** é a versão monobloco. É a alternativa nacional direta às normalizadas importadas: mesma intercambiabilidade dimensional, cadeia de peças e engenharia de aplicação no Brasil.
+Bomba centrífuga horizontal monoestágio **normalizada** — projetada conforme **ISO 2858 / EN 22858** (dimensões) e **ISO 5199** (requisitos) — do fabricante brasileiro **Imbil** (Itapira/SP). Construção *back pull-out*: o conjunto girante sai por trás sem desconectar a tubulação. É a alternativa nacional direta às normalizadas importadas: mesma intercambiabilidade dimensional, cadeia de peças e engenharia de aplicação no Brasil.
 
 ## Posição nos seis eixos
 
@@ -31,14 +31,27 @@ Bomba centrífuga horizontal monoestágio **normalizada** — dimensões conform
 | --- | --- |
 | Hidráulica | Radial (monoestágio) |
 | Estágios | 1 |
-| Configuração | OH1 (INI) / monobloco (INI BLOC) |
+| Configuração | OH1 (*back pull-out*) |
 | Vedação | Selada (selo mecânico ou gaxeta) |
 | Norma | ISO 2858 (dimensional) |
 | Serviço | Saneamento, água/esgoto, indústria geral, açúcar e álcool |
 
 ## Faixas e construção
 
-Linha normalizada de catálogo por tamanho (ex.: INI 32-250) — faixas de vazão/head definidas pela grade dimensional ISO 2858; consultar a tabela de seleção oficial para o par vazão×head do serviço. Aplicações declaradas: química/petroquímica leve, siderurgia, alimentos e bebidas, açúcar e álcool, papel e celulose, saneamento (água e esgoto), ar-condicionado. Mancais lubrificados a óleo; impelidor fechado.
+| Parâmetro | Valor oficial |
+| --- | --- |
+| Vazão | até **1.300 m³/h** |
+| Head | até **230 m.c.a.** |
+| Normas de projeto | ISO 2858 / EN 22858 (dimensões) + ISO 5199 (requisitos) |
+| Construção | Monoestágio horizontal, *back pull-out* |
+
+A faixa oficial vai ALÉM da grade dimensional clássica ISO 2858 (linha ampliada nos tamanhos maiores). Materiais e detalhes por tamanho: tabela de seleção do catálogo oficial (disponível em PT/EN/ES). Aplicações declaradas: usos gerais industriais e civis — na prática brasileira, saneamento, açúcar e álcool, siderurgia, papel e alimentos.
+
+## Diferenciais e pontos de atenção
+
+- **Grade normalizada com fabricação nacional**: a intercambiabilidade ISO 2858 com prazo e peças locais — o argumento de MTTR em contratos públicos e plantas fora do eixo.
+- **Catálogo trilíngue oficial** (PT/EN/ES) com tabelas de seleção — dimensionamento verificável na fonte.
+- **Ponto de atenção**: a documentação pública de curvas é menos profunda que a dos líderes globais — exigir curvas certificadas de teste (ISO 9906) na especificação, que também são o baseline do CBM de desempenho.
 
 ## Onde brilha / limitações
 

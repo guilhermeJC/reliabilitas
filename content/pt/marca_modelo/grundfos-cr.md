@@ -47,6 +47,25 @@ Bomba centrífuga **vertical in-line multiestágio** da **Grundfos** — a respo
 
 Estágios em inox estampado (rendimento alto em máquina pequena), selo mecânico tipo cartucho de troca rápida pelo topo, acoplamento rígido bipartido. O empuxo axial acumulado dos estágios é absorvido pelo mancal do motor — dimensionado para isso pelo fabricante.
 
+## Variantes da linha
+
+| Variante | Material molhado / o que resolve |
+| --- | --- |
+| CR | Ferro fundido + inox — água e utilidades gerais |
+| CRI | Inox 304 — líquidos levemente agressivos |
+| CRN | Inox 316 integral — químicos e processo |
+| CRT | **Titânio** — água do mar, cloretos e químicos severos |
+| CRE / CRIE / CRNE | Qualquer uma das acima com **motor E** (inversor integrado de fábrica, controle por setpoint) |
+| CRNE-HS | Alta rotação — altíssima pressão com menos estágios |
+| CRN-SF | Superfícies internas super-acabadas — alta pressão (sistemas até ~50 bar) para tratamento de água |
+
+## Diferenciais e pontos de atenção
+
+- **LiqTec**: proteção de fábrica contra operação a seco e sobretemperatura — a sensibilidade nº 1 da arquitetura tratada pelo próprio fabricante.
+- **Selo cartucho com troca pelo topo**: substituição sem desmontar a pilha de estágios nem remover o motor — o argumento de mantenabilidade da linha.
+- **Grundfos Product Center**: seleção e curvas online por ponto de operação — dimensionamento verificável antes da compra.
+- **Ponto de atenção**: o empuxo axial da pilha é absorvido pelo mancal do MOTOR — a linha é projetada para os motores Grundfos (MG/MGE); substituição por motor genérico exige verificação do mancal de escora.
+
 ## Onde brilha / limitações
 
 **Brilha** em pressurização e utilidades: head alto sem rotação extrema, footprint vertical mínimo, e o ecossistema eletrônico (CRE + sensores + BMS) que faz o "sistema de bombeamento inteligente" de prateleira — o extremo oposto do espectro em relação à bomba de processo API. **Limitações**: fluidos limpos e frios (estágios estampados não toleram sólidos; faixa térmica limitada); manutenção de estágio exige desmontagem da pilha; não é plataforma para processo severo ou normas de O&G.

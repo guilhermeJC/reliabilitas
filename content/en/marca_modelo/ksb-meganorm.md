@@ -47,6 +47,22 @@ Horizontal single-stage **standardized** centrifugal pump — dimensions per **I
 
 Radially split spiral casing, back pull-out, closed impeller; materials from cast iron to stainless per service. Manufacturer-declared applications: water supply, drainage, irrigation, sugar and ethanol, HVAC, fire-fighting.
 
+## Line variants
+
+| Variant | What it solves |
+| --- | --- |
+| Meganorm | Classic execution with coupling and baseplate — back pull-out maintenance without touching piping or motor |
+| Megabloc | Close-coupled (impeller on the motor shaft end) — no alignment, minimal baseplate, lower installed cost |
+
+Materials per the official catalog by service (cast iron in the standard execution; bronze/stainless internals on specification); sealing by mechanical seal or packing.
+
+## Differentials and points of attention
+
+- **ISO 2858 interchangeability**: standardized nozzle, baseplate and shaft-end dimensions — any standardized pump of the same size drops in; the spare-parts pool belongs to the GRID, not the manufacturer.
+- **KSB EasySelect**: online selection and curves per duty point — sizing verifiable at the official source.
+- **Brazilian manufacturing (Várzea Paulista/SP)**: lead time, parts and support in local currency — the MTTR factor imports do not match in Brazil.
+- **Point of attention**: standard execution limited to ~105–140 °C depending on variant and sealing — beyond that (or hydrocarbons), the conversation changes class (alloyed ISO 5199 / API 610).
+
 ## Where it shines / limitations
 
 **Shines** where the service is water/clean fluids and the criterion is total cost + local support: national manufacturing, parts and workshop network across Brazil, short lead times — the de facto standard of Brazilian sanitation and general industry. **Limitations**: standard execution up to ~105 °C and moderate pressures — not a platform for severe hydrocarbons (API 610) nor for high-demand aggressive chemicals (where the B73.1/ISO 5199 alloy charts come in).

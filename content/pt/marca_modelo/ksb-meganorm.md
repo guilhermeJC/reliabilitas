@@ -47,6 +47,22 @@ Bomba centrífuga horizontal monoestágio **normalizada** — dimensões conform
 
 Carcaça espiral bipartida radialmente, *back pull-out*, impelidor fechado; materiais de ferro fundido a inox conforme o serviço. Aplicações declaradas pelo fabricante: abastecimento de água, drenagem, irrigação, açúcar e álcool, ar-condicionado, combate a incêndio.
 
+## Variantes da linha
+
+| Variante | O que resolve |
+| --- | --- |
+| Meganorm | Execução clássica com acoplamento e base — manutenção *back pull-out* sem tocar tubulação nem motor |
+| Megabloc | Monobloco (impelidor na ponta do eixo do motor) — sem alinhamento, base mínima, menor custo instalado |
+
+Materiais conforme o catálogo oficial por serviço (ferro fundido na execução padrão; internos em bronze/inox sob especificação); vedação por selo mecânico ou gaxeta.
+
+## Diferenciais e pontos de atenção
+
+- **Intercambiabilidade ISO 2858**: dimensões de bocais, base e ponta de eixo padronizadas — qualquer normalizada do mesmo tamanho entra no lugar; o estoque de sobressalentes é da GRADE, não do fabricante.
+- **KSB EasySelect**: seleção e curvas online por ponto de operação — dimensionamento verificável na fonte oficial.
+- **Fabricação nacional (Várzea Paulista/SP)**: prazo, peças e assistência em moeda local — o fator de MTTR que os importados não igualam no Brasil.
+- **Ponto de atenção**: execução padrão limitada a ~105–140 °C conforme a variante e vedação — acima disso (ou hidrocarboneto), a conversa muda de classe (ISO 5199 em liga / API 610).
+
 ## Onde brilha / limitações
 
 **Brilha** onde o serviço é água/fluidos limpos e o critério é custo total + assistência local: fabricação nacional, rede de peças e oficinas no Brasil, prazo curto — o padrão de facto do saneamento e da indústria geral brasileira. **Limitações**: execução padrão até ~105 °C e pressões moderadas — não é plataforma para hidrocarbonetos severos (API 610) nem para químicos agressivos de alta exigência (onde a carta de materiais B73.1/ISO 5199 em ligas entra).

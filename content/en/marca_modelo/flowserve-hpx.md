@@ -47,6 +47,24 @@ Horizontal single-stage overhung process pump to **API 610 / ISO 13709 type OH2*
 
 Centerline support for nozzle loads beyond API 610 requirements; a suction-nozzle guide vane (uniform inflow — NPSH margin); materials across the API classes (S-6 to A-8, incl. duplex). The cryogenic end (−160 °C) covers LPG/light LNG service.
 
+## Line variants
+
+| Variant | What it solves |
+| --- | --- |
+| HPX | The standard refining OH2 (ranges in the table above) |
+| HPXM | Low flow / high head (up to ~30 m³/h and ~215 m) with dedicated hydraulics and a stable rising curve down to minimum flow — the duty that would ruin a standard OH2 far from BEP |
+| HPX-V | The same platform as a vertical in-line (API 610 OH3) — minimal footprint |
+| HPX6000 | Solids-handling (slurry) execution of the same family |
+
+Materials across the API 610 classes (carbon steel, chrome, austenitics, duplex), per service datasheet.
+
+## Differentials and points of attention
+
+- **Optional inducer**: for installations with tight NPSHa, the high-suction-specific-speed axial inducer cuts the set's NPSHR — the catalog solution to the problem treated in the [[cavitacao|cavitation]] note.
+- **Suction-nozzle guide vane**: uniform inflow at the impeller eye — NPSH margin and part-load stability.
+- **Centerline support** sized for nozzle loads ABOVE API 610 requirements — preserves alignment with hot piping.
+- **Point of attention**: like every API platform, the value shows in severe service — in cold, mild service the HPX is the classic overspec the API itself discourages (paying for B73.1/ISO 5199 solves it).
+
 ## Where it shines / limitations
 
 **Shines** exactly where B73.1 stops: hot service (the OH1's foot mounting misaligns with thermal growth — the centerline does not), hydrocarbons with critical sealing (native API 682), O&G design audits (full API datasheets). **Limitations**: an acquisition cost several times an equivalent chemical pump — specifying API 610 for cold, mild service is the classic overspec the API itself discourages; for head beyond the range, the path is multistage BB.

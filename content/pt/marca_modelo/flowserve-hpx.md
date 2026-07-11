@@ -47,6 +47,24 @@ Bomba de processo horizontal monoestágio *overhung* **API 610 / ISO 13709 tipo 
 
 Suporte de linha de centro para cargas de bocal acima do exigido pela API 610; aleta-guia no bocal de sucção (uniformiza o escoamento — margem de NPSH); materiais nas classes API (S-6 a A-8, incl. duplex). A faixa criogênica (−160 °C) cobre GLP/GNL leve.
 
+## Variantes da linha
+
+| Variante | O que resolve |
+| --- | --- |
+| HPX | A OH2 padrão de refino (faixas da tabela acima) |
+| HPXM | Baixa vazão / alto head (até ~30 m³/h e ~215 m) com hidráulica dedicada e curva ascendente estável até a vazão mínima — o serviço que arruinaria uma OH2 padrão fora do BEP |
+| HPX-V | A mesma plataforma em vertical in-line (API 610 OH3) — footprint mínimo |
+| HPX6000 | Execução para serviços com sólidos (slurry) da mesma família |
+
+Materiais nas classes da API 610 (aço carbono, cromo, austeníticos, duplex), conforme datasheet do serviço.
+
+## Diferenciais e pontos de atenção
+
+- **Indutor opcional**: para instalações com NPSHa apertado, o indutor axial de alta velocidade específica de sucção reduz o NPSHr do conjunto — a solução de catálogo para o problema tratado na nota de [[cavitacao|cavitação]].
+- **Aleta-guia no bocal de sucção**: uniformiza o escoamento na entrada do impelidor — margem de NPSH e estabilidade em vazões parciais.
+- **Suporte de linha de centro** dimensionado para cargas de bocal ACIMA do exigido pela API 610 — preserva alinhamento com tubulação quente.
+- **Ponto de atenção**: como toda plataforma API, o valor aparece no serviço severo — em serviço frio e brando a HPX é o overspec clássico que a própria API desaconselha (pagar B73.1/ISO 5199 resolve).
+
 ## Onde brilha / limitações
 
 **Brilha** exatamente onde a B73.1 para: serviço quente (a montagem por pé da OH1 desalinha com a dilatação — a linha de centro não), hidrocarbonetos com selagem crítica (API 682 nativa), auditoria de projeto O&G (datasheets API completos). **Limitações**: custo de aquisição múltiplo de uma bomba química equivalente — especificar API 610 para serviço frio e brando é o clássico *overspec* que a própria API desaconselha; para head acima da faixa, o caminho é BB multiestágio.

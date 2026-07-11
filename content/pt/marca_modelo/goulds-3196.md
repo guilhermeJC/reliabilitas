@@ -47,6 +47,24 @@ Bomba de processo horizontal monoestágio *overhung* (OH1, montagem por pé), *b
 
 Construção *back pull-out* (o conjunto girante sai sem desconectar a tubulação), impelidor aberto com ajuste de folga externo (serviços com sólidos leves e corrosivos), ampla carta de materiais (dúctil, 316, CD4MCu, ligas de níquel). A geração i-FRAME agrega sensor de vibração/temperatura na caixa de mancais e garantia estendida do *power end*.
 
+## Variantes da linha
+
+| Variante | O que resolve |
+| --- | --- |
+| 3196 (STi · MTi · LTi · XLT-i) | A mesma hidráulica ANSI em 4 armações de mancais de porte crescente |
+| LF 3196 | Baixa vazão / alto head com hidráulica dedicada — evita operar a 3196 padrão longe do BEP |
+| HT 3196 | Alta temperatura (serviços térmicos até o limite da linha, 371 °C) |
+| CV 3196 | Impelidor recuado (vórtice) para sólidos e fibras |
+| 3198 | Internos revestidos em PFA para químicos severos |
+
+Materiais de catálogo: ferro dúctil, 316SS, **CD4MCu (duplex)**, Alloy 20, Hastelloy C — a carta química que sustenta o padrão em planta química.
+
+## Diferenciais e pontos de atenção
+
+- **i-FRAME / i-ALERT**: sensor de vibração + temperatura embarcado de fábrica na caixa de mancais, com alarme local e leitura por app — monitoramento contínuo nativo no cavalo de batalha ANSI.
+- **Impelidor aberto com ajuste externo de folga**: restaura o rendimento volumétrico sem desmontar a bomba — mas o ajuste é obrigatório após intervenção e para temperatura de serviço (procedimento do IOM oficial); folga errada = rendimento perdido ou contato.
+- **Ponto de atenção clássico da classe ANSI** (literatura de rotativos): grupos menores têm eixo mais esbelto — em serviço severo, conferir a deflexão (L³/D⁴) e considerar o grupo de armação acima.
+
 ## Onde brilha / limitações
 
 **Brilha** como cavalo de batalha químico: população instalada gigante, peças em qualquer lugar, histórico de falha documentado por décadas — a escolha de menor risco para serviço B73.1. **Limitações**: é uma plataforma B73.1 — para hidrocarbonetos quentes/alta pressão o degrau é uma OH2 API 610 ([[flowserve-hpx|ex.: Flowserve HPX]]); o impelidor aberto sacrifica um pouco de rendimento frente a fechados.

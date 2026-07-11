@@ -23,7 +23,7 @@ revisado_em: 2026-07-10
 
 ## Identification
 
-Horizontal single-stage **standardized** centrifugal pump — dimensions per **ISO 2858** (corresponding NBR) with mechanical construction aligned to ANSI B73.1 — by the Brazilian manufacturer **Imbil** (Itapira/SP). Back pull-out construction, horizontal suction and vertical discharge. The **INI BLOC** variant is the close-coupled version. It is the direct national alternative to imported standardized pumps: the same dimensional interchangeability, with the parts chain and application engineering in Brazil.
+Horizontal single-stage **standardized** centrifugal pump — designed per **ISO 2858 / EN 22858** (dimensions) and **ISO 5199** (requirements) — by the Brazilian manufacturer **Imbil** (Itapira/SP). Back pull-out construction: the rotating assembly comes out from the rear without disconnecting piping. It is the direct national alternative to imported standardized pumps: the same dimensional interchangeability, with the parts chain and application engineering in Brazil.
 
 ## Position on the six axes
 
@@ -31,14 +31,27 @@ Horizontal single-stage **standardized** centrifugal pump — dimensions per **I
 | --- | --- |
 | Hydraulics | Radial (single-stage) |
 | Stages | 1 |
-| Configuration | OH1 (INI) / close-coupled (INI BLOC) |
+| Configuration | OH1 (back pull-out) |
 | Sealing | Sealed (mechanical seal or packing) |
 | Standard | ISO 2858 (dimensional) |
 | Service | Sanitation, water/sewage, general industry, sugar and ethanol |
 
 ## Ranges and construction
 
-A standardized catalog line by size (e.g., INI 32-250) — flow/head ranges defined by the ISO 2858 dimensional grid; consult the official selection tables for the service's flow×head pair. Declared applications: light chemical/petrochemical, steel, food and beverage, sugar and ethanol, pulp and paper, sanitation (water and sewage), HVAC. Oil-lubricated bearings; closed impeller.
+| Parameter | Official value |
+| --- | --- |
+| Flow | up to **1,300 m³/h** |
+| Head | up to **230 m w.c.** |
+| Design standards | ISO 2858 / EN 22858 (dimensions) + ISO 5199 (requirements) |
+| Construction | Single-stage horizontal, back pull-out |
+
+The official range goes BEYOND the classic ISO 2858 dimensional grid (extended line at the larger sizes). Materials and per-size details: selection tables in the official catalog (available in PT/EN/ES). Declared applications: general industrial and civil duties — in Brazilian practice, sanitation, sugar and ethanol, steel, pulp and food.
+
+## Differentials and points of attention
+
+- **Standardized grid with national manufacturing**: ISO 2858 interchangeability with local lead time and parts — the MTTR argument in public contracts and plants away from the main hubs.
+- **Official trilingual catalog** (PT/EN/ES) with selection tables — sizing verifiable at the source.
+- **Point of attention**: public curve documentation is thinner than the global leaders' — demand certified test curves (ISO 9906) in the specification; they are also the baseline for performance CBM.
 
 ## Where it shines / limitations
 

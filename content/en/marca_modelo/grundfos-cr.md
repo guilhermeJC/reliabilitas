@@ -47,6 +47,25 @@ revisado_em: 2026-07-10
 
 Stamped stainless stages (high efficiency in a small machine), a top-accessible quick-swap cartridge mechanical seal, rigid split coupling. The stages' accumulated axial thrust is carried by the motor bearing — sized for it by the manufacturer.
 
+## Line variants
+
+| Variant | Wetted material / what it solves |
+| --- | --- |
+| CR | Cast iron + stainless — water and general utilities |
+| CRI | 304 stainless — mildly aggressive liquids |
+| CRN | Full 316 stainless — chemicals and process |
+| CRT | **Titanium** — seawater, chlorides and severe chemicals |
+| CRE / CRIE / CRNE | Any of the above with the **E-motor** (factory-integrated VFD, setpoint control) |
+| CRNE-HS | High speed — very high pressure with fewer stages |
+| CRN-SF | Super-finished internal surfaces — high pressure (systems up to ~50 bar) for water treatment |
+
+## Differentials and points of attention
+
+- **LiqTec**: factory protection against dry running and overtemperature — the architecture's no. 1 sensitivity handled by the manufacturer itself.
+- **Top-access cartridge seal**: replacement without unstacking the stages or removing the motor — the line's maintainability argument.
+- **Grundfos Product Center**: online selection and curves per duty point — verifiable sizing before purchase.
+- **Point of attention**: the stack's axial thrust is carried by the MOTOR bearing — the line is designed for Grundfos motors (MG/MGE); substituting a generic motor requires verifying the thrust bearing.
+
 ## Where it shines / limitations
 
 **Shines** in boosting and utilities: high head without extreme speed, minimal vertical footprint, and the electronics ecosystem (CRE + sensors + BMS) that makes the off-the-shelf "smart pumping system" — the opposite end of the spectrum from the API process pump. **Limitations**: clean, cool fluids (stamped stages do not tolerate solids; limited thermal range); stage maintenance requires unstacking; not a platform for severe process or O&G standards.
