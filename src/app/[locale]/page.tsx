@@ -26,34 +26,38 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   return (
     <div>
       {/* Hero — sala de controle: navy, busca no centro. Colaborar (pedido do
-          fundador, 11/07) ganhou destaque AQUI — pílula branca ao lado da
-          busca, visível sem rolar, em vez do card discreto lá embaixo. */}
+          fundador, 11/07) ganha destaque logo abaixo, mas em bloco PRÓPRIO —
+          separado da busca por espaço + linha divisória, com legenda cinza
+          explicando o que é (revisão do fundador, 11/07: a 1ª versão ficou
+          colada na busca e sem explicação). */}
       <section className="px-6 py-14" style={{ background: 'var(--navy-700)' }}>
         <div className="mx-auto max-w-2xl text-center">
           <h1 className="text-3xl font-medium tracking-[0.14em] text-white">{t('titulo')}</h1>
           <p className="mt-3 text-base leading-relaxed text-slate-200">{t('sub')}</p>
           <p className="mt-1 text-sm leading-relaxed text-slate-400">{t('heroLinha')}</p>
-          <div className="mx-auto mt-6 flex max-w-2xl flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
-            <form
-              action={buscaPath(locale as Locale)}
-              method="get"
-              className="flex flex-1 gap-2 sm:max-w-xl"
+
+          <form
+            action={buscaPath(locale as Locale)}
+            method="get"
+            className="mx-auto mt-6 flex max-w-xl gap-2"
+          >
+            <input
+              type="search"
+              name="q"
+              placeholder={tBusca('placeholder')}
+              aria-label={tBusca('titulo')}
+              className="w-full rounded-md border-0 bg-white px-4 py-2.5 text-sm text-slate-800"
+            />
+            <button
+              type="submit"
+              className="shrink-0 rounded-md px-5 py-2.5 text-sm font-medium text-white"
+              style={{ background: 'var(--accent)' }}
             >
-              <input
-                type="search"
-                name="q"
-                placeholder={tBusca('placeholder')}
-                aria-label={tBusca('titulo')}
-                className="w-full rounded-md border-0 bg-white px-4 py-2.5 text-sm text-slate-800"
-              />
-              <button
-                type="submit"
-                className="shrink-0 rounded-md px-5 py-2.5 text-sm font-medium text-white"
-                style={{ background: 'var(--accent)' }}
-              >
-                {tBusca('botao')}
-              </button>
-            </form>
+              {tBusca('botao')}
+            </button>
+          </form>
+
+          <div className="mx-auto mt-8 flex max-w-xs flex-col items-center gap-2 border-t border-white/10 pt-8">
             <a
               href={colaborarPath(locale as Locale)}
               className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-md bg-white px-5 py-2.5 text-sm font-medium shadow-sm transition-all hover:shadow-md hover:brightness-95"
@@ -69,6 +73,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 →
               </span>
             </a>
+            <p className="text-xs leading-relaxed text-slate-400">{t('colaborarTexto')}</p>
           </div>
         </div>
       </section>
