@@ -396,6 +396,10 @@
   "nota": {
     "backlinks": "Referenciada por",
     "fontes": "Fontes",
+    "fontesNormas": "Normas e institutos",
+    "fontesLiteratura": "Literatura técnica",
+    "fontesArtigos": "Artigos e relatórios",
+    "fontesOutros": "Outros",
     "revisado": "Revisado em",
     "semente": "Nota-semente — visão resumida deste nível taxonômico",
     "arquivadaTitulo": "Nota arquivada",

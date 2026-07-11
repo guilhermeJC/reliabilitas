@@ -396,6 +396,10 @@
   "nota": {
     "backlinks": "Referenced by",
     "fontes": "Sources",
+    "fontesNormas": "Standards and institutes",
+    "fontesLiteratura": "Technical literature",
+    "fontesArtigos": "Papers and reports",
+    "fontesOutros": "Other",
     "revisado": "Reviewed on",
     "semente": "Seed note — summary view of this taxonomy level",
     "arquivadaTitulo": "Archived note",
