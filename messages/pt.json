@@ -410,7 +410,9 @@
     "modosFalha": "Modos de falha",
     "secoes": "Nesta página",
     "grafo": "Grafo local",
-    "sugerirCorrecao": "Sugerir correção"
+    "sugerirCorrecao": "Sugerir correção",
+    "baixarMd": "Baixar Markdown",
+    "baixarPdf": "Baixar PDF"
   },
   "niveis": {
     "beginner": "Entender",

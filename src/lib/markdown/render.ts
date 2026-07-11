@@ -123,6 +123,17 @@ function markedDe(locale: Locale): Marked {
           const inline = this.parser.parseInline(tokens);
           return `<h${depth} id="${slugifyHeading(text)}">${inline}</h${depth}>\n`;
         },
+        // Pedido do fundador (11/07): links markdown comuns (ex.: "Documentação
+        // oficial") não tinham nenhuma afordância visual — pareciam texto puro.
+        // class="link-externo" dá o gancho de estilo (CSS); href http(s) sempre
+        // abre em nova aba com rel seguro (o RELIABILITAS nunca perde a própria
+        // aba para um catálogo de terceiro — e noopener evita tabnabbing).
+        link({ href, tokens }) {
+          const texto = this.parser.parseInline(tokens);
+          const externo = /^https?:\/\//.test(href);
+          const attrs = externo ? ' target="_blank" rel="noopener noreferrer"' : '';
+          return `<a href="${escapeHtml(href)}" class="link-externo"${attrs}>${texto}</a>`;
+        },
       },
     });
     instancias.set(locale, m);

@@ -26,6 +26,8 @@ import { PlanoTable } from '@/components/plano-table';
 import { CurvaHq } from '@/components/calc/curva-hq';
 import { NivelSelector, type NivelLabel } from '@/components/nivel-selector';
 import { WeibullCalc } from '@/components/calc/weibull-calc';
+import { ExportNotaBotoes } from '@/components/export-nota-botoes';
+import { SugerirCorrecaoLink } from '@/components/sugerir-correcao-link';
 // CSS do KaTeX só onde há fórmula (corpo de nota) — fora do bundle global.
 import 'katex/dist/katex.min.css';
 
@@ -140,15 +142,14 @@ async function Rodape({ nota, locale }: { nota: Nota; locale: Locale }) {
             {t('revisado')} {nota.revisado_em}
           </span>
         )}
-        {/* T09: toda nota oferece o canal curado de correção */}
-        <a
-          href={sugerirPath(locale, notaPath(locale, nota.slug))}
-          className="text-xs underline-offset-2 hover:underline"
-          style={{ color: 'var(--wikilink)' }}
-        >
-          {t('sugerirCorrecao')}
-        </a>
       </p>
+      {/* T09: toda nota oferece o canal curado de correção (também no topo — melhoria do fundador, 11/07) */}
+      <div className="mt-3">
+        <SugerirCorrecaoLink
+          href={sugerirPath(locale, notaPath(locale, nota.slug))}
+          texto={t('sugerirCorrecao')}
+        />
+      </div>
     </footer>
   );
 }
@@ -207,6 +208,24 @@ export default async function NotaPage({ params }: PageParams) {
           {nota.titulo}
         </h1>
         <Badges nota={nota} />
+
+        {/* Ações do topo (pedido do fundador, 11/07): baixar o conteúdo e
+            sugerir correção ficam visíveis ANTES de ler, não só no rodapé. */}
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <ExportNotaBotoes
+            titulo={nota.titulo}
+            corpoMd={nota.corpo_md}
+            url={`https://reliabilitas.io${notaPath(locale, nota.slug)}`}
+            slug={nota.slug}
+            revisadoEm={nota.revisado_em ?? undefined}
+            labelRevisado={t('revisado')}
+            labels={{ md: t('baixarMd'), pdf: t('baixarPdf') }}
+          />
+          <SugerirCorrecaoLink
+            href={sugerirPath(locale, notaPath(locale, nota.slug))}
+            texto={t('sugerirCorrecao')}
+          />
+        </div>
 
         {ehModoFalha && niveis ? (
           <>
@@ -331,15 +350,17 @@ export default async function NotaPage({ params }: PageParams) {
           </>
         )}
 
-        <GrafoLocal
-          slug={nota.slug}
-          arestas={arestas}
-          acervo={acervo}
-          locale={locale as Locale}
-          titulo={t('grafo')}
-        />
-        <Rodape nota={nota} locale={locale as Locale} />
-        <Backlinks notas={backlinks} locale={locale as Locale} />
+        <div className="print:hidden">
+          <GrafoLocal
+            slug={nota.slug}
+            arestas={arestas}
+            acervo={acervo}
+            locale={locale as Locale}
+            titulo={t('grafo')}
+          />
+          <Rodape nota={nota} locale={locale as Locale} />
+          <Backlinks notas={backlinks} locale={locale as Locale} />
+        </div>
       </div>
     </div>
   );

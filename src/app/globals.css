@@ -61,6 +61,19 @@ body {
   color: var(--wikilink);
   text-decoration: underline;
 }
+/* Pedido do fundador (11/07): links comuns (ex.: "Documentação oficial") não
+   pareciam clicáveis — cor + sublinhado + seta de saída dão a afordância. */
+.nota-corpo a.link-externo {
+  color: var(--wikilink);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
+}
+.nota-corpo a.link-externo::after {
+  content: '↗';
+  margin-left: 0.15em;
+  font-size: 0.85em;
+}
 .nota-corpo code {
   font-family: var(--font-mono);
   font-size: 0.85em;
@@ -118,6 +131,19 @@ details[open] > summary .tree-chevron {
 }
 aside[data-collapsed='true'] + main .content-col {
   max-width: 78rem; /* ~1248px — mais largo com a árvore recolhida */
+}
+
+/* PDF via window.print() (botão "Baixar PDF", pedido do fundador 11/07): o
+   chrome (header/aside/grafo/rodapé) já leva print:hidden nos componentes;
+   aqui só o resíduo visual — canvas e moldura do artigo somem no papel. */
+@media print {
+  body {
+    background: white;
+  }
+  .nota-corpo {
+    border: none !important;
+    padding: 0 !important;
+  }
 }
 
 /* Acessibilidade: foco visível em todo o shell (DESIGN §4.6) */

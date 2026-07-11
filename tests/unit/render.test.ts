@@ -24,7 +24,26 @@ describe('renderNoteHtml — Markdown com mecânica Obsidian (D09)', () => {
   it('não transforma links markdown comuns', () => {
     const html = renderNoteHtml('[Emerson](https://emerson.com)', 'pt');
     expect(html).toContain('href="https://emerson.com"');
-    expect(html).not.toContain('wikilink');
+    expect(html).not.toContain('class="wikilink"');
+  });
+
+  describe('link externo ganha afordância visual (pedido do fundador: "não parece clicável")', () => {
+    it('link markdown comum ganha a classe link-externo', () => {
+      const html = renderNoteHtml('[Catálogo](https://exemplo.com/catalogo.pdf)', 'pt');
+      expect(html).toContain('class="link-externo"');
+    });
+
+    it('link http(s) abre em nova aba com rel seguro (noopener noreferrer)', () => {
+      const html = renderNoteHtml('[Catálogo](https://exemplo.com/catalogo.pdf)', 'pt');
+      expect(html).toContain('target="_blank"');
+      expect(html).toContain('rel="noopener noreferrer"');
+    });
+
+    it('wikilink continua SEM a classe link-externo (é navegação interna)', () => {
+      const html = renderNoteHtml('Veja [[cavitacao|a cavitação]].', 'pt');
+      expect(html).not.toContain('link-externo');
+      expect(html).not.toContain('target="_blank"');
+    });
   });
 
   describe('headings ganham id para âncoras (T02 — nav "nesta página")', () => {

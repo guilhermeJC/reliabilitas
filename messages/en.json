@@ -410,7 +410,9 @@
     "modosFalha": "Failure modes",
     "secoes": "On this page",
     "grafo": "Local graph",
-    "sugerirCorrecao": "Suggest a correction"
+    "sugerirCorrecao": "Suggest a correction",
+    "baixarMd": "Download Markdown",
+    "baixarPdf": "Download PDF"
   },
   "niveis": {
     "beginner": "Understand",

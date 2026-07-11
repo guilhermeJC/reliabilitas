@@ -74,8 +74,9 @@ export function SidebarShell({
         data-collapsed={collapsed ? 'true' : undefined}
         className={
           // A transição só entra depois do mount (evita flash na hidratação
-          // quando o localStorage difere do default).
-          `shrink-0 md:sticky md:top-14 md:h-[calc(100vh-3.5rem)] md:self-start md:overflow-hidden ${mounted ? 'transition-[width] duration-200 ease-out' : ''} ` +
+          // quando o localStorage difere do default). print:hidden — a árvore
+          // não deve aparecer no PDF gerado por window.print() (botão "Baixar PDF").
+          `print:hidden shrink-0 md:sticky md:top-14 md:h-[calc(100vh-3.5rem)] md:self-start md:overflow-hidden ${mounted ? 'transition-[width] duration-200 ease-out' : ''} ` +
           (collapsed ? 'hidden w-8 md:block' : 'w-full md:w-[280px] md:overflow-y-auto')
         }
         style={{ background: 'var(--navy-900)' }}

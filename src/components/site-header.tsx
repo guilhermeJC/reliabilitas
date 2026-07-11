@@ -11,7 +11,7 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
   return (
     // DEV-026: header fixo (sticky) — o CTA de apoio fica no canto superior
     // direito em TODAS as páginas, sem roubar espaço de conteúdo.
-    <header className="sticky top-0 z-40" style={{ background: 'var(--navy-900)' }}>
+    <header className="sticky top-0 z-40 print:hidden" style={{ background: 'var(--navy-900)' }}>
       <div className="flex h-14 w-full items-center justify-between gap-4 px-4">
         <div className="flex items-center gap-2">
           {/* Rodada 6 (09/07): hamburger que abre/fecha a arvore lateral */}
