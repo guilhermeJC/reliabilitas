@@ -18,7 +18,7 @@ tags:
   - OH2
   - ISO 13709
   - refining
-revisado_em: 2026-07-10
+revisado_em: 2026-07-11
 ---
 
 ## Identification
@@ -65,9 +65,9 @@ Materials across the API 610 classes (carbon steel, chrome, austenitics, duplex)
 - **Centerline support** sized for nozzle loads ABOVE API 610 requirements — preserves alignment with hot piping.
 - **Point of attention**: like every API platform, the value shows in severe service — in cold, mild service the HPX is the classic overspec the API itself discourages (paying for B73.1/ISO 5199 solves it).
 
-## Where it shines / limitations
+## Where it stands out / limitations
 
-**Shines** exactly where B73.1 stops: hot service (the OH1's foot mounting misaligns with thermal growth — the centerline does not), hydrocarbons with critical sealing (native API 682), O&G design audits (full API datasheets). **Limitations**: an acquisition cost several times an equivalent chemical pump — specifying API 610 for cold, mild service is the classic overspec the API itself discourages; for head beyond the range, the path is multistage BB.
+**Stands out** exactly where B73.1 stops: hot service (the OH1's foot mounting misaligns with thermal growth — the centerline does not), hydrocarbons with critical sealing (native API 682), O&G design audits (full API datasheets). **Limitations**: an acquisition cost several times an equivalent chemical pump — specifying API 610 for cold, mild service is the classic overspec the API itself discourages; for head beyond the range, the path is a multistage BB ([[sulzer-msd|e.g., Sulzer MSD]]).
 
 ## Official documentation
 

@@ -18,7 +18,7 @@ tags:
   - normalizada
   - saneamento
   - fabricante nacional
-revisado_em: 2026-07-10
+revisado_em: 2026-07-11
 ---
 
 ## Identificação
@@ -53,9 +53,9 @@ A faixa oficial vai ALÉM da grade dimensional clássica ISO 2858 (linha ampliad
 - **Catálogo trilíngue oficial** (PT/EN/ES) com tabelas de seleção — dimensionamento verificável na fonte.
 - **Ponto de atenção**: a documentação pública de curvas é menos profunda que a dos líderes globais — exigir curvas certificadas de teste (ISO 9906) na especificação, que também são o baseline do CBM de desempenho.
 
-## Onde brilha / limitações
+## Onde se destaca / limitações
 
-**Brilha** onde o critério é assistência técnica local, prazo e custo em moeda nacional — saneamento e indústria geral brasileira, contratos públicos com exigência de conteúdo local, reposição rápida. **Limitações**: as mesmas da classe normalizada (serviço brando/moderado; não é plataforma API 610), e a documentação pública de curvas é menos profunda que a dos líderes globais — pedir as curvas certificadas na especificação.
+**Destaca-se** onde o critério é assistência técnica local, prazo e custo em moeda nacional — saneamento e indústria geral brasileira, contratos públicos com exigência de conteúdo local, reposição rápida. **Limitações**: as mesmas da classe normalizada (serviço brando/moderado; não é plataforma API 610), e a documentação pública de curvas é menos profunda que a dos líderes globais — pedir as curvas certificadas na especificação.
 
 ## Documentação oficial
 

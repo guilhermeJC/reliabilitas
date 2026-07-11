@@ -18,7 +18,7 @@ tags:
   - OH2
   - ISO 13709
   - refino
-revisado_em: 2026-07-10
+revisado_em: 2026-07-11
 ---
 
 ## Identificação
@@ -65,9 +65,9 @@ Materiais nas classes da API 610 (aço carbono, cromo, austeníticos, duplex), c
 - **Suporte de linha de centro** dimensionado para cargas de bocal ACIMA do exigido pela API 610 — preserva alinhamento com tubulação quente.
 - **Ponto de atenção**: como toda plataforma API, o valor aparece no serviço severo — em serviço frio e brando a HPX é o overspec clássico que a própria API desaconselha (pagar B73.1/ISO 5199 resolve).
 
-## Onde brilha / limitações
+## Onde se destaca / limitações
 
-**Brilha** exatamente onde a B73.1 para: serviço quente (a montagem por pé da OH1 desalinha com a dilatação — a linha de centro não), hidrocarbonetos com selagem crítica (API 682 nativa), auditoria de projeto O&G (datasheets API completos). **Limitações**: custo de aquisição múltiplo de uma bomba química equivalente — especificar API 610 para serviço frio e brando é o clássico *overspec* que a própria API desaconselha; para head acima da faixa, o caminho é BB multiestágio.
+**Destaca-se** exatamente onde a B73.1 para: serviço quente (a montagem por pé da OH1 desalinha com a dilatação — a linha de centro não), hidrocarbonetos com selagem crítica (API 682 nativa), auditoria de projeto O&G (datasheets API completos). **Limitações**: custo de aquisição múltiplo de uma bomba química equivalente — especificar API 610 para serviço frio e brando é o clássico *overspec* que a própria API desaconselha; para head acima da faixa, o caminho é a BB multiestágio ([[sulzer-msd|ex.: Sulzer MSD]]).
 
 ## Documentação oficial
 

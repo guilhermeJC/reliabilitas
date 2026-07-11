@@ -18,7 +18,7 @@ tags:
   - ISO 5199
   - normalizada
   - saneamento
-revisado_em: 2026-07-10
+revisado_em: 2026-07-11
 ---
 
 ## Identificação
@@ -63,13 +63,13 @@ Materiais conforme o catálogo oficial por serviço (ferro fundido na execução
 - **Fabricação nacional (Várzea Paulista/SP)**: prazo, peças e assistência em moeda local — o fator de MTTR que os importados não igualam no Brasil.
 - **Ponto de atenção**: execução padrão limitada a ~105–140 °C conforme a variante e vedação — acima disso (ou hidrocarboneto), a conversa muda de classe (ISO 5199 em liga / API 610).
 
-## Onde brilha / limitações
+## Onde se destaca / limitações
 
-**Brilha** onde o serviço é água/fluidos limpos e o critério é custo total + assistência local: fabricação nacional, rede de peças e oficinas no Brasil, prazo curto — o padrão de facto do saneamento e da indústria geral brasileira. **Limitações**: execução padrão até ~105 °C e pressões moderadas — não é plataforma para hidrocarbonetos severos (API 610) nem para químicos agressivos de alta exigência (onde a carta de materiais B73.1/ISO 5199 em ligas entra).
+**Destaca-se** onde o serviço é água/fluidos limpos e o critério é custo total + assistência local: fabricação nacional, rede de peças e oficinas no Brasil, prazo curto — o padrão de facto do saneamento e da indústria geral brasileira. **Limitações**: execução padrão até ~105 °C e pressões moderadas — não é plataforma para hidrocarbonetos severos (API 610) nem para químicos agressivos de alta exigência (onde a carta de materiais B73.1/ISO 5199 em ligas entra).
 
 ## Documentação oficial
 
-- [Página do produto Meganorm — KSB Brasil](https://www.ksb.com/pt-br/lc/Produtos/Bomba/Bomba-de-instala%C3%A7%C3%A3o-a-seco/c/DRY/M52B) — dados, curvas e seleção (KSB EasySelect).
+- [Página do produto Meganorm — KSB Brasil](https://www.ksb.com/pt-br/lc/produtos/bomba/bomba-de-instalacao-a-seco/meganorm/M52B) — dados, curvas e seleção (KSB EasySelect).
 - Manual técnico e manual de serviço na central de downloads oficial da KSB (D05 — sempre a fonte oficial).
 
 ## Confiabilidade

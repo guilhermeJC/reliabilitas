@@ -18,7 +18,7 @@ tags:
   - ISO 5199
   - standardized pump
   - sanitation
-revisado_em: 2026-07-10
+revisado_em: 2026-07-11
 ---
 
 ## Identification
@@ -63,13 +63,13 @@ Materials per the official catalog by service (cast iron in the standard executi
 - **Brazilian manufacturing (Várzea Paulista/SP)**: lead time, parts and support in local currency — the MTTR factor imports do not match in Brazil.
 - **Point of attention**: standard execution limited to ~105–140 °C depending on variant and sealing — beyond that (or hydrocarbons), the conversation changes class (alloyed ISO 5199 / API 610).
 
-## Where it shines / limitations
+## Where it stands out / limitations
 
-**Shines** where the service is water/clean fluids and the criterion is total cost + local support: national manufacturing, parts and workshop network across Brazil, short lead times — the de facto standard of Brazilian sanitation and general industry. **Limitations**: standard execution up to ~105 °C and moderate pressures — not a platform for severe hydrocarbons (API 610) nor for high-demand aggressive chemicals (where the B73.1/ISO 5199 alloy charts come in).
+**Stands out** where the service is water/clean fluids and the criterion is total cost + local support: national manufacturing, parts and workshop network across Brazil, short lead times — the de facto standard of Brazilian sanitation and general industry. **Limitations**: standard execution up to ~105 °C and moderate pressures — not a platform for severe hydrocarbons (API 610) nor for high-demand aggressive chemicals (where the B73.1/ISO 5199 alloy charts come in).
 
 ## Official documentation
 
-- [Meganorm product page — KSB Brasil](https://www.ksb.com/pt-br/lc/Produtos/Bomba/Bomba-de-instala%C3%A7%C3%A3o-a-seco/c/DRY/M52B) — data, curves and selection (KSB EasySelect).
+- [Meganorm product page — KSB](https://www.ksb.com/en-us/lc/products/pump/dry-installed-pump/meganorm/M52B) — data, curves and selection (KSB EasySelect).
 - Technical and service manuals in KSB's official download center (D05 — always the official source).
 
 ## Reliability

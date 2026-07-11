@@ -18,7 +18,7 @@ tags:
   - ASME B73.1
   - OH1
   - processo químico
-revisado_em: 2026-07-10
+revisado_em: 2026-07-11
 ---
 
 ## Identificação
@@ -65,9 +65,9 @@ Materiais de catálogo: ferro dúctil, 316SS, **CD4MCu (duplex)**, Alloy 20, Has
 - **Impelidor aberto com ajuste externo de folga**: restaura o rendimento volumétrico sem desmontar a bomba — mas o ajuste é obrigatório após intervenção e para temperatura de serviço (procedimento do IOM oficial); folga errada = rendimento perdido ou contato.
 - **Ponto de atenção clássico da classe ANSI** (literatura de rotativos): grupos menores têm eixo mais esbelto — em serviço severo, conferir a deflexão (L³/D⁴) e considerar o grupo de armação acima.
 
-## Onde brilha / limitações
+## Onde se destaca / limitações
 
-**Brilha** como cavalo de batalha químico: população instalada gigante, peças em qualquer lugar, histórico de falha documentado por décadas — a escolha de menor risco para serviço B73.1. **Limitações**: é uma plataforma B73.1 — para hidrocarbonetos quentes/alta pressão o degrau é uma OH2 API 610 ([[flowserve-hpx|ex.: Flowserve HPX]]); o impelidor aberto sacrifica um pouco de rendimento frente a fechados.
+**Destaca-se** como cavalo de batalha químico: população instalada gigante, peças em qualquer lugar, histórico de falha documentado por décadas — a escolha de menor risco para serviço B73.1. **Limitações**: é uma plataforma B73.1 — para hidrocarbonetos quentes/alta pressão o degrau é uma OH2 API 610 ([[flowserve-hpx|ex.: Flowserve HPX]]); o impelidor aberto sacrifica um pouco de rendimento frente a fechados.
 
 ## Documentação oficial
 

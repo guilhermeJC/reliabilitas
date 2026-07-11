@@ -55,7 +55,7 @@ anatomia:
     fonte: 'https://commons.wikimedia.org/wiki/File:Kreiselpumpe-Elektromotor.jpg'
     licenca: 'CC BY-SA 4.0'
     credito: 'HopuWiki (Wikimedia Commons)'
-revisado_em: 2026-07-10
+revisado_em: 2026-07-11
 ---
 
 ## Classification
@@ -210,6 +210,7 @@ Changing position on this axis changes the **dominant failure mode**: the sealed
 | [[ksb-meganorm|KSB Meganorm]] | Radial | 1 | OH1 | Sealed | ISO 2858 | General industry/water |
 | [[flowserve-hpx|Flowserve HPX]] | Radial | 1 | OH2 | Sealed API 682 | API 610 | Refining |
 | [[grundfos-cr|Grundfos CR]] | Radial | Multi | Vertical in-line | Sealed | — | Utilities/pressure boosting |
+| [[sulzer-msd|Sulzer MSD]] | Radial | Multi | BB3 | Sealed | API 610 | Pipelines/boiler feed |
 | Sulzer AHLSTAR | Radial/Francis | 1 | OH | Sealed | ISO 5199 | Pulp & paper |
 
 Each model linked in the first column has its **own sheet** (taxonomy level 5 — Brand/Model) with axis positions, catalog ranges, official documentation and a reliability reading; Sulzer AHLSTAR gets its sheet as the collection expands.
@@ -218,12 +219,12 @@ Each model linked in the first column has its **own sheet** (taxonomy level 5 �
 
 Market references cited as reality anchors, each with the construction difference that defines it (official links; D05 — never catalog rehosting):
 
-- **[[goulds-3196|Goulds 3196 (ITT)]]** ([official site](https://www.gouldspumps.com/)) — the world archetype of ASME B73.1 and the most-installed chemical process pump in the world; decades of field history and full dimensional interchangeability across generations — the spare-parts argument that sustains the ANSI standard.
-- **[[ksb-meganorm|KSB Meganorm / Megabloc]]** ([official site](https://www.ksb.com/)) — the ISO 2858 line with the largest presence in Brazil (local manufacturing); Meganorm with coupling and baseplate, Megabloc close-coupled (impeller on the motor shaft end — less alignment, no baseplate).
-- **[[flowserve-hpx|Flowserve HPX]]** ([official site](https://www.flowserve.com/)) — the refining OH2 from Flowserve's full API 610 portfolio (OH2/BB/VS), with a strong sealing heritage (Durametallic legacy); the reference when service demands integrated API 682.
-- **[Sulzer](https://www.sulzer.com/)** — the reference in multistage BB (boiler feedwater, pipelines) and in pulp & paper process lines (AHLSTAR — pumping fibrous, gas-laden stock).
-- **[[grundfos-cr|Grundfos CR]]** ([official site](https://www.grundfos.com/)) — dominance in vertical in-line multistage (CR series) and packaged systems with integrated VFD and electronics — the "smart off-the-shelf product" end of the spectrum.
-- **[[imbil-ini|Imbil INI]]** ([official site](https://www.imbil.com.br/)) — relevant Brazilian manufacturer in sanitation, irrigation and general industry; the local alternative for lead time and support in the Brazilian market.
+- **[[goulds-3196|Goulds 3196 (ITT)]]** ([product page](https://www.gouldspumps.com/products/3196-i-frame)) — the world archetype of ASME B73.1 and the most-installed chemical process pump in the world; decades of field history and full dimensional interchangeability across generations — the spare-parts argument that sustains the ANSI standard.
+- **[[ksb-meganorm|KSB Meganorm / Megabloc]]** ([product page](https://www.ksb.com/en-us/lc/products/pump/dry-installed-pump/meganorm/M52B)) — the ISO 2858 line with the largest presence in Brazil (local manufacturing); Meganorm with coupling and baseplate, Megabloc close-coupled (impeller on the motor shaft end — less alignment, no baseplate).
+- **[[flowserve-hpx|Flowserve HPX]]** ([product page](https://www.flowserve.com/products/products-catalog/pumps/overhung-pumps/flowserve-hpx-api-process-pump-0/)) — the refining OH2 from Flowserve's full API 610 portfolio (OH2/BB/VS), with a strong sealing heritage (Durametallic legacy); the reference when service demands integrated API 682.
+- **[[sulzer-msd|Sulzer MSD]]** ([product page](https://www.sulzer.com/en/shared/products/msd-axially-split-multistage-pump)) — the reference BB3 of heavy multistage duty (boiler feedwater, refined-product pipelines): axially split casing with opposed impellers, over 10,000 units installed. Sulzer is also the reference in pulp & paper (AHLSTAR line — fibrous, gas-laden stock).
+- **[[grundfos-cr|Grundfos CR]]** ([CR family page](https://product-selection.grundfos.com/us/products/cr-cre-cri-crie-crn-crne-crt-crte)) — dominance in vertical in-line multistage (CR series) and packaged systems with integrated VFD and electronics — the "smart off-the-shelf product" end of the spectrum.
+- **[[imbil-ini|Imbil INI]]** ([INI line page](https://imbil.com.br/produtos/ini/)) — relevant Brazilian manufacturer in sanitation, irrigation and general industry; the local alternative for lead time and support in the Brazilian market.
 
 ## Industry and applications
 

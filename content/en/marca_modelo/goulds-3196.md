@@ -18,7 +18,7 @@ tags:
   - ASME B73.1
   - OH1
   - chemical process
-revisado_em: 2026-07-10
+revisado_em: 2026-07-11
 ---
 
 ## Identification
@@ -65,9 +65,9 @@ Catalog materials: ductile iron, 316SS, **CD4MCu (duplex)**, Alloy 20, Hastelloy
 - **Open impeller with external clearance adjustment**: restores volumetric efficiency without disassembling the pump — but the adjustment is mandatory after intervention and for service temperature (official IOM procedure); wrong clearance = lost efficiency or contact.
 - **The classic ANSI-class point of attention** (rotating-equipment literature): smaller groups have a more slender shaft — in severe service, check deflection (L³/D⁴) and consider the next frame group up.
 
-## Where it shines / limitations
+## Where it stands out / limitations
 
-**Shines** as the chemical workhorse: a giant installed population, parts anywhere, failure history documented over decades — the lowest-risk choice for B73.1 service. **Limitations**: it is a B73.1 platform — for hot/high-pressure hydrocarbons the step up is an API 610 OH2 ([[flowserve-hpx|e.g., Flowserve HPX]]); the open impeller gives up some efficiency versus closed designs.
+**Stands out** as the chemical workhorse: a giant installed population, parts anywhere, failure history documented over decades — the lowest-risk choice for B73.1 service. **Limitations**: it is a B73.1 platform — for hot/high-pressure hydrocarbons the step up is an API 610 OH2 ([[flowserve-hpx|e.g., Flowserve HPX]]); the open impeller gives up some efficiency versus closed designs.
 
 ## Official documentation
 

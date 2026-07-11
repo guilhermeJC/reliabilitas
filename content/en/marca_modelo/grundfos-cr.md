@@ -18,7 +18,7 @@ tags:
   - vertical in-line
   - pressure boosting
   - CRE
-revisado_em: 2026-07-10
+revisado_em: 2026-07-11
 ---
 
 ## Identification
@@ -66,13 +66,13 @@ Stamped stainless stages (high efficiency in a small machine), a top-accessible 
 - **Grundfos Product Center**: online selection and curves per duty point — verifiable sizing before purchase.
 - **Point of attention**: the stack's axial thrust is carried by the MOTOR bearing — the line is designed for Grundfos motors (MG/MGE); substituting a generic motor requires verifying the thrust bearing.
 
-## Where it shines / limitations
+## Where it stands out / limitations
 
-**Shines** in boosting and utilities: high head without extreme speed, minimal vertical footprint, and the electronics ecosystem (CRE + sensors + BMS) that makes the off-the-shelf "smart pumping system" — the opposite end of the spectrum from the API process pump. **Limitations**: clean, cool fluids (stamped stages do not tolerate solids; limited thermal range); stage maintenance requires unstacking; not a platform for severe process or O&G standards.
+**Stands out** in boosting and utilities: high head without extreme speed, minimal vertical footprint, and the electronics ecosystem (CRE + sensors + BMS) that makes the off-the-shelf "smart pumping system" — the opposite end of the spectrum from the API process pump. **Limitations**: clean, cool fluids (stamped stages do not tolerate solids; limited thermal range); stage maintenance requires unstacking; not a platform for severe process or O&G standards.
 
 ## Official documentation
 
-- [Grundfos — official site and Product Center](https://www.grundfos.com/) — online selection, curves and sizing.
+- [CR family page — Grundfos Product Center](https://product-selection.grundfos.com/us/products/cr-cre-cri-crie-crn-crne-crt-crte) — variants, curves and online sizing.
 - [CR/CRI/CRN data booklet (official PDF)](https://api.grundfos.com/literature/Grundfosliterature-6014742.pdf) — ranges, curves and limits per size (D05 — official source).
 
 ## Reliability

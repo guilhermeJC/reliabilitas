@@ -18,7 +18,7 @@ tags:
   - standardized pump
   - sanitation
   - Brazilian manufacturer
-revisado_em: 2026-07-10
+revisado_em: 2026-07-11
 ---
 
 ## Identification
@@ -53,9 +53,9 @@ The official range goes BEYOND the classic ISO 2858 dimensional grid (extended l
 - **Official trilingual catalog** (PT/EN/ES) with selection tables — sizing verifiable at the source.
 - **Point of attention**: public curve documentation is thinner than the global leaders' — demand certified test curves (ISO 9906) in the specification; they are also the baseline for performance CBM.
 
-## Where it shines / limitations
+## Where it stands out / limitations
 
-**Shines** where the criteria are local technical support, lead time and local-currency cost — Brazilian sanitation and general industry, public contracts with local-content requirements, fast replacement. **Limitations**: those of the standardized class (mild/moderate service; not an API 610 platform), and public curve documentation is thinner than the global leaders' — request certified curves in the specification.
+**Stands out** where the criteria are local technical support, lead time and local-currency cost — Brazilian sanitation and general industry, public contracts with local-content requirements, fast replacement. **Limitations**: those of the standardized class (mild/moderate service; not an API 610 platform), and public curve documentation is thinner than the global leaders' — request certified curves in the specification.
 
 ## Official documentation
 

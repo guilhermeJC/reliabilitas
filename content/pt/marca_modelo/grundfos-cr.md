@@ -18,7 +18,7 @@ tags:
   - vertical in-line
   - pressurização
   - CRE
-revisado_em: 2026-07-10
+revisado_em: 2026-07-11
 ---
 
 ## Identificação
@@ -66,13 +66,13 @@ Estágios em inox estampado (rendimento alto em máquina pequena), selo mecânic
 - **Grundfos Product Center**: seleção e curvas online por ponto de operação — dimensionamento verificável antes da compra.
 - **Ponto de atenção**: o empuxo axial da pilha é absorvido pelo mancal do MOTOR — a linha é projetada para os motores Grundfos (MG/MGE); substituição por motor genérico exige verificação do mancal de escora.
 
-## Onde brilha / limitações
+## Onde se destaca / limitações
 
-**Brilha** em pressurização e utilidades: head alto sem rotação extrema, footprint vertical mínimo, e o ecossistema eletrônico (CRE + sensores + BMS) que faz o "sistema de bombeamento inteligente" de prateleira — o extremo oposto do espectro em relação à bomba de processo API. **Limitações**: fluidos limpos e frios (estágios estampados não toleram sólidos; faixa térmica limitada); manutenção de estágio exige desmontagem da pilha; não é plataforma para processo severo ou normas de O&G.
+**Destaca-se** em pressurização e utilidades: head alto sem rotação extrema, footprint vertical mínimo, e o ecossistema eletrônico (CRE + sensores + BMS) que faz o "sistema de bombeamento inteligente" de prateleira — o extremo oposto do espectro em relação à bomba de processo API. **Limitações**: fluidos limpos e frios (estágios estampados não toleram sólidos; faixa térmica limitada); manutenção de estágio exige desmontagem da pilha; não é plataforma para processo severo ou normas de O&G.
 
 ## Documentação oficial
 
-- [Grundfos — site oficial e Product Center](https://www.grundfos.com/) — seleção, curvas e dimensionamento online.
+- [Página da família CR — Grundfos Product Center](https://product-selection.grundfos.com/us/products/cr-cre-cri-crie-crn-crne-crt-crte) — variantes, curvas e dimensionamento online.
 - [Data booklet CR/CRI/CRN (PDF oficial)](https://api.grundfos.com/literature/Grundfosliterature-6014742.pdf) — faixas, curvas e limites por tamanho (D05 — fonte oficial).
 
 ## Confiabilidade
