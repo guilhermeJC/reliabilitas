@@ -4,7 +4,13 @@ import { hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { listPublicadas } from '@/lib/db/notas';
-import { CONTRIBUICAO_TIPOS, TITULO_MAX, TITULO_MIN, CORPO_MIN, CORPO_MAX } from '@/lib/contribuicao';
+import {
+  CONTRIBUICAO_TIPOS,
+  TITULO_MAX,
+  TITULO_MIN,
+  CORPO_MIN,
+  CORPO_MAX,
+} from '@/lib/contribuicao';
 import { TIPOS_NOTA, type Locale } from '@/lib/content/schema';
 
 // Colaborar (pedido do fundador, 11/07) — form HTML puro (POST → /api/contribuicao,
@@ -37,7 +43,9 @@ export default async function ColaborarPage({ params, searchParams }: PageProps)
   const acervo = await listPublicadas(locale as Locale);
   const grupos = TIPOS_NOTA.map((tipo) => ({
     tipo,
-    itens: acervo.filter((n) => n.tipo_nota === tipo).sort((a, b) => a.titulo.localeCompare(b.titulo)),
+    itens: acervo
+      .filter((n) => n.tipo_nota === tipo)
+      .sort((a, b) => a.titulo.localeCompare(b.titulo)),
   })).filter((g) => g.itens.length > 0);
 
   return (

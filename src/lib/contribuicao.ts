@@ -39,8 +39,7 @@ const contribuicaoSchema = z.strictObject({
 export type Contribuicao = z.infer<typeof contribuicaoSchema>;
 
 export type ResultadoContribuicao =
-  | { ok: true; data: Contribuicao }
-  | { ok: false; motivo: 'bot' | 'invalida' };
+  { ok: true; data: Contribuicao } | { ok: false; motivo: 'bot' | 'invalida' };
 
 export function validaContribuicao(raw: Record<string, unknown>): ResultadoContribuicao {
   // Honeypot: campo 'website' é invisível para humanos (CSS); preenchido = bot.

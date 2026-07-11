@@ -26,7 +26,15 @@ function Badge({ status }: { status: string }) {
   );
 }
 
-function AcaoStatus({ action, status, rotulo }: { action: string; status: string; rotulo: string }) {
+function AcaoStatus({
+  action,
+  status,
+  rotulo,
+}: {
+  action: string;
+  status: string;
+  rotulo: string;
+}) {
   return (
     <form action={action} method="post" className="inline">
       <input type="hidden" name="status" value={status} />
@@ -53,7 +61,11 @@ function CardSugestao({ s }: { s: SugestaoRow }) {
       <p className="mt-2 whitespace-pre-wrap text-sm text-slate-800">{s.mensagem}</p>
       {s.contato && <p className="mt-1 text-xs text-slate-500">Contato: {s.contato}</p>}
       <div className="mt-3 flex gap-2">
-        <AcaoStatus action={`/api/admin/sugestoes/${s.id}/status`} status="lida" rotulo="Marcar lida" />
+        <AcaoStatus
+          action={`/api/admin/sugestoes/${s.id}/status`}
+          status="lida"
+          rotulo="Marcar lida"
+        />
         <AcaoStatus
           action={`/api/admin/sugestoes/${s.id}/status`}
           status="resolvida"
@@ -133,8 +145,8 @@ export default async function AdminPainelPage() {
           Contribuições de conteúdo ({contribuicoes.length})
         </h2>
         <p className="mt-1 text-xs text-slate-500">
-          &ldquo;Aceitar&rdquo; não publica — marca como matéria-prima pra reescrever no padrão editorial e
-          seguir o fluxo Git→CI de sempre.
+          &ldquo;Aceitar&rdquo; não publica — marca como matéria-prima pra reescrever no padrão
+          editorial e seguir o fluxo Git→CI de sempre.
         </p>
         {contribuicoes.length === 0 ? (
           <p className="mt-2 text-sm text-slate-500">Nenhuma contribuição ainda.</p>

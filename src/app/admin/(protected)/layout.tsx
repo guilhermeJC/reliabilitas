@@ -4,11 +4,7 @@ import { estaAutenticado } from '@/lib/admin-session';
 // Guarda de sessão real do painel — cada página dentro deste route group
 // (URL continua /admin, o grupo não entra na rota) exige cookie assinado
 // válido. Rotas de MUTAÇÃO (status) conferem de novo — nunca confiar só aqui.
-export default async function AdminProtectedLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function AdminProtectedLayout({ children }: { children: React.ReactNode }) {
   const autenticado = await estaAutenticado();
   if (!autenticado) redirect('/admin/login');
 
