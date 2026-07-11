@@ -1,124 +1,142 @@
-<svg viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, 'JetBrains Mono', Consolas, monospace">
-  <!-- RELIABILITAS — anatomia: bomba centrífuga horizontal overhung (OH1),
-       corte esquemático meridional. Asset PRÓPRIO (DEV-025/BR-009).
-       Callouts numerados: a legenda vive no corpo da nota (traduzível).
-       1 voluta · 2 impelidor · 3 eixo · 4 selo mecânico · 5 rolamentos
-       6 sucção · 7 recalque · 8 caixa de mancais -->
+<svg viewBox="0 0 980 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Corte técnico de bomba centrífuga horizontal monoestágio (OH1): voluta aberta com impelidor, caixa de selagem com selo mecânico, caixa de mancais com rolamentos e carter de óleo, acoplamento com proteção; a linha tracejada indica o caminho do fluido da sucção ao recalque">
+  <!-- RELIABILITAS — anatomia: bomba centrífuga OH1, corte técnico (v2, sessão 5).
+       Asset PRÓPRIO (DEV-025/BR-009). A página do handbook sobrepõe hotspots
+       interativos numerados nestes pontos de ancoragem; o fluxo (laranja
+       tracejado) mostra entrada → rotor → voluta → saída. -->
   <defs>
-    <marker id="seta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M 0 1 L 9 5 L 0 9 z" fill="#E8510A"/>
+    <pattern id="hatch" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <rect width="7" height="7" fill="#f3ddd3"/>
+      <line x1="0" y1="0" x2="0" y2="7" stroke="#cf7b5e" stroke-width="1.5"/>
+    </pattern>
+    <linearGradient id="aco" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#dbe1ea"/>
+      <stop offset="0.5" stop-color="#f2f5f9"/>
+      <stop offset="1" stop-color="#aab4c2"/>
+    </linearGradient>
+    <marker id="seta" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#E8510A"/>
     </marker>
   </defs>
 
-  <!-- ================== FLUXO (setas de processo) ================== -->
-  <g stroke="#7f8ba3" stroke-width="2.5" fill="none" stroke-dasharray="7 5">
-    <path d="M 30 300 H 130" marker-end="url(#seta)"/>
-    <path d="M 300 118 V 52" marker-end="url(#seta)"/>
-  </g>
-  <text x="34" y="288" font-size="13" fill="#7f8ba3">fluxo</text>
+  <!-- ══════════ BASE (14) ══════════ -->
+  <rect x="70" y="478" width="850" height="26" rx="3" fill="#d3dae6" stroke="#12233F" stroke-width="2.5"/>
+  <rect x="250" y="430" width="96" height="48" fill="#e9edf3" stroke="#12233F" stroke-width="2"/>
+  <rect x="636" y="432" width="78" height="46" fill="#e9edf3" stroke="#12233F" stroke-width="2"/>
+  <circle cx="276" cy="492" r="4" fill="#94a3b8"/>
+  <circle cx="320" cy="492" r="4" fill="#94a3b8"/>
+  <circle cx="662" cy="492" r="4" fill="#94a3b8"/>
+  <circle cx="700" cy="492" r="4" fill="#94a3b8"/>
 
-  <!-- ================== BOCAL DE RECALQUE (7) ================== -->
-  <g stroke="#12233F" stroke-width="3" fill="#eef1f6">
-    <path d="M 268 130 V 78 H 332 V 130"/>
-    <rect x="256" y="64" width="88" height="16" rx="2" fill="#dfe5ee"/>
+  <!-- ══════════ BOCAL DE SUCÇÃO (1) ══════════ -->
+  <rect x="30" y="245" width="20" height="110" rx="2" fill="#d3dae6" stroke="#12233F" stroke-width="2.5"/>
+  <circle cx="40" cy="258" r="3" fill="#94a3b8"/>
+  <circle cx="40" cy="300" r="3" fill="#94a3b8"/>
+  <circle cx="40" cy="342" r="3" fill="#94a3b8"/>
+  <rect x="50" y="272" width="85" height="56" fill="#e9edf3" stroke="#12233F" stroke-width="2.5"/>
+
+  <!-- ══════════ VOLUTA (4): parede em corte (hachura) + câmara de fluido ══════════ -->
+  <circle cx="295" cy="300" r="172" fill="#e9edf3" stroke="#12233F" stroke-width="3"/>
+  <circle cx="295" cy="300" r="159" fill="none" stroke="url(#hatch)" stroke-width="22"/>
+  <circle cx="295" cy="300" r="148" fill="#e7f0fa" stroke="#12233F" stroke-width="1.5"/>
+  <rect x="286" y="468" width="18" height="12" fill="#c3ccd9" stroke="#12233F" stroke-width="1.5"/>
+
+  <!-- ══════════ BOCAL DE RECALQUE (5) ══════════ -->
+  <rect x="263" y="78" width="64" height="74" fill="#e9edf3" stroke="#12233F" stroke-width="2.5"/>
+  <rect x="245" y="58" width="100" height="20" rx="2" fill="#d3dae6" stroke="#12233F" stroke-width="2.5"/>
+  <circle cx="262" cy="68" r="3" fill="#94a3b8"/>
+  <circle cx="295" cy="68" r="3" fill="#94a3b8"/>
+  <circle cx="328" cy="68" r="3" fill="#94a3b8"/>
+
+  <!-- ══════════ IMPELIDOR (2) + ANÉIS DE DESGASTE (3) ══════════ -->
+  <circle cx="295" cy="300" r="100" fill="#dbe3ee" stroke="#12233F" stroke-width="2.5"/>
+  <g stroke="#12233F" stroke-width="2.2" fill="none">
+    <path d="M 321 300 Q 352 274 391 264" transform="rotate(0,295,300)"/>
+    <path d="M 321 300 Q 352 274 391 264" transform="rotate(51.4,295,300)"/>
+    <path d="M 321 300 Q 352 274 391 264" transform="rotate(102.9,295,300)"/>
+    <path d="M 321 300 Q 352 274 391 264" transform="rotate(154.3,295,300)"/>
+    <path d="M 321 300 Q 352 274 391 264" transform="rotate(205.7,295,300)"/>
+    <path d="M 321 300 Q 352 274 391 264" transform="rotate(257.1,295,300)"/>
+    <path d="M 321 300 Q 352 274 391 264" transform="rotate(308.6,295,300)"/>
+  </g>
+  <circle cx="295" cy="300" r="26" fill="#c3ccd9" stroke="#12233F" stroke-width="2"/>
+  <path d="M 193 262 A 108 108 0 0 0 193 338" fill="none" stroke="#12233F" stroke-width="5"/>
+  <path d="M 200 268 A 100 100 0 0 0 200 332" fill="none" stroke="#7c8ba1" stroke-width="3"/>
+
+  <!-- ══════════ EIXO (7) ══════════ -->
+  <rect x="321" y="285" width="551" height="30" fill="url(#aco)" stroke="#12233F" stroke-width="1.8"/>
+  <rect x="852" y="290" width="20" height="20" fill="#aab4c2" stroke="#12233F" stroke-width="1.5"/>
+
+  <!-- ══════════ CAIXA DE SELAGEM + SELO MECÂNICO (6) ══════════ -->
+  <rect x="455" y="240" width="92" height="120" fill="#e9edf3" stroke="#12233F" stroke-width="2.5"/>
+  <rect x="455" y="240" width="92" height="24" fill="url(#hatch)" stroke="#12233F" stroke-width="1.5"/>
+  <rect x="455" y="336" width="92" height="24" fill="url(#hatch)" stroke="#12233F" stroke-width="1.5"/>
+  <polyline points="466,300 471,292 476,308 481,292 486,308 491,300" fill="none" stroke="#12233F" stroke-width="1.6"/>
+  <rect x="494" y="276" width="18" height="48" fill="#8fa0b5" stroke="#12233F" stroke-width="1.5"/>
+  <rect x="514" y="276" width="10" height="48" fill="#5f6f84" stroke="#12233F" stroke-width="1.5"/>
+  <rect x="534" y="252" width="13" height="96" fill="#c3ccd9" stroke="#12233F" stroke-width="1.8"/>
+
+  <!-- ══════════ CAIXA DE MANCAIS: ROLAMENTOS (8), CARTER (9), VEDAÇÃO (10), AJUSTE AXIAL (11), ACELERÔMETRO (12) ══════════ -->
+  <rect x="560" y="238" width="240" height="124" rx="14" fill="#e9edf3" stroke="#12233F" stroke-width="3"/>
+  <rect x="574" y="252" width="212" height="96" rx="8" fill="#f6f8fb" stroke="#94a3b8" stroke-width="1"/>
+  <rect x="574" y="330" width="212" height="18" fill="#f2cf8d"/>
+  <line x1="574" y1="330" x2="786" y2="330" stroke="#b45309" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <rect x="652" y="362" width="76" height="34" rx="8" fill="#e9edf3" stroke="#12233F" stroke-width="2"/>
+  <circle cx="690" cy="379" r="11" fill="#ffffff" stroke="#12233F" stroke-width="2"/>
+  <circle cx="690" cy="382" r="6" fill="#f2cf8d"/>
+  <rect x="588" y="258" width="26" height="84" fill="#d3dae6" stroke="#12233F" stroke-width="2"/>
+  <circle cx="601" cy="272" r="7" fill="#ffffff" stroke="#12233F" stroke-width="1.8"/>
+  <circle cx="601" cy="300" r="7" fill="#ffffff" stroke="#12233F" stroke-width="1.8"/>
+  <circle cx="601" cy="328" r="7" fill="#ffffff" stroke="#12233F" stroke-width="1.8"/>
+  <rect x="722" y="258" width="22" height="84" fill="#d3dae6" stroke="#12233F" stroke-width="2"/>
+  <rect x="748" y="258" width="22" height="84" fill="#d3dae6" stroke="#12233F" stroke-width="2"/>
+  <circle cx="733" cy="274" r="6" fill="#ffffff" stroke="#12233F" stroke-width="1.6"/>
+  <circle cx="733" cy="300" r="6" fill="#ffffff" stroke="#12233F" stroke-width="1.6"/>
+  <circle cx="733" cy="326" r="6" fill="#ffffff" stroke="#12233F" stroke-width="1.6"/>
+  <circle cx="759" cy="274" r="6" fill="#ffffff" stroke="#12233F" stroke-width="1.6"/>
+  <circle cx="759" cy="300" r="6" fill="#ffffff" stroke="#12233F" stroke-width="1.6"/>
+  <circle cx="759" cy="326" r="6" fill="#ffffff" stroke="#12233F" stroke-width="1.6"/>
+  <rect x="554" y="276" width="9" height="48" fill="#8fa0b5" stroke="#12233F" stroke-width="1.5"/>
+  <rect x="797" y="276" width="9" height="48" fill="#8fa0b5" stroke="#12233F" stroke-width="1.5"/>
+  <rect x="806" y="256" width="16" height="88" fill="#d3dae6" stroke="#12233F" stroke-width="2"/>
+  <rect x="822" y="280" width="15" height="10" fill="#94a3b8" stroke="#12233F" stroke-width="1.5"/>
+  <rect x="822" y="310" width="15" height="10" fill="#94a3b8" stroke="#12233F" stroke-width="1.5"/>
+  <rect x="630" y="206" width="18" height="32" rx="3" fill="#e9edf3" stroke="#12233F" stroke-width="2"/>
+  <rect x="626" y="200" width="26" height="8" rx="2" fill="#c3ccd9" stroke="#12233F" stroke-width="1.5"/>
+  <rect x="712" y="210" width="14" height="28" rx="3" fill="#c3ccd9" stroke="#12233F" stroke-width="2"/>
+  <path d="M 719 210 Q 719 196 736 194" fill="none" stroke="#12233F" stroke-width="1.6"/>
+
+  <!-- ══════════ PROTEÇÃO DO ACOPLAMENTO (13) ══════════ -->
+  <path d="M 848 362 V 262 Q 848 240 872 240 H 926 Q 950 240 950 262 V 362" fill="#eef1f6" stroke="#12233F" stroke-width="2.5"/>
+  <g stroke="#94a3b8" stroke-width="2">
+    <line x1="862" y1="252" x2="862" y2="350"/>
+    <line x1="880" y1="246" x2="880" y2="354"/>
+    <line x1="898" y1="244" x2="898" y2="356"/>
+    <line x1="916" y1="246" x2="916" y2="354"/>
+    <line x1="934" y1="252" x2="934" y2="350"/>
   </g>
 
-  <!-- ================== VOLUTA / CARCAÇA (1) ================== -->
-  <g stroke="#12233F" stroke-width="4" fill="#f6f8fb">
-    <path d="M 300 132
-             a 168 168 0 1 0 168 168
-             l 0 -62
-             a 106 106 0 1 1 -106 -106 z"/>
+  <!-- ══════════ FLUXO: entrada → rotor → voluta → saída ══════════ -->
+  <g stroke="#E8510A" stroke-width="3.5" fill="none" stroke-dasharray="9 6" stroke-linecap="round">
+    <path d="M 14 300 L 218 300" marker-end="url(#seta)"/>
+    <path d="M 252 322 Q 300 425 378 378 Q 438 330 415 252 Q 395 196 330 180" marker-end="url(#seta)"/>
+    <path d="M 295 148 L 295 66" marker-end="url(#seta)"/>
   </g>
 
-  <!-- ================== BOCAL DE SUCÇÃO (6) ================== -->
-  <g stroke="#12233F" stroke-width="3" fill="#eef1f6">
-    <path d="M 132 268 H 196 V 332 H 132"/>
-    <rect x="116" y="256" width="16" height="88" rx="2" fill="#dfe5ee"/>
-  </g>
-
-  <!-- ================== IMPELIDOR (2) ================== -->
-  <g stroke="#12233F" stroke-width="3" fill="#dfe5ee">
-    <circle cx="300" cy="300" r="96"/>
-    <!-- pás curvadas para trás -->
-    <g fill="none" stroke-width="3.5">
-      <path d="M 300 300 Q 336 268 388 276"/>
-      <path d="M 300 300 Q 332 336 324 388"/>
-      <path d="M 300 300 Q 264 332 212 324"/>
-      <path d="M 300 300 Q 268 264 276 212"/>
-      <path d="M 300 300 Q 346 312 380 350"/>
-      <path d="M 300 300 Q 288 346 250 380"/>
-      <path d="M 300 300 Q 254 288 220 250"/>
-      <path d="M 300 300 Q 312 254 350 220"/>
-    </g>
-    <circle cx="300" cy="300" r="30" fill="#c8d2e0"/>
-  </g>
-
-  <!-- ================== EIXO (3) ================== -->
-  <rect x="300" y="288" width="470" height="24" fill="#c8d2e0" stroke="#12233F" stroke-width="3"/>
-
-  <!-- ================== SELO MECÂNICO (4) ================== -->
-  <g stroke="#12233F" stroke-width="3">
-    <rect x="452" y="268" width="26" height="64" fill="#b9c6d8"/>
-    <rect x="482" y="276" width="14" height="48" fill="#dfe5ee"/>
-  </g>
-
-  <!-- ================== CAIXA DE MANCAIS (8) + ROLAMENTOS (5) ================== -->
-  <g stroke="#12233F" stroke-width="3" fill="#f6f8fb">
-    <rect x="520" y="240" width="230" height="120" rx="10"/>
-  </g>
-  <!-- rolamentos: anel externo + esferas -->
-  <g stroke="#12233F" stroke-width="2.5" fill="#ffffff">
-    <rect x="556" y="252" width="30" height="96" rx="4"/>
-    <circle cx="571" cy="270" r="7" fill="#c8d2e0"/>
-    <circle cx="571" cy="300" r="7" fill="#c8d2e0"/>
-    <circle cx="571" cy="330" r="7" fill="#c8d2e0"/>
-    <rect x="676" y="252" width="30" height="96" rx="4"/>
-    <circle cx="691" cy="270" r="7" fill="#c8d2e0"/>
-    <circle cx="691" cy="300" r="7" fill="#c8d2e0"/>
-    <circle cx="691" cy="330" r="7" fill="#c8d2e0"/>
-  </g>
-
-  <!-- ponta do eixo (acoplamento) -->
-  <rect x="770" y="292" width="36" height="16" fill="#dfe5ee" stroke="#12233F" stroke-width="2.5"/>
-
-  <!-- base -->
-  <g stroke="#12233F" stroke-width="3" fill="#dfe5ee">
-    <rect x="220" y="470" width="560" height="18" rx="3"/>
-    <path d="M 560 360 L 540 470 M 700 360 L 720 470" fill="none"/>
-  </g>
-
-  <!-- ================== CALLOUTS ================== -->
-  <g stroke="#E8510A" stroke-width="2" fill="none">
-    <path d="M 150 168 L 216 214"/>  <!-- 1 voluta -->
-    <path d="M 448 448 L 356 364"/>  <!-- 2 impelidor -->
-    <path d="M 420 232 L 420 288"/>  <!-- 3 eixo -->
-    <path d="M 466 424 L 466 336"/>  <!-- 4 selo -->
-    <path d="M 630 180 L 600 250"/>  <!-- 5 rolamentos -->
-    <path d="M 96 396 L 140 340"/>   <!-- 6 sucção -->
-    <path d="M 396 74 L 348 74"/>    <!-- 7 recalque -->
-    <path d="M 800 220 L 744 248"/>  <!-- 8 caixa de mancais -->
-  </g>
-  <g font-size="17" font-weight="bold" text-anchor="middle">
-    <g fill="#ffffff" stroke="#E8510A" stroke-width="2.5">
-      <circle cx="138" cy="158" r="15"/>
-      <circle cx="460" cy="460" r="15"/>
-      <circle cx="420" cy="218" r="15"/>
-      <circle cx="466" cy="440" r="15"/>
-      <circle cx="638" cy="164" r="15"/>
-      <circle cx="88" cy="410" r="15"/>
-      <circle cx="412" cy="74" r="15"/>
-      <circle cx="814" cy="212" r="15"/>
-    </g>
-    <g fill="#E8510A">
-      <text x="138" y="164">1</text>
-      <text x="460" y="466">2</text>
-      <text x="420" y="224">3</text>
-      <text x="466" y="446">4</text>
-      <text x="638" y="170">5</text>
-      <text x="88" y="416">6</text>
-      <text x="412" y="80">7</text>
-      <text x="814" y="218">8</text>
-    </g>
+  <!-- pontos de ancoragem dos hotspots (numerados pela página interativa) -->
+  <g fill="#E8510A">
+    <circle cx="95" cy="300" r="4"/>
+    <circle cx="262" cy="352" r="4"/>
+    <circle cx="196" cy="300" r="4"/>
+    <circle cx="185" cy="170" r="4"/>
+    <circle cx="295" cy="95" r="4"/>
+    <circle cx="505" cy="262" r="4"/>
+    <circle cx="620" cy="300" r="4"/>
+    <circle cx="746" cy="264" r="4"/>
+    <circle cx="690" cy="379" r="4"/>
+    <circle cx="558" cy="262" r="4"/>
+    <circle cx="829" cy="300" r="4"/>
+    <circle cx="719" cy="216" r="4"/>
+    <circle cx="899" cy="256" r="4"/>
+    <circle cx="493" cy="491" r="4"/>
   </g>
 </svg>

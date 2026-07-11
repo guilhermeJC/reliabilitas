@@ -396,6 +396,9 @@
   "nota": {
     "backlinks": "Referenciada por",
     "fontes": "Fontes",
+    "anatDica": "Clique nos pontos numerados para ver o que cada componente faz — e onde ele falha.",
+    "anatFluxo": "Linha tracejada: caminho do fluido — entrada pela sucção, giro no impelidor e pela voluta, saída pelo recalque.",
+    "anatAprofundar": "Aprofundar",
     "fontesNormas": "Normas e institutos",
     "fontesLiteratura": "Literatura técnica",
     "fontesArtigos": "Artigos e relatórios",

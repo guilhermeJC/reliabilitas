@@ -396,6 +396,9 @@
   "nota": {
     "backlinks": "Referenced by",
     "fontes": "Sources",
+    "anatDica": "Click the numbered points to see what each component does — and where it fails.",
+    "anatFluxo": "Dashed line: fluid path — in through the suction, around the impeller and volute, out through the discharge.",
+    "anatAprofundar": "Go deeper",
     "fontesNormas": "Standards and institutes",
     "fontesLiteratura": "Technical literature",
     "fontesArtigos": "Papers and reports",

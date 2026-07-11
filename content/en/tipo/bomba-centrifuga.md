@@ -49,7 +49,7 @@ tags:
   - system curve
 anatomia:
   svg: /anatomia/bomba-centrifuga.svg
-  alt: 'Schematic meridional cross-section of a horizontal overhung (OH1) centrifugal pump with components numbered 1 to 8'
+  alt: 'Technical cutaway of a horizontal overhung (OH1) centrifugal pump: opened volute with impeller, seal chamber, bearing housing with bearings and oil sump, coupling with guard — with the fluid path from suction to discharge'
   foto:
     arquivo: /anatomia/bomba-centrifuga-foto.jpg
     fonte: 'https://commons.wikimedia.org/wiki/File:Kreiselpumpe-Elektromotor.jpg'
@@ -158,16 +158,7 @@ $$NPSH_a = \frac{P_0 - P_v(T)}{\rho g} - H_s - \Sigma h_f$$
 
 *Photo: HopuWiki — [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Kreiselpumpe-Elektromotor.jpg), CC BY-SA 4.0. Typical arrangement: horizontal single-stage pump + coupling + induction motor on a common steel baseplate.*
 
-![Schematic meridional cross-section of a horizontal overhung (OH1) centrifugal pump with numbered components](/anatomia/bomba-centrifuga.svg)
-
-1. **Volute (spiral casing)** — collects fluid at the impeller periphery and converts velocity energy into pressure through progressive section expansion (diffusion). The volute tongue (*cutwater*) defines vane-passing interaction — the source of the BPF (blade-passing frequency) vibration component.
-2. **Impeller** — the heart of the machine: backward-curved vanes transfer energy per Euler's equation. Closed (shrouded), semi-open or open depending on service; balance and wear-ring clearances govern vibration and volumetric losses.
-3. **Shaft** — transmits driver torque; in process pumps it is sized for **stiffness** (maximum deflection at the seal faces, typically < 0.05 mm) as much as for strength. The $L^3/D^4$ flexibility index is the classic design-comparison criterion.
-4. **[[selo-mecanico|Mechanical seal]]** — dynamic sealing between shaft and casing: a pair of flat faces separated by a ~1 μm film. It is the assembly's **no. 1 intervention item** (ESA: seals recorded in ~60% of pump failures) — and in most cases seal failure is a symptom of an upstream cause (off-BEP operation, flush loss, cavitation).
-5. **[[rolamento|Bearings]]** — carry radial loads (which grow away from BEP) and residual axial thrust; they account for roughly **one third of assembly failures** — seals and bearings together make up 60–70% of interventions, with contamination + poor lubrication dominating the causes.
-6. **Suction nozzle** — axial inlet: the lowest-pressure region of the entire system, where [[cavitacao|cavitation]] is born once NPSH margin is exhausted.
-7. **Discharge nozzle** — volute outlet at discharge pressure.
-8. **Bearing housing** — houses bearings and lubrication (oil bath with sight glass, mist or grease); oil temperature and condition are low-cost monitoring windows.
+The **interactive** technical cutaway below opens the machine component by component — from the suction nozzle to the coupling guard, with the **fluid path** traced from inlet to outlet. Each numbered point explains the component's function, where it tends to fail and where to go deeper: the transversal components [[rolamento|rolling bearing]] and [[selo-mecanico|mechanical seal]] have their own handbooks, and [[cavitacao|cavitation]] has the full failure-mode note.
 
 ## Types and differences
 

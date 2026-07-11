@@ -15,6 +15,9 @@ import { notaPath, sugerirPath } from '@/lib/routes';
 import { renderNoteHtml } from '@/lib/markdown/render';
 import { splitNiveis, extractH2 } from '@/lib/content/niveis';
 import { agrupaFontes, GRUPOS_FONTES, type GrupoFonte } from '@/lib/content/fontes';
+import { separaHtmlNoHeading } from '@/lib/content/split-html';
+import { hotspotsPorSlug } from '@/lib/anatomia/registry';
+import { AnatomiaInterativa } from '@/components/anatomia-interativa';
 import { NIVEIS_LEITURA, type Locale } from '@/lib/content/schema';
 import { Breadcrumb } from '@/components/breadcrumb';
 import { Backlinks } from '@/components/backlinks';
@@ -272,12 +275,52 @@ export default async function NotaPage({ params }: PageParams) {
                 ))}
               </nav>
             )}
-            <article
-              className="nota-corpo mt-6 rounded-lg border bg-white p-6 md:p-8"
-              style={{ borderColor: '#e3e8f0' }}
-              // nosemgrep: typescript.react.security.audit.react-dangerouslysetinnerhtml.react-dangerouslysetinnerhtml -- falso positivo documentado (DEV-017): HTML gerado server-side de conteúdo autoral validado no ingest (BR-006/F3/F8); DOMPurify é requisito do gate da Fase 3 (BR-013)
-              dangerouslySetInnerHTML={{ __html: corpoHtml }}
-            />
+            {(() => {
+              // Anatomia interativa (melhoria 2, 10/07): quando o handbook tem
+              // hotspots registrados, o corpo é dividido no heading SEGUINTE à
+              // seção Anatomia e o componente entra dentro da própria seção.
+              const hotspots = ehHandbook ? hotspotsPorSlug(nota.slug) : null;
+              const anatomia = nota.frontmatter.anatomia as
+                { svg: string; alt: string } | undefined;
+              let divisao: { antes: string; depois: string } | null = null;
+              if (hotspots && anatomia) {
+                const h2s = extractH2(nota.corpo_md);
+                const idxAnat = h2s.findIndex((s) => s.id === 'anatomia' || s.id === 'anatomy');
+                const proximo = idxAnat >= 0 ? h2s[idxAnat + 1] : undefined;
+                divisao = proximo ? separaHtmlNoHeading(corpoHtml, proximo.id) : null;
+              }
+              return (
+                <>
+                  <article
+                    className="nota-corpo mt-6 rounded-lg border bg-white p-6 md:p-8"
+                    style={{ borderColor: '#e3e8f0' }}
+                    // nosemgrep: typescript.react.security.audit.react-dangerouslysetinnerhtml.react-dangerouslysetinnerhtml -- falso positivo documentado (DEV-017): HTML gerado server-side de conteúdo autoral validado no ingest (BR-006/F3/F8); DOMPurify é requisito do gate da Fase 3 (BR-013)
+                    dangerouslySetInnerHTML={{ __html: divisao ? divisao.antes : corpoHtml }}
+                  />
+                  {hotspots && anatomia && (
+                    <AnatomiaInterativa
+                      src={anatomia.svg}
+                      alt={anatomia.alt}
+                      hotspots={hotspots}
+                      locale={locale as Locale}
+                      textos={{
+                        dica: t('anatDica'),
+                        fluxo: t('anatFluxo'),
+                        aprofundar: t('anatAprofundar'),
+                      }}
+                    />
+                  )}
+                  {divisao && (
+                    <article
+                      className="nota-corpo mt-6 rounded-lg border bg-white p-6 md:p-8"
+                      style={{ borderColor: '#e3e8f0' }}
+                      // nosemgrep: typescript.react.security.audit.react-dangerouslysetinnerhtml.react-dangerouslysetinnerhtml -- falso positivo documentado (DEV-017): HTML gerado server-side de conteúdo autoral validado no ingest (BR-006/F3/F8); DOMPurify é requisito do gate da Fase 3 (BR-013)
+                      dangerouslySetInnerHTML={{ __html: divisao.depois }}
+                    />
+                  )}
+                </>
+              );
+            })()}
             {/* Curva H-Q viva (sessão 5): handbooks de máquinas ROTODINÂMICAS —
                 a curva e as leis de afinidade valem para o princípio inteiro. */}
             {ehHandbook && nota.taxonomia.includes('dinamicas') && (

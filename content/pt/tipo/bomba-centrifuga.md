@@ -49,7 +49,7 @@ tags:
   - curva do sistema
 anatomia:
   svg: /anatomia/bomba-centrifuga.svg
-  alt: 'Corte esquemático meridional de bomba centrífuga horizontal (OH1) com componentes numerados de 1 a 8'
+  alt: 'Corte técnico de bomba centrífuga horizontal (OH1): voluta aberta com impelidor, caixa de selagem, caixa de mancais com rolamentos e carter de óleo, acoplamento com proteção — com o caminho do fluido da sucção ao recalque'
   foto:
     arquivo: /anatomia/bomba-centrifuga-foto.jpg
     fonte: 'https://commons.wikimedia.org/wiki/File:Kreiselpumpe-Elektromotor.jpg'
@@ -158,16 +158,7 @@ O **NPSHa** (disponível, propriedade do sistema) precisa exceder o **NPSHr** (r
 
 *Foto: HopuWiki — [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Kreiselpumpe-Elektromotor.jpg), CC BY-SA 4.0. Arranjo típico: bomba horizontal monoestágio + acoplamento + motor de indução sobre base metálica comum.*
 
-![Corte esquemático meridional de bomba centrífuga horizontal (OH1) com componentes numerados](/anatomia/bomba-centrifuga.svg)
-
-1. **Voluta (carcaça espiral)** — coleta o fluido na periferia do impelidor e converte energia de velocidade em pressão pela expansão progressiva de seção (difusão). A língua da voluta (*cutwater*) define a interação de passagem de pás — fonte da componente de vibração em BPF (frequência de passagem de pás).
-2. **Impelidor** — o coração da máquina: pás curvadas para trás transferem energia pela equação de Euler. Fechado (com paredes), semiaberto ou aberto conforme o serviço; o balanceamento e a folga com os anéis de desgaste governam vibração e perdas volumétricas.
-3. **Eixo** — transmite o torque do acionador; em bombas de processo é dimensionado por **rigidez** (deflexão máxima na face do selo, tipicamente < 0,05 mm) tanto quanto por resistência. O índice de flexibilidade $L^3/D^4$ é critério clássico de comparação entre projetos.
-4. **[[selo-mecanico|Selo mecânico]]** — vedação dinâmica entre eixo e carcaça: par de faces planas separadas por filme de ~1 μm. É o **item nº 1 de intervenção** do conjunto (ESA: selos registrados em ~60% das falhas de bomba) — e na maioria dos casos a falha do selo é sintoma de causa a montante (operação fora do BEP, perda de flush, cavitação).
-5. **[[rolamento|Rolamentos]]** — suportam as cargas radiais (crescem fora do BEP) e o empuxo axial residual; respondem por cerca de **um terço das falhas** do conjunto — selos e rolamentos juntos somam 60–70% das intervenções, e contaminação + lubrificação inadequada dominam as causas.
-6. **Bocal de sucção** — entrada axial: a região de menor pressão de todo o sistema, onde a [[cavitacao|cavitação]] nasce quando a margem de NPSH se esgota.
-7. **Bocal de recalque** — saída da voluta na pressão de descarga.
-8. **Caixa de mancais** — abriga rolamentos e lubrificação (banho de óleo com visor, névoa ou graxa); a temperatura e a condição do óleo são janelas de monitoramento de baixo custo.
+O corte técnico **interativo** abaixo abre a máquina componente a componente — do bocal de sucção à proteção do acoplamento, com o **caminho do fluido** marcado da entrada à saída. Cada ponto numerado explica a função do componente, onde ele costuma falhar e para onde aprofundar: os componentes transversais [[rolamento|rolamento]] e [[selo-mecanico|selo mecânico]] têm handbooks próprios, e a [[cavitacao|cavitação]] tem a nota de modo de falha completa.
 
 ## Tipos e diferenças
 
