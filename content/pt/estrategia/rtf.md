@@ -14,7 +14,7 @@ tags:
   - corretiva planejada
   - spares
   - redesenho
-revisado_em: 2026-07-10
+revisado_em: 2026-07-11
 ---
 
 ## O que é
@@ -28,7 +28,7 @@ Duas condições simultâneas:
 1. **Falha aleatória sem P-F** — β ≈ 1 (nenhuma idade que justifique [[tbm|TBM]]) **e** nenhum sinal monitorável que antecipe a falha (nenhuma janela para [[cbm|CBM]]). O exemplo canônico: queima de placa eletrônica por surto.
 2. **Consequência tolerável** — a falha é evidente e seu custo (parada, reparo, segurança) é aceitável frente ao custo de qualquer tentativa de prevenção que, por definição, não funcionaria.
 
-**Se a consequência NÃO é tolerável** (segurança/meio ambiente, ou econômica intolerável), RTF é proibido e a saída compulsória é **redesenho** — redundância, seleção de componente melhor, eliminação do modo de falha (Moubray, cap. 9; é a última linha do diagrama de decisão).
+**Se a consequência NÃO é tolerável** (segurança/meio ambiente, ou econômica intolerável), RTF é proibido e a saída compulsória é **[[redesenho|redesenho]]** — redundância, seleção de componente melhor, eliminação do modo de falha (Moubray, cap. 9; é a última linha do diagrama de decisão).
 
 ## O que RTF exige (não é "não fazer nada")
 

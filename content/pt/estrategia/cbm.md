@@ -14,12 +14,12 @@ tags:
   - preditiva
   - P-F
   - monitoramento de condição
-revisado_em: 2026-07-10
+revisado_em: 2026-07-11
 ---
 
 ## O que é
 
-**Manutenção Baseada em Condição** (*Condition-Based Maintenance* — a manutenção **preditiva**): em vez de intervir por calendário, monitora-se um **sinal que antecede a falha funcional** (vibração, temperatura, partículas no óleo, tendência de desempenho, emissão acústica) e a intervenção acontece quando a condição cruza o limiar — dentro da janela da [[curva-pf|curva P-F]].
+**Manutenção Baseada em Condição** (*Condition-Based Maintenance* — a manutenção **preditiva**): em vez de intervir por calendário, monitora-se um **sinal que antecede a falha funcional** (vibração, temperatura, partículas no óleo, tendência de desempenho, emissão acústica) e a intervenção acontece quando a condição cruza o limiar — dentro da janela da curva P-F (o intervalo entre a falha detectável e a falha funcional).
 
 ## Quando é a decisão certa (Framework B)
 

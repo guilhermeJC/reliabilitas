@@ -14,7 +14,7 @@ tags:
   - planned corrective
   - spares
   - redesign
-revisado_em: 2026-07-10
+revisado_em: 2026-07-11
 ---
 
 ## What it is
@@ -28,7 +28,7 @@ Two simultaneous conditions:
 1. **Random failure without P-F** — β ≈ 1 (no age to justify [[tbm|TBM]]) **and** no monitorable signal to anticipate the failure (no window for [[cbm|CBM]]). The canonical example: an electronics board burned by a surge.
 2. **Tolerable consequence** — the failure is evident and its cost (downtime, repair, safety) is acceptable against the cost of any prevention attempt that, by definition, would not work.
 
-**If the consequence is NOT tolerable** (safety/environment, or economically intolerable), RTF is forbidden and the compulsory way out is **redesign** — redundancy, better component selection, elimination of the failure mode (Moubray, ch. 9; the last line of the decision diagram).
+**If the consequence is NOT tolerable** (safety/environment, or economically intolerable), RTF is forbidden and the compulsory way out is **[[redesenho|redesign]]** — redundancy, better component selection, elimination of the failure mode (Moubray, ch. 9; the last line of the decision diagram).
 
 ## What RTF demands (it is not "doing nothing")
 

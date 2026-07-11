@@ -14,12 +14,12 @@ tags:
   - predictive
   - P-F
   - condition monitoring
-revisado_em: 2026-07-10
+revisado_em: 2026-07-11
 ---
 
 ## What it is
 
-**Condition-Based Maintenance** (predictive maintenance): instead of intervening by calendar, a **signal that precedes functional failure** is monitored (vibration, temperature, oil particles, performance trend, acoustic emission) and intervention happens when the condition crosses the threshold — inside the [[curva-pf|P-F curve]] window.
+**Condition-Based Maintenance** (predictive maintenance): instead of intervening by calendar, a **signal that precedes functional failure** is monitored (vibration, temperature, oil particles, performance trend, acoustic emission) and intervention happens when the condition crosses the threshold — inside the P-F curve window (the interval between the detectable failure and the functional failure).
 
 ## When it is the right decision (Framework B)
 

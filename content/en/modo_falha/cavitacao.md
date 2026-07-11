@@ -126,7 +126,7 @@ tags:
   - ASTM G32
   - vibration
   - recirculation
-revisado_em: 2026-07-10
+revisado_em: 2026-07-11
 ---
 
 ## Beginner
@@ -190,7 +190,7 @@ The "NPSH is fine but it still cavitates" case is almost always **recirculation*
 
 ### Framework B — prescription
 
-There is a **detectable P-F** (vibration, noise, performance trend) and the failure is **evident** → **[[cbm|CBM]] at [[curva-pf|P-F]]/2 periodicity**. Tasks in the exportable plan below the page. Definitive correction is operational/design — the action layers, in order of cost and reversibility:
+There is a **detectable P-F** (vibration, noise, performance trend) and the failure is **evident** → **[[cbm|CBM]] at P-F/2 periodicity**. Tasks in the exportable plan below the page. Definitive correction is operational/design — the action layers, in order of cost and reversibility:
 
 1. **Immediate operational** (without stopping the machine): restore suction level/pressure; clean strainers; reduce flow **at the discharge valve** — **never at the suction** (throttling the suction drops inlet pressure and intensifies collapse; the classic operating error documented by Perez, ch. 4); reduce speed via VFD — by the similarity laws **NPSHr falls with the square of speed** (−20% speed ≈ −36% NPSHr, with a −49% power bonus).
 2. **Installation**: enlarge the suction line diameter — losses fall with the **fifth power** of diameter (see Engineer): +20% diameter ≈ −60% losses; doubling ≈ −97%. Shorten and straighten the suction (minimum 5–10 straight diameters before the nozzle); **eccentric reducer, flat side up** (API 610 — a concentric one traps an air pocket); suction velocity ≤ 1.5 m/s for clean water (ANSI/HI 9.8); cool the fluid; lower the pump or raise the level.

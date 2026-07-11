@@ -126,7 +126,7 @@ tags:
   - ASTM G32
   - vibração
   - recirculação
-revisado_em: 2026-07-10
+revisado_em: 2026-07-11
 ---
 
 ## Beginner
@@ -190,7 +190,7 @@ O caso "o NPSH está adequado mas ela cavita" é quase sempre **recirculação**
 
 ### Framework B — prescrição
 
-Existe **P-F detectável** (vibração, ruído, tendência de desempenho) e a falha é **evidente** → **[[cbm|CBM]] com periodicidade [[curva-pf|P-F]]/2**. Tarefas no plano exportável abaixo da página. A correção definitiva é operacional/de projeto — as camadas de ação, em ordem de custo e reversibilidade:
+Existe **P-F detectável** (vibração, ruído, tendência de desempenho) e a falha é **evidente** → **[[cbm|CBM]] com periodicidade P-F/2**. Tarefas no plano exportável abaixo da página. A correção definitiva é operacional/de projeto — as camadas de ação, em ordem de custo e reversibilidade:
 
 1. **Operacional imediata** (sem parar a máquina): restaurar nível/pressão de sucção; limpar filtros; reduzir vazão **pela válvula de descarga** — **nunca pela sucção** (estrangular a sucção derruba a pressão de entrada e intensifica o colapso; erro de operação clássico documentado por Perez, cap. 4); reduzir rotação via VFD — pelas leis de similaridade o **NPSHr cai com o quadrado da rotação** (−20% de rotação ≈ −36% de NPSHr, com bônus de −49% de potência).
 2. **Instalação**: aumentar o diâmetro da linha de sucção — as perdas caem com a **quinta potência** do diâmetro (ver Engineer): +20% de diâmetro ≈ −60% de perdas; dobrar ≈ −97%. Encurtar e retificar a sucção (mínimo de 5–10 diâmetros retos antes do bocal); redutor **excêntrico com face plana para cima** (API 610 — o concêntrico cria bolsão de ar); velocidade na sucção ≤ 1,5 m/s para água limpa (ANSI/HI 9.8); resfriar o fluido; rebaixar a bomba ou subir o nível.
