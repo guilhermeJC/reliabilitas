@@ -25,32 +25,51 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   return (
     <div>
-      {/* Hero — sala de controle: navy, busca no centro */}
+      {/* Hero — sala de controle: navy, busca no centro. Colaborar (pedido do
+          fundador, 11/07) ganhou destaque AQUI — pílula branca ao lado da
+          busca, visível sem rolar, em vez do card discreto lá embaixo. */}
       <section className="px-6 py-14" style={{ background: 'var(--navy-700)' }}>
         <div className="mx-auto max-w-2xl text-center">
           <h1 className="text-3xl font-medium tracking-[0.14em] text-white">{t('titulo')}</h1>
           <p className="mt-3 text-base leading-relaxed text-slate-200">{t('sub')}</p>
           <p className="mt-1 text-sm leading-relaxed text-slate-400">{t('heroLinha')}</p>
-          <form
-            action={buscaPath(locale as Locale)}
-            method="get"
-            className="mx-auto mt-6 flex max-w-xl gap-2"
-          >
-            <input
-              type="search"
-              name="q"
-              placeholder={tBusca('placeholder')}
-              aria-label={tBusca('titulo')}
-              className="w-full rounded-md border-0 bg-white px-4 py-2.5 text-sm text-slate-800"
-            />
-            <button
-              type="submit"
-              className="shrink-0 rounded-md px-5 py-2.5 text-sm font-medium text-white"
-              style={{ background: 'var(--accent)' }}
+          <div className="mx-auto mt-6 flex max-w-2xl flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+            <form
+              action={buscaPath(locale as Locale)}
+              method="get"
+              className="flex flex-1 gap-2 sm:max-w-xl"
             >
-              {tBusca('botao')}
-            </button>
-          </form>
+              <input
+                type="search"
+                name="q"
+                placeholder={tBusca('placeholder')}
+                aria-label={tBusca('titulo')}
+                className="w-full rounded-md border-0 bg-white px-4 py-2.5 text-sm text-slate-800"
+              />
+              <button
+                type="submit"
+                className="shrink-0 rounded-md px-5 py-2.5 text-sm font-medium text-white"
+                style={{ background: 'var(--accent)' }}
+              >
+                {tBusca('botao')}
+              </button>
+            </form>
+            <a
+              href={colaborarPath(locale as Locale)}
+              className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-md bg-white px-5 py-2.5 text-sm font-medium shadow-sm transition-all hover:shadow-md hover:brightness-95"
+              style={{ color: 'var(--navy-700)' }}
+            >
+              <span
+                aria-hidden="true"
+                className="inline-block h-2 w-2 shrink-0 rounded-full"
+                style={{ background: 'var(--accent)' }}
+              />
+              {t('colaborarBotao')}
+              <span className="transition-transform group-hover:translate-x-0.5" aria-hidden="true">
+                →
+              </span>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -122,28 +141,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               {t('calculadorasLink')}
             </a>
           </p>
-
-          {/* Colaborar (pedido do fundador, 11/07): visitante propõe conteúdo novo — nada publica direto (fila de triagem). */}
-          <div
-            className="mt-10 flex flex-col gap-4 rounded-lg border bg-white p-6 sm:flex-row sm:items-center sm:justify-between"
-            style={{ borderColor: '#e3e8f0' }}
-          >
-            <div>
-              <h2 className="font-medium" style={{ color: 'var(--navy-700)' }}>
-                {t('colaborarTitulo')}
-              </h2>
-              <p className="mt-1 max-w-xl text-sm leading-relaxed text-slate-600">
-                {t('colaborarTexto')}
-              </p>
-            </div>
-            <a
-              href={colaborarPath(locale as Locale)}
-              className="shrink-0 rounded-md border px-5 py-2.5 text-center text-sm font-medium transition-colors hover:bg-slate-50"
-              style={{ borderColor: 'var(--navy-700)', color: 'var(--navy-700)' }}
-            >
-              {t('colaborarBotao')}
-            </a>
-          </div>
 
           {/* Apoio (F07 parcial) — só renderiza quando o fundador configurar os links */}
           {DOACAO_LINKS.length > 0 && (
