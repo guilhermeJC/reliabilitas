@@ -242,6 +242,8 @@ export default async function NotaPage({ params }: PageParams) {
               }}
               fwA={nota.frontmatter.fw_a as never}
               fwB={nota.frontmatter.fw_b as never}
+              pfTipico={nota.frontmatter.pf_tipico as string | undefined}
+              revisadoEm={nota.revisado_em ?? undefined}
               slug={nota.slug}
             />
           </>

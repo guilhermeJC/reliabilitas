@@ -253,6 +253,34 @@ describe('validateNiveisCorpo — F8: os 3 níveis são seções reais do corpo 
   });
 });
 
+describe('plano_manutencao — documento profundo (melhoria 3 do fundador, 10/07)', () => {
+  it('aceita especialidade, duracao, passos e registros por tarefa', () => {
+    const fm = {
+      ...modoFalhaValido,
+      plano_manutencao: [
+        {
+          tarefa: 'Analise de vibracao',
+          metodo: 'Espectro + envelope',
+          periodicidade: 'Mensal (P-F/2)',
+          especialidade: 'Preditiva / Analise de vibracao',
+          duracao: '0,5 h por ponto',
+          passos: ['Confirmar carga estavel', 'Medir espectro nos mancais LA e LOA'],
+          registros: ['RMS banda 10-25 kHz — mancal LA [g]', 'Vazao na medicao [m3/h]'],
+        },
+      ],
+    };
+    expect(validateFrontmatter(fm).ok).toBe(true);
+  });
+
+  it('passos e registros vazios sao rejeitados (ou tem conteudo, ou nao existem)', () => {
+    const fm = {
+      ...modoFalhaValido,
+      plano_manutencao: [{ tarefa: 'X', metodo: 'Y', periodicidade: 'Z', passos: [] }],
+    };
+    expect(validateFrontmatter(fm).ok).toBe(false);
+  });
+});
+
 describe('plano_manutencao — estrutura minima PRO-MNT-001 par. 8 (sessao 5)', () => {
   it('aceita os campos opcionais condicao, criterio e acao por tarefa', () => {
     const fm = {
@@ -279,7 +307,7 @@ describe('plano_manutencao — estrutura minima PRO-MNT-001 par. 8 (sessao 5)', 
           tarefa: 'X',
           metodo: 'Y',
           periodicidade: 'Z',
-          duracao: '2h',
+          ferramenta_especial: 'chave de gancho',
         },
       ],
     };

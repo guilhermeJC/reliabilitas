@@ -6,11 +6,12 @@ import {
   nomeArquivoPlano,
   type TarefaPlano,
   type ContextoPlano,
-  type HeadersPlano,
 } from '@/lib/export/plano';
+import type { TextosPlanoDoc } from '@/lib/export/plano-textos';
 
 // F02/BR-004 — download client-side via Blob: o arquivo nasce do preload que a
-// página já tem. Sem endpoint, sem chamada de rede.
+// página já tem. Sem endpoint, sem chamada de rede. O documento gerado segue o
+// template RELIABILITAS (melhoria 3 do fundador, 10/07).
 
 function baixa(conteudo: string, nome: string, mime: string) {
   const url = URL.createObjectURL(new Blob([conteudo], { type: mime }));
@@ -24,13 +25,13 @@ function baixa(conteudo: string, nome: string, mime: string) {
 export function ExportPlanoBotoes({
   plano,
   contexto,
-  headers,
+  textos,
   slug,
   labels,
 }: {
   plano: TarefaPlano[];
   contexto: ContextoPlano;
-  headers: HeadersPlano;
+  textos: TextosPlanoDoc;
   slug: string;
   labels: { csv: string; md: string };
 }) {
@@ -44,7 +45,7 @@ export function ExportPlanoBotoes({
         style={{ borderColor: '#d3dae6', color: 'var(--navy-700)' }}
         onClick={() =>
           baixa(
-            planoParaCsv(plano, contexto, headers),
+            planoParaCsv(plano, contexto, textos),
             nomeArquivoPlano(slug, 'csv'),
             'text/csv;charset=utf-8',
           )
@@ -58,7 +59,7 @@ export function ExportPlanoBotoes({
         style={{ borderColor: '#d3dae6', color: 'var(--navy-700)' }}
         onClick={() =>
           baixa(
-            planoParaMd(plano, contexto, headers),
+            planoParaMd(plano, contexto, textos),
             nomeArquivoPlano(slug, 'md'),
             'text/markdown;charset=utf-8',
           )

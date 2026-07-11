@@ -1,13 +1,16 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, getLocale } from 'next-intl/server';
 import { ExportPlanoBotoes } from '@/components/export-plano-botoes';
 import { CATEGORIAS } from '@/components/fw-cards';
+import { textosPlanoDoc } from '@/lib/export/plano-textos';
 import type { ContextoPlano, TarefaPlano } from '@/lib/export/plano';
+import type { Locale } from '@/lib/content/schema';
+import { notaPath } from '@/lib/routes';
 
-// Plano de manutenção do frontmatter (F02) — com export CSV/MD da página atual
-// (BR-004: client-side puro, sem endpoint). Sessão 5: o plano carrega a
-// estrutura mínima do PRO-MNT-001 §8 — classificação Fw A/Fw B no contexto do
-// arquivo e, por tarefa, condição de contorno, critério de aceitação e ação em
-// desvio (campos opcionais do schema; renderizados quando presentes).
+// Plano de manutenção do frontmatter (F02) — a página mostra a TABELA-RESUMO
+// com o disclaimer de foco no modo de falha (regra do fundador: SEMPRE); o
+// documento completo (template RELIABILITAS: procedimento, registros,
+// restabelecimento, validação) sai nos exports CSV/MD, gerados client-side
+// (BR-004: sem endpoint).
 
 interface FwARaw {
   categoria?: string;
@@ -23,32 +26,25 @@ export async function PlanoTable({
   contexto,
   fwA,
   fwB,
+  pfTipico,
+  revisadoEm,
   slug,
 }: {
   plano?: TarefaPlano[];
   contexto: { equipamento: string; modoFalha: string };
   fwA?: FwARaw;
   fwB?: FwBRaw;
+  pfTipico?: string;
+  revisadoEm?: string;
   slug: string;
 }) {
   if (!plano || plano.length === 0) return null;
   const t = await getTranslations('plano');
   const tFw = await getTranslations('fw');
+  const locale = (await getLocale()) as Locale;
+  const textos = textosPlanoDoc(locale);
 
-  const headers = {
-    equipamento: t('equipamento'),
-    modoFalha: t('modoFalha'),
-    fwA: t('fwA'),
-    fwB: t('fwB'),
-    tarefa: t('tarefa'),
-    metodo: t('metodo'),
-    condicao: t('condicao'),
-    criterio: t('criterio'),
-    acao: t('acao'),
-    periodicidade: t('periodicidade'),
-  };
-
-  // Classificação por extenso no contexto do arquivo (PRO-MNT-001 §8.1).
+  // Classificação por extenso no contexto do documento (PRO-MNT-001 §8.1).
   const decisaoLabel = fwB?.decisao != null ? tFw(`decisoes.${fwB.decisao}` as never) : undefined;
   const contextoCompleto: ContextoPlano = {
     ...contexto,
@@ -58,7 +54,15 @@ export async function PlanoTable({
     fwB: decisaoLabel
       ? `${decisaoLabel}${fwB?.periodicidade ? ` · ${fwB.periodicidade}` : ''}`
       : undefined,
+    decisao: fwB?.decisao,
+    pfTipico,
+    revisadoEm,
+    url: `https://reliabilitas.io${notaPath(locale, slug)}`,
   };
+
+  const disclaimer = textos.disclaimer
+    .replaceAll('{modo}', contexto.modoFalha)
+    .replaceAll('{equipamento}', contexto.equipamento);
 
   const temCriterio = plano.some((l) => l.criterio || l.acao);
 
@@ -71,11 +75,20 @@ export async function PlanoTable({
         <ExportPlanoBotoes
           plano={plano}
           contexto={contextoCompleto}
-          headers={headers}
+          textos={textos}
           slug={slug}
           labels={{ csv: t('exportCsv'), md: t('exportMd') }}
         />
       </div>
+
+      {/* Disclaimer de foco no modo de falha — regra do fundador: SEMPRE presente */}
+      <p
+        className="mt-3 rounded-md border-l-4 bg-amber-50/60 py-2 pl-3 pr-3 text-[12px] leading-snug text-slate-600"
+        style={{ borderColor: '#b45309' }}
+      >
+        <strong className="text-slate-700">⚠ {textos.disclaimerTitulo}:</strong> {disclaimer}
+      </p>
+
       <table className="mt-3 w-full text-[13px]">
         <thead>
           <tr className="text-left text-xs text-slate-500">

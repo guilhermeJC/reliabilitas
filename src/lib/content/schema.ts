@@ -92,6 +92,14 @@ const modoFalhaSchema = baseSchema
           condicao: z.string().min(1).optional(),
           criterio: z.string().min(1).optional(),
           acao: z.string().min(1).optional(),
+          // Documento profundo (melhoria 3 do fundador, 10/07): especialidade
+          // executante, duração estimada, procedimento passo a passo e
+          // grandezas a registrar ("Nome [unidade]") — alimentam o plano
+          // exportável completo (CSV/MD no template RELIABILITAS).
+          especialidade: z.string().min(1).optional(),
+          duracao: z.string().min(1).optional(),
+          passos: z.array(z.string().min(1)).min(1).optional(),
+          registros: z.array(z.string().min(1)).min(1).optional(),
         }),
       )
       .min(1, 'plano_manutencao: exigido em todo modo de falha (F02)'),
