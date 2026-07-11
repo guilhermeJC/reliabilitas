@@ -25,6 +25,34 @@
     "erro": "Não foi possível enviar: a mensagem precisa ter entre {min} e {max} caracteres e o e-mail (se preenchido) deve ser válido.",
     "limite": "Muitas sugestões em pouco tempo deste endereço. Aguarde um pouco e tente de novo."
   },
+  "colaborar": {
+    "titulo": "Colaborar com conteúdo",
+    "intro": "Escreveu algo sobre um equipamento, componente, modo de falha ou estratégia que ainda não está no acervo? Proponha aqui — nada é publicado direto: o curador revisa, pode reescrever no padrão editorial e só então o conteúdo entra no acervo pelo mesmo fluxo de sempre.",
+    "tipoNotaRotulo": "Tipo de conteúdo",
+    "taxonomiaPaiRotulo": "Onde se encaixa (nó pai na taxonomia)",
+    "tituloRotulo": "Título proposto",
+    "tituloPlaceholder": "Ex.: Bomba de Palhetas",
+    "resumoRotulo": "Resumo (opcional — 1-2 frases)",
+    "resumoPlaceholder": "Uma linha resumindo do que se trata.",
+    "corpoRotulo": "Conteúdo (Markdown)",
+    "corpoPlaceholder": "## Classificação\n\nEscreva em Markdown — os mesmos recursos do site (## para seções, [[slug]] para linkar outra nota, $...$ para fórmulas)…",
+    "contatoRotulo": "E-mail (opcional — só se quiser resposta)",
+    "contatoPlaceholder": "voce@exemplo.com",
+    "enviar": "Enviar contribuição",
+    "sucesso": "Contribuição recebida — obrigado por ajudar a construir o acervo. O curador vai revisar antes de publicar.",
+    "erro": "Não foi possível enviar: confira o tipo, o nó pai (deve ser um dos itens da lista), o título (3–200 caracteres), o conteúdo (mínimo 50 caracteres) e o e-mail (se preenchido).",
+    "limite": "Muitas contribuições em pouco tempo deste endereço. Aguarde um pouco e tente de novo.",
+    "tipos": {
+      "classe": "Classe",
+      "familia": "Família",
+      "principio": "Princípio",
+      "tipo": "Tipo de equipamento",
+      "marca_modelo": "Marca/Modelo",
+      "componente": "Componente",
+      "modo_falha": "Modo de falha",
+      "estrategia": "Estratégia de manutenção"
+    }
+  },
   "apoio": {
     "titulo": "Apoie o RELIABILITAS",
     "missao": "O RELIABILITAS existe para dar a profissionais de engenharia, confiabilidade e manutenção — do estagiário ao engenheiro — acesso gratuito, em PT e EN, ao conhecimento técnico que normalmente fica trancado em normas pagas e treinamentos caros.",
@@ -72,7 +100,10 @@
     "niveisLinha": "Cada modo de falha em 3 níveis de leitura — Entender, Aplicar, Dominar — em PT e EN.",
     "calculadorasLink": "Calculadoras de confiabilidade →",
     "apoieTitulo": "Apoie o projeto",
-    "apoieTexto": "Free para sempre para pessoas. Doações mantêm a infraestrutura no ar."
+    "apoieTexto": "Free para sempre para pessoas. Doações mantêm a infraestrutura no ar.",
+    "colaborarTitulo": "Colaborar / escrever conteúdo",
+    "colaborarTexto": "Sabe sobre um equipamento, componente, modo de falha ou estratégia que ainda não está no acervo? Proponha o conteúdo — o curador revisa antes de publicar.",
+    "colaborarBotao": "Colaborar com conteúdo"
   },
   "metodo": {
     "titulo": "O método",

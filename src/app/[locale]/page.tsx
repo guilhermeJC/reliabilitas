@@ -5,7 +5,7 @@ import { routing } from '@/i18n/routing';
 import { listPublicadas } from '@/lib/db/notas';
 import { handbooksPublicados } from '@/lib/content/ativos';
 import { DOACAO_LINKS } from '@/lib/apoio';
-import { buscaPath, calculadorasPath, metodoPath, notaPath } from '@/lib/routes';
+import { buscaPath, calculadorasPath, colaborarPath, metodoPath, notaPath } from '@/lib/routes';
 import type { Locale } from '@/lib/content/schema';
 
 // T01 v3 (revisão 6 do fundador — 09/07): a Home passa a começar pelo MÉTODO
@@ -122,6 +122,28 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               {t('calculadorasLink')}
             </a>
           </p>
+
+          {/* Colaborar (pedido do fundador, 11/07): visitante propõe conteúdo novo — nada publica direto (fila de triagem). */}
+          <div
+            className="mt-10 flex flex-col gap-4 rounded-lg border bg-white p-6 sm:flex-row sm:items-center sm:justify-between"
+            style={{ borderColor: '#e3e8f0' }}
+          >
+            <div>
+              <h2 className="font-medium" style={{ color: 'var(--navy-700)' }}>
+                {t('colaborarTitulo')}
+              </h2>
+              <p className="mt-1 max-w-xl text-sm leading-relaxed text-slate-600">
+                {t('colaborarTexto')}
+              </p>
+            </div>
+            <a
+              href={colaborarPath(locale as Locale)}
+              className="shrink-0 rounded-md border px-5 py-2.5 text-center text-sm font-medium transition-colors hover:bg-slate-50"
+              style={{ borderColor: 'var(--navy-700)', color: 'var(--navy-700)' }}
+            >
+              {t('colaborarBotao')}
+            </a>
+          </div>
 
           {/* Apoio (F07 parcial) — só renderiza quando o fundador configurar os links */}
           {DOACAO_LINKS.length > 0 && (
