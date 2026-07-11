@@ -1,10 +1,16 @@
 import { listSugestoes, listContribuicoes } from '@/lib/db/moderacao';
 import type { SugestaoRow, ContribuicaoRow } from '@/lib/db/moderacao';
+import { agrupaSugestoes, agrupaContribuicoes } from '@/lib/moderacao-grupos';
 
 // Painel de aprovação (11/07) — fila por nota das sugestões (T09) e das
 // contribuições de conteúdo novo ("Colaborar"). "Aceita"/"resolvida" é
 // triagem, NÃO publicação: o conteúdo aceito ainda passa pelo fluxo
 // Git→CI→ingest de sempre (AFC do fundador — DEV-046).
+//
+// Pedido do fundador (11/07): só as PENDENTES aparecem por padrão; o que já
+// foi lido/resolvido/aceito/rejeitado vai pra "pastas" arquivadas — details
+// fechado, mesmo padrão da árvore/rodapé de fontes (chevron .tree-chevron
+// já existe em globals.css).
 export const dynamic = 'force-dynamic';
 
 const BADGE: Record<string, string> = {
@@ -46,6 +52,53 @@ function AcaoStatus({
         {rotulo}
       </button>
     </form>
+  );
+}
+
+function Chevron() {
+  return (
+    <svg
+      className="tree-chevron shrink-0"
+      width="10"
+      height="10"
+      viewBox="0 0 10 10"
+      aria-hidden="true"
+    >
+      <path
+        d="M3.5 1.5 L6.5 5 L3.5 8.5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+// "Pasta" arquivada — fechada por padrão, só abre no clique. Some da tela
+// quando vazia (não polui o painel com pastas sem conteúdo).
+function Arquivo({
+  titulo,
+  quantidade,
+  children,
+}: {
+  titulo: string;
+  quantidade: number;
+  children: React.ReactNode;
+}) {
+  if (quantidade === 0) return null;
+  return (
+    <details className="mt-3">
+      <summary className="flex cursor-pointer list-none items-center gap-1.5 text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500 transition-colors hover:text-slate-700 [&::-webkit-details-marker]:hidden">
+        <Chevron />
+        {titulo}
+        <span className="font-mono text-[11px] normal-case tracking-normal text-slate-400">
+          {quantidade}
+        </span>
+      </summary>
+      <ul className="mt-2 space-y-3">{children}</ul>
+    </details>
   );
 }
 
@@ -122,41 +175,68 @@ function CardContribuicao({ c }: { c: ContribuicaoRow }) {
 
 export default async function AdminPainelPage() {
   const [sugestoes, contribuicoes] = await Promise.all([listSugestoes(), listContribuicoes()]);
+  const gS = agrupaSugestoes(sugestoes);
+  const gC = agrupaContribuicoes(contribuicoes);
 
   return (
     <div className="space-y-10">
       <section>
         <h2 className="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500">
-          Sugestões de correção ({sugestoes.length})
+          Sugestões de correção — pendentes ({gS.pendentes.length})
         </h2>
-        {sugestoes.length === 0 ? (
-          <p className="mt-2 text-sm text-slate-500">Nenhuma sugestão ainda.</p>
+        {gS.pendentes.length === 0 ? (
+          <p className="mt-2 text-sm text-slate-500">Nenhuma sugestão pendente.</p>
         ) : (
           <ul className="mt-3 space-y-3">
-            {sugestoes.map((s) => (
+            {gS.pendentes.map((s) => (
               <CardSugestao key={s.id} s={s} />
             ))}
           </ul>
         )}
+        <Arquivo titulo="Arquivadas — Lidas" quantidade={gS.lidas.length}>
+          {gS.lidas.map((s) => (
+            <CardSugestao key={s.id} s={s} />
+          ))}
+        </Arquivo>
+        <Arquivo titulo="Arquivadas — Resolvidas" quantidade={gS.resolvidas.length}>
+          {gS.resolvidas.map((s) => (
+            <CardSugestao key={s.id} s={s} />
+          ))}
+        </Arquivo>
       </section>
 
       <section>
         <h2 className="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500">
-          Contribuições de conteúdo ({contribuicoes.length})
+          Contribuições de conteúdo — pendentes ({gC.pendentes.length})
         </h2>
         <p className="mt-1 text-xs text-slate-500">
           &ldquo;Aceitar&rdquo; não publica — marca como matéria-prima pra reescrever no padrão
           editorial e seguir o fluxo Git→CI de sempre.
         </p>
-        {contribuicoes.length === 0 ? (
-          <p className="mt-2 text-sm text-slate-500">Nenhuma contribuição ainda.</p>
+        {gC.pendentes.length === 0 ? (
+          <p className="mt-2 text-sm text-slate-500">Nenhuma contribuição pendente.</p>
         ) : (
           <ul className="mt-3 space-y-3">
-            {contribuicoes.map((c) => (
+            {gC.pendentes.map((c) => (
               <CardContribuicao key={c.id} c={c} />
             ))}
           </ul>
         )}
+        <Arquivo titulo="Arquivadas — Lidas" quantidade={gC.lidas.length}>
+          {gC.lidas.map((c) => (
+            <CardContribuicao key={c.id} c={c} />
+          ))}
+        </Arquivo>
+        <Arquivo titulo="Arquivadas — Aceitas" quantidade={gC.aceitas.length}>
+          {gC.aceitas.map((c) => (
+            <CardContribuicao key={c.id} c={c} />
+          ))}
+        </Arquivo>
+        <Arquivo titulo="Arquivadas — Rejeitadas" quantidade={gC.rejeitadas.length}>
+          {gC.rejeitadas.map((c) => (
+            <CardContribuicao key={c.id} c={c} />
+          ))}
+        </Arquivo>
       </section>
     </div>
   );
