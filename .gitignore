@@ -2,6 +2,10 @@
 docs/*
 !docs/README.md
 
+# Posicionamento — documentação de brainstorming/apresentação do fundador,
+# local-only, invisível (pedido do fundador, 11/07). Mesmo espírito do D28.
+posicionamento/
+
 # Segredos — NUNCA versionar (CLAUDE.md §12)
 .env
 .env.*
