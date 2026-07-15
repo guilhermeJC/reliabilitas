@@ -1,0 +1,27 @@
+name: Deploy
+
+# G2/DEV-051/053 — fecha o gate de deploy: a Vercel para de publicar `main`
+# sozinha (vercel.json: git.deploymentEnabled.main=false) e só recebe build
+# novo depois que o workflow "CI" (ci.yml) terminar com sucesso. Preview de
+# PR continua automático pela Vercel (não passa por produção).
+on:
+  workflow_run:
+    workflows: ['CI']
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disparar deploy de produção (Vercel Deploy Hook)
+        run: |
+          if [ -z "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}" ]; then
+            echo "::error::VERCEL_DEPLOY_HOOK_URL não configurado — crie o Deploy Hook na Vercel (Project Settings > Git > Deploy Hooks, branch main) e cadastre como secret do repositório no GitHub"
+            exit 1
+          fi
+          curl -fsS -X POST "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}"

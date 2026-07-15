@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # RELIABILITAS — deploy padronizado.
-# Fase 0–1: deploy = push na main (Vercel constrói e publica; preview por PR).
-# Release oficial: git tag vX.Y.Z dispara release.yml (a criar no Dia 5).
+# G2/DEV-051/053: push na main dispara o CI; só DEPOIS do CI verde, o workflow
+# deploy.yml chama o Vercel Deploy Hook (vercel.json desliga o auto-deploy da
+# Vercel em main — preview de PR continua automático). Release oficial:
+# git tag vX.Y.Z dispara release.yml (a criar no Dia 5).
 set -euo pipefail
 
 echo '==> Verificação local (o mesmo que o CI vai rodar)'
@@ -13,7 +15,7 @@ npm test
 echo '==> Validando conteúdo (ingest dry-run)'
 npm run ingest:dry
 
-echo '==> Push para main (Vercel faz o deploy)'
+echo '==> Push para main (dispara o CI; deploy.yml publica só se o CI passar)'
 git push origin main
 
-echo '==> Deploy disparado. Acompanhe o CI no GitHub e o build na Vercel.'
+echo '==> Acompanhe: Actions "CI" -> Actions "Deploy" -> Vercel.'

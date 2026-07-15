@@ -1,6 +1,8 @@
 # RELIABILITAS — deploy padronizado (PowerShell 5.x compatível, sem &&).
-# Fase 0–1: deploy = push na main (Vercel constrói e publica; preview por PR).
-# Release oficial: git tag vX.Y.Z dispara release.yml (a criar no Dia 5).
+# G2/DEV-051/053: push na main dispara o CI; só DEPOIS do CI verde, o workflow
+# deploy.yml chama o Vercel Deploy Hook (vercel.json desliga o auto-deploy da
+# Vercel em main — preview de PR continua automático). Release oficial:
+# git tag vX.Y.Z dispara release.yml (a criar no Dia 5).
 $ErrorActionPreference = 'Stop'
 
 Write-Host '==> Verificação local (o mesmo que o CI vai rodar)'
@@ -12,7 +14,7 @@ npm test
 Write-Host '==> Validando conteúdo (ingest dry-run)'
 npm run ingest:dry
 
-Write-Host '==> Push para main (Vercel faz o deploy)'
+Write-Host '==> Push para main (dispara o CI; deploy.yml publica só se o CI passar)'
 git push origin main
 
-Write-Host '==> Deploy disparado. Acompanhe o CI no GitHub e o build na Vercel.'
+Write-Host '==> Acompanhe: Actions "CI" -> Actions "Deploy" -> Vercel.'

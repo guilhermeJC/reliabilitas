@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slider": "^1.4.2",
+    "@sentry/nextjs": "^10.65.0",
     "@supabase/supabase-js": "^2.110.0",
     "gray-matter": "^4.0.3",
     "katex": "^0.17.0",

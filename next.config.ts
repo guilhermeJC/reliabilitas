@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
+import { withSentryConfig } from '@sentry/nextjs';
 
 // Security by Design desde o Dia 01 (D13). Content-Security-Policy saiu daqui
 // (DEV-051/G2): agora é montada por requisição no middleware.ts, com nonce em
@@ -22,4 +23,15 @@ const nextConfig: NextConfig = {
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
-export default withNextIntl(nextConfig);
+// G1/DEV-051 — org/project/authToken ficam undefined até o fundador criar o
+// projeto no Sentry (pendência dele) e cadastrar SENTRY_ORG/SENTRY_PROJECT/
+// SENTRY_AUTH_TOKEN. Sem eles, o plugin só pula o upload de source maps —
+// não falha o build (silent:true evita log de aviso repetitivo até então).
+export default withSentryConfig(withNextIntl(nextConfig), {
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+  silent: true,
+  widenClientFileUpload: true,
+  disableLogger: true,
+});
