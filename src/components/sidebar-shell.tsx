@@ -1,15 +1,20 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { decideColapsadoInicial } from '@/lib/sidebar-preferencia';
 
 // Rodada 6 do fundador (09/07): a árvore lateral vira toggle. Antes era sticky
 // fixa (rodada 4); agora o visitante pode recolher para ler o conteúdo em tela
 // cheia e reabrir a qualquer momento.
 //
 // SSR renderiza SEMPRE aberta — crawlers (BR-010) e a primeira visita veem toda
-// a árvore. Só após mount o useEffect lê `localStorage.sidebarOpen` e, se for
-// '0', colapsa. O hamburger do header dispara um CustomEvent que este componente
-// escuta — evita passar contexto React por toda a hierarquia.
+// a árvore no HTML. Só após mount o useEffect decide o estado visível real:
+// preferência salva (`localStorage.sidebarOpen`) sempre vence; sem preferência,
+// o padrão passa a depender do tamanho de tela (`decideColapsadoInicial`,
+// achado do fundador 17/07 — sem isso, um visitante novo no celular via a
+// árvore "tomar a tela inteira" a cada página, já que cada navegação por link
+// é um carregamento SSR do zero). O hamburger do header dispara um CustomEvent
+// que este componente escuta — evita passar contexto React por toda a hierarquia.
 
 const CHEVRON_D = 'M3.5 1.5 L6.5 5 L3.5 8.5';
 
@@ -40,12 +45,15 @@ export function SidebarShell({
   const [collapsed, setCollapsed] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  // Hidratação: lê a preferência SALVA (default: aberta).
+  // Hidratação: lê a preferência SALVA; sem ela, o padrão depende do tamanho
+  // de tela (recolhida no celular, aberta no desktop — decideColapsadoInicial).
   useEffect(() => {
     try {
-      if (window.localStorage.getItem('sidebarOpen') === '0') setCollapsed(true);
+      const salvo = window.localStorage.getItem('sidebarOpen');
+      const ehMobile = window.matchMedia('(max-width: 767px)').matches;
+      setCollapsed(decideColapsadoInicial(salvo, ehMobile));
     } catch {
-      // sessão privada bloqueia localStorage — segue com o default
+      // sessão privada bloqueia localStorage/matchMedia — segue com o default (aberta)
     }
     setMounted(true);
   }, []);

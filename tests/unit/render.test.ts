@@ -100,3 +100,23 @@ describe('renderNoteHtml — Markdown com mecânica Obsidian (D09)', () => {
     });
   });
 });
+
+describe('tabelas — wrapper com rolagem horizontal (achado do fundador, celular)', () => {
+  const TABELA_MD = '| A | B |\n| --- | --- |\n| 1 | 2 |\n';
+
+  it('envolve toda tabela num wrapper com a classe de rolagem', () => {
+    const html = renderNoteHtml(TABELA_MD, 'pt');
+    expect(html).toContain('<div class="tabela-scroll"><table>');
+    expect(html).toMatch(/<div class="tabela-scroll">[\s\S]*<\/table><\/div>/);
+  });
+
+  it('não afeta conteúdo sem tabela', () => {
+    const html = renderNoteHtml('## Sem tabela\n\nSó texto normal.', 'pt');
+    expect(html).not.toContain('tabela-scroll');
+  });
+
+  it('envolve múltiplas tabelas na mesma nota, cada uma no seu próprio wrapper', () => {
+    const html = renderNoteHtml(`${TABELA_MD}\nTexto entre as duas.\n\n${TABELA_MD}`, 'pt');
+    expect(html.match(/tabela-scroll/g)?.length).toBe(2);
+  });
+});

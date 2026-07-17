@@ -91,6 +91,24 @@ body {
   padding: 0.4rem 0.6rem;
   text-align: left;
 }
+/* Achado do fundador (17/07): no celular, width:100% forçava a tabela a
+   espremer todas as colunas na largura da tela (ilegível a partir da 4ª
+   coluna numa tabela real testada). O wrapper (render.ts) dá uma área de
+   rolagem própria; só em telas estreitas a tabela também recupera a largura
+   natural do conteúdo (max-content) — no desktop nada muda. */
+.tabela-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  /* margin-bottom fica só na tabela (regra .nota-corpo table acima) — o
+     wrapper cria um novo contexto de formatação (overflow != visible) que
+     NÃO colapsa margens com o filho; duplicar aqui dobraria o espaço. */
+}
+@media (max-width: 767px) {
+  .tabela-scroll table {
+    width: max-content;
+    min-width: 100%;
+  }
+}
 
 /* Barra lateral em <details> nativo (sem JS): remove o marcador padrão e gira o
    chevron ao abrir. Colapsável e acessível por construção. */

@@ -141,6 +141,20 @@ function markedDe(locale: Locale): Marked {
   return m;
 }
 
+// Achado do fundador (17/07): tabela do conteúdo ficava ilegível no celular —
+// `width:100%` (globals.css) força todas as colunas a espremer na largura da
+// tela. Envolver em vez de tocar o renderer do marked (mais simples, zero
+// risco no parsing de célula/alinhamento): pós-processa o HTML final,
+// embrulhando cada `<table>...</table>` num wrapper com rolagem horizontal
+// própria — a tabela mantém a fonte no tamanho normal, só passa a rolar.
+export function envolveTabelasComScroll(html: string): string {
+  return html.replace(
+    /<table>[\s\S]*?<\/table>/g,
+    (tabela) => `<div class="tabela-scroll">${tabela}</div>`,
+  );
+}
+
 export function renderNoteHtml(corpoMd: string, locale: Locale): string {
-  return markedDe(locale).parse(corpoMd, { async: false }) as string;
+  const html = markedDe(locale).parse(corpoMd, { async: false }) as string;
+  return envolveTabelasComScroll(html);
 }
