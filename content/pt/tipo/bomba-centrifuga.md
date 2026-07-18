@@ -60,33 +60,88 @@ revisado_em: 2026-07-11
 
 ## Classificação
 
-Máquina **rotodinâmica** — princípio [[dinamicas|Rotodinâmicas]], família Bombas, classe Adição de Energia ao Fluido (a cadeia completa está no caminho acima). Classe **PU** no nível 6 (*equipment unit*) da taxonomia ISO 14224:2016. A distinção fundamental frente às bombas de deslocamento positivo: a centrífuga transfere energia ao fluido **continuamente, por variação de quantidade de movimento angular** — não por confinamento de volume. Consequência prática direta: a vazão entregue depende da resistência do sistema (a bomba opera onde sua curva cruza a curva do sistema — ver Princípio), e operar contra válvula fechada não gera sobrepressão destrutiva imediata, mas aquecimento e recirculação.
+Máquina **rotodinâmica** — princípio [[dinamicas|Rotodinâmicas]], família Bombas, classe Adição de Energia ao Fluido (a cadeia completa está no caminho acima). Classe **PU** no nível 6 (*equipment unit*) da taxonomia ISO 14224:2016. A distinção fundamental frente às [[deslocamento-positivo|bombas de deslocamento positivo]]: a centrífuga transfere energia ao fluido **continuamente, por variação de quantidade de movimento angular** — não por confinamento de um volume fechado. Consequência prática direta: a bomba **não decide sozinha** quanto de vazão e pressão entrega — quem decide é a tubulação, os equipamentos e as válvulas da instalação a que ela está ligada (a seção Princípio detalha exatamente como).
+
+E, por essa mesma razão, ela também não corre o mesmo risco que a de deslocamento positivo caso a descarga seja bloqueada: como sempre existe alguma folga interna por onde o líquido recircula (a folga entre o impelidor e a carcaça — ver anéis de desgaste, adiante), a bomba nunca fica presa contra um caminho totalmente sem saída. Fechar a válvula de descarga não faz a pressão subir sem limite — faz a vazão cair, a bomba passar a recircular internamente o próprio líquido, e o head parar de subir no valor máximo que a curva da máquina permite (o *shutoff*, seção Princípio). Toda a energia mecânica que continua entrando não vira mais pressão: vira **calor**, aquecendo o volume de líquido preso — em bombas de alta energia, o suficiente para vaporizar o fluido internamente e destruir o selo em minutos, mesmo sem nenhuma ruptura da carcaça.
 
 É o equipamento rotativo mais numeroso da indústria de processo — tipicamente **mais de 80% do parque rotativo** de uma refinaria ou planta química — e responde por **30–40% dos custos de manutenção de rotativos** (Bloch & Geitner). Essa dupla condição (onipresença + custo) faz da bomba centrífuga o primeiro ativo de qualquer programa sério de confiabilidade.
 
 ## Princípio de funcionamento
 
-### A equação de Euler — de onde vem a energia
+### De onde vem a energia — Bernoulli primeiro, Euler depois
 
-O impelidor impõe ao fluido uma trajetória giratória. A energia específica teórica transferida é dada pela **equação de Euler das turbomáquinas**:
+A forma mais simples de entender uma bomba é pela **conservação de energia** — a mesma equação de Bernoulli usada para qualquer escoamento, só que com um termo extra para a energia que a bomba injeta:
+
+$$\frac{p_1}{\rho g} + \frac{v_1^2}{2g} + z_1 \; + \; H_{bomba} \;=\; \frac{p_2}{\rho g} + \frac{v_2^2}{2g} + z_2 \; + \; \Sigma h_f$$
+
+- $p$ — pressão estática [Pa], nos pontos 1 (sucção) e 2 (descarga).
+- $v$ — velocidade média do fluido [m/s], em 1 e 2.
+- $z$ — cota (altura geométrica de referência) [m], em 1 e 2.
+- $\rho$ — massa específica do fluido [kg/m³].
+- $g$ — aceleração da gravidade [m/s²].
+- $H_{bomba}$ — energia específica que a bomba adiciona ao fluido, o **head** [m de coluna do fluido] — é o que buscamos.
+- $\Sigma h_f$ — soma das perdas de carga por atrito entre 1 e 2 [m].
+
+Rearranjando para isolar $H_{bomba}$: a bomba precisa entregar **exatamente** a energia que falta para levar o fluido do estado 1 ao estado 2 — vencendo a diferença de pressão, de velocidade, de cota, e ainda as perdas por atrito no caminho. É essa conta, montada para a instalação real, que dimensiona a bomba (a seção "A bomba no sistema", abaixo, mostra como isso vira a curva do sistema).
+
+Bernoulli explica **quanto** de energia é necessário — mas trata a bomba como uma caixa-preta. Para entender **como** o impelidor entrega essa energia fisicamente, a ferramenta é a **equação de Euler das turbomáquinas**:
 
 $$H_{th} = \frac{u_2 \, c_{u2} - u_1 \, c_{u1}}{g}$$
 
-onde $u$ é a velocidade tangencial da pá ($u = \omega r$) e $c_u$ a componente tangencial da velocidade absoluta do fluido, nas seções de entrada (1) e saída (2) do impelidor. Na entrada radial pura ($c_{u1} = 0$), a expressão colapsa para $H_{th} = u_2 c_{u2}/g$: **todo o head nasce na periferia do impelidor**. Por isso diâmetro e rotação dominam o desempenho — e por isso o corte de impelidor (trim) é a ferramenta padrão de adequação de ponto.
+- $H_{th}$ — head teórico (a energia que o impelidor entrega antes de qualquer perda) [m].
+- $u$ — velocidade tangencial da pá [m/s]: $u = \omega r$, onde $\omega$ é a velocidade angular do eixo [rad/s] e $r$ é o raio do impelidor naquele ponto [m] — é por isso que o **diâmetro do impelidor** é uma das duas variáveis (junto da rotação) que a fábrica usa para dimensionar e selecionar a bomba certa para cada ponto de operação.
+- $c_u$ — componente tangencial da velocidade absoluta do fluido [m/s].
+- $g$ — aceleração da gravidade [m/s²].
+- Índices $1$ e $2$ — entrada e saída do impelidor, respectivamente.
 
-O head real fica abaixo do teórico por três famílias de perdas. A primeira é o **escorregamento**: o fluido não é perfeitamente guiado pelo número finito de pás. O fator de escorregamento da correlação clássica de **Wiesner**,
+Na entrada radial pura ($c_{u1} = 0$, o projeto usual), a expressão colapsa para $H_{th} = u_2 c_{u2}/g$: **todo o head nasce na periferia do impelidor**. Como $u_2$ cresce com o raio e com a rotação, essas duas variáveis dominam o desempenho — e por isso reduzir o diâmetro externo do impelidor (o *trim*, um corte mecânico controlado) é a forma padrão de ajustar uma bomba de catálogo a um ponto de operação específico sem trocar a carcaça nem o motor.
 
-$$\sigma = 1 - \frac{\sqrt{\sin\beta_2}}{Z^{0{,}7}}$$
+O head real entregue fica abaixo do teórico $H_{th}$ por três famílias de perdas, cada uma com sua própria causa física:
 
-($\beta_2$ = ângulo de saída da pá; $Z$ = número de pás), quantifica o desconto — tipicamente 10–25% do head de Euler. Somam-se as **perdas hidráulicas** (atrito e choque de incidência fora do ponto de projeto) e as **perdas volumétricas** (recirculação pelos anéis de desgaste).
+- **Escorregamento**: o fluido não é perfeitamente guiado pelo número finito de pás — parte do momento angular "escapa" antes de ser convertido em pressão. Tipicamente subtrai 10–25% do head de Euler; quanto mais pás e mais curvadas para trás, menor o escorregamento.
+- **Perdas hidráulicas**: atrito nas superfícies internas e choque de incidência quando a bomba opera fora do ponto para o qual as pás foram desenhadas — crescem rapidamente longe do BEP (adiante).
+- **Perdas volumétricas**: parte do líquido já pressurizado recircula de volta pela folga dos anéis de desgaste, sem chegar à descarga — é essa mesma folga que, no extremo de válvula fechada, evita que a pressão suba sem limite (seção Classificação).
+
+### Curva H–Q, o ponto de melhor eficiência (BEP) e a vazão mínima
+
+O desempenho de cada bomba se resume numa curva **head × vazão (H–Q)**, medida de fábrica com as curvas associadas de potência, rendimento e NPSHr — o widget interativo logo abaixo desta seção deixa a forma da curva e o efeito da rotação tangíveis. Três referências dessa curva têm consequência direta de confiabilidade:
+
+- **BEP (*Best Efficiency Point*, ponto de melhor eficiência)** — o ponto da curva onde o rendimento hidráulico é máximo. É a referência central de saúde operacional, não um detalhe de catálogo: quanto mais a bomba opera **longe** do BEP — vazão muito maior ou muito menor — maior a recirculação interna, a carga radial no eixo e a vibração. A faixa recomendada de operação, o **POR** (*Preferred Operating Region*, ANSI/HI 9.6.3), é **70–120% da vazão de BEP**; a **AOR** (*Allowable Operating Region*) são os limites absolutos do fabricante — operar fora da AOR consome vida de [[rolamento|rolamentos]] e [[selo-mecanico|selo]] de forma acelerada, não gradual.
+- **MCSF (*Minimum Continuous Stable Flow*, vazão mínima contínua estável)** — o limite inferior real, distinto do simples "abaixo de 70% do BEP": é a vazão abaixo da qual a recirculação de sucção se torna severa o bastante para gerar vibração instável e aquecimento que a bomba não dissipa em regime contínuo — mais restritivo que o POR em bombas de alta energia específica. Abaixo dela, a operação sustentada não é recomendável nem com boa manutenção; a válvula ou linha de recirculação automática (ARC) existe exatamente para garantir essa vazão mínima quando o processo pede menos.
+- **Estabilidade da curva** — uma curva **continuamente ascendente até o shutoff** (o head máximo, com vazão zero, tipicamente 110–120% do head de BEP em máquinas radiais) tem um único ponto de operação possível para cada head. Curvas **planas ou com corcova** (*drooping*) admitem dois pontos de vazão diferentes para o mesmo head — fonte de oscilação e de divisão instável de carga quando duas bombas operam em paralelo. A API 610 exige curva continuamente ascendente sempre que houver operação em paralelo.
+
+### A bomba no sistema — quem decide o ponto de operação
+
+A instalação a que a bomba está ligada — a tubulação, os equipamentos de processo, as válvulas — impõe a **curva do sistema**:
+
+$$H_{sys} = H_{est} + k\,Q^2$$
+
+- $H_{sys}$ — head que o sistema exige da bomba para entregar a vazão $Q$ [m].
+- $H_{est}$ — altura estática: a diferença de cota e/ou de pressão entre os dois reservatórios que a bomba liga, a parcela que **não depende** da vazão [m].
+- $k$ — coeficiente de resistência do sistema (atrito da tubulação, válvulas, acessórios) [s²/m⁵], obtido da própria tubulação (diâmetro, comprimento, acessórios).
+- $Q$ — vazão [m³/s].
+
+O ponto de operação real — a vazão e o head que a bomba efetivamente entrega — é sempre a **interseção** dessa curva do sistema com a curva H-Q da própria bomba: nenhuma das duas "vence" sozinha, o ponto é onde as duas concordam. Toda ação de operação, no fundo, é mexer em uma das duas curvas — e o hábito de diagnóstico mais valioso deste equipamento é perguntar exatamente **qual curva mudou**:
+
+- **Fechar (estrangular) a válvula de descarga** aumenta $k$ — a curva do sistema fica mais íngreme, e o ponto de interseção desliza pela curva DA BOMBA para uma vazão menor e um head maior.
+- **Mudar o nível de um tanque ou a pressão de um vaso** muda $H_{est}$ — desloca a curva do sistema inteira para cima ou para baixo, sem mudar sua forma.
+- **Variar a rotação via VFD** (*variable frequency drive*, inversor de frequência: o equipamento eletrônico que converte a frequência fixa da rede elétrica numa frequência variável, controlando a velocidade do motor de forma contínua) desloca a curva **da bomba**, não a do sistema — é a única das três ações que muda a máquina em si, e o faz seguindo as leis de afinidade (a seguir).
+
+Ler cavitação, recirculação ou sobrecarga de motor como "o ponto de operação se moveu" — e perguntar *quem mexeu em qual curva e por quê* — resolve a maioria dos diagnósticos de campo antes de abrir a bomba.
+
+- **Operação em paralelo** (duas bombas na mesma descarga) soma vazões a head constante — mas o ganho real depende da inclinação da curva do sistema: com sistema íngreme (dominado por atrito), a segunda bomba acrescenta **muito menos** que o dobro da vazão, e ambas deslizam para fora do BEP. Curvas planas ou com corcova em paralelo dividem carga de forma instável (uma bomba passa a "carregar" a outra).
+- **Operação em série** (uma bomba alimenta a sucção da outra) soma heads à mesma vazão — o arranjo *booster* clássico; atenção à classe de pressão da carcaça da bomba a jusante, que recebe a soma das duas pressões.
 
 ### Velocidade específica — a forma do impelidor em um número
 
-A **velocidade específica** condensa a geometria hidráulica:
+Diferentes projetos de impelidor entregam o mesmo BEP (mesma vazão e head nominais) com geometrias radicalmente diferentes — uma roda estreita e de grande diâmetro, ou uma hélice larga e compacta. A **velocidade específica** $n_q$ é o número adimensional-na-prática que identifica **qual** dessas formas geométricas melhor resolve um dado par vazão-head, independente do tamanho físico da máquina:
 
 $$n_q = \frac{n \sqrt{Q}}{H^{3/4}}$$
 
-($n$ em rpm, $Q$ em m³/s, $H$ em m, no BEP). Ela define a *forma* do impelidor e quase todo o comportamento da máquina:
+- $n_q$ — velocidade específica, calculada no ponto de BEP.
+- $n$ — rotação [rpm].
+- $Q$ — vazão no BEP [m³/s].
+- $H$ — head no BEP [m].
 
 | $n_q$ | Geometria | Perfil típico | Comportamento |
 | --- | --- | --- | --- |
@@ -94,33 +149,22 @@ $$n_q = \frac{n \sqrt{Q}}{H^{3/4}}$$
 | 40–160 | **Semi-axial / Francis** | Água, condensado, grandes vazões | Intermediário |
 | > 160 | **Axial** (alta vazão, baixo head) | Captação, circulação | Curva íngreme; potência máxima no shutoff |
 
-O rendimento máximo atingível também é função de $n_q$ (pico prático na faixa 40–60; $n_q$ muito baixo paga atrito de disco desproporcional) — e a sensibilidade à sucção cresce com a energia do olho do impelidor. É o primeiro eixo da clusterização na seção Tipos.
-
-### Curva H–Q, forma da curva e a janela de operação
-
-O desempenho se expressa na curva **head × vazão (H–Q)** com as curvas associadas de potência, rendimento e NPSHr. Dois atributos da curva têm consequência direta de confiabilidade:
-
-- **Estabilidade**: uma curva **continuamente ascendente até o shutoff** (head máximo com vazão zero, tipicamente 110–120% do head de BEP em máquinas radiais) tem um único ponto de operação possível para cada head. Curvas **planas ou com corcova** (*drooping*) admitem dois pontos para o mesmo head — fonte de oscilação e de divisão instável de carga em operação paralela. A API 610 exige curva continuamente ascendente quando há operação em paralelo.
-- **Ponto de máximo rendimento (BEP)** — a referência de saúde operacional: **POR** (*Preferred Operating Region*, ANSI/HI 9.6.3): **70–120% do BEP**; fora dela crescem as cargas radiais, a recirculação interna e a vibração. **AOR** (*Allowable Operating Region*): limites do fabricante; operar fora é consumir vida de [[rolamento|rolamentos]] e [[selo-mecanico|selo]] de forma acelerada. Abaixo da **vazão mínima contínua estável (MCSF)**, recirculação de sucção e aquecimento tornam a operação insustentável — e no limite extremo (*dead-heading*, válvula de descarga fechada) toda a potência vira calor num volume confinado: em bombas de alta energia a vaporização interna destrói o selo em minutos. A linha de vazão mínima (ou válvula ARC) existe para esse cenário.
-
-### A bomba no sistema — ponto de operação, paralelo e série
-
-A bomba **não escolhe** onde opera. O sistema impõe sua própria curva,
-
-$$H_{sys} = H_{est} + k\,Q^2$$
-
-(altura estática + perdas proporcionais a Q²), e o ponto de operação é a **interseção** das duas curvas. Toda ação de operação é uma edição de curva: estrangular a descarga aumenta $k$ (o ponto sobe a curva da bomba para a esquerda); nível de tanque muda $H_{est}$; VFD desloca a curva **da bomba** (leis de afinidade). Ler cavitação, recirculação e sobrecarga como "o ponto se moveu" — e perguntar *quem mexeu em qual curva* — é o hábito diagnóstico mais valioso deste equipamento.
-
-- **Operação em paralelo** soma vazões a head constante — mas o ganho real depende da inclinação da curva do sistema: com sistema íngreme (dominado por atrito), a segunda bomba acrescenta **muito menos** que o dobro da vazão, e ambas deslizam para fora do BEP. Curvas planas/drooping em paralelo dividem carga de forma instável (uma bomba "carrega" a outra).
-- **Operação em série** soma heads à mesma vazão (booster) — atenção à classe de pressão da carcaça a jusante.
+O rendimento máximo atingível também é função de $n_q$ (pico prático na faixa 40–60; $n_q$ muito baixo paga atrito de disco desproporcional ao head útil) — e a sensibilidade à cavitação cresce com a energia do olho do impelidor, que também escala com $n_q$. É o primeiro eixo da clusterização na seção Tipos, abaixo.
 
 ### Leis de afinidade
 
-Para o mesmo impelidor com rotação variável (VFD) — ou diâmetros próximos:
+Uma consequência direta de $H_{th} = u_2 c_{u2}/g$ (e $u_2 = \omega r_2$): variar só a rotação do MESMO impelidor — o caso do VFD — desloca toda a curva H-Q de forma previsível, sem precisar de nenhum ensaio novo:
 
-$$\frac{Q_2}{Q_1} = \frac{N_2}{N_1} \qquad \frac{H_2}{H_1} = \left(\frac{N_2}{N_1}\right)^2 \qquad \frac{P_2}{P_1} = \left(\frac{N_2}{N_1}\right)^3$$
+$$\frac{Q_2}{Q_1} = \frac{N_2}{N_1} \qquad \frac{H_2}{H_1} = \left(\frac{N_2}{N_1}\right)^{2} \qquad \frac{P_2}{P_1} = \left(\frac{N_2}{N_1}\right)^{3}$$
 
-A dependência **cúbica** da potência é o argumento econômico do acionamento com inversor: reduzir 20% a rotação corta ~49% da potência. Duas leituras de confiabilidade: o **NPSHr também cai com N²** (o VFD é ferramenta anti-[[cavitacao|cavitação]]) — e pequenos **aumentos** de rotação sobrecarregam acionador e mancais de forma desproporcional.
+- $Q$ — vazão [m³/s ou m³/h], no ponto homólogo (mesma posição relativa na curva).
+- $H$ — head [m].
+- $P$ — potência absorvida [W ou kW].
+- $N$ — rotação [rpm]; índices $1$ e $2$ — condição de referência (ex.: rotação nominal) e condição nova (ex.: rotação reduzida pelo VFD).
+
+**Exemplo numérico:** reduzir a rotação em 20% (de $N_1$ para $N_2 = 0{,}8 N_1$) entrega $Q_2 = 0{,}8\,Q_1$ (−20% de vazão), $H_2 = 0{,}64\,H_1$ (−36% de head) e $P_2 = 0{,}512\,P_1$ (−49% de potência) — a dependência **cúbica** da potência com a rotação é o argumento econômico central do acionamento com inversor de frequência: um corte modesto de vazão já devolve quase metade da energia consumida.
+
+Duas leituras de confiabilidade que seguem direto da mesma lei: o **NPSHr também cai com $N^2$** — reduzir a rotação é, na prática, uma ferramenta ativa contra a [[cavitacao|cavitação]], não só de economia de energia; e, no sentido contrário, pequenos **aumentos** de rotação acima da nominal sobrecarregam acionador e mancais de forma desproporcional (a potência sobe com o cubo) — nunca operar acima da rotação de projeto sem reavaliar toda a cadeia mecânica.
 
 ### Potência, partida e empuxos
 
@@ -140,9 +184,41 @@ Faixas práticas de η no BEP: ~50–70% em bombas pequenas, 75–88% em máquin
 
 ### NPSH — a condição de existência da sucção
 
+Toda bomba centrífuga tem, na entrada do impelidor, uma região de pressão mínima — consequência direta da própria equação de Euler: para converter velocidade em pressão, o fluido primeiro PRECISA acelerar, e onde ele acelera mais, a pressão local cai mais. Se essa pressão mínima cair abaixo da pressão de vapor do líquido, ele vaporiza ali mesmo — o início da [[cavitacao|cavitação]], o modo de falha assinatura deste equipamento. O **NPSH** (*Net Positive Suction Head*) é a régua que mede a margem antes disso acontecer:
+
 $$NPSH_a = \frac{P_0 - P_v(T)}{\rho g} - H_s - \Sigma h_f$$
 
-O **NPSHa** (disponível, propriedade do sistema) precisa exceder o **NPSHr** (requerido, propriedade da bomba, definido pelo critério de queda de 3% do head no teste — ISO 9906/HI) com **margem**: razões NPSHa/NPSHr de **1,1 a 2,5** conforme a energia de sucção (ANSI/HI 9.6.1:2024); a API 610 exige **NPSHa ≥ NPSHr + 1,0 m em toda a região de operação permitida (AOR)**. Margem insuficiente leva à [[cavitacao|cavitação]] — o modo de falha assinatura deste equipamento. O tratamento rigoroso completo (derivação, por que o critério de 3% subestima o dano incipiente, exemplo numérico) está na nota de cavitação, nível Engineer.
+- $NPSH_a$ — NPSH disponível: quanto a instalação efetivamente entrega na entrada da bomba, acima da pressão de vapor [m].
+- $P_0$ — pressão absoluta na superfície do líquido no reservatório de sucção [Pa] (atmosférica, se o tanque for aberto).
+- $P_v(T)$ — pressão de vapor do líquido na temperatura de operação $T$ [Pa] — cresce fortemente com a temperatura (ver nota de Cavitação, nível Engineer, para a curva completa).
+- $\rho$ — massa específica do líquido [kg/m³].
+- $g$ — aceleração da gravidade [m/s²].
+- $H_s$ — altura estática de sucção [m]: positiva quando a bomba está **acima** do nível do líquido (penaliza o NPSHa), negativa quando está **abaixo** (favorece o NPSHa) — a seção "Instalação da bomba", logo adiante, mostra os cenários reais.
+- $\Sigma h_f$ — soma das perdas de carga na linha de sucção (atrito + acessórios) [m].
+
+Esse **NPSHa**, propriedade da instalação, precisa exceder o **NPSHr** (NPSH requerido, propriedade da bomba — o fabricante mede em bancada e informa na curva, pelo critério de queda de 3% do head) com uma **margem de segurança**: razões NPSHa/NPSHr de **1,1 a 2,5** conforme a energia de sucção do projeto (ANSI/HI 9.6.1:2024); a API 610 exige, de forma ainda mais direta, **NPSHa ≥ NPSHr + 1,0 m em toda a região de operação permitida (AOR)**. Margem insuficiente — por altura de sucção excessiva, perdas de carga maiores que o previsto, ou simplesmente o processo aquecendo (o que sobe $P_v$ exponencialmente) — é a causa raiz mais comum de cavitação em campo.
+
+Um exemplo rápido para tornar isso concreto: uma instalação com folga confortável de NPSH a 25 °C pode passar a cavitar severamente **sem nenhuma modificação física** — só pelo processo aquecer para 70–80 °C, porque $P_v(T)$ sobe muito mais rápido que qualquer outra variável da equação. A nota de [[cavitacao|Cavitação]] (nível Engineer) traz a derivação completa a partir de Bernoulli, a tabela de $P_v(T)$ e um exemplo numérico da mesma instalação em duas temperaturas.
+
+### Instalação da bomba — sucção afogada, elevada, submersa e nível variável
+
+Um erro conceitual comum: dizer que a bomba **"puxa"** o fluido pela sucção. Ela não puxa — ela **empurra**, sempre por diferença de pressão. O impelidor gera uma zona de baixa pressão na entrada e uma zona de alta pressão na saída; é a pressão atmosférica (ou do vaso) empurrando o líquido do reservatório de sucção em direção a essa zona de baixa pressão que efetivamente move o fluido até a bomba — o impelidor, a partir daí, empurra o líquido para a descarga. Entender isso muda a leitura de cada cenário de instalação: o que importa não é a distância até a bomba, é a **diferença de pressão disponível** para empurrar o líquido até lá — exatamente o que a equação de NPSH, acima, quantifica através do termo $H_s$.
+
+- **Sucção afogada** (bomba **abaixo** do nível do líquido): $H_s$ é negativo e **soma** ao NPSHa — a condição mais favorável, porque a própria coluna de líquido acima da bomba já empurra o fluido para dentro dela antes mesmo do impelidor agir. É a configuração recomendada sempre que a geometria da planta permitir.
+
+  ![Instalação com sucção afogada: o tanque fica acima da bomba, H_s soma-se ao NPSHa](/anatomia/bomba-instalacao-afogada.svg)
+
+- **Sucção positiva / elevação de sucção** (bomba **acima** do nível do líquido): $H_s$ é positivo e **subtrai** do NPSHa — cada metro que a bomba fica acima do nível é um metro a menos de margem. Exige escorva (a linha de sucção não enche sozinha) e, tipicamente, uma válvula de pé para reter a coluna de líquido quando a bomba para.
+
+  ![Instalação com sucção positiva: o tanque fica abaixo da bomba, H_s subtrai do NPSHa](/anatomia/bomba-instalacao-sucao-positiva.svg)
+
+- **Bomba submersa** (o conjunto rotor+motor imerso no próprio líquido — poços, drenagem, captação): elimina H_s como problema (a bomba já está no nível mais favorável possível), mas troca o desafio por outro — a **submergência mínima** (ANSI/HI 9.8): profundidade mínima de líquido acima da entrada para evitar que um vórtice de superfície arraste ar para o bocal, o que degrada o NPSHa efetivo tanto quanto uma margem insuficiente por altura.
+
+  ![Bomba submersa: o conjunto fica imerso no poço, com cota de submergência mínima marcada](/anatomia/bomba-instalacao-submersa.svg)
+
+- **Nível de sucção variável** (ex.: esvaziando um tanque, uma cisterna ou um caminhão-tanque durante a operação): a linha de sucção fica fixa, mas o nível do líquido cai ao longo do tempo — $H_s$ **piora progressivamente** durante a própria operação, mesmo que a instalação tenha sido projetada com margem confortável no início. É um cenário clássico de cavitação que só aparece no fim do ciclo de bombeamento, e que a auditoria de NPSH precisa avaliar no **pior instante** (nível mais baixo), não na média.
+
+  ![Nível de sucção caindo ao longo do tempo: H_s cresce e o NPSHa piora progressivamente](/anatomia/bomba-instalacao-nivel-variavel.svg)
 
 ### O fluido muda a bomba — viscosidade, densidade, gás e escorva
 
@@ -267,8 +343,8 @@ Demais itens mantidos no contexto do equipamento: anéis de desgaste (folga = re
 
 ## Modos de falha
 
-- [[cavitacao|Cavitação]] — o modo assinatura: Mixed/Complex no Fw A, CBM com P-F/2 no Fw B. **Publicado.**
-- Falha de selo mecânico — Wear-out/Mixed; frequentemente consequência de operação fora do BEP ou perda de flush. _Em produção (Dia 4b)._
-- Falha de rolamento — Wear-out (fadiga) com gatilhos Mixed (lubrificação/contaminação). _Em produção (Dia 4b)._
-- Desalinhamento e vibração excessiva — Mixed; detectável em espectro (2×RPM, harmônicos). _Em produção (Dia 4b)._
-- Erosão/corrosão de impelidor — Wear-out em serviços abrasivos/corrosivos. _Em produção (Dia 4b)._
+- [[cavitacao|Cavitação]] — o modo assinatura: Mixed/Complex no Fw A, CBM com P-F/2 no Fw B.
+- Falha de selo mecânico — Wear-out/Mixed; frequentemente consequência de operação fora do BEP ou perda de flush.
+- Falha de rolamento — Wear-out (fadiga) com gatilhos Mixed (lubrificação/contaminação).
+- Desalinhamento e vibração excessiva — Mixed; detectável em espectro (2×RPM, harmônicos).
+- Erosão/corrosão de impelidor — Wear-out em serviços abrasivos/corrosivos.
