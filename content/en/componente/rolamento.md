@@ -14,6 +14,8 @@ fontes:
   - 'Harris & Kotzalas — Rolling Bearing Analysis, 5th ed.'
   - 'Machine Design — The Meaning of Bearing Life (L10 vs MTBF)'
   - 'ABMA 9/11 — Load ratings and fatigue life (American equivalent)'
+  - 'ISO 492:2014 / ABMA Std 20 — Rolling bearings: tolerance classes (ABEC 1/3/5/7/9)'
+  - 'SKF — General Catalogue (classification by type, shielding/sealing and material)'
 tags:
   - L10
   - ISO 15243
@@ -28,6 +30,57 @@ revisado_em: 2026-07-06
 The bearing replaces sliding with **rolling bodies** (balls or rollers) between rings, cutting the friction coefficient by ~2 orders of magnitude versus a dry plain bearing. The price of that efficiency is an extreme, invisible working condition: the entire load passes through contact areas of **fractions of a millimetre** — the **Hertzian contact** — where compressive stresses reach **1.5 to 3+ GPa**, an order of magnitude above the yield strength of ordinary steel. The material only survives because the stress is compressive, confined and cyclic — and it is precisely that cycle that defines the component's natural death mode: **rolling-contact fatigue**.
 
 Between rolling bodies and raceways there is (or should be) a lubricant film of **0.1 to 1 μm** in the **elastohydrodynamic (EHL)** regime: local pressure is so high that the oil momentarily behaves as a solid and the surfaces deform elastically. The film ratio $\lambda$ (film thickness ÷ composite roughness) is the master predictor of life: $\lambda > 3$ = separated surfaces, full life; $\lambda < 1$ = metal-to-metal contact and accelerated adhesive wear/surface fatigue.
+
+## Types and differences
+
+The term "bearing" covers a wide family of geometries, each optimized for a different combination of load direction, speed, tolerable misalignment and available space. Choosing the wrong type — not the wrong failure mode — is a silent root cause of short life that no maintenance route detects, because the bearing "fails" exactly as the catalog predicts for an application outside its design envelope.
+
+### By load direction
+
+- **Radial**: designed primarily for load perpendicular to the shaft (the majority of industrial bearings).
+- **Thrust (axial)**: designed primarily for load parallel to the shaft — flat or slightly inclined raceways, typically lower operating speed than an equivalent radial.
+- **Combined**: capable of supporting radial and axial simultaneously in varying proportions, depending on type (see table below).
+
+### By rolling element — balls vs. rollers
+
+| | Balls | Rollers |
+| --- | --- | --- |
+| Geometric contact | Point (spherical Hertz) | Line (cylindrical/conical Hertz) |
+| Load capacity for same size | Lower | Higher — larger contact area distributes stress |
+| Speed limit | Higher (less rolling friction) | Lower |
+| Stiffness | Lower | Higher — advantage in precision positioning (spindles, machine shafts) |
+| Misalignment sensitivity | Higher in rigid types | Variable — cylindrical are sensitive, spherical/self-aligning are not |
+
+### Ball subtypes
+
+- **Deep groove (Conrad)**: the most common of all — deep raceways allow moderate radial and axial load **in both directions** in the same bearing, no paired mounting needed. Good compromise of speed, load and cost; doesn't tolerate angular misalignment beyond fractions of a degree.
+- **Angular contact**: offset raceways produce a contact angle (typically 15°–40°) that allows axial load **in a single direction** per bearing, together with radial — the larger the angle, the higher the axial capacity and the lower the pure-speed capability. Always used **in pairs or sets** (back-to-back, face-to-face, or tandem) to cover both axial directions or multiply capacity — the pair configuration is itself a stiffness and moment-capacity decision.
+- **Self-aligning ball**: two rows of balls with a **spherical** outer raceway, letting the whole bearing "rock" and absorb shaft angular misalignment (typically 1.5°–3°) without transmitting bending moment — at the cost of lower load capacity than a rigid bearing of the same size.
+- **Thrust ball**: pure axial load, low speed — flat raceways on opposing faces, ball elements between them.
+
+### Roller subtypes
+
+- **Cylindrical**: straight rollers in line contact with the raceways — very high radial capacity and speed, but zero or minimal axial capacity depending on ring configuration (**NU**: no axial capacity, allows free axial float — used as a "floating bearing" on a shaft with another fixed bearing; **NJ**/**NUP**: limited axial capacity in one or two directions via machined ribs). Sensitive to angular misalignment — the contact line concentrates stress at one edge if the shaft bends.
+- **Tapered**: conical rollers and raceways — support high radial **and** axial simultaneously, but generate an internal thrust component that **requires mounting in opposed pairs with adjusted clearance/preload** (never alone, unless combined with another bearing that absorbs the thrust). Ubiquitous in automotive hubs and bevel/helical gear reductions.
+- **Spherical (self-aligning)**: two rows of barrel rollers with a common spherical outer raceway — combine very high radial capacity with moderate axial capacity **and** misalignment tolerance (typically 1°–2.5°), the classic choice for heavy industrial applications subject to structural deflection (crushers, vibrating screens, mills, large fans).
+- **Needle**: long, thin rollers (high length/diameter ratio) allow very high radial capacity in a **minimal radial envelope** — often with no dedicated inner ring, rolling directly on the hardened shaft. Essentially zero axial capacity; highly sensitive to misalignment.
+- **Thrust (cylindrical/tapered/spherical)**: axial equivalents of the radial rollers, for heavy thrust loads where a ball thrust bearing wouldn't suffice.
+
+### Degree of protection — the first line of defense against [[contaminacao-lubrificante-rolamento|contamination]]
+
+- **Open**: no protection of its own — depends entirely on the application's external sealing (housing, seal). Cheapest, easiest to regrease, but requires the assembly design to do all the work of keeping particles out.
+- **Shielded (Z/ZZ)**: a fixed metal shield on one or both sides, **non-contacting** with the inner ring — keeps grease in and larger solids out without adding friction, allowing higher speeds than a sealed bearing. Partial protection: a residual gap always exists between the shield and the ring.
+- **Sealed (RS/2RS)**: a sealing lip (elastomer) with or without actual contact on the inner ring — superior protection against fine particles and moisture, at the cost of added friction (lower speed limit) and needing to replace the whole bearing instead of just regreasing (the grease is factory-sealed).
+
+### Material — beyond standard chrome steel
+
+- **Stainless steel**: corrosion resistance in wet/chemical environments, at the cost of typically lower dynamic load capacity than chrome steel of the same geometry.
+- **Ceramic hybrid**: silicon nitride (Si₃N₄) balls in conventional steel rings — lighter (lower centrifugal force at high speed), harder (higher resistance to particle indentation), and **electrically insulating**: the ceramic doesn't conduct current, eliminating the path for **electrical erosion/fluting** that afflicts conventional bearings under VFD drives (see the ISO 15243 table above) — the main reason for adoption in modern high-speed/variable-frequency motors, not just mechanical performance.
+- **Full ceramic**: balls and raceways in ceramic — a niche for very high speed/temperature/extreme corrosive environments, at high cost.
+
+### Precision classes
+
+Dimensional and rotational (runout) tolerances are standardized into classes — **ABEC 1/3/5/7/9** (ABMA, American standard) correspond approximately to **ISO classes Normal/P6/P5/P4/P2**, in ascending order of precision. Precision bearings (ABEC 7/9 or ISO P4/P2) are justified in machine-tool spindles and high-speed machine shafts, where the bearing's own runout limits the machine's final accuracy — not in general industrial applications, where the Normal class already suffices comfortably and costs a fraction of the price.
 
 ## Rating life — L10 and the bridge to Weibull
 

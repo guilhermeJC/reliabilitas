@@ -13,6 +13,8 @@ fontes:
   - 'John Crane — documentação técnica oficial (Type 21, Type 1, cartuchos API 682)'
   - 'Karassik et al., Pump Handbook, 4ª ed. — capítulo de selagem'
   - 'AESSEAL — whitepaper API 682 4th edition'
+  - 'John Crane — Metal Bellows Seals (documentação técnica de fole metálico e dry gas seals)'
+  - 'FBU Seals / Cow Seal — Bellows Mechanical Seals: metal × elastomeric (comparativo técnico)'
 tags:
   - API 682
   - fator PV
@@ -33,6 +35,37 @@ O selo mecânico veda a passagem do eixo pela carcaça com um par de **faces pla
 - **Vedações secundárias** — O-rings/elastômeros (ou grafite no fole): vedam estática e dinamicamente entre selo, eixo e câmara. A química e a temperatura do fluido ditam o material (NBR, EPDM, FKM/Viton, FFKM/Kalrez).
 - **Sleeve e sobreposta (gland)** — interface mecânica com eixo e câmara de selagem.
 - **Cartucho**: o conjunto inteiro pré-montado e pré-ajustado de fábrica — o padrão API 682, que elimina a variável "ajuste em campo", historicamente a maior fonte de mortalidade infantil do componente.
+
+## Tipos e diferenças
+
+"Selo mecânico" é uma família de soluções que diferem em **quantos selos existem**, **como a face é empurrada contra o eixo** e **como o conjunto chega montado até a bomba** — cada eixo de classificação resolve um risco de aplicação diferente, e a escolha errada de tipo é, junto com a montagem incorreta, uma das causas raiz mais comuns de vida curta atribuída erroneamente a "selo de má qualidade".
+
+### Por número de selos — as 3 disposições da API 682
+
+- **Arranjo 1 (selo único)**: uma única face de selagem exposta diretamente ao fluido de processo. Mais simples e barato; a única barreira entre o processo e a atmosfera é o filme entre as faces.
+- **Arranjo 2 (duplo não-pressurizado/*tandem*)**: dois selos em série, com um fluido-tampão **não pressurizado** (abaixo da pressão de processo) na câmara entre eles — o selo externo só entra em ação se o interno vazar, funcionando como contenção secundária e sistema de alarme (mudança no tampão sinaliza falha do selo primário) sem exigir que a barreira aguente a pressão plena do processo.
+- **Arranjo 3 (duplo pressurizado)**: dois selos com fluido de barreira **pressurizado acima** da pressão de processo entre eles — nesse arranjo, se qualquer selo vazar, o que atravessa é o fluido de barreira **para dentro do processo ou para a atmosfera**, nunca o fluido de processo para fora. É o único arranjo que torna o vazamento do processo **fisicamente impossível** enquanto a barreira estiver pressurizada — obrigatório para fluidos tóxicos/perigosos.
+
+### Por mecanismo de fechamento — selo com pistão (*pusher*) × sem pistão (*bellows*)
+
+- ***Pusher* (com selo secundário deslizante)**: um O-ring dinâmico desliza ao longo do eixo/luva conforme a face primária desgasta, mantendo o fechamento. Construção mais simples e mais barata — mas o O-ring deslizante é exatamente o ponto vulnerável a [[hangup-selo-mecanico|hang-up]]: depósitos ou produtos de corrosão no eixo/luva podem travar esse movimento, e fluidos abrasivos podem se acumular na interface deslizante.
+- ***Non-pusher* (fole — metálico ou elastomérico)**: um elemento flexível corrugado substitui simultaneamente a mola e o O-ring dinâmico — o próprio fole fornece a força de fechamento **e** veda o vão entre as partes rotativa e estacionária, **sem nenhum elemento secundário deslizante**. Elimina estruturalmente o modo de falha de hang-up por depósito no eixo (não existe superfície deslizante pra travar), ao custo de uma construção mais cara e, no caso do fole metálico, sensibilidade à fadiga do próprio metal corrugado sob ciclos térmicos/de pressão repetidos.
+  - **Fole metálico**: ligas soldadas (aço inox, AM350, Inconel, Hastelloy, titânio conforme a química do processo) — envelope de temperatura muito amplo (criogenia a > 400°C) e resistência química superior; a fadiga por flexão repetida do metal fino é o modo de falha característico do fole em si, distinto dos 5 modos do componente listados abaixo.
+  - **Fole elastomérico**: geometria similar, elemento de borracha em vez de metal — mais barato e simples, mas com o envelope de temperatura/química limitado pelo próprio elastômero (ver [[degradacao-elastomeros-selo-mecanico|degradação de elastômeros]]).
+
+### Por forma de montagem — componente × cartucho
+
+- **Componente (*build-up*)**: peças individuais (mola, faces, elementos secundários, luva) montadas e ajustadas em campo, com a compressão de mola definida manualmente pelo técnico — exige medição precisa e experiência; historicamente a maior fonte de [[instalacao-incorreta-selo-mecanico|mortalidade infantil]] do componente antes da padronização do cartucho.
+- **Cartucho**: o conjunto inteiro pré-montado, pré-ajustado e testado de fábrica sobre uma luva própria — instala-se como uma unidade, sem ajuste manual de compressão. Padrão exigido pela API 682 justamente para eliminar a variável de campo; não elimina, porém, o risco de desalinhamento eixo-acoplamento, que é externo ao selo (ver [[instalacao-incorreta-selo-mecanico|nota de instalação incorreta]]).
+
+### Os 3 tipos normativos da API 682
+
+A norma define 3 tipos-base que combinam os eixos acima em pacotes reconhecidos pela indústria: **Tipo A** (balanceado, montagem interna, cartucho, *pusher* multi-mola, secundários em elastômero — o selo de propósito geral); **Tipo B** e **Tipo C** (ambos balanceados, montagem interna, cartucho, **fole metálico** — diferindo na faixa de tamanho/serviço) — a escolha entre eles é primariamente uma questão de temperatura/química do fluido (fole metálico) contra custo/simplicidade (Tipo A).
+
+### Casos especiais
+
+- **Selos partidos (*split seals*)**: projetados para abrir em duas metades e serem instalados sem desmontar a bomba/eixo inteiro — essenciais em eixos grandes ou de difícil acesso (ex.: agitadores, equipamentos que não podem ser abertos pela extremidade).
+- **Selos de gás (*dry gas seals*)**: faces com ranhuras espirais que geram um filme de **gás** (não líquido) sob rotação, operando **sem contato** entre as faces em regime — emissão de processo praticamente zero, sem consumo de fluido de barreira líquido; padrão em compressores e aplicações de altíssima velocidade, onde o dry running líquido convencional seria inviável.
 
 ## Balanceamento e fator PV
 

@@ -13,6 +13,8 @@ fontes:
   - 'John Crane — official technical documentation (Type 21, Type 1, API 682 cartridges)'
   - 'Karassik et al., Pump Handbook, 4th ed. — sealing chapter'
   - 'AESSEAL — API 682 4th edition whitepaper'
+  - 'John Crane — Metal Bellows Seals (technical documentation on metal bellows and dry gas seals)'
+  - 'FBU Seals / Cow Seal — Bellows Mechanical Seals: metal vs. elastomeric (technical comparison)'
 tags:
   - API 682
   - PV factor
@@ -33,6 +35,37 @@ The mechanical seal closes the shaft passage through the casing with a pair of *
 - **Secondary seals** — O-rings/elastomers (or graphite in bellows seals): seal statically and dynamically between seal, shaft and chamber. Fluid chemistry and temperature dictate the material (NBR, EPDM, FKM/Viton, FFKM/Kalrez).
 - **Sleeve and gland** — mechanical interface with shaft and seal chamber.
 - **Cartridge**: the whole assembly pre-mounted and pre-set at the factory — the API 682 standard, which eliminates the "field setting" variable, historically the component's largest source of infant mortality.
+
+## Types and differences
+
+"Mechanical seal" is a family of solutions that differ in **how many seals exist**, **how the face is pushed against the shaft**, and **how the assembly arrives at the pump** — each classification axis solves a different application risk, and picking the wrong type is, along with incorrect installation, one of the most common root causes of short life wrongly attributed to "poor-quality seal."
+
+### By seal count — the 3 API 682 arrangements
+
+- **Arrangement 1 (single seal)**: a single sealing face directly exposed to the process fluid. Simplest and cheapest; the only barrier between process and atmosphere is the film between the faces.
+- **Arrangement 2 (dual unpressurized/tandem)**: two seals in series, with a **non-pressurized** buffer fluid (below process pressure) in the chamber between them — the outer seal only comes into play if the inner one leaks, acting as secondary containment and an alarm system (a change in the buffer signals primary seal failure) without requiring the barrier to withstand full process pressure.
+- **Arrangement 3 (dual pressurized)**: two seals with a barrier fluid **pressurized above** process pressure between them — in this arrangement, if either seal leaks, what crosses over is the barrier fluid **into the process or the atmosphere**, never the process fluid outward. It's the only arrangement that makes process leakage **physically impossible** while the barrier holds pressure — mandatory for toxic/hazardous fluids.
+
+### By closing mechanism — pusher × non-pusher (bellows)
+
+- **Pusher (with a sliding secondary seal)**: a dynamic O-ring slides along the shaft/sleeve as the primary face wears, maintaining closure. Simpler and cheaper construction — but the sliding O-ring is exactly the vulnerable point for [[hangup-selo-mecanico|hang-up]]: deposits or corrosion products on the shaft/sleeve can jam that movement, and abrasive fluids can pack into the sliding interface.
+- **Non-pusher (bellows — metal or elastomeric)**: a flexible, corrugated element simultaneously replaces the spring and the dynamic O-ring — the bellows itself provides the closing force **and** seals the gap between the rotating and stationary parts, **with no sliding secondary element at all**. This structurally eliminates the shaft-deposit hang-up failure mode (there's no sliding surface to jam), at the cost of more expensive construction and, for metal bellows, sensitivity to fatigue of the corrugated metal itself under repeated thermal/pressure cycles.
+  - **Metal bellows**: welded alloys (stainless steel, AM350, Inconel, Hastelloy, titanium depending on process chemistry) — a very wide temperature envelope (cryogenic to > 400°C) and superior chemical resistance; fatigue from repeated flexing of the thin metal is the bellows' own characteristic failure mode, distinct from the component's 5 modes listed below.
+  - **Elastomeric bellows**: similar geometry, a rubber element instead of metal — cheaper and simpler, but with a temperature/chemistry envelope limited by the elastomer itself (see [[degradacao-elastomeros-selo-mecanico|elastomer degradation]]).
+
+### By assembly form — component × cartridge
+
+- **Component (build-up)**: individual parts (spring, faces, secondary elements, sleeve) assembled and adjusted in the field, with spring compression set manually by the technician — requires precise measurement and experience; historically the component's largest source of [[instalacao-incorreta-selo-mecanico|infant mortality]] before the cartridge standard.
+- **Cartridge**: the whole assembly pre-mounted, pre-set and tested at the factory on its own sleeve — installed as a single unit, with no manual compression adjustment. The standard mandated by API 682 precisely to eliminate the field variable; it does not, however, eliminate the risk of shaft-coupling misalignment, which is external to the seal (see [[instalacao-incorreta-selo-mecanico|incorrect installation note]]).
+
+### API 682's 3 normative types
+
+The standard defines 3 base types combining the axes above into industry-recognized packages: **Type A** (balanced, inside-mounted, cartridge, multi-spring pusher, elastomeric secondaries — the general-purpose seal); **Type B** and **Type C** (both balanced, inside-mounted, cartridge, **metal bellows** — differing in size/duty range) — the choice between them is primarily a matter of fluid temperature/chemistry (metal bellows) versus cost/simplicity (Type A).
+
+### Special cases
+
+- **Split seals**: designed to open into two halves and be installed without disassembling the entire pump/shaft — essential on large or hard-to-access shafts (e.g. agitators, equipment that can't be opened from the end).
+- **Gas seals (dry gas seals)**: faces with spiral grooves that generate a **gas** (not liquid) film under rotation, operating **without contact** between the faces in steady state — near-zero process emission, with no liquid barrier fluid consumption; standard in compressors and very-high-speed applications, where conventional liquid dry running would be untenable.
 
 ## Balance and the PV factor
 

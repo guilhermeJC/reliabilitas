@@ -14,6 +14,8 @@ fontes:
   - 'Harris & Kotzalas — Rolling Bearing Analysis, 5ª ed.'
   - 'Machine Design — The Meaning of Bearing Life (L10 vs MTBF)'
   - 'ABMA 9/11 — Load ratings and fatigue life (equivalente americano)'
+  - 'ISO 492:2014 / ABMA Std 20 — Rolling bearings: tolerance classes (ABEC 1/3/5/7/9)'
+  - 'SKF — General Catalogue (classificação por tipo, blindagem/vedação e material)'
 tags:
   - L10
   - ISO 15243
@@ -28,6 +30,57 @@ revisado_em: 2026-07-06
 O rolamento substitui o deslizamento pelo **rolamento de corpos** (esferas ou rolos) entre anéis, reduzindo o coeficiente de atrito em ~2 ordens de grandeza frente ao mancal de deslizamento seco. O preço dessa eficiência é uma condição de trabalho extrema e invisível: toda a carga passa por áreas de contato de **frações de milímetro** — o **contato hertziano** — onde as tensões de compressão atingem **1,5 a 3+ GPa**, superando em uma ordem de grandeza o limite de escoamento do aço comum. O material só sobrevive porque a tensão é compressiva, confinada e cíclica — e é exatamente esse ciclo que define o modo de morte natural do componente: **fadiga de contato**.
 
 Entre os corpos rolantes e as pistas existe (ou deveria existir) um filme de lubrificante de **0,1 a 1 μm** em regime **elastohidrodinâmico (EHL)**: a pressão local é tão alta que o óleo se comporta momentaneamente como sólido e as superfícies se deformam elasticamente. A razão de filme $\lambda$ (espessura do filme ÷ rugosidade composta) é o preditor mestre de vida: $\lambda > 3$ = superfícies separadas, vida plena; $\lambda < 1$ = contato metal-metal e desgaste adesivo/fadiga superficial acelerada.
+
+## Tipos e diferenças
+
+O termo "rolamento" cobre uma família ampla de geometrias, cada uma otimizada para uma combinação diferente de direção de carga, velocidade, desalinhamento tolerável e espaço disponível. Escolher o tipo errado — não o modo de falha errado — é uma causa raiz silenciosa de vida curta que nenhuma rota de manutenção detecta, porque o rolamento "falha" exatamente como o catálogo prevê para uma aplicação fora do seu envelope de projeto.
+
+### Por direção de carga
+
+- **Radiais**: projetados primariamente para carga perpendicular ao eixo (a maioria dos rolamentos industriais).
+- **De encosto (thrust/axiais)**: projetados primariamente para carga paralela ao eixo — pistas planas ou levemente inclinadas, velocidade de operação tipicamente mais baixa que um radial equivalente.
+- **Combinados**: capazes de suportar radial e axial simultaneamente em proporções variáveis, conforme o tipo (ver tabela abaixo).
+
+### Por elemento rolante — esferas × rolos
+
+| | Esferas | Rolos |
+| --- | --- | --- |
+| Contato geométrico | Pontual (Hertz esférico) | Linear (Hertz cilíndrico/cônico) |
+| Capacidade de carga p/ mesmo tamanho | Menor | Maior — área de contato maior distribui a tensão |
+| Velocidade limite | Maior (menos atrito de rolamento) | Menor |
+| Rigidez | Menor | Maior — vantagem em posicionamento de precisão (fusos, eixos-árvore) |
+| Sensibilidade a desalinhamento | Maior nos tipos rígidos | Variável — cilíndricos são sensíveis, esféricos/autocompensadores não |
+
+### Subtipos de esferas
+
+- **Rígido de esferas (Conrad/*deep groove*)**: o mais comum de todos — pistas profundas permitem carga radial e axial moderada **em ambas as direções** no mesmo rolamento, sem montagem em pares. Bom compromisso de velocidade, carga e custo; não tolera desalinhamento angular além de frações de grau.
+- **Contato angular**: pistas deslocadas produzem um ângulo de contato (tipicamente 15°–40°) que permite carga axial **numa única direção** por rolamento, junto com radial — quanto maior o ângulo, maior a capacidade axial e menor a de velocidade pura. Usados **sempre em pares ou conjuntos** (*back-to-back*, *face-to-face* ou *tandem*) para cobrir as duas direções axiais ou multiplicar a capacidade — a configuração do par é, ela mesma, uma decisão de rigidez e capacidade de momento.
+- **Autocompensador de esferas**: duas carreiras de esferas com pista externa **esférica**, permitindo ao rolamento inteiro "balançar" e absorver desalinhamento angular do eixo (tipicamente 1,5°–3°) sem transmitir momento fletor — ao custo de menor capacidade de carga que um rígido de mesmo tamanho.
+- **De encosto (*thrust*) de esferas**: carga axial pura, velocidade baixa — pistas planas em faces opostas, corpos de esfera entre elas.
+
+### Subtipos de rolos
+
+- **Cilíndricos**: rolos retos em contato linear com as pistas — altíssima capacidade radial e velocidade, mas capacidade axial nula ou mínima conforme a configuração de anel (**NU**: sem capacidade axial, permite flutuação axial livre — usado como "rolamento livre" num eixo com outro rolamento fixo; **NJ**/**NUP**: capacidade axial limitada numa ou duas direções via ressaltos usinados). Sensível a desalinhamento angular — a linha de contato concentra tensão numa borda se o eixo entortar.
+- **Cônicos**: rolos e pistas em forma de tronco de cone — suportam radial **e** axial elevados simultaneamente, mas geram uma componente de empuxo interna que **exige montagem em pares opostos com folga/pré-carga ajustada** (nunca um sozinho, salvo em combinação com outro rolamento que absorva o empuxo). Onipresentes em cubos automotivos e reduções de engrenagens cônicas/helicoidais.
+- **Autocompensadores (esféricos)**: duas carreiras de rolos em barril com pista externa esférica comum — combinam altíssima capacidade radial com capacidade axial moderada **e** tolerância a desalinhamento (tipicamente 1°–2,5°), a escolha clássica para aplicações industriais pesadas e sujeitas a deflexão de estrutura (britadores, peneiras vibratórias, moinhos, ventiladores de grande porte).
+- **De agulha**: rolos longos e finos (razão comprimento/diâmetro alta) permitem altíssima capacidade radial num envelope **radial mínimo** — frequentemente sem anel interno próprio, rolando direto sobre o eixo endurecido. Capacidade axial praticamente nula; alta sensibilidade a desalinhamento.
+- **De encosto (cilíndrico/cônico/esférico)**: equivalentes axiais dos rolos radiais, para cargas de empuxo pesadas onde um *thrust* de esferas não bastaria.
+
+### Grau de proteção — a primeira linha de defesa contra [[contaminacao-lubrificante-rolamento|contaminação]]
+
+- **Aberto**: sem proteção própria — depende inteiramente da vedação externa da aplicação (carcaça, retentor). Mais barato, mais fácil de relubrificar, mas exige que o projeto do conjunto faça todo o trabalho de manter partículas fora.
+- **Blindado (Z/ZZ)**: escudo metálico fixo de um ou ambos os lados, **sem contato** com o anel interno — mantém graxa e sólidos maiores fora sem gerar atrito adicional, permitindo velocidades mais altas que um selado. Proteção parcial: uma folga residual sempre existe entre o escudo e o anel.
+- **Vedado (RS/2RS)**: lábio de vedação (elastômero) com ou sem contato real no anel interno — proteção superior contra partículas finas e umidade, ao custo de atrito adicional (limite de velocidade menor) e da necessidade de trocar o rolamento inteiro em vez de só relubrificar (a graxa é selada de fábrica).
+
+### Material — para além do aço-cromo padrão
+
+- **Inox**: resistência à corrosão em ambientes úmidos/químicos, ao custo de capacidade de carga dinâmica tipicamente menor que o aço-cromo de mesma geometria.
+- **Híbrido cerâmico**: esferas de nitreto de silício (Si₃N₄) em anéis de aço convencional — mais leves (menor força centrífuga em alta velocidade), mais duros (maior resistência a indentação por partículas), e **eletricamente isolantes**: a cerâmica não conduz corrente, eliminando o caminho para a **erosão elétrica/*fluting*** que aflige rolamentos convencionais sob acionamento por VFD (ver tabela ISO 15243 acima) — o principal motivo de adoção em motores modernos de alta velocidade/frequência variável, não apenas desempenho mecânico.
+- **Cerâmica integral**: esferas e pistas em cerâmica — nicho de altíssima velocidade/temperatura/ambiente corrosivo extremo, custo elevado.
+
+### Classes de precisão
+
+Tolerâncias dimensionais e de rotação (*runout*) são normatizadas em classes — **ABEC 1/3/5/7/9** (ABMA, padrão americano) correspondem aproximadamente às classes **ISO Normal/P6/P5/P4/P2**, em ordem crescente de precisão. Rolamentos de precisão (ABEC 7/9 ou ISO P4/P2) justificam-se em fusos de máquina-ferramenta e eixos-árvore de alta rotação, onde o próprio *runout* do rolamento limita a precisão final da máquina — não em aplicações industriais gerais, onde a classe Normal já atende com folga e custa uma fração do preço.
 
 ## Vida nominal — L10 e a ponte com Weibull
 
