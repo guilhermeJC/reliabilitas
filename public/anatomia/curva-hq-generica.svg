@@ -1,0 +1,39 @@
+<svg viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Curva H-Q genérica de uma bomba rotodinâmica: head decrescente com a vazão, ponto de melhor eficiência (BEP) marcado, e a mesma curva à rotação reduzida (80% da nominal) — os dois BEP conectados pelo lugar geométrico das leis de afinidade, H proporcional a Q ao quadrado">
+  <!-- RELIABILITAS — curva H-Q genérica didática (asset próprio, DEV-025/BR-009) -->
+
+  <!-- Eixos -->
+  <line x1="60" y1="280" x2="470" y2="280" stroke="#12233F" stroke-width="2"/>
+  <path d="M462 274 L470 280 L462 286" fill="none" stroke="#12233F" stroke-width="2"/>
+  <line x1="60" y1="280" x2="60" y2="14" stroke="#12233F" stroke-width="2"/>
+  <path d="M54 22 L60 14 L66 22" fill="none" stroke="#12233F" stroke-width="2"/>
+  <text x="440" y="272" font-size="12" fill="#12233F" font-family="sans-serif">Vazão (Q)</text>
+  <text x="20" y="26" font-size="12" fill="#12233F" font-family="sans-serif">Head (H)</text>
+
+  <!-- Lugar geométrico das leis de afinidade (H ∝ Q², liga os BEP de rotações diferentes) -->
+  <path d="M60 280 Q185 280 310 80" fill="none" stroke="#5f6b7f" stroke-width="1.5" stroke-dasharray="3 4"/>
+
+  <!-- Curva à rotação NOMINAL (100%) -->
+  <path d="M60 40 Q260 40 460 142.4" fill="none" stroke="#12233F" stroke-width="2.5"/>
+  <text x="330" y="55" font-size="12" fill="#12233F" font-family="sans-serif" font-weight="600">N nominal (100%)</text>
+
+  <!-- Curva à rotação REDUZIDA (80%) -->
+  <path d="M60 126.4 Q260 126.4 460 228.8" fill="none" stroke="#2f6fce" stroke-width="2.5" stroke-dasharray="8 5"/>
+  <text x="300" y="215" font-size="12" fill="#2f6fce" font-family="sans-serif" font-weight="600">N reduzida (80%)</text>
+
+  <!-- BEP nominal -->
+  <circle cx="310" cy="80" r="5" fill="#E8510A" stroke="#fff" stroke-width="1.5"/>
+  <line x1="310" y1="80" x2="310" y2="280" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="60" y1="80" x2="310" y2="80" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="316" y="76" font-size="12" fill="#E8510A" font-family="sans-serif" font-weight="600">BEP</text>
+
+  <!-- BEP reduzido -->
+  <circle cx="260" cy="152" r="5" fill="#E8510A" stroke="#fff" stroke-width="1.5"/>
+  <line x1="260" y1="152" x2="260" y2="280" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="222" y="168" font-size="11" fill="#E8510A" font-family="sans-serif" font-weight="600">BEP'</text>
+
+  <!-- Ticks de referência nos eixos -->
+  <text x="305" y="295" font-size="10" fill="#5f6b7f" font-family="sans-serif">Q_BEP</text>
+  <text x="238" y="295" font-size="10" fill="#5f6b7f" font-family="sans-serif">0,8·Q_BEP</text>
+  <text x="30" y="84" font-size="10" fill="#5f6b7f" font-family="sans-serif">H_BEP</text>
+  <text x="10" y="156" font-size="10" fill="#5f6b7f" font-family="sans-serif">0,64·H_BEP</text>
+</svg>

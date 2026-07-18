@@ -15,14 +15,42 @@ resumo: 'Principle where a rotating impeller continuously transfers energy to th
 ordem: 1
 ---
 
-Working principle where a **rotating impeller** continuously transfers energy to the liquid: the angular momentum imposed by the vanes converts into pressure rise (Euler turbomachinery equation).
+Working principle where a **rotating impeller** continuously transfers energy to the liquid: the angular momentum imposed by the vanes converts into pressure rise. In summary — the full version, with Bernoulli explained first and the complete derivation, is in the [[bomba-centrifuga|Centrifugal Pump]] handbook — the **Euler turbomachinery equation** governs that conversion:
 
-Traits that govern operation and reliability:
+$$H_{th} = \frac{u_2 \, c_{u2} - u_1 \, c_{u1}}{g}$$
 
-- **Falling H-Q curve** — head (H) drops as flow (Q) rises; the operating point is the intersection with the system curve.
-- **BEP (Best Efficiency Point)** — running far from BEP drives internal recirculation, vibration and cavitation: a large share of failure modes starts here.
-- **Affinity laws** — Q ∝ N, H ∝ N², P ∝ N³: speed is the most efficient control lever.
-- **NPSH** — the margin between available and required NPSH sets the susceptibility to [[cavitacao|cavitation]].
+- $H_{th}$ — theoretical head, in meters of fluid column [m]: the energy potential the impeller delivers to the fluid, before subtracting real losses.
+- $u$ — blade tangential velocity [m/s], $u = \omega r$ ($\omega$ = shaft angular velocity [rad/s]; $r$ = impeller radius at that point [m]).
+- $c_u$ — tangential component of the fluid's absolute velocity [m/s].
+- $g$ — gravitational acceleration [m/s²].
+- Subscripts $1$ and $2$ — impeller inlet and outlet, respectively.
+
+Since the fluid enters with little to no swirl in most designs ($c_{u1} \approx 0$), the expression reduces to $H_{th} = u_2 c_{u2}/g$: **all the head is born at the impeller periphery** — the larger the diameter and the speed, the larger the theoretical head. In practice, the real head delivered is lower than the theoretical one: part is lost to slip (the fluid is not perfectly guided by the finite number of vanes), another part to hydraulic friction, and another to internal recirculation — the handbook details all three.
+
+## H-Q curve and the best efficiency point (BEP)
+
+A rotodynamic pump's performance boils down to one curve: the **head (H)** it delivers falls as **flow (Q)** rises — more flow demands more fluid velocity inside the impeller, and that velocity "steals" energy that would otherwise convert into pressure. The actual operating point is not chosen by the pump: it is the **intersection** of that curve with the curve of the system it is connected to (the [[bomba-centrifuga|Centrifugal Pump]] note details that interaction).
+
+Along that curve there is a point where hydraulic efficiency peaks — the **BEP** (Best Efficiency Point). It is the central reference of operational health: the farther the pump runs from BEP (flow much higher or much lower than it), the greater the internal recirculation, vibration, wear and susceptibility to [[cavitacao|cavitation]] — a large share of this principle's failure modes is born exactly there. The diagram below illustrates the curve's typical shape and the BEP marked on it:
+
+![Generic H-Q curve with BEP marked, and the same curve at reduced speed linked by the affinity laws](/anatomia/curva-hq-generica.svg)
+
+## Affinity laws
+
+For the same impeller varying only speed $N$ (e.g. via a variable-frequency drive), three proportionalities link the old operating point to the new one:
+
+$$\frac{Q_2}{Q_1} = \frac{N_2}{N_1} \qquad \frac{H_2}{H_1} = \left(\frac{N_2}{N_1}\right)^{2} \qquad \frac{P_2}{P_1} = \left(\frac{N_2}{N_1}\right)^{3}$$
+
+- $Q$ — flow [m³/s or m³/h].
+- $H$ — head [m].
+- $P$ — absorbed power [W or kW].
+- $N$ — speed [rpm]; subscripts $1$ and $2$ — reference condition and new condition.
+
+In practice: cutting speed by 20% cuts flow by 20%, head by ~36% and power by ~49% — the central economic argument for variable-frequency drives. And since the whole BEP slides along that same rule (the diagram above shows the BEP migrating to lower $Q$ and $H$ at reduced speed), **required NPSH also falls with $N^2$** — reducing speed is, in practice, a tool against [[cavitacao|cavitation]], not only an energy-saving one.
+
+## NPSH — the margin that avoids cavitation
+
+Every rotodynamic pump has, at the impeller inlet, a region of minimum pressure — and if that pressure drops below the liquid's vapor pressure, it vaporizes locally and cavitates. Two numbers summarize that condition: **NPSHd** (available — how much the installation delivers, a *system* property: elevation, friction losses, fluid temperature) and **NPSHr** (required — how much the pump *needs* to run without cavitating, a *machine* property, given by the manufacturer). The design rule is simple to state and tricky to apply correctly: **NPSHd must exceed NPSHr with margin** — the [[cavitacao|Cavitation]] note (Engineer level) carries the rigorous formulation, the derivation from Bernoulli, the exact normative margins and a complete numerical example.
 
 ## Usual types
 
