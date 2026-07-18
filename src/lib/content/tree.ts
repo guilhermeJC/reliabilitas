@@ -7,6 +7,20 @@ export interface NotaResumo {
   tipo_nota: string;
   titulo: string;
   taxonomia: string[];
+  ordem?: number | null;
+}
+
+// Pedido do fundador (18/07): irmãos que carregam `ordem` respeitam essa
+// sequência (uso pontual, ex.: Rotodinâmicas antes de Deslocamento Positivo
+// antes de Efeito Especial); os que não carregam caem no fallback alfabético
+// de sempre. Misturado: quem tem `ordem` vem sempre antes de quem não tem.
+function comparaIrmaos(a: NotaResumo, b: NotaResumo): number {
+  const oa = a.ordem ?? null;
+  const ob = b.ordem ?? null;
+  if (oa != null && ob != null) return oa - ob || a.titulo.localeCompare(b.titulo);
+  if (oa != null) return -1;
+  if (ob != null) return 1;
+  return a.titulo.localeCompare(b.titulo);
 }
 
 export interface TreeNode extends NotaResumo {
@@ -73,11 +87,11 @@ export function buildTree(notas: NotaResumo[]): TreeNode[] {
   }
 
   const contar = (no: TreeNode): number => {
-    no.children.sort((a, b) => a.titulo.localeCompare(b.titulo));
+    no.children.sort(comparaIrmaos);
     no.descendentes = no.children.reduce((soma, filho) => soma + 1 + contar(filho), 0);
     return no.descendentes;
   };
-  raizes.sort((a, b) => a.titulo.localeCompare(b.titulo));
+  raizes.sort(comparaIrmaos);
   for (const raiz of raizes) contar(raiz);
 
   return raizes;

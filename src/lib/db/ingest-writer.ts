@@ -15,8 +15,8 @@ export interface WriteResult {
 }
 
 const UPSERT_NOTA = `insert into public.notas
-  (slug, tipo_nota, locale, titulo, status, taxonomia, frontmatter, corpo_md, revisado_em)
-values ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+  (slug, tipo_nota, locale, titulo, status, taxonomia, frontmatter, corpo_md, revisado_em, ordem)
+values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
 on conflict (slug, locale) do update set
   tipo_nota = excluded.tipo_nota,
   titulo = excluded.titulo,
@@ -25,6 +25,7 @@ on conflict (slug, locale) do update set
   frontmatter = excluded.frontmatter,
   corpo_md = excluded.corpo_md,
   revisado_em = excluded.revisado_em,
+  ordem = excluded.ordem,
   atualizado_em = now()`;
 
 // F1: nota que saiu de content/ (deletada/renomeada) sai do banco no mesmo ingest.
@@ -52,6 +53,7 @@ export async function writePlan(client: PgLike, plan: IngestPlan): Promise<Write
         JSON.stringify(nota.frontmatter),
         nota.corpo_md,
         nota.revisado_em,
+        nota.ordem,
       ]);
     }
 

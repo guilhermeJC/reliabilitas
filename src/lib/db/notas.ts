@@ -22,6 +22,7 @@ export interface NotaResumo {
   tipo_nota: string;
   titulo: string;
   taxonomia: string[];
+  ordem?: number | null;
 }
 
 export type NotaView =
@@ -47,7 +48,7 @@ export async function getNotaView(slug: string, locale: Locale): Promise<NotaVie
 export async function listPublicadas(locale: Locale): Promise<NotaResumo[]> {
   const { data, error } = await admin()
     .from('notas')
-    .select('slug,tipo_nota,titulo,taxonomia')
+    .select('slug,tipo_nota,titulo,taxonomia,ordem')
     .eq('locale', locale)
     .eq('status', 'published')
     .order('titulo');

@@ -54,6 +54,10 @@ const baseSchema = z.strictObject({
     .min(1, 'fontes: cite ao menos uma fonte primária (BR-002)'),
   revisado_em: z.union([z.string(), z.date()]).optional(),
   resumo: z.string().optional(),
+  // Ordenação manual de irmãos na árvore lateral (pedido do fundador, 18/07) —
+  // ausente = fallback alfabético por título (tree.ts). Uso pontual: só quando a
+  // ordem alfabética não reflete a relevância didática pretendida.
+  ordem: z.number().int().optional(),
   // F7: única extensão livre permitida — insumo manual da busca FTS em PT (CLAUDE.md §7)
   tags: z.array(z.string().min(1)).optional(),
 });

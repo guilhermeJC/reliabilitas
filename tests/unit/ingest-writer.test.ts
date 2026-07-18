@@ -36,6 +36,7 @@ const plano: IngestPlan = {
       frontmatter: { slug: 'bombas' },
       corpo_md: 'corpo',
       revisado_em: '2026-07-04',
+      ordem: null,
     },
     {
       slug: 'bombas',
@@ -47,6 +48,7 @@ const plano: IngestPlan = {
       frontmatter: { slug: 'bombas' },
       corpo_md: 'body',
       revisado_em: '2026-07-04',
+      ordem: null,
     },
   ],
   arestas: [

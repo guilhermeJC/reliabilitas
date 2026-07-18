@@ -10,8 +10,9 @@ taxonomia:
 fontes:
   - 'Karassik et al., Pump Handbook, 4th ed. (2008), ch. 2'
   - 'Hydraulic Institute — pumps.org'
-revisado_em: 2026-07-04
+revisado_em: 2026-07-18
 resumo: 'Principle where a rotating impeller continuously transfers energy to the liquid (Euler equation). Falling H-Q curve; performance anchored at the best efficiency point (BEP).'
+ordem: 1
 ---
 
 Working principle where a **rotating impeller** continuously transfers energy to the liquid: the angular momentum imposed by the vanes converts into pressure rise (Euler turbomachinery equation).

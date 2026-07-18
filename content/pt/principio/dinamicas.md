@@ -10,8 +10,9 @@ taxonomia:
 fontes:
   - 'Karassik et al., Pump Handbook, 4ª ed. (2008), cap. 2'
   - 'Hydraulic Institute — pumps.org'
-revisado_em: 2026-07-04
+revisado_em: 2026-07-18
 resumo: 'Princípio em que um impelidor rotativo transfere energia continuamente ao líquido (equação de Euler). Curva H-Q decrescente; desempenho definido pelo ponto de melhor eficiência (BEP).'
+ordem: 1
 ---
 
 Princípio de funcionamento em que um **impelidor rotativo** transfere energia continuamente ao líquido: o momento angular imposto pelas pás converte-se em ganho de pressão (equação de Euler das turbomáquinas).

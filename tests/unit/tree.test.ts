@@ -76,6 +76,73 @@ describe('buildTree — árvore taxonômica derivada do acervo publicado', () =>
   });
 });
 
+describe('buildTree — ordenação manual de irmãos via `ordem` (pedido do fundador, 18/07)', () => {
+  // Bombas Rotodinâmicas antes de Deslocamento Positivo antes de Efeito Especial —
+  // sem `ordem`, a árvore ordenava só por título (alfabético), que não reflete a
+  // relevância didática pretendida (Rotodinâmicas é >80% do parque).
+  const pai: NotaResumo = { slug: 'bombas', tipo_nota: 'familia', titulo: 'Bombas', taxonomia: [] };
+  const filhosComOrdem: NotaResumo[] = [
+    {
+      slug: 'efeito-especial',
+      tipo_nota: 'principio',
+      titulo: 'Bombas de Efeito Especial',
+      taxonomia: ['bombas'],
+      ordem: 3,
+    },
+    {
+      slug: 'dinamicas',
+      tipo_nota: 'principio',
+      titulo: 'Bombas Rotodinâmicas',
+      taxonomia: ['bombas'],
+      ordem: 1,
+    },
+    {
+      slug: 'deslocamento-positivo',
+      tipo_nota: 'principio',
+      titulo: 'Bombas de Deslocamento Positivo',
+      taxonomia: ['bombas'],
+      ordem: 2,
+    },
+  ];
+
+  it('ordena irmãos com `ordem` pelo valor numérico, não alfabeticamente', () => {
+    const raizes = buildTree([pai, ...filhosComOrdem]);
+    const bombas = raizes.find((n) => n.slug === 'bombas')!;
+    expect(bombas.children.map((c) => c.slug)).toEqual([
+      'dinamicas',
+      'deslocamento-positivo',
+      'efeito-especial',
+    ]);
+  });
+
+  it('sem `ordem` em nenhum irmão, cai no fallback alfabético (compatibilidade)', () => {
+    const semOrdem = filhosComOrdem.map(({ ordem: _ordem, ...resto }) => resto);
+    const raizes = buildTree([pai, ...semOrdem]);
+    const bombas = raizes.find((n) => n.slug === 'bombas')!;
+    expect(bombas.children.map((c) => c.slug)).toEqual([
+      'deslocamento-positivo',
+      'efeito-especial',
+      'dinamicas',
+    ]);
+  });
+
+  it('irmãos com `ordem` vêm antes dos sem `ordem` (mistura não quebra)', () => {
+    const misto: NotaResumo[] = [
+      { slug: 'z-sem-ordem', tipo_nota: 'principio', titulo: 'Z Sem Ordem', taxonomia: ['bombas'] },
+      {
+        slug: 'dinamicas',
+        tipo_nota: 'principio',
+        titulo: 'Bombas Rotodinâmicas',
+        taxonomia: ['bombas'],
+        ordem: 1,
+      },
+    ];
+    const raizes = buildTree([pai, ...misto]);
+    const bombas = raizes.find((n) => n.slug === 'bombas')!;
+    expect(bombas.children.map((c) => c.slug)).toEqual(['dinamicas', 'z-sem-ordem']);
+  });
+});
+
 describe('buildGroups — barra lateral em 3 grupos (revisão do fundador)', () => {
   const notas: NotaResumo[] = [
     { slug: 'transferencia', tipo_nota: 'classe', titulo: 'Transferência', taxonomia: [] },

@@ -10,8 +10,9 @@ taxonomia:
 fontes:
   - 'Hydraulic Institute — ANSI/HI 3.1-3.5 (Rotary Pumps) and 6.1-6.5 (Reciprocating Pumps)'
   - 'Karassik et al., Pump Handbook, 4th ed. (2008), ch. 3'
-revisado_em: 2026-07-06
+revisado_em: 2026-07-18
 resumo: 'Principle where discrete volumes of liquid are captured and mechanically displaced. Flow nearly independent of pressure (vertical curve) — requires a relief valve. Splits into reciprocating (piston/diaphragm) and rotary (gear/screw/lobe).'
+ordem: 2
 ---
 
 Working principle in which **discrete volumes** of liquid are captured in a chamber and mechanically displaced to the discharge. Unlike the [[dinamicas|rotodynamic]] pumps, flow is **nearly independent of pressure** — the Q×P curve is almost vertical.

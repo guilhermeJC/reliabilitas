@@ -10,8 +10,9 @@ taxonomia:
 fontes:
   - 'Hydraulic Institute — ANSI/HI 3.1-3.5 (Rotary Pumps) e 6.1-6.5 (Reciprocating Pumps)'
   - 'Karassik et al., Pump Handbook, 4ª ed. (2008), cap. 3'
-revisado_em: 2026-07-06
+revisado_em: 2026-07-18
 resumo: 'Princípio em que volumes discretos de líquido são capturados e deslocados mecanicamente. Vazão quase independente da pressão (curva vertical) — exige válvula de alívio. Divide-se em alternativas (pistão/diafragma) e rotativas (engrenagem/parafuso/lóbulos).'
+ordem: 2
 ---
 
 Princípio de funcionamento em que **volumes discretos** de líquido são capturados numa câmara e deslocados mecanicamente para a descarga. Ao contrário das [[dinamicas|rotodinâmicas]], a vazão é **quase independente da pressão** — a curva Q×P é praticamente vertical.

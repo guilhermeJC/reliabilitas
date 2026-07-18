@@ -13,6 +13,7 @@ export interface NotaRow {
   frontmatter: Record<string, unknown>;
   corpo_md: string;
   revisado_em: string | null;
+  ordem: number | null;
 }
 
 // F10: YAML entrega Date (gray-matter) ou string — a coluna date recebe YYYY-MM-DD.
@@ -51,6 +52,7 @@ export function buildPlan(parsed: NotaParsed[]): IngestPlan {
       frontmatter: fm,
       corpo_md: n.corpo,
       revisado_em: normalizaData(n.fm.revisado_em),
+      ordem: typeof fm.ordem === 'number' ? fm.ordem : null,
     });
 
     const add = (destino: string, tipo: ArestaRow['tipo']) => {
