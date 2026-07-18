@@ -47,18 +47,42 @@ Three engineering readings the formula hides:
 
 ## Failure modes — the 6 categories of ISO 15243
 
-ISO 15243:2017 classifies all bearing damage into **6 categories with subcategories**, each with its own morphological signature — an almost perfect mirror of our Framework A:
+ISO 15243:2017 classifies all bearing damage into **6 categories with subcategories**, each with its own morphological signature — an almost perfect mirror of our Framework A. The standard classifies by **observed appearance**, not by isolated root cause, because in practice several mechanisms often act together:
 
-| ISO 15243 category | Mechanism | Typical Fw A reading |
-| --- | --- | --- |
-| Contact fatigue (subsurface/surface) | Cracks from Hertzian cycles → spalling | Wear-out (β>1) |
-| Wear (abrasive/adhesive) | Particles or metal-to-metal contact (low $\lambda$) | Mixed |
-| Corrosion (moisture/frictional — fretting, false brinelling) | Chemistry + micro-movement at standstill | Random/Wear-out |
-| Electrical erosion (discharge/leakage current) | VFD arcing → fluting | Mixed (electrical trigger) |
-| Plastic deformation (true brinelling, overload) | Impact/static above limit | Random (event) |
-| Cracking and fracture | Overload, fitting, defect | Random/Infant |
+| ISO 15243 category | Subcategory | Appearance | Typical Fw A reading |
+| --- | --- | --- | --- |
+| **Contact fatigue** (§5.1) | Subsurface (§5.1.2) | Microcracks below the surface at inclusions, propagating into a spall | Wear-out (β>1) — see [[fadiga-subsuperficial-rolamento|dedicated note]] |
+| | Surface (§5.1.3) | Microspalling originating at the surface itself | Wear-out, accelerated by low $\lambda$ |
+| **Wear** (§5.2) | Abrasive (§5.2.2) | Dull appearance, progressive material removal | Mixed — see [[contaminacao-lubrificante-rolamento|contamination]] |
+| | Adhesive (§5.2.3) | Smearing (skidding, galling), material transfer between surfaces | Mixed/Random — see [[falha-lubrificacao-rolamento|lubrication failure]] |
+| **Corrosion** (§5.3) | Moisture (§5.3.2) | Deterioration at the rolling-element spacing, typically at standstill | Random |
+| | Fretting (§5.3.3.2) | Red/blackish oxidation at the interface, from micro-movement and incorrect fit | Random/Wear-out |
+| | False brinelling (§5.3.3.3) | Wear marks at rolling-element spacing + oxidation — see [[falso-brinelamento-rolamento|dedicated note]] | Random |
+| **Electrical erosion** (§5.4) | Excessive current (§5.4.2) | Discolored/melted areas, craters from thermal cycling (lightning, poor welding ground) | Random (event) |
+| | Leakage current (§5.4.3) | Small, closely-spaced craters, grey washboard pattern — epidemic in VFDs without shaft grounding | Mixed (continuous electrical trigger) |
+| **Plastic deformation** (§5.5) | Overload (§5.5.2) | Raceway indentation, nicks on rolling elements, cage/seal damage | Random (event) — see [[montagem-incorreta-rolamento|incorrect mounting]] |
+| | Particle (§5.5.3) | Indentation marks from overrolled debris | Mixed |
+| **Cracking and fracture** (§5.6) | Forced (§5.6.2) | Complete ring/component separation | Random/Infant |
+| | Fatigue (§5.6.3) | Propagating crack through ring or cage | Wear-out |
+| | Thermal (§5.6.4) | Cracks perpendicular to the sliding direction | Random (friction event) |
 
-The practical reading: **spalling is the end of the story, not the beginning** — in most real cases the initiator was lubrication, contamination or mounting (field statistics: ~50% of cases originate in contamination + lubrication). Root-cause diagnosis requires reading the damage **morphology** (ISO 15243), not merely finding the spall.
+The practical reading: **spalling is the end of the story, not the beginning** — in most real cases the initiator was lubrication, contamination or mounting. SKF field data (Evolution) puts **abrasive wear at roughly 26%**, **surface fatigue at ~16%** and **moisture corrosion at ~14%** of documented occurrences — the three together cover nearly half the cases and point straight at contamination/lubrication as the dominant reliability lever, not metallurgy. Root-cause diagnosis requires reading the damage **morphology** (ISO 15243), not merely finding the spall — hence the 5 failure-mode notes below, each covering the mechanism, the Fw A/B reading and the maintenance plan for one specific category.
+
+## Contamination, lubrication and the $a_{ISO}$ factor
+
+The $L_{10}$ rating life assumes ideal lubrication and no particles — field reality rarely delivers that, and that gap is exactly what the **modified life** (ISO 281:2007) tries to capture:
+
+$$L_{nm} = a_1 \, a_{ISO} \, L_{10}$$
+
+The $a_{ISO}$ factor combines three inputs: the **viscosity ratio** $\kappa$ (actual oil viscosity at operating temperature ÷ the reference viscosity required by the geometry — the direct predictor of $\lambda$), the bearing material's **fatigue load limit** $C_u$, and the **contamination factor** $e_C$ (ISO 4406 cleanliness class, lubrication type — grease, bath, circulating — and bearing size). Engineering narrative: with high $\kappa$ (thick film) and low load, $a_{ISO}$ is barely sensitive to contamination; with low $\kappa$ and load near the limit, the same particle that would be harmless in a well-lubricated system cuts life by 1–2 orders of magnitude. Contamination and lubrication **are not** peripheral care items — together with load, they are the three variables that actually decide whether a bearing reaches anywhere near its catalog L10 or fails at a fraction of it.
+
+## Numerical example — life sensitivity to overload
+
+Deep-groove ball bearing (p=3), $C = 25$ kN, running at $n = 1,800$ rpm with equivalent load $P = 5$ kN:
+
+$$L_{10} = \left(\frac{25}{5}\right)^3 = 125 \text{ million revolutions} \quad\Rightarrow\quad L_{10h} = \frac{10^6}{60 \times 1,800} \times 125 \approx 1,157 \text{ h}$$
+
+A misalignment or unbalance that raises $P$ by 25% (to 6.25 kN) — with nothing else changing — drops $L_{10}$ to $(25/6.25)^3 = 64$ million revolutions: **life is cut in half** purely from the cubic load sensitivity. It is the same calculation, run in reverse, that justifies why precision alignment and balancing are, in practice, bearing-reliability tasks — even without touching the component itself.
 
 ## Defect frequencies — the vibration signature
 

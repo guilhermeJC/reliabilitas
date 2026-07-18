@@ -47,18 +47,42 @@ Três leituras de engenharia que a fórmula esconde:
 
 ## Modos de falha — as 6 categorias da ISO 15243
 
-A ISO 15243:2017 classifica todo dano de rolamento em **6 categorias com subcategorias**, cada uma com assinatura morfológica própria — um espelho quase perfeito do nosso Framework A:
+A ISO 15243:2017 classifica todo dano de rolamento em **6 categorias com subcategorias**, cada uma com assinatura morfológica própria — um espelho quase perfeito do nosso Framework A. A norma classifica pela **aparência observada**, não pela causa raiz isolada, porque na prática vários mecanismos costumam agir simultaneamente:
 
-| Categoria ISO 15243 | Mecanismo | Leitura Fw A típica |
-| --- | --- | --- |
-| Fadiga de contato (subsuperficial/superficial) | Trincas por ciclos hertzianos → *spalling* | Wear-out (β>1) |
-| Desgaste (abrasivo/adesivo) | Partículas ou contato metal-metal ($\lambda$ baixo) | Mixed |
-| Corrosão (umidade/fricção — *fretting*, *false brinelling*) | Química + micromovimento parado | Random/Wear-out |
-| Erosão elétrica (descarga/corrente de fuga) | Arcos VFD → *fluting* | Mixed (gatilho elétrico) |
-| Deformação plástica (*true brinelling*, sobrecarga) | Impacto/estática acima do limite | Random (evento) |
-| Trinca e fratura | Sobrecarga, ajuste, defeito | Random/Infant |
+| Categoria ISO 15243 | Subcategoria | Aparência | Leitura Fw A típica |
+| --- | --- | --- | --- |
+| **Fadiga de contato** (§5.1) | Subsuperficial (§5.1.2) | Microtrincas abaixo da superfície, em inclusões, propagam até virar *spall* | Wear-out (β>1) — ver [[fadiga-subsuperficial-rolamento|nota própria]] |
+| | Superficial (§5.1.3) | Microspalling que se origina na própria superfície | Wear-out, acelerado por $\lambda$ baixo |
+| **Desgaste** (§5.2) | Abrasivo (§5.2.2) | Aspecto fosco, remoção progressiva de material | Mixed — ver [[contaminacao-lubrificante-rolamento|contaminação]] |
+| | Adesivo (§5.2.3) | *Smearing* (escoriação, *galling*), transferência de material entre superfícies | Mixed/Random — ver [[falha-lubrificacao-rolamento|falha de lubrificação]] |
+| **Corrosão** (§5.3) | Por umidade (§5.3.2) | Deterioração na região de passo dos corpos rolantes, tipicamente parado | Random |
+| | *Fretting* (§5.3.3.2) | Óxido avermelhado/enegrecido na interface, por micromovimento e ajuste incorreto | Random/Wear-out |
+| | Falso brinelamento (§5.3.3.3) | Marcas de desgaste no passo dos corpos rolantes + óxido — ver [[falso-brinelamento-rolamento|nota própria]] | Random |
+| **Erosão elétrica** (§5.4) | Corrente excessiva (§5.4.2) | Áreas descoloridas/fundidas, crateras por ciclos térmicos (raio, solda mal aterrada) | Random (evento) |
+| | Corrente de fuga (§5.4.3) | Crateras pequenas e próximas, padrão "washboard" cinza — epidêmico em VFD sem aterramento de eixo | Mixed (gatilho elétrico contínuo) |
+| **Deformação plástica** (§5.5) | Sobrecarga (§5.5.2) | Indentação nas pistas, entalhes nos corpos, dano em gaiola/vedação | Random (evento) — ver [[montagem-incorreta-rolamento|montagem incorreta]] |
+| | Partículas (§5.5.3) | Marcas de indentação por debris sobrerolado | Mixed |
+| **Trinca e fratura** (§5.6) | Forçada (§5.6.2) | Separação completa do anel/componente | Random/Infant |
+| | Por fadiga (§5.6.3) | Trinca propagante através do anel ou gaiola | Wear-out |
+| | Térmica (§5.6.4) | Trincas perpendiculares à direção do deslizamento | Random (evento de atrito) |
 
-A leitura prática: **spalling é o fim da história, não o começo** — na maioria dos casos reais, o iniciador foi lubrificação, contaminação ou montagem (estatísticas de campo: ~50% dos casos têm origem em contaminação + lubrificação). Diagnóstico de causa raiz exige ler a **morfologia** do dano (ISO 15243), não apenas constatar o spall.
+A leitura prática: **spalling é o fim da história, não o começo** — na maioria dos casos reais, o iniciador foi lubrificação, contaminação ou montagem. Dados de campo consolidados pela SKF (Evolution) situam o **desgaste abrasivo em torno de 26%**, a **fadiga superficial em ~16%** e a **corrosão por umidade em ~14%** das ocorrências documentadas — as três somadas cobrem quase metade dos casos e apontam direto para contaminação/lubrificação como a alavanca dominante de confiabilidade do componente, não a metalurgia. Diagnóstico de causa raiz exige ler a **morfologia** do dano (ISO 15243), não apenas constatar o spall — daí as 5 notas de modo de falha abaixo, cada uma tratando o mecanismo, o Fw A/B e o plano de manutenção de uma categoria específica.
+
+## Contaminação, lubrificação e o fator $a_{ISO}$
+
+A vida nominal $L_{10}$ pressupõe lubrificação ideal e ausência de partículas — a realidade de campo raramente entrega isso, e é exatamente esse desvio que a **vida modificada** (ISO 281:2007) tenta capturar:
+
+$$L_{nm} = a_1 \, a_{ISO} \, L_{10}$$
+
+O fator $a_{ISO}$ combina três entradas: a **razão de viscosidade** $\kappa$ (viscosidade real do óleo na temperatura de operação ÷ viscosidade de referência requerida pela geometria — o preditor direto de $\lambda$), o **limite de fadiga** $C_u$ do material do rolamento, e o **fator de contaminação** $e_C$ (classe de limpeza ISO 4406, tipo de lubrificação — graxa, banho, circulação — e tamanho do rolamento). Narrativa de engenharia: com $\kappa$ alto (filme espesso) e carga baixa, $a_{ISO}$ é pouco sensível à contaminação; com $\kappa$ baixo e carga próxima do limite, a mesma partícula que seria inofensiva em um sistema bem lubrificado corta a vida em 1–2 ordens de grandeza. Contaminação e lubrificação **não são cuidados acessórios** — são, junto com a carga, as três variáveis que realmente decidem se o rolamento chega perto do L10 de catálogo ou falha em uma fração dele.
+
+## Exemplo numérico — sensibilidade da vida a sobrecarga
+
+Rolamento rígido de esferas (p=3), $C = 25$ kN, operando a $n = 1.800$ rpm com carga equivalente $P = 5$ kN:
+
+$$L_{10} = \left(\frac{25}{5}\right)^3 = 125 \text{ milhões de revoluções} \quad\Rightarrow\quad L_{10h} = \frac{10^6}{60 \times 1.800} \times 125 \approx 1.157 \text{ h}$$
+
+Um desalinhamento ou desbalanceamento que eleve $P$ em 25% (para 6,25 kN) — sem qualquer outra mudança — derruba $L_{10}$ para $(25/6{,}25)^3 = 64$ milhões de revoluções: **a vida cai pela metade** só pela sensibilidade cúbica à carga. É a mesma conta, em sentido inverso, que justifica por que alinhamento e balanceamento de precisão são, na prática, tarefas de confiabilidade do rolamento — mesmo sem tocar no componente.
 
 ## Frequências de defeito — a assinatura na vibração
 
