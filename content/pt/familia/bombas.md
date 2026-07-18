@@ -15,7 +15,7 @@ revisado_em: 2026-07-06
 resumo: 'Família de máquinas que adicionam energia a um líquido para movê-lo. O Hydraulic Institute a classifica em cinéticas (rotodinâmicas + efeito especial) e de deslocamento positivo — a escolha do princípio define física, curva e modos de falha.'
 ---
 
-Máquinas que **adicionam energia a um líquido** para transferi-lo entre pontos do processo — vencendo elevação, pressão e perdas por atrito. Na forma mais comum, um acionador (motor → eixo) converte **energia mecânica** em **energia hidráulica** (pressão + velocidade) no líquido.
+Máquinas que **adicionam energia a um líquido** para transferi-lo entre pontos do processo — vencendo elevação, pressão e perdas por atrito. Na forma mais comum, a energia percorre uma cadeia de 3 estágios: (1) o **acionador** converte uma fonte de energia externa — elétrica, térmica, hidráulica — em rotação no seu próprio eixo; (2) o eixo transmite essa **energia mecânica** ao elemento de bomba (rotor, pistão, engrenagem); (3) esse elemento transfere a energia ao líquido na forma de **energia hidráulica** (pressão + velocidade). O caso mais comum na indústria é o motor elétrico trifásico acionando um rotor — tratado em detalhe na nota da [[bomba-centrifuga|Bomba Centrífuga]]. Nos dispositivos de [[efeito-especial|efeito especial]] esse elo mecânico simplesmente não existe: a energia chega ao líquido diretamente de um fluido/gás motriz ou de um campo eletromagnético, sem eixo nem elemento rotativo.
 
 ## Como a energia é fornecida ao líquido
 

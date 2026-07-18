@@ -15,7 +15,7 @@ revisado_em: 2026-07-06
 resumo: 'Family of machines that add energy to a liquid to move it. The Hydraulic Institute classifies them into kinetic (rotodynamic + special-effect) and positive displacement — the choice of principle defines physics, curve and failure modes.'
 ---
 
-Machines that **add energy to a liquid** to transfer it between process points — overcoming elevation, pressure and friction losses. In the most common form, a driver (motor → shaft) converts **mechanical energy** into **hydraulic energy** (pressure + velocity) in the liquid.
+Machines that **add energy to a liquid** to transfer it between process points — overcoming elevation, pressure and friction losses. In the most common form, energy travels through a 3-stage chain: (1) the **driver** converts an external energy source — electrical, thermal, hydraulic — into rotation at its own shaft; (2) the shaft transmits that **mechanical energy** to the pump element (rotor, piston, gear); (3) that element transfers the energy to the liquid as **hydraulic energy** (pressure + velocity). The most common industrial case is a three-phase electric motor driving a rotor — covered in detail in the [[bomba-centrifuga|Centrifugal Pump]] note. In [[efeito-especial|special-effect]] devices this mechanical link simply does not exist: energy reaches the liquid directly from a motive fluid/gas or an electromagnetic field, with no shaft or rotating element.
 
 ## How energy is supplied to the liquid
 
