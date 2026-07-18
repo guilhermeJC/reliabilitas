@@ -24,6 +24,7 @@ import { Backlinks } from '@/components/backlinks';
 import { FwCards } from '@/components/fw-cards';
 import { PlanoTable } from '@/components/plano-table';
 import { CurvaHq } from '@/components/calc/curva-hq';
+import { CurvaQp } from '@/components/calc/curva-qp';
 import { NivelSelector, type NivelLabel } from '@/components/nivel-selector';
 import { WeibullCalc } from '@/components/calc/weibull-calc';
 import { ExportNotaBotoes } from '@/components/export-nota-botoes';
@@ -376,6 +377,14 @@ export default async function NotaPage({ params }: PageParams) {
                 </>
               );
             })()}
+            {/* Comparativo Q×P vivo (revisão do fundador, 18/07): entra na ÚLTIMA
+                seção da nota (nada depois dela — não precisa de split como a
+                curva H-Q), keyed pelo slug como o registry da anatomia. */}
+            {nota.slug === 'deslocamento-positivo' && (
+              <div className="mt-6">
+                <CurvaQp />
+              </div>
+            )}
           </>
         )}
 

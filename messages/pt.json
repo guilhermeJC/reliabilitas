@@ -354,6 +354,19 @@
         "shutoff": "Shutoff"
       }
     },
+    "curvaQp": {
+      "titulo": "Q×P — por que a deslocamento positivo exige válvula de alívio",
+      "sub": "Feche a válvula de descarga e compare: a rotodinâmica perde vazão suavemente, limitada pela própria curva. A deslocamento positivo mantém a MESMA vazão — é a pressão que dispara.",
+      "abertura": "Abertura da válvula de descarga",
+      "aberturaSig": "0% = totalmente fechada. Em ambas, é a mesma manobra — a resposta de cada princípio é que é oposta.",
+      "vazao": "Vazão relativa",
+      "rotodinamica": "Rotodinâmica",
+      "deslocamentoPositivo": "Deslocamento positivo",
+      "pressaoNecessaria": "Pressão necessária (deslocamento positivo)",
+      "pressaoSig": "Em % da pressão nominal — sem válvula de alívio, é o componente mais fraco do sistema que cede primeiro.",
+      "alertaAlivio": "Acima da faixa típica de acionamento de uma válvula de alívio (~300% da pressão nominal) — risco real de ruptura.",
+      "shutoffRotodinamica": "A rotodinâmica já parou de entregar vazão (shutoff) — o head se estabiliza, não sobe mais."
+    },
     "weibull": {
       "titulo": "Weibull 2 parâmetros",
       "fwA": "Leitura Fw A",

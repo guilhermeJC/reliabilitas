@@ -354,6 +354,19 @@
         "shutoff": "Shutoff"
       }
     },
+    "curvaQp": {
+      "titulo": "Q×P — why positive-displacement pumps need a relief valve",
+      "sub": "Close the discharge valve and compare: the rotodynamic loses flow smoothly, limited by its own curve. The positive-displacement one keeps the SAME flow — it is the pressure that spikes.",
+      "abertura": "Discharge valve opening",
+      "aberturaSig": "0% = fully closed. Both pumps face the same move — each principle's response is the opposite of the other's.",
+      "vazao": "Relative flow",
+      "rotodinamica": "Rotodynamic",
+      "deslocamentoPositivo": "Positive displacement",
+      "pressaoNecessaria": "Pressure required (positive displacement)",
+      "pressaoSig": "In % of nominal pressure — without a relief valve, the weakest component in the system gives way first.",
+      "alertaAlivio": "Above the typical relief-valve set range (~300% of nominal pressure) — real rupture risk.",
+      "shutoffRotodinamica": "The rotodynamic pump has already stopped delivering flow (shutoff) — head levels off, it does not keep rising."
+    },
     "weibull": {
       "titulo": "2-parameter Weibull",
       "fwA": "Fw A reading",
