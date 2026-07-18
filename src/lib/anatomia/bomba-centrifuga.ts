@@ -152,8 +152,13 @@ export const HOTSPOTS_BOMBA_CENTRIFUGA: Hotspot[] = [
     },
   },
   {
+    // Achado do fundador (18/07): o ponto ficava sobre a caixa de mancais
+    // (que é desenhada por cima do eixo naquele trecho, x 560-800px) —
+    // parecia ancorado no rolamento, não no eixo. Reposicionado para o
+    // trecho exposto entre o impelidor/anéis e a caixa de selagem (x
+    // ~395-455px, nada desenhado por cima ali).
     num: 7,
-    x: 63.3,
+    x: 43.4,
     y: 53.6,
     pt: {
       titulo: 'Eixo',
