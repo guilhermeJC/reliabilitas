@@ -111,12 +111,13 @@ body {
 }
 
 /* Sumário visual no início da nota (pedido do fundador, 18/07 — refinado
-   18/07 após feedback "pouco chamativo"): curto, resumido, com hiperlinks pro
-   conteúdo que vem a seguir. Agora em CARTÃO próprio (se destaca do corpo,
-   não é mais um fiapo de texto) e cada pill numerada na ordem real de
-   aparição no conteúdo — a numeração é a resposta direta ao pedido do
-   fundador. Só existe quando a nota tem >=3 seções (montaSumarioHtml,
-   niveis.ts) — nota curta não ganha esse ruído visual. */
+   18/07 duas vezes: 1) "pouco chamativo" → cartão próprio + numeração; 2) em
+   notas com subtítulos longos — Cavitação Specialist/Engineer — o flex-wrap
+   de larguras desiguais bagunçava a ordem visual dos números ("jogados").
+   Fix: SEMPRE empilhado, uma linha por seção, largura cheia — nunca mais
+   depende de quantas cabem lado a lado. Só existe quando a nota tem >=3
+   seções (montaSumarioHtml, niveis.ts) — nota curta não ganha esse ruído
+   visual. */
 .sumario-pills {
   display: flex;
   flex-direction: column;
@@ -141,31 +142,30 @@ body {
 }
 .sumario-pills-lista {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 0.35rem;
 }
 .sumario-pills a {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.55rem;
+  width: 100%;
+  box-sizing: border-box;
   font-size: 13px;
   font-weight: 500;
   color: var(--navy-700);
   background: #eef3fb;
   border: 1px solid #d7e3f5;
-  border-radius: 999px;
-  padding: 0.28rem 0.8rem 0.28rem 0.28rem;
+  border-radius: 8px;
+  padding: 0.4rem 0.75rem;
   text-decoration: none;
-  white-space: nowrap;
   transition:
     background 0.12s ease,
-    border-color 0.12s ease,
-    transform 0.12s ease;
+    border-color 0.12s ease;
 }
 .sumario-pills a:hover {
   background: #dfe9f9;
   border-color: var(--wikilink);
-  transform: translateY(-1px);
 }
 .sumario-num {
   display: inline-flex;
