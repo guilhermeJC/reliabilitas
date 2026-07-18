@@ -300,26 +300,57 @@ export default async function NotaPage({ params }: PageParams) {
               />
             )}
             {(() => {
+              const h2s = extractH2(nota.corpo_md);
+
+              // Curva H-Q viva (sessão 5): achado do fundador (18/07) — rodava
+              // dangling no FIM da nota inteira, sem ligação com o texto da seção
+              // Princípio que fala dela. Reposicionada logo após essa seção,
+              // mesmo mecanismo de split usado abaixo para a Anatomia.
+              const mostraCurvaHq = ehHandbook && nota.taxonomia.includes('dinamicas');
+              const idxPrincipio = mostraCurvaHq
+                ? h2s.findIndex((s) => s.id === 'principio-de-funcionamento')
+                : -1;
+              const proximoAposPrincipio = idxPrincipio >= 0 ? h2s[idxPrincipio + 1] : undefined;
+              const divisaoPrincipio = proximoAposPrincipio
+                ? separaHtmlNoHeading(corpoHtml, proximoAposPrincipio.id)
+                : null;
+              const restanteHtml = divisaoPrincipio ? divisaoPrincipio.depois : corpoHtml;
+
               // Anatomia interativa (melhoria 2, 10/07): quando o handbook tem
               // hotspots registrados, o corpo é dividido no heading SEGUINTE à
               // seção Anatomia e o componente entra dentro da própria seção.
               const hotspots = ehHandbook ? hotspotsPorSlug(nota.slug) : null;
               const anatomia = nota.frontmatter.anatomia as
                 { svg: string; alt: string } | undefined;
-              let divisao: { antes: string; depois: string } | null = null;
+              let divisaoAnatomia: { antes: string; depois: string } | null = null;
               if (hotspots && anatomia) {
-                const h2s = extractH2(nota.corpo_md);
                 const idxAnat = h2s.findIndex((s) => s.id === 'anatomia' || s.id === 'anatomy');
                 const proximo = idxAnat >= 0 ? h2s[idxAnat + 1] : undefined;
-                divisao = proximo ? separaHtmlNoHeading(corpoHtml, proximo.id) : null;
+                divisaoAnatomia = proximo ? separaHtmlNoHeading(restanteHtml, proximo.id) : null;
               }
+
               return (
                 <>
+                  {divisaoPrincipio && (
+                    <article
+                      className="nota-corpo mt-6 rounded-lg border bg-white p-6 md:p-8"
+                      style={{ borderColor: '#e3e8f0' }}
+                      // nosemgrep: typescript.react.security.audit.react-dangerouslysetinnerhtml.react-dangerouslysetinnerhtml -- falso positivo documentado (DEV-017): HTML gerado server-side de conteúdo autoral validado no ingest (BR-006/F3/F8); DOMPurify é requisito do gate da Fase 3 (BR-013)
+                      dangerouslySetInnerHTML={{ __html: divisaoPrincipio.antes }}
+                    />
+                  )}
+                  {mostraCurvaHq && divisaoPrincipio && (
+                    <div className="mt-6">
+                      <CurvaHq />
+                    </div>
+                  )}
                   <article
                     className="nota-corpo mt-6 rounded-lg border bg-white p-6 md:p-8"
                     style={{ borderColor: '#e3e8f0' }}
                     // nosemgrep: typescript.react.security.audit.react-dangerouslysetinnerhtml.react-dangerouslysetinnerhtml -- falso positivo documentado (DEV-017): HTML gerado server-side de conteúdo autoral validado no ingest (BR-006/F3/F8); DOMPurify é requisito do gate da Fase 3 (BR-013)
-                    dangerouslySetInnerHTML={{ __html: divisao ? divisao.antes : corpoHtml }}
+                    dangerouslySetInnerHTML={{
+                      __html: divisaoAnatomia ? divisaoAnatomia.antes : restanteHtml,
+                    }}
                   />
                   {hotspots && anatomia && (
                     <AnatomiaInterativa
@@ -334,24 +365,17 @@ export default async function NotaPage({ params }: PageParams) {
                       }}
                     />
                   )}
-                  {divisao && (
+                  {divisaoAnatomia && (
                     <article
                       className="nota-corpo mt-6 rounded-lg border bg-white p-6 md:p-8"
                       style={{ borderColor: '#e3e8f0' }}
                       // nosemgrep: typescript.react.security.audit.react-dangerouslysetinnerhtml.react-dangerouslysetinnerhtml -- falso positivo documentado (DEV-017): HTML gerado server-side de conteúdo autoral validado no ingest (BR-006/F3/F8); DOMPurify é requisito do gate da Fase 3 (BR-013)
-                      dangerouslySetInnerHTML={{ __html: divisao.depois }}
+                      dangerouslySetInnerHTML={{ __html: divisaoAnatomia.depois }}
                     />
                   )}
                 </>
               );
             })()}
-            {/* Curva H-Q viva (sessão 5): handbooks de máquinas ROTODINÂMICAS —
-                a curva e as leis de afinidade valem para o princípio inteiro. */}
-            {ehHandbook && nota.taxonomia.includes('dinamicas') && (
-              <div className="mt-6">
-                <CurvaHq />
-              </div>
-            )}
           </>
         )}
 
