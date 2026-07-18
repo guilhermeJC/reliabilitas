@@ -10,11 +10,12 @@ taxonomia:
 fontes:
   - 'Hydraulic Institute — Types and Nomenclature of Pumps (special-effect: jet, gas lift, hydraulic ram)'
   - 'ANSI/HI 1.1-1.2 — Rotodynamic Pumps: Nomenclature and Definitions'
-revisado_em: 2026-07-06
-resumo: 'Principle of kinetic pumps with NO moving parts: energy comes from a motive fluid or gas, not from a mechanical element. Groups the ejector (jet), air lift (compressed air) and hydraulic ram. Robust and cheap, with low efficiency.'
+revisado_em: 2026-07-18
+resumo: 'Principle of kinetic pumps with NO rotating mechanical element: energy comes from an external agent — motive fluid/gas or an electromagnetic field. Groups the ejector (jet), air lift (compressed air), hydraulic ram and the electromagnetic pump (liquid metals). Robust and cheap, with low efficiency.'
+ordem: 3
 ---
 
-The third principle of the [[bombas|Pumps]] family, alongside the [[dinamicas|rotodynamic]] and the [[deslocamento-positivo|positive-displacement]] ones. Under the **Hydraulic Institute** classification, these are **kinetic pumps with no moving parts**: the energy that moves the liquid comes not from a rotor or piston, but from a **motive fluid or gas**.
+The third principle of the [[bombas|Pumps]] family, alongside the [[dinamicas|rotodynamic]] and the [[deslocamento-positivo|positive-displacement]] ones. Under the **Hydraulic Institute** classification, these are **kinetic pumps with no rotating mechanical element**: the energy that moves the liquid comes not from a rotor or piston, but from an **external agent** — a motive fluid/gas (ejector, air lift, hydraulic ram) or, in the one case with no motive fluid at all, an **electromagnetic field** (the electromagnetic pump, below).
 
 The in-scope types:
 

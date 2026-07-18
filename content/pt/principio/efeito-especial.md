@@ -10,11 +10,12 @@ taxonomia:
 fontes:
   - 'Hydraulic Institute — Types and Nomenclature of Pumps (special-effect: jet, gas lift, hydraulic ram)'
   - 'ANSI/HI 1.1-1.2 — Rotodynamic Pumps: Nomenclature and Definitions'
-revisado_em: 2026-07-06
-resumo: 'Princípio das bombas cinéticas SEM partes móveis: a energia vem de um fluido ou gás motriz, não de um elemento mecânico. Reúne ejetor (jato), air lift (ar comprimido) e aríete hidráulico (golpe de aríete). Robustas e baratas, com rendimento baixo.'
+revisado_em: 2026-07-18
+resumo: 'Princípio das bombas cinéticas SEM elemento mecânico rotativo: a energia vem de um agente externo — fluido/gás motriz ou campo eletromagnético. Reúne ejetor (jato), air lift (ar comprimido), aríete hidráulico (golpe de aríete) e a eletromagnética (metais líquidos). Robustas e baratas, com rendimento baixo.'
+ordem: 3
 ---
 
-Terceiro princípio da família [[bombas|Bombas]], ao lado das [[dinamicas|rotodinâmicas]] e das [[deslocamento-positivo|de deslocamento positivo]]. Pela classificação do **Hydraulic Institute**, são bombas **cinéticas sem partes móveis**: a energia que move o líquido não vem de um rotor ou pistão, mas de um **fluido ou gás motriz**.
+Terceiro princípio da família [[bombas|Bombas]], ao lado das [[dinamicas|rotodinâmicas]] e das [[deslocamento-positivo|de deslocamento positivo]]. Pela classificação do **Hydraulic Institute**, são bombas **cinéticas sem elemento mecânico rotativo**: a energia que move o líquido não vem de um rotor ou pistão, mas de um **agente externo** — um fluido/gás motriz (ejetor, air lift, aríete) ou, no único caso sem nenhum fluido motriz, um **campo eletromagnético** (a eletromagnética, abaixo).
 
 Os tipos do escopo:
 

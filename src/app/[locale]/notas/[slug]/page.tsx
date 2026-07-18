@@ -13,7 +13,7 @@ import {
 import { GrafoLocal } from '@/components/grafo-local';
 import { notaPath, sugerirPath } from '@/lib/routes';
 import { renderNoteHtml } from '@/lib/markdown/render';
-import { splitNiveis, extractH2 } from '@/lib/content/niveis';
+import { splitNiveis, extractH2, extractH3, montaSumarioHtml } from '@/lib/content/niveis';
 import { agrupaFontes, GRUPOS_FONTES, type GrupoFonte } from '@/lib/content/fontes';
 import { separaHtmlNoHeading } from '@/lib/content/split-html';
 import { hotspotsPorSlug } from '@/lib/anatomia/registry';
@@ -198,6 +198,7 @@ export default async function NotaPage({ params }: PageParams) {
   // HTML server-side de conteúdo autoral validado (BR-006/F3/F8 — ver render.ts).
   // Sanitização client (DOMPurify) vira requisito no gate da Fase 3 (conteúdo de terceiros).
   const corpoHtml = niveis ? '' : renderNoteHtml(nota.corpo_md, locale as Locale);
+  const sumarioHandbook = niveis ? '' : montaSumarioHtml(extractH2(nota.corpo_md), t('secoes'));
 
   return (
     <div className="px-4 py-8 md:px-8">
@@ -231,9 +232,18 @@ export default async function NotaPage({ params }: PageParams) {
           <>
             <NivelSelector
               paineis={{
-                beginner: renderNoteHtml(niveis.beginner, locale as Locale),
-                specialist: renderNoteHtml(niveis.specialist, locale as Locale),
-                engineer: renderNoteHtml(niveis.engineer, locale as Locale),
+                // Sumário por texto (pedido do fundador, 18/07): dentro de um nível,
+                // os H3 são a subseção real (o nível em si não tem H2 fora do nome
+                // Beginner/Specialist/Engineer) — só aparece com >=3 subseções.
+                beginner:
+                  montaSumarioHtml(extractH3(niveis.beginner), t('nestaSecao')) +
+                  renderNoteHtml(niveis.beginner, locale as Locale),
+                specialist:
+                  montaSumarioHtml(extractH3(niveis.specialist), t('nestaSecao')) +
+                  renderNoteHtml(niveis.specialist, locale as Locale),
+                engineer:
+                  montaSumarioHtml(extractH3(niveis.engineer), t('nestaSecao')) +
+                  renderNoteHtml(niveis.engineer, locale as Locale),
               }}
               labels={
                 Object.fromEntries(
@@ -279,20 +289,15 @@ export default async function NotaPage({ params }: PageParams) {
                 {t('semente')} — {resumo}
               </p>
             )}
-            {ehHandbook && (
-              <nav
-                aria-label={t('secoes')}
-                className="mt-6 flex flex-wrap gap-x-4 gap-y-1 text-[13px]"
-              >
-                <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500">
-                  {t('secoes')}:
-                </span>
-                {extractH2(nota.corpo_md).map((s) => (
-                  <a key={s.id} href={`#${s.id}`} style={{ color: 'var(--wikilink)' }}>
-                    {s.texto}
-                  </a>
-                ))}
-              </nav>
+            {/* Sumário visual (pedido do fundador, 18/07): antes só existia pra
+                handbooks (ehHandbook) — agora vale pra QUALQUER nota não-nivelada
+                com corpo próprio (marca_modelo, estrategia etc. também têm H2 de
+                sobra); a própria função decide não renderizar com <3 seções. */}
+            {sumarioHandbook && (
+              <div
+                // nosemgrep: typescript.react.security.audit.react-dangerouslysetinnerhtml.react-dangerouslysetinnerhtml -- montaSumarioHtml (niveis.ts) escapa o texto do heading; ids vêm de slugifyHeading (mesmo mecanismo do render.ts)
+                dangerouslySetInnerHTML={{ __html: sumarioHandbook }}
+              />
             )}
             {(() => {
               // Anatomia interativa (melhoria 2, 10/07): quando o handbook tem
