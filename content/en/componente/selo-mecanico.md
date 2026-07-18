@@ -58,13 +58,23 @@ The piping plans standardize the environment that keeps the seal alive (classic 
 
 The component's field statistics are dominated by **operational events**, not natural wear — life is ~random (**β ≈ 1** in Fw A), which invalidates time-based preventive replacement:
 
-- **Dry running**: film loss through empty chamber, vortexing, or inoperative piping plan — thermal destruction of the faces within minutes. Random.
-- **Face abrasion**: solids in the film (dirty fluid without a plan 32) score the faces and open a leak path. Accelerated wear-out.
-- **Elastomer degradation**: incompatible chemistry or temperature — they swell, harden, extrude. Chemical wear-out.
-- **Hang-up**: deposits (coke, crystallization) prevent axial face tracking. Mixed.
-- **Mounting infant mortality**: largely eliminated by the cartridge standard — where it still appears, investigate procedure and shaft deflection (> 0.05 mm at the face is a death sentence).
+- **Dry running**: film loss through empty chamber, vortexing, or inoperative piping plan — thermal destruction of the faces within minutes. Random. See [[dry-running-selo-mecanico|dedicated note]].
+- **Face abrasion**: solids in the film (dirty fluid without a plan 32) score the faces and open a leak path. Accelerated wear-out. See [[abrasao-faces-selo-mecanico|dedicated note]].
+- **Elastomer degradation**: incompatible chemistry or temperature — they swell, harden, extrude. Chemical wear-out. See [[degradacao-elastomeros-selo-mecanico|dedicated note]].
+- **Hang-up**: deposits (coke, crystallization) prevent axial face tracking. Mixed. See [[hangup-selo-mecanico|dedicated note]].
+- **Mounting infant mortality**: largely eliminated by the cartridge standard — where it still appears, investigate procedure and shaft deflection (> 0.05 mm at the face is a death sentence). See [[instalacao-incorreta-selo-mecanico|dedicated note]].
 
-Correct diagnosis starts with the **seal autopsy** (the faces tell the story: radial heat cracks = thermal shock; ring-shaped wear = abrasion; perfect faces + destroyed elastomer = chemistry) — a discipline formalized in FSA and manufacturer failure-analysis guides.
+Correct diagnosis starts with the **seal autopsy** (the faces tell the story: radial heat cracks = thermal shock; ring-shaped wear = abrasion; perfect faces + destroyed elastomer = chemistry) — a discipline formalized in FSA and manufacturer failure-analysis guides. The 5 notes above detail the mechanism, Fw A/B and maintenance plan for each mode.
+
+## Numerical example — PV factor and the face limit
+
+Balanced seal ($B \approx 0.75$) on a 50 mm shaft, chamber pressure 10 bar (1.0 MPa), 1,800 rpm:
+
+$$v = \pi \, d \, n = \pi \times 0.05 \times (1{,}800/60) \approx 4.71 \text{ m/s}$$
+
+$$PV = P_{\text{face}} \times v \approx (0.75 \times 1.0 \times 10^6) \times 4.71 \approx 3.5 \times 10^6 \text{ Pa·m/s}$$
+
+Against a typical limit for reference carbon×SiC faces (on the order of $3$–$5 \times 10^6$ Pa·m/s depending on the material pair and piping plan), this operating point is already at the ceiling — any partial loss of the cooling/lubrication plan (e.g. a partially clogged Plan 11) or an increase in pressure/speed pushes the pair out of the safe window, precipitating film flashing. This is why unbalanced seals ($B > 1$) are only justified at low pressures: the same PV reasoning explains why the balance ratio is the first variable to review when a seal keeps failing in the same service.
 
 ## Selection and good practice
 

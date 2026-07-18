@@ -58,13 +58,23 @@ Selos **simples × duplos** (arranjos API: 1, 2 e 3): a decisão nasce do risco 
 
 A estatística de campo do componente é dominada por **eventos operacionais**, não por desgaste natural — vida ~aleatória (**β ≈ 1** no Fw A), o que invalida troca preventiva por tempo:
 
-- ***Dry running*** (operação a seco): perda de filme por câmara vazia, vórtice, ou plano de selagem inoperante — destruição térmica das faces em minutos. Random.
-- **Abrasão das faces**: sólidos no filme (fluido sujo sem plano 32) riscam as faces e abrem caminho de vazamento. Wear-out acelerado.
-- **Degradação de elastômeros**: química incompatível ou temperatura — incham, endurecem, extrudam. Wear-out químico.
-- ***Hang-up*/travamento**: depósitos (coque, cristalização) impedem o acompanhamento axial das faces. Mixed.
-- **Mortalidade infantil de montagem**: eliminada em grande parte pelo padrão cartucho — quando ainda aparece, investigar procedimento e deflexão de eixo (> 0,05 mm na face é sentença).
+- ***Dry running*** (operação a seco): perda de filme por câmara vazia, vórtice, ou plano de selagem inoperante — destruição térmica das faces em minutos. Random. Ver [[dry-running-selo-mecanico|nota própria]].
+- **Abrasão das faces**: sólidos no filme (fluido sujo sem plano 32) riscam as faces e abrem caminho de vazamento. Wear-out acelerado. Ver [[abrasao-faces-selo-mecanico|nota própria]].
+- **Degradação de elastômeros**: química incompatível ou temperatura — incham, endurecem, extrudam. Wear-out químico. Ver [[degradacao-elastomeros-selo-mecanico|nota própria]].
+- ***Hang-up*/travamento**: depósitos (coque, cristalização) impedem o acompanhamento axial das faces. Mixed. Ver [[hangup-selo-mecanico|nota própria]].
+- **Mortalidade infantil de montagem**: eliminada em grande parte pelo padrão cartucho — quando ainda aparece, investigar procedimento e deflexão de eixo (> 0,05 mm na face é sentença). Ver [[instalacao-incorreta-selo-mecanico|nota própria]].
 
-O diagnóstico correto começa na **autópsia do selo** (as faces contam a história: trincas térmicas radiais = choque térmico; desgaste em anel = abrasão; faces perfeitas + elastômero destruído = química) — disciplina formalizada nos guias de análise de falha da FSA e dos fabricantes.
+O diagnóstico correto começa na **autópsia do selo** (as faces contam a história: trincas térmicas radiais = choque térmico; desgaste em anel = abrasão; faces perfeitas + elastômero destruído = química) — disciplina formalizada nos guias de análise de falha da FSA e dos fabricantes. As 5 notas acima detalham mecanismo, Fw A/B e plano de manutenção de cada modo.
+
+## Exemplo numérico — fator PV e o limite das faces
+
+Selo balanceado ($B \approx 0{,}75$) em eixo de 50 mm, pressão de câmara 10 bar (1,0 MPa), rotação 1.800 rpm:
+
+$$v = \pi \, d \, n = \pi \times 0{,}05 \times (1.800/60) \approx 4{,}71 \text{ m/s}$$
+
+$$PV = P_{\text{face}} \times v \approx (0{,}75 \times 1{,}0 \times 10^6) \times 4{,}71 \approx 3{,}5 \times 10^6 \text{ Pa·m/s}$$
+
+Contra um limite típico de faces carbono×SiC de referência (ordem de $3$–$5 \times 10^6$ Pa·m/s conforme o par de materiais e o plano de selagem), esse ponto de operação já está no teto — qualquer perda parcial do plano de refrigeração/lubrificação (ex.: Plano 11 parcialmente obstruído) ou aumento de pressão/rotação empurra o par para fora da janela segura, precipitando *flashing* do filme. É por isso que selos não-balanceados ($B > 1$) só se justificam em pressões baixas: o mesmo raciocínio de PV explica por que a razão de balanceamento é a primeira variável a revisar quando um selo falha repetidamente no mesmo serviço.
 
 ## Seleção e boas práticas
 
