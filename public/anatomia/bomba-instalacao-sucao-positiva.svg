@@ -1,0 +1,41 @@
+<svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Instalação com sucção positiva (elevação de sucção): o tanque fica abaixo da bomba, o nível de líquido está abaixo da linha de centro do rotor — H_s subtrai do NPSHa, condição desfavorável">
+  <!-- RELIABILITAS — instalação da bomba: sucção positiva / elevação de sucção (asset próprio, DEV-025/BR-009) -->
+
+  <!-- Bomba (acima) -->
+  <circle cx="200" cy="90" r="26" fill="#dbe3ee" stroke="#12233F" stroke-width="2.5"/>
+  <rect x="182" y="116" width="36" height="14" fill="#d3dae6" stroke="#12233F" stroke-width="2"/>
+  <text x="200" y="95" font-size="11" fill="#12233F" font-family="sans-serif" text-anchor="middle" font-weight="600">B</text>
+
+  <!-- Linha de centro do rotor -->
+  <line x1="20" y1="90" x2="330" y2="90" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <text x="336" y="94" font-size="11" fill="#5f6b7f" font-family="sans-serif">linha de centro</text>
+
+  <!-- Tanque (abaixo) -->
+  <rect x="120" y="180" width="130" height="100" fill="#e9edf3" stroke="#12233F" stroke-width="2.5"/>
+  <rect x="124" y="230" width="122" height="46" fill="#e7f0fa" stroke="none"/>
+  <line x1="120" y1="230" x2="250" y2="230" stroke="#12233F" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="256" y="234" font-size="12" fill="#12233F" font-family="sans-serif">Nível</text>
+
+  <!-- Cota Hs: da linha de centro até o nível (desfavorável = subtrai) -->
+  <line x1="80" y1="90" x2="80" y2="230" stroke="#b91c1c" stroke-width="2"/>
+  <path d="M75 98 L80 90 L85 98" fill="none" stroke="#b91c1c" stroke-width="2"/>
+  <path d="M75 222 L80 230 L85 222" fill="none" stroke="#b91c1c" stroke-width="2"/>
+  <text x="30" y="163" font-size="14" fill="#b91c1c" font-family="sans-serif" font-weight="600">H_s</text>
+  <text x="8" y="180" font-size="11" fill="#12233F" font-family="sans-serif">subtrai do NPSHa</text>
+
+  <!-- Tubulação de sucção: sobe do tanque até a bomba -->
+  <path d="M180 216 L152 216 L152 90 L174 90" fill="none" stroke="#12233F" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- Recalque -->
+  <path d="M226 90 L280 90 L280 60" fill="none" stroke="#E8510A" stroke-width="3" stroke-dasharray="8 5" marker-end="url(#seta2)"/>
+  <defs>
+    <marker id="seta2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#E8510A"/>
+    </marker>
+  </defs>
+  <text x="284" y="55" font-size="11" fill="#12233F" font-family="sans-serif">recalque</text>
+
+  <!-- Válvula de pé (necessária: a linha de sucção não é autoescorvante aqui) -->
+  <rect x="140" y="212" width="24" height="10" fill="#c3ccd9" stroke="#12233F" stroke-width="1.5"/>
+  <text x="140" y="200" font-size="10" fill="#5f6b7f" font-family="sans-serif">válvula de pé</text>
+</svg>

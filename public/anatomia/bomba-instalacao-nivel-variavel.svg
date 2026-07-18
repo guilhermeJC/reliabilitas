@@ -1,0 +1,48 @@
+<svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nível de sucção variável (ex.: esvaziando um caminhão-tanque): a linha de sucção é fixa mas o nível de líquido cai durante a operação — o NPSHa disponível se deteriora progressivamente até o fim do esvaziamento">
+  <!-- RELIABILITAS — instalação da bomba: nível de sucção variável / esvaziamento (asset próprio, DEV-025/BR-009) -->
+
+  <!-- Tanque horizontal (ex.: caminhão-tanque) -->
+  <rect x="40" y="60" width="220" height="120" rx="18" fill="#e9edf3" stroke="#12233F" stroke-width="2.5"/>
+
+  <!-- Nível ALTO (início, tracejado) -->
+  <line x1="40" y1="80" x2="260" y2="80" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="264" y="84" font-size="11" fill="#5f6b7f" font-family="sans-serif">nível inicial (t₀)</text>
+
+  <!-- Nível BAIXO (fim, sólido) + líquido preenchendo até ali -->
+  <rect x="44" y="140" width="212" height="36" fill="#e7f0fa" stroke="none"/>
+  <line x1="40" y1="140" x2="260" y2="140" stroke="#12233F" stroke-width="2"/>
+  <text x="264" y="144" font-size="11" fill="#12233F" font-family="sans-serif" font-weight="600">nível final (t₁)</text>
+
+  <!-- Seta indicando o nível caindo ao longo do tempo -->
+  <line x1="150" y1="86" x2="150" y2="134" stroke="#b45309" stroke-width="2.5" marker-end="url(#seta4)"/>
+  <defs>
+    <marker id="seta4" viewBox="0 0 10 10" refX="5" refY="8" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L10 0 L5 10 z" fill="#b45309"/>
+    </marker>
+    <marker id="seta5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#E8510A"/>
+    </marker>
+  </defs>
+  <text x="158" y="112" font-size="10" fill="#b45309" font-family="sans-serif">nível caindo</text>
+
+  <!-- Tubulação de sucção FIXA, próxima ao fundo (não acompanha o nível) -->
+  <path d="M100 176 L100 210 L220 210" fill="none" stroke="#12233F" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- Linha de centro do rotor -->
+  <line x1="220" y1="230" x2="360" y2="230" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+  <!-- Bomba -->
+  <circle cx="250" cy="230" r="24" fill="#dbe3ee" stroke="#12233F" stroke-width="2.5"/>
+  <rect x="234" y="254" width="32" height="12" fill="#d3dae6" stroke="#12233F" stroke-width="2"/>
+  <text x="250" y="235" font-size="10" fill="#12233F" font-family="sans-serif" text-anchor="middle" font-weight="600">B</text>
+
+  <!-- Recalque -->
+  <path d="M274 230 L320 230 L320 190" fill="none" stroke="#E8510A" stroke-width="3" stroke-dasharray="8 5" marker-end="url(#seta5)"/>
+
+  <!-- Cota H_s crescente (do nível FINAL, mais desfavorável, até a bomba) -->
+  <line x1="300" y1="140" x2="300" y2="230" stroke="#b91c1c" stroke-width="2"/>
+  <path d="M295 148 L300 140 L305 148" fill="none" stroke="#b91c1c" stroke-width="2"/>
+  <path d="M295 222 L300 230 L305 222" fill="none" stroke="#b91c1c" stroke-width="2"/>
+  <text x="308" y="190" font-size="13" fill="#b91c1c" font-family="sans-serif" font-weight="600">H_s cresce</text>
+  <text x="308" y="204" font-size="10" fill="#12233F" font-family="sans-serif">NPSHa piora com o tempo</text>
+</svg>

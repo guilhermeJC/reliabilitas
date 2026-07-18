@@ -1,0 +1,37 @@
+<svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bomba submersa (vertical, tipo turbina de poço): o conjunto rotor+motor fica imerso no líquido, no fundo do poço ou tanque, com a coluna de descarga subindo até a superfície">
+  <!-- RELIABILITAS — instalação da bomba: submersa/vertical de poço (asset próprio, DEV-025/BR-009) -->
+
+  <!-- Poço / tanque -->
+  <rect x="150" y="20" width="90" height="260" fill="#e9edf3" stroke="#12233F" stroke-width="2.5"/>
+  <!-- Líquido: quase todo o poço -->
+  <rect x="154" y="70" width="82" height="206" fill="#e7f0fa" stroke="none"/>
+  <line x1="150" y1="70" x2="240" y2="70" stroke="#12233F" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="246" y="74" font-size="12" fill="#12233F" font-family="sans-serif">Nível</text>
+
+  <!-- Coluna de descarga (sobe da bomba até a superfície e sai) -->
+  <rect x="186" y="90" width="14" height="176" fill="url(#acoSub)" stroke="#12233F" stroke-width="1.8"/>
+  <defs>
+    <linearGradient id="acoSub" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#dbe1ea"/>
+      <stop offset="0.5" stop-color="#f2f5f9"/>
+      <stop offset="1" stop-color="#aab4c2"/>
+    </linearGradient>
+    <marker id="seta3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#E8510A"/>
+    </marker>
+  </defs>
+  <path d="M200 40 L300 40" fill="none" stroke="#E8510A" stroke-width="3" stroke-dasharray="8 5" marker-end="url(#seta3)"/>
+  <text x="248" y="34" font-size="11" fill="#12233F" font-family="sans-serif">recalque</text>
+
+  <!-- Motor + bomba imersos (bloco no fundo) -->
+  <rect x="170" y="230" width="50" height="36" rx="4" fill="#dbe3ee" stroke="#12233F" stroke-width="2.5"/>
+  <circle cx="195" cy="248" r="10" fill="#c3ccd9" stroke="#12233F" stroke-width="1.8"/>
+  <text x="195" y="252" font-size="9" fill="#12233F" font-family="sans-serif" text-anchor="middle" font-weight="600">B+M</text>
+
+  <!-- Anotação: submergência mínima (ANSI/HI 9.8) -->
+  <line x1="120" y1="70" x2="120" y2="230" stroke="#1d9e75" stroke-width="2"/>
+  <path d="M115 78 L120 70 L125 78" fill="none" stroke="#1d9e75" stroke-width="2"/>
+  <path d="M115 222 L120 230 L125 222" fill="none" stroke="#1d9e75" stroke-width="2"/>
+  <text x="20" y="153" font-size="11" fill="#1d9e75" font-family="sans-serif" font-weight="600">submergência</text>
+  <text x="30" y="168" font-size="11" fill="#1d9e75" font-family="sans-serif" font-weight="600">mínima</text>
+</svg>
