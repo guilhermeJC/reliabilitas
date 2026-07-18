@@ -8,13 +8,15 @@ import { decideColapsadoInicial } from '@/lib/sidebar-preferencia';
 // cheia e reabrir a qualquer momento.
 //
 // SSR renderiza SEMPRE aberta — crawlers (BR-010) e a primeira visita veem toda
-// a árvore no HTML. Só após mount o useEffect decide o estado visível real:
-// preferência salva (`localStorage.sidebarOpen`) sempre vence; sem preferência,
-// o padrão passa a depender do tamanho de tela (`decideColapsadoInicial`,
-// achado do fundador 17/07 — sem isso, um visitante novo no celular via a
-// árvore "tomar a tela inteira" a cada página, já que cada navegação por link
-// é um carregamento SSR do zero). O hamburger do header dispara um CustomEvent
-// que este componente escuta — evita passar contexto React por toda a hierarquia.
+// a árvore no HTML. Só após mount o useEffect decide o estado visível real
+// (`decideColapsadoInicial`, achado do fundador 17/07, revisado no mesmo dia
+// com prints do celular real): no CELULAR, sempre recolhida, mesmo com
+// preferência salva de uma sessão anterior — é uma gaveta full-screen, não
+// uma coluna, e "lembrar" de ficar aberta entre páginas é o próprio bug (o
+// usuário abre pra escolher 1 destino, e a próxima página nascia aberta de
+// novo). No DESKTOP, a preferência salva continua valendo como sempre. O
+// hamburger do header dispara um CustomEvent que este componente escuta —
+// evita passar contexto React por toda a hierarquia.
 
 const CHEVRON_D = 'M3.5 1.5 L6.5 5 L3.5 8.5';
 
