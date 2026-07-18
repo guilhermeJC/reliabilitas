@@ -76,6 +76,14 @@ describe('montaSumarioHtml — sumário visual só quando há >=3 seções (pedi
     expect(html).toContain('href="#tres"');
   });
 
+  it('numera cada pill na ordem real de aparição no conteúdo (pedido do fundador, refinamento 18/07)', () => {
+    const html = montaSumarioHtml(tres, 'Nesta nota');
+    // a ordem é a mesma em que as seções chegam (document order) — 1, 2, 3
+    expect(html).toContain('<a href="#um"><span class="sumario-num">1</span>Um</a>');
+    expect(html).toContain('<a href="#dois"><span class="sumario-num">2</span>Dois</a>');
+    expect(html).toContain('<a href="#tres"><span class="sumario-num">3</span>Três</a>');
+  });
+
   it('com menos de 3 seções, não gera sumário (ruído visual sem ganho de navegação)', () => {
     expect(montaSumarioHtml(tres.slice(0, 2), 'Nesta nota')).toBe('');
     expect(montaSumarioHtml([], 'Nesta nota')).toBe('');
