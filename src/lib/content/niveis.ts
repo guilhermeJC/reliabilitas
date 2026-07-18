@@ -39,18 +39,14 @@ export function extractH3(corpo: string): SecaoH2[] {
   return secoes;
 }
 
-// Ícone de mapa/rota do cabeçalho — puramente decorativo (aria-hidden), path
-// genérico de "pin" (sem marca/IP), mesmo padrão de SVG desenhado à mão do
-// resto do projeto (DEV-025).
-const ICONE_MAPA =
-  '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>';
-
 // Sumário visual no início da nota (pedido do fundador, 18/07; refinado no
 // mesmo dia — "pouco chamativo", pediu cartão próprio + numeração da ordem
 // real de aparição). Só compensa com >=3 seções — menos que isso é ruído
 // visual sem ganho de navegação (para toda nota não faz sentido, AFC
 // confirmado). HTML puro (não Markdown) porque os ids de âncora já são
 // exatamente os mesmos que o render usa nos headings (slugifyHeading).
+// Sem ícone no cabeçalho (removido a pedido do fundador — "detalhe bobo"):
+// só o rótulo, alinhado à esquerda.
 export function montaSumarioHtml(secoes: SecaoH2[], rotulo: string): string {
   if (secoes.length < 3) return '';
   const links = secoes
@@ -61,7 +57,7 @@ export function montaSumarioHtml(secoes: SecaoH2[], rotulo: string): string {
     .join('');
   return (
     `<nav class="sumario-pills" aria-label="${escapeHtml(rotulo)}">` +
-    `<div class="sumario-pills-cabecalho">${ICONE_MAPA}<span class="sumario-pills-rotulo">${escapeHtml(rotulo)}</span></div>` +
+    `<div class="sumario-pills-cabecalho"><span class="sumario-pills-rotulo">${escapeHtml(rotulo)}</span></div>` +
     `<div class="sumario-pills-lista">${links}</div>` +
     `</nav>`
   );

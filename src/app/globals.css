@@ -131,11 +131,6 @@ body {
 .sumario-pills-cabecalho {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-}
-.sumario-pills-cabecalho svg {
-  color: var(--accent);
-  flex-shrink: 0;
 }
 .sumario-pills-rotulo {
   font-size: 11.5px;
