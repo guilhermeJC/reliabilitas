@@ -101,6 +101,42 @@ describe('renderNoteHtml — Markdown com mecânica Obsidian (D09)', () => {
   });
 });
 
+describe('tabelas — wikilink com rótulo dentro de célula (achado do fundador, 18/07)', () => {
+  // O parser de tabela do marked separa colunas por "|" ANTES do wikilink ser
+  // tokenizado — [[slug|Rótulo]] cru dentro de uma célula quebra a tabela em
+  // duas células fantasmas ("[[slug" e "Rótulo]]"), empurrando o resto da
+  // linha uma coluna adiante. Reproduzido literalmente com o achado do
+  // fundador (adicao-de-energia.md): "Família" e "Fluido de trabalho" com
+  // conteúdo trocado/quebrado.
+  const TABELA_COM_WIKILINK = [
+    '| Família | Fluido de trabalho | Elevação |',
+    '| --- | --- | --- |',
+    '| [[bombas|Bombas]] | líquidos | conforme a curva |',
+    '',
+  ].join('\n');
+
+  it('renderiza as 3 colunas corretamente (sem célula fantasma "[[slug")', () => {
+    const html = renderNoteHtml(TABELA_COM_WIKILINK, 'pt');
+    expect(html).not.toContain('[[bombas');
+    expect(html).not.toContain('Bombas]]');
+    expect(html).toContain('líquidos');
+    expect(html).toContain('conforme a curva');
+  });
+
+  it('a célula com wikilink vira um link de verdade para a nota', () => {
+    const html = renderNoteHtml(TABELA_COM_WIKILINK, 'pt');
+    expect(html).toContain('href="/pt/notas/bombas"');
+    expect(html).toContain('class="wikilink"');
+    expect(html).toContain('>Bombas</a>');
+  });
+
+  it('wikilink com rótulo em prosa normal (fora de tabela) continua intacto', () => {
+    const html = renderNoteHtml('Veja [[bombas|Bombas]] no texto normal.', 'pt');
+    expect(html).toContain('href="/pt/notas/bombas"');
+    expect(html).toContain('>Bombas</a>');
+  });
+});
+
 describe('tabelas — wrapper com rolagem horizontal (achado do fundador, celular)', () => {
   const TABELA_MD = '| A | B |\n| --- | --- |\n| 1 | 2 |\n';
 

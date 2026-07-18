@@ -25,7 +25,7 @@ const HTML_ESCAPES: Record<string, string> = {
   '"': '&quot;',
 };
 
-function escapeHtml(s: string): string {
+export function escapeHtml(s: string): string {
   return s.replace(/[&<>"]/g, (c) => HTML_ESCAPES[c]);
 }
 
@@ -154,7 +154,32 @@ export function envolveTabelasComScroll(html: string): string {
   );
 }
 
+// Achado do fundador (18/07): [[slug|Rótulo]] dentro de uma célula de tabela
+// quebrava a tabela — o lexer de tabela do marked separa colunas contando
+// "|" ANTES de qualquer tokenizer inline rodar, então o "|" do wikilink virava
+// separador de coluna (duas células fantasmas: "[[slug" e "Rótulo]]",
+// empurrando o resto da linha). Fix: escapar esse "|" interno (\|) só dentro
+// de linhas que SÃO uma linha de tabela — o lexer de tabela do marked
+// respeita "\|" como pipe literal e o devolve sem a barra para o tokenizer
+// inline, que then casa [[slug|Rótulo]] normalmente. Fora de tabela (prosa)
+// a linha não é tocada — não precisa e o próprio tokenizer de wikilink não
+// entende "\|" como separador válido.
+const LINHA_DE_TABELA_RE = /^\s*\|.*\|\s*$/;
+const WIKILINK_COM_ROTULO_RE = /\[\[([^\][|]+)\|([^\][]+)\]\]/g;
+
+export function escapaPipesEmWikilinksDeTabela(md: string): string {
+  return md
+    .split('\n')
+    .map((linha) =>
+      LINHA_DE_TABELA_RE.test(linha)
+        ? linha.replace(WIKILINK_COM_ROTULO_RE, (_m, alvo, rotulo) => `[[${alvo}\\|${rotulo}]]`)
+        : linha,
+    )
+    .join('\n');
+}
+
 export function renderNoteHtml(corpoMd: string, locale: Locale): string {
-  const html = markedDe(locale).parse(corpoMd, { async: false }) as string;
+  const preprocessado = escapaPipesEmWikilinksDeTabela(corpoMd);
+  const html = markedDe(locale).parse(preprocessado, { async: false }) as string;
   return envolveTabelasComScroll(html);
 }
