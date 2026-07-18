@@ -329,6 +329,12 @@ export default async function NotaPage({ params }: PageParams) {
                 const proximo = idxAnat >= 0 ? h2s[idxAnat + 1] : undefined;
                 divisaoAnatomia = proximo ? separaHtmlNoHeading(restanteHtml, proximo.id) : null;
               }
+              // Isolado numa variável (não como ternário inline no JSX) pra caber
+              // numa linha só e manter o nosemgrep abaixo colado na linha certa —
+              // o Prettier quebra ternários longos em 3 linhas e descola o
+              // comentário da linha que o Semgrep de fato reporta (achado real,
+              // pego pelo CI: DEV-017 continua válido, só a adjacência quebrou).
+              const antesAnatomiaHtml = divisaoAnatomia ? divisaoAnatomia.antes : restanteHtml;
 
               return (
                 <>
@@ -349,9 +355,7 @@ export default async function NotaPage({ params }: PageParams) {
                     className="nota-corpo mt-6 rounded-lg border bg-white p-6 md:p-8"
                     style={{ borderColor: '#e3e8f0' }}
                     // nosemgrep: typescript.react.security.audit.react-dangerouslysetinnerhtml.react-dangerouslysetinnerhtml -- falso positivo documentado (DEV-017): HTML gerado server-side de conteúdo autoral validado no ingest (BR-006/F3/F8); DOMPurify é requisito do gate da Fase 3 (BR-013)
-                    dangerouslySetInnerHTML={{
-                      __html: divisaoAnatomia ? divisaoAnatomia.antes : restanteHtml,
-                    }}
+                    dangerouslySetInnerHTML={{ __html: antesAnatomiaHtml }}
                   />
                   {hotspots && anatomia && (
                     <AnatomiaInterativa
