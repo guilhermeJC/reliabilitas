@@ -2,6 +2,7 @@ import { Marked } from 'marked';
 import katex from 'katex';
 import { SLUG_RE, type Locale } from '@/lib/content/schema';
 import { notaPath } from '@/lib/routes';
+import { matchWikilinkAt, WIKILINK_PATTERN_SOURCE } from '@/lib/content/wikilinks';
 
 // Render SSR do corpo da nota (D09 — mecânica Obsidian).
 // F14: wikilinks são uma EXTENSÃO do marked (tokenizer inline) — o lexer não roda
@@ -15,8 +16,6 @@ import { notaPath } from '@/lib/routes';
 // (cifrão SEM espaço encostado — "R$ 100" nunca dispara) e $$...$$ bloco.
 // trust:false SEMPRE (TeX não vira javascript:/HTML arbitrário) e
 // throwOnError:false (TeX inválido degrada para o fonte em vermelho).
-
-const WIKILINK_TOKEN_RE = /^\[\[([^\][|]+)(?:\|([^\][]+))?\]\]/;
 
 const HTML_ESCAPES: Record<string, string> = {
   '&': '&amp;',
@@ -44,11 +43,10 @@ function wikilinkExtension(locale: Locale) {
       return src.indexOf('[[');
     },
     tokenizer(src: string): WikilinkToken | undefined {
-      const m = WIKILINK_TOKEN_RE.exec(src);
+      const m = matchWikilinkAt(src);
       if (!m) return undefined;
-      const alvo = m[1].trim();
-      if (!SLUG_RE.test(alvo)) return undefined; // F3: não é slug → segue como texto
-      return { type: 'wikilink', raw: m[0], alvo, rotulo: (m[2] ?? alvo).trim() };
+      if (!SLUG_RE.test(m.target)) return undefined; // F3: não é slug → segue como texto
+      return { type: 'wikilink', raw: m.raw, alvo: m.target, rotulo: m.label ?? m.target };
     },
     renderer(token: object) {
       const { alvo, rotulo } = token as WikilinkToken;
@@ -165,14 +163,21 @@ export function envolveTabelasComScroll(html: string): string {
 // a linha não é tocada — não precisa e o próprio tokenizer de wikilink não
 // entende "\|" como separador válido.
 const LINHA_DE_TABELA_RE = /^\s*\|.*\|\s*$/;
-const WIKILINK_COM_ROTULO_RE = /\[\[([^\][|]+)\|([^\][]+)\]\]/g;
+// Terceiro adapter real da mesma gramática (os outros dois: extractWikilinks
+// pro grafo, matchWikilinkAt pro tokenizer) — precisa da própria instância de
+// RegExp (estado de `lastIndex` global por linha), mas construída da MESMA
+// fonte de padrão, nunca de uma cópia. Só escapa quando há rótulo (grupo 2
+// presente) — sem rótulo não há "|" interno pra confundir o lexer de tabela.
+const WIKILINK_GLOBAL_RE = new RegExp(WIKILINK_PATTERN_SOURCE, 'g');
 
 export function escapaPipesEmWikilinksDeTabela(md: string): string {
   return md
     .split('\n')
     .map((linha) =>
       LINHA_DE_TABELA_RE.test(linha)
-        ? linha.replace(WIKILINK_COM_ROTULO_RE, (_m, alvo, rotulo) => `[[${alvo}\\|${rotulo}]]`)
+        ? linha.replace(WIKILINK_GLOBAL_RE, (m, alvo, rotulo) =>
+            rotulo === undefined ? m : `[[${alvo}\\|${rotulo}]]`,
+          )
         : linha,
     )
     .join('\n');
