@@ -18,6 +18,7 @@ import { agrupaFontes, GRUPOS_FONTES, type GrupoFonte } from '@/lib/content/font
 import { separaHtmlNoHeading } from '@/lib/content/split-html';
 import { hotspotsPorSlug } from '@/lib/anatomia/registry';
 import { AnatomiaInterativa } from '@/components/anatomia-interativa';
+import { widgetExtraDaNota, type WidgetKey } from '@/lib/widgets/registry';
 import { NIVEIS_LEITURA, type Locale } from '@/lib/content/schema';
 import { Breadcrumb } from '@/components/breadcrumb';
 import { Backlinks } from '@/components/backlinks';
@@ -25,6 +26,14 @@ import { FwCards } from '@/components/fw-cards';
 import { PlanoTable } from '@/components/plano-table';
 import { CurvaHq } from '@/components/calc/curva-hq';
 import { CurvaQp } from '@/components/calc/curva-qp';
+
+// Wiring trivial (chave → componente) do registry puro de src/lib/widgets —
+// a seleção de QUAL widget é lógica testável ali; aqui é só o mapeamento
+// para o componente React de fato, no mesmo limite de teste do resto do JSX.
+const WIDGET_COMPONENTES: Record<WidgetKey, typeof CurvaHq | typeof CurvaQp> = {
+  'curva-hq': CurvaHq,
+  'curva-qp': CurvaQp,
+};
 import { NivelSelector, type NivelLabel } from '@/components/nivel-selector';
 import { WeibullCalc } from '@/components/calc/weibull-calc';
 import { ExportNotaBotoes } from '@/components/export-nota-botoes';
@@ -303,19 +312,31 @@ export default async function NotaPage({ params }: PageParams) {
             {(() => {
               const h2s = extractH2(nota.corpo_md);
 
-              // Curva H-Q viva (sessão 5): achado do fundador (18/07) — rodava
-              // dangling no FIM da nota inteira, sem ligação com o texto da seção
-              // Princípio que fala dela. Reposicionada logo após essa seção,
-              // mesmo mecanismo de split usado abaixo para a Anatomia.
-              const mostraCurvaHq = ehHandbook && nota.taxonomia.includes('dinamicas');
-              const idxPrincipio = mostraCurvaHq
-                ? h2s.findIndex((s) => s.id === 'principio-de-funcionamento')
+              // Widget extra por nota (aprofundamento 18/07,
+              // /improve-codebase-architecture): registry único em
+              // src/lib/widgets/registry.ts substitui os 2 `if`s hardcoded
+              // que existiam aqui (curva H-Q por taxonomia, Q×P por slug).
+              const widget = widgetExtraDaNota({
+                slug: nota.slug,
+                taxonomia: nota.taxonomia,
+                ehHandbook,
+              });
+              const WidgetComponente = widget ? WIDGET_COMPONENTES[widget.key] : null;
+              const idxApos = widget?.apos
+                ? h2s.findIndex((s) => s.id === widget.apos)
                 : -1;
-              const proximoAposPrincipio = idxPrincipio >= 0 ? h2s[idxPrincipio + 1] : undefined;
-              const divisaoPrincipio = proximoAposPrincipio
-                ? separaHtmlNoHeading(corpoHtml, proximoAposPrincipio.id)
+              const proximoAposWidget = idxApos >= 0 ? h2s[idxApos + 1] : undefined;
+              const divisaoWidget = proximoAposWidget
+                ? separaHtmlNoHeading(corpoHtml, proximoAposWidget.id)
                 : null;
-              const restanteHtml = divisaoPrincipio ? divisaoPrincipio.depois : corpoHtml;
+              const restanteHtml = divisaoWidget ? divisaoWidget.depois : corpoHtml;
+              // Widget "no meio" só quando tem um heading-alvo (apos) E o split
+              // deu certo; widget "no fim" só quando NÃO tem heading-alvo — os
+              // dois casos preservam exatamente o comportamento original de
+              // CurvaHq (média da nota, condicionada ao split) e CurvaQp (fim
+              // da nota, sem split nenhum).
+              const mostraWidgetNoMeio = Boolean(widget?.apos) && divisaoWidget !== null;
+              const mostraWidgetNoFim = Boolean(widget) && !widget?.apos;
 
               // Anatomia interativa (melhoria 2, 10/07): quando o handbook tem
               // hotspots registrados, o corpo é dividido no heading SEGUINTE à
@@ -338,17 +359,17 @@ export default async function NotaPage({ params }: PageParams) {
 
               return (
                 <>
-                  {divisaoPrincipio && (
+                  {divisaoWidget && (
                     <article
                       className="nota-corpo mt-6 rounded-lg border bg-white p-6 md:p-8"
                       style={{ borderColor: '#e3e8f0' }}
                       // nosemgrep: typescript.react.security.audit.react-dangerouslysetinnerhtml.react-dangerouslysetinnerhtml -- falso positivo documentado (DEV-017): HTML gerado server-side de conteúdo autoral validado no ingest (BR-006/F3/F8); DOMPurify é requisito do gate da Fase 3 (BR-013)
-                      dangerouslySetInnerHTML={{ __html: divisaoPrincipio.antes }}
+                      dangerouslySetInnerHTML={{ __html: divisaoWidget.antes }}
                     />
                   )}
-                  {mostraCurvaHq && divisaoPrincipio && (
+                  {mostraWidgetNoMeio && WidgetComponente && (
                     <div className="mt-6">
-                      <CurvaHq />
+                      <WidgetComponente />
                     </div>
                   )}
                   <article
@@ -378,17 +399,17 @@ export default async function NotaPage({ params }: PageParams) {
                       dangerouslySetInnerHTML={{ __html: divisaoAnatomia.depois }}
                     />
                   )}
+                  {/* Widget "no fim" (ex.: comparativo Q×P): entra na ÚLTIMA
+                      seção da nota, nada depois dela — sem split, ao contrário
+                      do widget "no meio" (curva H-Q). */}
+                  {mostraWidgetNoFim && WidgetComponente && (
+                    <div className="mt-6">
+                      <WidgetComponente />
+                    </div>
+                  )}
                 </>
               );
             })()}
-            {/* Comparativo Q×P vivo (revisão do fundador, 18/07): entra na ÚLTIMA
-                seção da nota (nada depois dela — não precisa de split como a
-                curva H-Q), keyed pelo slug como o registry da anatomia. */}
-            {nota.slug === 'deslocamento-positivo' && (
-              <div className="mt-6">
-                <CurvaQp />
-              </div>
-            )}
           </>
         )}
 
