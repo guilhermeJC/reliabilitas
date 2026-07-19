@@ -19,6 +19,7 @@ import { separaHtmlNoHeading } from '@/lib/content/split-html';
 import { hotspotsPorSlug } from '@/lib/anatomia/registry';
 import { AnatomiaInterativa } from '@/components/anatomia-interativa';
 import { widgetExtraDaNota, type WidgetKey } from '@/lib/widgets/registry';
+import { paiDireto } from '@/lib/content/taxonomia-nav';
 import { NIVEIS_LEITURA, type Locale } from '@/lib/content/schema';
 import { Breadcrumb } from '@/components/breadcrumb';
 import { Backlinks } from '@/components/backlinks';
@@ -279,7 +280,7 @@ export default async function NotaPage({ params }: PageParams) {
             <PlanoTable
               plano={nota.frontmatter.plano_manutencao as never}
               contexto={{
-                equipamento: titulos.get(nota.taxonomia.at(-1) ?? '') ?? '',
+                equipamento: titulos.get(paiDireto(nota.taxonomia) ?? '') ?? '',
                 modoFalha: nota.titulo,
               }}
               fwA={nota.frontmatter.fw_a as never}

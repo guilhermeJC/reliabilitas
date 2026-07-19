@@ -1,4 +1,5 @@
 import { validateNiveisCorpo, type NotaFrontmatter } from './schema';
+import { paiDireto } from './taxonomia-nav';
 
 // Validação de LOTE (o acervo inteiro após o parse individual BR-006):
 // BR-001 (cadeia-pai publicada), BR-008 (bilíngue), unicidade slug+locale,
@@ -99,9 +100,9 @@ export function validateBatch(notas: NotaParsed[], opts: BatchOptions = {}): Bat
 
     // F2 — coerência da cadeia: a taxonomia do pai + o pai = a taxonomia do filho.
     // Cadeias contraditórias entre notas quebrariam breadcrumb/árvore silenciosamente.
-    const paiDireto = fm.taxonomia.at(-1);
-    if (paiDireto) {
-      const paiNota = porChave.get(key(paiDireto, fm.locale));
+    const pai = paiDireto(fm.taxonomia);
+    if (pai) {
+      const paiNota = porChave.get(key(pai, fm.locale));
       if (paiNota) {
         const esperada = fm.taxonomia.slice(0, -1);
         const real = paiNota.fm.taxonomia;
@@ -110,7 +111,7 @@ export function validateBatch(notas: NotaParsed[], opts: BatchOptions = {}): Bat
         if (diverge) {
           errors.push({
             file: n.file,
-            message: `F2: cadeia contraditória — '${fm.slug}' (${fm.locale}) implica que '${paiDireto}' tenha taxonomia [${esperada.join(', ')}], mas ela declara [${real.join(', ')}]`,
+            message: `F2: cadeia contraditória — '${fm.slug}' (${fm.locale}) implica que '${pai}' tenha taxonomia [${esperada.join(', ')}], mas ela declara [${real.join(', ')}]`,
           });
         }
       }

@@ -1,4 +1,5 @@
 import type { NotaParsed } from './validate-batch';
+import { paiDireto } from './taxonomia-nav';
 
 // Constrói as linhas de gravação: notas (upsert por slug+locale) e arestas do grafo.
 // Arestas: wikilink (corpo), taxonomia (pai direto) e componente (handbook → D10).
@@ -69,8 +70,8 @@ export function buildPlan(parsed: NotaParsed[]): IngestPlan {
 
     for (const alvo of n.wikilinks) add(alvo, 'wikilink');
 
-    const paiDireto = n.fm.taxonomia.at(-1);
-    if (paiDireto) add(paiDireto, 'taxonomia');
+    const pai = paiDireto(n.fm.taxonomia);
+    if (pai) add(pai, 'taxonomia');
 
     const componentes = (fm.componentes as string[] | undefined) ?? [];
     for (const c of componentes) add(c, 'componente');

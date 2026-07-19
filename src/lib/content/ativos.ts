@@ -1,5 +1,6 @@
 import type { Locale } from '@/lib/content/schema';
 import type { NotaResumo } from '@/lib/db/notas';
+import { classeRaiz } from '@/lib/content/taxonomia-nav';
 
 // T01 v2 (revisão 4 do fundador): a Home clusteriza o acervo pelos GRUPOS
 // FUNCIONAIS da taxonomia (item 4 da mesma revisão) — escala para 100+ ativos
@@ -159,7 +160,7 @@ export function handbooksPublicados(acervo: NotaResumo[], _locale: Locale): Grup
 
   for (const n of acervo) {
     if (n.tipo_nota === 'tipo') {
-      const raiz = n.taxonomia[0] ?? 'componentes';
+      const raiz = classeRaiz(n.taxonomia) ?? 'componentes';
       push(raiz, { slug: n.slug, titulo: n.titulo });
     } else if (n.tipo_nota === 'componente') {
       push('componentes', { slug: n.slug, titulo: n.titulo });

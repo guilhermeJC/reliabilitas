@@ -2,6 +2,8 @@
 // pendura no último elemento da sua cadeia (D16). Pai não publicado → nó vira raiz
 // (a nota nunca some da navegação; o lote F2/BR-001 já impede isso em produção).
 
+import { paiDireto } from './taxonomia-nav';
+
 export interface NotaResumo {
   slug: string;
   tipo_nota: string;
@@ -62,7 +64,7 @@ export function buildGroups(notas: NotaResumo[]): SidebarGroups {
     .map((n) => ({
       slug: n.slug,
       titulo: n.titulo,
-      equipamento: titulos.get(n.taxonomia.at(-1) ?? '') ?? null,
+      equipamento: titulos.get(paiDireto(n.taxonomia) ?? '') ?? null,
     }));
 
   // 4º grupo (sessão 5): estratégias de manutenção (nível 8 da taxonomia) são
@@ -80,7 +82,7 @@ export function buildTree(notas: NotaResumo[]): TreeNode[] {
 
   const raizes: TreeNode[] = [];
   for (const no of nos.values()) {
-    const pai = no.taxonomia.at(-1);
+    const pai = paiDireto(no.taxonomia);
     const paiNo = pai ? nos.get(pai) : undefined;
     if (paiNo) paiNo.children.push(no);
     else raizes.push(no);
