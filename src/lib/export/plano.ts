@@ -55,6 +55,28 @@ function celulaMd(valor: string): string {
   return valor.replaceAll('|', '\\|').replaceAll('\n', ' ');
 }
 
+interface CampoTarefa {
+  label: string;
+  valor: string;
+}
+
+// Fonte ÚNICA dos campos de contorno de uma tarefa (condição, especialidade,
+// duração) — MD e CSV iteram sobre a MESMA lista em vez de reimplementar
+// separadamente quais campos existem e em que ordem. Aprofundamento (18/07,
+// /improve-codebase-architecture): antes desta mudança o bloco por tarefa do
+// CSV omitia especialidade/duração que o MD sempre incluiu — os dois
+// percorriam a mesma estrutura com serialização própria e já tinham
+// divergido silenciosamente. `criterio`/`acao` não entram aqui porque cada
+// formato os apresenta de um jeito genuinamente diferente (MD: parágrafo em
+// negrito; CSV: linha própria) — não é o mesmo caso de divergência acidental.
+function camposDeContornoDaTarefa(l: TarefaPlano, tx: TextosPlanoDoc): CampoTarefa[] {
+  const campos: CampoTarefa[] = [];
+  if (l.condicao) campos.push({ label: tx.condicao, valor: l.condicao });
+  if (l.especialidade) campos.push({ label: tx.especialidade, valor: l.especialidade });
+  if (l.duracao) campos.push({ label: tx.duracao, valor: l.duracao });
+  return campos;
+}
+
 function titulo(ctx: ContextoPlano, tx: TextosPlanoDoc): string {
   return (ctx.decisao && tx.tituloPorDecisao[ctx.decisao]) || tx.tituloGenerico;
 }
@@ -130,9 +152,9 @@ export function planoParaMd(plano: TarefaPlano[], ctx: ContextoPlano, tx: Textos
     linhas.push(`| ${tx.campo} | ${tx.valor} |`, '| --- | --- |');
     linhas.push(`| ${tx.periodicidade} | ${celulaMd(l.periodicidade)} |`);
     linhas.push(`| ${tx.metodo} | ${celulaMd(l.metodo)} |`);
-    if (l.condicao) linhas.push(`| ${tx.condicao} | ${celulaMd(l.condicao)} |`);
-    if (l.especialidade) linhas.push(`| ${tx.especialidade} | ${celulaMd(l.especialidade)} |`);
-    if (l.duracao) linhas.push(`| ${tx.duracao} | ${celulaMd(l.duracao)} |`);
+    for (const c of camposDeContornoDaTarefa(l, tx)) {
+      linhas.push(`| ${c.label} | ${celulaMd(c.valor)} |`);
+    }
     linhas.push('');
     if (l.passos && l.passos.length > 0) {
       linhas.push(`**${tx.procedimento}:**`, '');
@@ -234,6 +256,7 @@ export function planoParaCsv(plano: TarefaPlano[], ctx: ContextoPlano, tx: Texto
   // Blocos por tarefa
   plano.forEach((l, i) => {
     row(`${tx.secTarefa} ${i + 1}`, l.tarefa);
+    for (const c of camposDeContornoDaTarefa(l, tx)) row(c.label, c.valor);
     if (l.passos) l.passos.forEach((p, j) => row(`${tx.passo} ${j + 1}`, p));
     if (l.registros) for (const r of l.registros) row(tx.registro, r, tx.preenchimento);
     if (l.criterio) row(tx.criterio, l.criterio);

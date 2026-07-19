@@ -145,6 +145,15 @@ describe('planoParaCsv — documento em blocos, separador ; e BOM', () => {
     expect(csv).toContain('Registro;RMS banda 10–25 kHz — mancal LA [g];[ __________ ]');
   });
 
+  // Aprofundamento (18/07, /improve-codebase-architecture): o bloco por tarefa
+  // do CSV omitia especialidade/duração enquanto o MD sempre os incluiu —
+  // divergência silenciosa entre os dois formatos para o MESMO TarefaPlano.
+  it('bloco por tarefa também traz condição, especialidade e duração (paridade com o MD)', () => {
+    expect(csv).toContain('Condição de contorno;Em operação, carga estável');
+    expect(csv).toContain('Especialidade;Preditiva / vibração');
+    expect(csv).toContain('Tempo estimado;0,5 h');
+  });
+
   it('restabelecimento e validação presentes', () => {
     expect(csv).toContain('RESTABELECIMENTO OPERACIONAL');
     expect(csv).toContain('EXECUTADO POR (nome/matrícula)');
