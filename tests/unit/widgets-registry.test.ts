@@ -45,12 +45,20 @@ describe('widgetExtraDaNota — registro único, critérios preservados', () => 
 
   it('nota sem widget registrado retorna null', () => {
     expect(
-      widgetExtraDaNota({ slug: 'cavitacao', taxonomia: ['adicao-de-energia', 'bombas'], ehHandbook: false }),
+      widgetExtraDaNota({
+        slug: 'cavitacao',
+        taxonomia: ['adicao-de-energia', 'bombas'],
+        ehHandbook: false,
+      }),
     ).toBeNull();
   });
 
   it('primeira entrada que casar vence (ordem do registro importa)', () => {
-    const widget = widgetExtraDaNota({ slug: 'bomba-centrifuga', taxonomia: ['dinamicas'], ehHandbook: true });
+    const widget = widgetExtraDaNota({
+      slug: 'bomba-centrifuga',
+      taxonomia: ['dinamicas'],
+      ehHandbook: true,
+    });
     expect(widget?.key).toBe('curva-hq');
   });
 });

@@ -26,6 +26,12 @@ import { FwCards } from '@/components/fw-cards';
 import { PlanoTable } from '@/components/plano-table';
 import { CurvaHq } from '@/components/calc/curva-hq';
 import { CurvaQp } from '@/components/calc/curva-qp';
+import { NivelSelector, type NivelLabel } from '@/components/nivel-selector';
+import { WeibullCalc } from '@/components/calc/weibull-calc';
+import { ExportNotaBotoes } from '@/components/export-nota-botoes';
+import { SugerirCorrecaoLink } from '@/components/sugerir-correcao-link';
+// CSS do KaTeX só onde há fórmula (corpo de nota) — fora do bundle global.
+import 'katex/dist/katex.min.css';
 
 // Wiring trivial (chave → componente) do registry puro de src/lib/widgets —
 // a seleção de QUAL widget é lógica testável ali; aqui é só o mapeamento
@@ -34,12 +40,6 @@ const WIDGET_COMPONENTES: Record<WidgetKey, typeof CurvaHq | typeof CurvaQp> = {
   'curva-hq': CurvaHq,
   'curva-qp': CurvaQp,
 };
-import { NivelSelector, type NivelLabel } from '@/components/nivel-selector';
-import { WeibullCalc } from '@/components/calc/weibull-calc';
-import { ExportNotaBotoes } from '@/components/export-nota-botoes';
-import { SugerirCorrecaoLink } from '@/components/sugerir-correcao-link';
-// CSS do KaTeX só onde há fórmula (corpo de nota) — fora do bundle global.
-import 'katex/dist/katex.min.css';
 
 // Página de nota — T03 (modo de falha, seletor de 3 níveis), T02 (handbook,
 // seções ancoradas) e nota-semente (layout curto). Conteúdo autoral do curador
@@ -322,9 +322,7 @@ export default async function NotaPage({ params }: PageParams) {
                 ehHandbook,
               });
               const WidgetComponente = widget ? WIDGET_COMPONENTES[widget.key] : null;
-              const idxApos = widget?.apos
-                ? h2s.findIndex((s) => s.id === widget.apos)
-                : -1;
+              const idxApos = widget?.apos ? h2s.findIndex((s) => s.id === widget.apos) : -1;
               const proximoAposWidget = idxApos >= 0 ? h2s[idxApos + 1] : undefined;
               const divisaoWidget = proximoAposWidget
                 ? separaHtmlNoHeading(corpoHtml, proximoAposWidget.id)
