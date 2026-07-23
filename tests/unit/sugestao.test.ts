@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { validaSugestao } from '@/lib/sugestao';
+import { PAGINA_INTERNA_RE, validaSugestao } from '@/lib/sugestao';
 import { criaRateLimiter } from '@/lib/rate-limit';
 
 // T09 — a ÚNICA rota de escrita do site (G4/DEV-014). Todo input é hostil por
@@ -51,6 +51,17 @@ describe('validaSugestao — contrato estrito da rota de escrita', () => {
 
   it('payload não-string (arrays de searchParam, objetos) é rejeitado sem lançar', () => {
     expect(validaSugestao({ mensagem: ['a', 'b'], pagina: 1, website: null }).ok).toBe(false);
+  });
+});
+
+describe('PAGINA_INTERNA_RE — fonte única usada pelo zod E pela rota (DEV-083 #4)', () => {
+  it('aceita path interno', () => {
+    expect(PAGINA_INTERNA_RE.test('/pt/notas/cavitacao')).toBe(true);
+  });
+
+  it('rejeita URL externa e protocol-relative', () => {
+    expect(PAGINA_INTERNA_RE.test('https://evil.example/phish')).toBe(false);
+    expect(PAGINA_INTERNA_RE.test('//evil.example')).toBe(false);
   });
 });
 

@@ -8,10 +8,14 @@ import { z } from 'zod';
 export const MENSAGEM_MIN = 10;
 export const MENSAGEM_MAX = 2000;
 
+// DEV-083 #4: mesmo regex usado pelo zod schema E pelo redirect de erro da
+// rota (api/sugestao/route.ts) — fonte única, duas cópias divergiam antes.
+// path interno: começa com exatamente UMA barra ('//' seria protocol-relative)
+export const PAGINA_INTERNA_RE = /^\/(?!\/)[\w\-/?=%.]*$/;
+
 const sugestaoSchema = z.strictObject({
   mensagem: z.string().trim().min(MENSAGEM_MIN).max(MENSAGEM_MAX),
-  // path interno: começa com exatamente UMA barra ('//' seria protocol-relative)
-  pagina: z.string().regex(/^\/(?!\/)[\w\-/?=%.]*$/, 'pagina deve ser path interno'),
+  pagina: z.string().regex(PAGINA_INTERNA_RE, 'pagina deve ser path interno'),
   contato: z
     .union([z.literal(''), z.string().trim().email().max(200)])
     .transform((v) => (v === '' ? null : v)),

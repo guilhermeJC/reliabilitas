@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { admin } from '@/lib/db/client';
-import { validaSugestao } from '@/lib/sugestao';
+import { PAGINA_INTERNA_RE, validaSugestao } from '@/lib/sugestao';
 import { criaRateLimiter } from '@/lib/rate-limit';
+import { extraiIp } from '@/lib/request-ip';
 
 // T09 — a ÚNICA rota de escrita do site (G4). Ordem das defesas:
 // honeypot (bot recebe sucesso FALSO, nada é gravado) → rate limit por IP
@@ -18,7 +19,7 @@ export async function POST(req: NextRequest) {
   // Path interno já validado pelo zod; para o redirect de erro usa-se o mesmo
   // critério (nunca refletir URL externa — open redirect impossível).
   const paginaSegura =
-    typeof raw.pagina === 'string' && /^\/(?!\/)[\w\-/?=%.]*$/.test(raw.pagina)
+    typeof raw.pagina === 'string' && PAGINA_INTERNA_RE.test(raw.pagina)
       ? raw.pagina
       : `/${locale}`;
   const volta = (st: 'ok' | 'erro' | 'limite') =>
@@ -30,7 +31,7 @@ export async function POST(req: NextRequest) {
   const r = validaSugestao(raw);
   if (!r.ok && r.motivo === 'bot') return volta('ok'); // honeypot: finge sucesso
 
-  const ip = (req.headers.get('x-forwarded-for') ?? 'local').split(',')[0].trim();
+  const ip = extraiIp(req.headers);
   if (!permite(ip)) return volta('limite');
 
   if (!r.ok) return volta('erro');

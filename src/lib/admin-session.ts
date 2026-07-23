@@ -7,11 +7,13 @@ import { verificaTokenSessao } from '@/lib/admin-auth';
 // e por CADA rota de mutação do admin (status de sugestão/contribuição) —
 // nunca confiar só no guard do layout para uma rota de escrita.
 
-const COOKIE = 'admin_session';
+// DEV-083 #4: nome do cookie repetido em 3 arquivos — fonte única aqui,
+// admin/login e admin/logout importam em vez de redeclarar.
+export const ADMIN_SESSION_COOKIE = 'admin_session';
 
 export async function estaAutenticado(): Promise<boolean> {
   const jar = await cookies();
-  const token = jar.get(COOKIE)?.value;
+  const token = jar.get(ADMIN_SESSION_COOKIE)?.value;
   const segredo = process.env.ADMIN_SESSION_SECRET;
   if (!token || !segredo) return false;
   return verificaTokenSessao(token, segredo);

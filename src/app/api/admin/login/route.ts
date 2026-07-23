@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { criaTokenSessao, senhaCorreta } from '@/lib/admin-auth';
 import { criaRateLimiter } from '@/lib/rate-limit';
+import { extraiIp } from '@/lib/request-ip';
+import { ADMIN_SESSION_COOKIE } from '@/lib/admin-session';
 
 // Painel de aprovação (11/07) — login por senha única (sem conta de usuário,
 // Auth completo adiado pra Fase 2/3 — DEV-018/DEV-046). Rate limit por IP
 // contra força bruta da senha (defesa em profundidade; teto global no
 // Cloudflare). Cookie httpOnly+secure+sameSite=strict — nunca lido por JS.
 
-const COOKIE = 'admin_session';
 const permite = criaRateLimiter({ maxNaJanela: 5, janelaMs: 15 * 60 * 1000 });
 
 function segredo(): string {
@@ -26,7 +27,7 @@ export async function POST(req: NextRequest) {
   const form = await req.formData();
   const senha = String(form.get('senha') ?? '');
 
-  const ip = (req.headers.get('x-forwarded-for') ?? 'local').split(',')[0].trim();
+  const ip = extraiIp(req.headers);
   if (!permite(ip)) {
     return NextResponse.redirect(new URL('/admin/login?st=limite', req.url), 303);
   }
@@ -37,7 +38,7 @@ export async function POST(req: NextRequest) {
 
   const token = criaTokenSessao(segredo());
   const res = NextResponse.redirect(new URL('/admin', req.url), 303);
-  res.cookies.set(COOKIE, token, {
+  res.cookies.set(ADMIN_SESSION_COOKIE, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict',

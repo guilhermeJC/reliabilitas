@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { admin } from '@/lib/db/client';
 import { validaContribuicao } from '@/lib/contribuicao';
 import { criaRateLimiter } from '@/lib/rate-limit';
+import { extraiIp } from '@/lib/request-ip';
 
 // Colaborar — 2ª (e última planejada no MVP) rota de escrita pública do site.
 // Mesma ordem de defesas do T09 (/api/sugestao): honeypot (bot recebe sucesso
@@ -20,7 +21,7 @@ export async function POST(req: NextRequest) {
   const r = validaContribuicao(raw);
   if (!r.ok && r.motivo === 'bot') return volta('ok'); // honeypot: finge sucesso
 
-  const ip = (req.headers.get('x-forwarded-for') ?? 'local').split(',')[0].trim();
+  const ip = extraiIp(req.headers);
   if (!permite(ip)) return volta('limite');
 
   if (!r.ok) return volta('erro');
