@@ -84,20 +84,25 @@ describe('termosPath — Termos de Uso + Privacidade (G3)', () => {
   });
 });
 
-describe('construirUrlLocale — troca de idioma preserva a query atual (DEV-083 #3)', () => {
-  it('sem query: retorna só o pathname', () => {
-    expect(construirUrlLocale('/busca', new URLSearchParams())).toBe('/busca');
+describe('construirUrlLocale — troca de idioma preserva a query atual (DEV-083 #3, G5)', () => {
+  it('sem query: pathname com objeto de query vazio', () => {
+    expect(construirUrlLocale('/busca', new URLSearchParams())).toEqual({
+      pathname: '/busca',
+      query: {},
+    });
   });
 
-  it('preserva termo e página da busca', () => {
-    expect(construirUrlLocale('/busca', new URLSearchParams('q=cavitacao&p=2'))).toBe(
-      '/busca?q=cavitacao&p=2',
-    );
+  it('preserva termo e página da busca como objeto — forma exigida pelo <Link> do next-intl com `locale` (string com query embutida perde a query na navegação real, achado via Playwright/G5)', () => {
+    expect(construirUrlLocale('/busca', new URLSearchParams('q=cavitacao&p=2'))).toEqual({
+      pathname: '/busca',
+      query: { q: 'cavitacao', p: '2' },
+    });
   });
 
   it('funciona para qualquer rota com query, não só busca', () => {
-    expect(construirUrlLocale('/notas/cavitacao', new URLSearchParams('foo=bar'))).toBe(
-      '/notas/cavitacao?foo=bar',
-    );
+    expect(construirUrlLocale('/notas/cavitacao', new URLSearchParams('foo=bar'))).toEqual({
+      pathname: '/notas/cavitacao',
+      query: { foo: 'bar' },
+    });
   });
 });

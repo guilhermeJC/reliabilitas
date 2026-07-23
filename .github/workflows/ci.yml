@@ -67,3 +67,20 @@ jobs:
       # Prova de deployability (small releases — cada commit em main é production-ready)
       - name: Build de produção
         run: npm run build
+
+      # Estágio 5 — G5: smoke E2E (4 fluxos críticos), contra o build já
+      # gerado acima (mesmo job/filesystem — playwright.config.ts detecta
+      # CI e só sobe `next start`, sem rebuildar). Precisa de conteúdo real
+      # no banco — mesmos secrets/mesmo padrão de skip gracioso do RLS acima.
+      - name: Playwright smoke E2E
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ]; then
+            echo "::warning::secrets do Supabase ausentes — smoke E2E pulado"
+            exit 0
+          fi
+          npx playwright install --with-deps chromium
+          npm run test:e2e

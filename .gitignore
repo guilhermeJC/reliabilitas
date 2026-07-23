@@ -22,6 +22,12 @@ dist/
 coverage/
 *.tsbuildinfo
 
+# Playwright (G5)
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
 # Vercel / Supabase locais
 .vercel/
 .supabase/

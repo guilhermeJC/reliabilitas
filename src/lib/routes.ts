@@ -54,11 +54,21 @@ export function termosPath(locale: Locale, ancora?: 'privacidade'): string {
   return ancora ? `${base}#${ancora}` : base;
 }
 
-// DEV-083 #3: o switch de idioma (LocaleSwitch) trocava só o pathname e
-// perdia a query — /pt/busca?q=x&p=2 virava /en/busca limpo. O prefixo de
-// locale já é resolvido pelo `locale=` do <Link> de next-intl; esta função
-// só reanexa a query atual ao pathname alvo.
-export function construirUrlLocale(pathname: string, searchParams: URLSearchParams): string {
-  const query = searchParams.toString();
-  return query ? `${pathname}?${query}` : pathname;
+export interface DestinoLocale {
+  pathname: string;
+  query: Record<string, string>;
+}
+
+// DEV-083 #3 (corrigido de novo em G5 — a 1ª correção só resolvia o `href`
+// SSR, não a navegação de verdade). O switch de idioma (LocaleSwitch)
+// perdia a query — /pt/busca?q=x&p=2 virava /en/busca limpo. A causa real:
+// o <Link> de next-intl, quando recebe `locale` (troca de idioma) JUNTO de
+// um `href` em formato STRING com query embutida (`/busca?q=x`), ignora a
+// query ao montar a navegação client-side — só a forma OBJETO
+// `{ pathname, query }` (a mesma que o Link nativo do Next aceita) preserva
+// a query na navegação real, não só no atributo `href` renderizado no SSR.
+// Achado via Playwright (G5) — Vitest (environment 'node') não pega isso,
+// só inspeciona HTML estático, nunca clica de verdade.
+export function construirUrlLocale(pathname: string, searchParams: URLSearchParams): DestinoLocale {
+  return { pathname, query: Object.fromEntries(searchParams) };
 }
