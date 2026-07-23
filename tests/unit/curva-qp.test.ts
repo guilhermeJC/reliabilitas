@@ -8,6 +8,26 @@ import {
 
 // Comparativo Q×P genérico (pedido do fundador, revisão 18/07): por que a
 // bomba de deslocamento positivo exige válvula de alívio e a rotodinâmica não.
+//
+// DEV-083 #7 — limite de validação, declarado com honestidade: o fato de que
+// deslocamento positivo entrega vazão CONSTANTE independente da resistência a
+// jusante É literatura citável (Karassik et al., Pump Handbook, 4ª ed. (2008),
+// cap. 3 — a mesma fonte usada em content/pt/principio/deslocamento-positivo.md,
+// que descreve a "curva vertical" do princípio), validado abaixo no describe
+// "Leis de deslocamento positivo". A fórmula exata de P=1/abertura² é um modelo
+// ILUSTRATIVO do projeto (a divergência é real e citável — Karassik confirma
+// QUE a pressão diverge — mas o EXPOENTE 2 é uma escolha didática, não extraída
+// de catálogo), avisado ao usuário via legenda visível no widget.
+
+describe('Leis de deslocamento positivo — validadas contra literatura (Karassik, Pump Handbook 4ª ed., cap. 3)', () => {
+  it('vazão é CONSTANTE independente da resistência a jusante (Karassik cap. 3)', () => {
+    // A própria assinatura da função (sem parâmetro de abertura/resistência)
+    // já prova isso estruturalmente — impossível o resultado variar por
+    // input, o que É o fato de literatura sendo modelado (não uma escolha
+    // ilustrativa, ao contrário da fórmula de pressão abaixo).
+    expect(vazaoDeslocamentoPositivo()).toBe(1);
+  });
+});
 
 describe('vazaoRotodinamica — vazão cai suavemente ao fechar a válvula (limitada pela curva)', () => {
   it('válvula totalmente aberta entrega a vazão nominal (Q=1)', () => {

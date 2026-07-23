@@ -7,6 +7,37 @@ import { curvaBomba, curvaSistema, pontoOperacao, classificaPosicao } from '@/li
 // Q∝N e H∝N²). Curva do sistema H = H_est + k·q². O ponto de operação é a
 // interseção — a tese editorial do handbook ("a bomba não escolhe onde opera")
 // virando ferramenta. Client-side puro (BR-004).
+//
+// DEV-083 #7 — limite de validação, declarado com honestidade: as LEIS DE
+// AFINIDADE embutidas (Q∝N, H∝N²) SÃO conferidas contra literatura citável
+// (Karassik et al., Pump Handbook, 4ª ed. (2008), cap. 2 — a mesma fonte já
+// usada em content/pt/principio/dinamicas.md) no describe "Leis de Afinidade"
+// abaixo, com número exato comparado, no mesmo padrão de weibull/disponibilidade/
+// intervaloPF (Smith 2004/Moubray, calc.test.ts). A FORMA da curva da bomba em
+// si (SHUTOFF=1,2 / INCLINACAO=0,2) é um modelo ILUSTRATIVO escolhido pelo
+// projeto — não extraído de catálogo nem de exemplo de livro-texto, por isso
+// não há "resposta certa" de referência pra comparar essa parte (o widget
+// avisa isso ao usuário via legenda visível, DEV-083 #7). Os demais testes
+// abaixo (shape/invariantes) validam a CONSISTÊNCIA INTERNA do modelo, não uma
+// fonte externa — distinção que faltava documentar (achado original do
+// /mp-code-review, Spec C).
+
+describe('Leis de Afinidade — validadas contra literatura (Karassik, Pump Handbook 4ª ed., cap. 2)', () => {
+  it('H ∝ N²: head no BEP escala com o QUADRADO exato da razão de rotação', () => {
+    // Karassik cap. 2: H₂/H₁ = (N₂/N₁)². Sistema só de atrito (H_est=0) para
+    // isolar exatamente a afinidade, sem o termo estático interferir.
+    const p1 = pontoOperacao(1, 0, 0.5)!;
+    const p08 = pontoOperacao(0.8, 0, 0.5)!;
+    expect(p08.h / p1.h).toBeCloseTo(Math.pow(0.8, 2), 9);
+  });
+
+  it('Q ∝ N: vazão no BEP escala LINEARMENTE com a razão de rotação', () => {
+    // Karassik cap. 2: Q₂/Q₁ = N₂/N₁ (razão de rotação, exata).
+    const p1 = pontoOperacao(1, 0, 0.5)!;
+    const p07 = pontoOperacao(0.7, 0, 0.5)!;
+    expect(p07.q / p1.q).toBeCloseTo(0.7, 9);
+  });
+});
 
 describe('curvaBomba — parábola estável com afinidade embutida', () => {
   it('no BEP nominal (r=1, q=1) entrega head 1', () => {
