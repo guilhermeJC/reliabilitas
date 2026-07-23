@@ -347,6 +347,7 @@
       "vazaoSig": "{pct}% da vazão de BEP da rotação atual (POR saudável: 70–120%)",
       "head": "Head no ponto",
       "shutoffMsg": "A bomba não vence a altura estática nesta rotação — vazão zero (shutoff). Todo o excesso de potência vira calor: cenário de dead-heading.",
+      "legendaModelo": "Modelo ilustrativo (normalizado) — não reproduz a curva de catálogo de um fabricante específico.",
       "status": {
         "por": "Dentro do POR",
         "recirculacao": "Baixa vazão — recirculação",
@@ -365,7 +366,8 @@
       "pressaoNecessaria": "Pressão necessária (deslocamento positivo)",
       "pressaoSig": "Em % da pressão nominal — sem válvula de alívio, é o componente mais fraco do sistema que cede primeiro.",
       "alertaAlivio": "Acima da faixa típica de acionamento de uma válvula de alívio (~300% da pressão nominal) — risco real de ruptura.",
-      "shutoffRotodinamica": "A rotodinâmica já parou de entregar vazão (shutoff) — o head se estabiliza, não sobe mais."
+      "shutoffRotodinamica": "A rotodinâmica já parou de entregar vazão (shutoff) — o head se estabiliza, não sobe mais.",
+      "legendaModelo": "Modelo ilustrativo (normalizado) — não reproduz a curva de catálogo de um fabricante específico."
     },
     "weibull": {
       "titulo": "Weibull 2 parâmetros",

@@ -347,6 +347,7 @@
       "vazaoSig": "{pct}% of the current speed's BEP flow (healthy POR: 70–120%)",
       "head": "Head at the point",
       "shutoffMsg": "The pump cannot overcome the static head at this speed — zero flow (shutoff). All excess power becomes heat: the dead-heading scenario.",
+      "legendaModelo": "Illustrative (normalized) model — does not reproduce a specific manufacturer's catalog curve.",
       "status": {
         "por": "Inside the POR",
         "recirculacao": "Low flow — recirculation",
@@ -365,7 +366,8 @@
       "pressaoNecessaria": "Pressure required (positive displacement)",
       "pressaoSig": "In % of nominal pressure — without a relief valve, the weakest component in the system gives way first.",
       "alertaAlivio": "Above the typical relief-valve set range (~300% of nominal pressure) — real rupture risk.",
-      "shutoffRotodinamica": "The rotodynamic pump has already stopped delivering flow (shutoff) — head levels off, it does not keep rising."
+      "shutoffRotodinamica": "The rotodynamic pump has already stopped delivering flow (shutoff) — head levels off, it does not keep rising.",
+      "legendaModelo": "Illustrative (normalized) model — does not reproduce a specific manufacturer's catalog curve."
     },
     "weibull": {
       "titulo": "2-parameter Weibull",

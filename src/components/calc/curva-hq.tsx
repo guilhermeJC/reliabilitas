@@ -193,6 +193,9 @@ export function CurvaHq() {
           </ResponsiveContainer>
         </div>
       </div>
+      {/* DEV-083 #7: legenda visível — o gráfico é um modelo didático
+          normalizado, não a curva de catálogo de um fabricante real. */}
+      <p className="mt-2 text-[11px] italic leading-snug text-slate-400">{t('legendaModelo')}</p>
     </div>
   );
 }
