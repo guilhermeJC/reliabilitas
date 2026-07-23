@@ -46,6 +46,14 @@ export function buscaPath(locale: Locale, q?: string, pagina = 1): string {
   return `${base}?q=${encodeURIComponent(q)}${p}`;
 }
 
+// G3: Termos de Uso + Política de Privacidade — página única com duas seções
+// ancoradas (link direto pra #privacidade a partir do campo `contato`
+// opcional em sugerir/colaborar, DEV-083 #6).
+export function termosPath(locale: Locale, ancora?: 'privacidade'): string {
+  const base = `/${locale}/termos`;
+  return ancora ? `${base}#${ancora}` : base;
+}
+
 // DEV-083 #3: o switch de idioma (LocaleSwitch) trocava só o pathname e
 // perdia a query — /pt/busca?q=x&p=2 virava /en/busca limpo. O prefixo de
 // locale já é resolvido pelo `locale=` do <Link> de next-intl; esta função

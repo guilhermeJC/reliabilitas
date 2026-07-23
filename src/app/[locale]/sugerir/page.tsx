@@ -3,7 +3,9 @@ import { notFound } from 'next/navigation';
 import { hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
-import { MENSAGEM_MAX, MENSAGEM_MIN } from '@/lib/sugestao';
+import { MENSAGEM_MAX, MENSAGEM_MIN, PAGINA_INTERNA_RE } from '@/lib/sugestao';
+import { termosPath } from '@/lib/routes';
+import type { Locale } from '@/lib/content/schema';
 
 // T09 — Sugerir Correção (G4). Form HTML puro (POST → /api/sugestao, redirect
 // de volta): funciona sem JS. Honeypot invisível para humanos. noindex: página
@@ -29,9 +31,7 @@ export default async function SugerirPage({ params, searchParams }: PageProps) {
 
   const sp = await searchParams;
   const pagina =
-    typeof sp.pagina === 'string' && /^\/(?!\/)[\w\-/?=%.]*$/.test(sp.pagina)
-      ? sp.pagina
-      : `/${locale}`;
+    typeof sp.pagina === 'string' && PAGINA_INTERNA_RE.test(sp.pagina) ? sp.pagina : `/${locale}`;
   const st = typeof sp.st === 'string' ? sp.st : null;
 
   return (
@@ -106,6 +106,13 @@ export default async function SugerirPage({ params, searchParams }: PageProps) {
               className="mt-1 w-full rounded-md border bg-white px-3 py-2 text-sm"
               style={{ borderColor: '#d3dae6' }}
             />
+            <a
+              href={termosPath(locale as Locale, 'privacidade')}
+              className="mt-1 inline-block text-xs"
+              style={{ color: 'var(--wikilink)' }}
+            >
+              {t('contatoPrivacidadeLink')}
+            </a>
           </label>
 
           <button

@@ -6,6 +6,7 @@ import { IBM_Plex_Sans, JetBrains_Mono } from 'next/font/google';
 import { routing } from '@/i18n/routing';
 import { getTranslations } from 'next-intl/server';
 import { SiteHeader } from '@/components/site-header';
+import { SiteFooter } from '@/components/site-footer';
 import { SidebarShell } from '@/components/sidebar-shell';
 import { TreeNav } from '@/components/tree-nav';
 import type { Locale } from '@/lib/content/schema';
@@ -68,6 +69,7 @@ export default async function LocaleLayout({
           >
             {children}
           </SidebarShell>
+          <SiteFooter locale={locale as Locale} />
         </NextIntlClientProvider>
       </body>
     </html>

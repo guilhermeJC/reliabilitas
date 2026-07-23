@@ -7,6 +7,7 @@ import {
   metodoPath,
   notaPath,
   sugerirPath,
+  termosPath,
 } from '@/lib/routes';
 
 // F11: a rota de nota nasce em UM lugar — render, páginas e componentes consomem daqui.
@@ -68,6 +69,18 @@ describe('buscaPath — rota da busca com query codificada (T05)', () => {
   it('página > 1 entra como p=; página 1 é omitida (URL canônica)', () => {
     expect(buscaPath('pt', 'npsh', 2)).toBe('/pt/busca?q=npsh&p=2');
     expect(buscaPath('pt', 'npsh', 1)).toBe('/pt/busca?q=npsh');
+  });
+});
+
+describe('termosPath — Termos de Uso + Privacidade (G3)', () => {
+  it('monta a rota por locale', () => {
+    expect(termosPath('pt')).toBe('/pt/termos');
+    expect(termosPath('en')).toBe('/en/termos');
+  });
+
+  it('âncora opcional para a seção de privacidade (link direto do formulário)', () => {
+    expect(termosPath('pt', 'privacidade')).toBe('/pt/termos#privacidade');
+    expect(termosPath('en', 'privacidade')).toBe('/en/termos#privacidade');
   });
 });
 
