@@ -45,3 +45,12 @@ export function buscaPath(locale: Locale, q?: string, pagina = 1): string {
   const p = pagina > 1 ? `&p=${pagina}` : '';
   return `${base}?q=${encodeURIComponent(q)}${p}`;
 }
+
+// DEV-083 #3: o switch de idioma (LocaleSwitch) trocava só o pathname e
+// perdia a query — /pt/busca?q=x&p=2 virava /en/busca limpo. O prefixo de
+// locale já é resolvido pelo `locale=` do <Link> de next-intl; esta função
+// só reanexa a query atual ao pathname alvo.
+export function construirUrlLocale(pathname: string, searchParams: URLSearchParams): string {
+  const query = searchParams.toString();
+  return query ? `${pathname}?${query}` : pathname;
+}

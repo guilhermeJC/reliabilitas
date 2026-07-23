@@ -3,6 +3,7 @@ import {
   apoioPath,
   buscaPath,
   calculadorasPath,
+  construirUrlLocale,
   metodoPath,
   notaPath,
   sugerirPath,
@@ -67,5 +68,23 @@ describe('buscaPath — rota da busca com query codificada (T05)', () => {
   it('página > 1 entra como p=; página 1 é omitida (URL canônica)', () => {
     expect(buscaPath('pt', 'npsh', 2)).toBe('/pt/busca?q=npsh&p=2');
     expect(buscaPath('pt', 'npsh', 1)).toBe('/pt/busca?q=npsh');
+  });
+});
+
+describe('construirUrlLocale — troca de idioma preserva a query atual (DEV-083 #3)', () => {
+  it('sem query: retorna só o pathname', () => {
+    expect(construirUrlLocale('/busca', new URLSearchParams())).toBe('/busca');
+  });
+
+  it('preserva termo e página da busca', () => {
+    expect(construirUrlLocale('/busca', new URLSearchParams('q=cavitacao&p=2'))).toBe(
+      '/busca?q=cavitacao&p=2',
+    );
+  });
+
+  it('funciona para qualquer rota com query, não só busca', () => {
+    expect(construirUrlLocale('/notas/cavitacao', new URLSearchParams('foo=bar'))).toBe(
+      '/notas/cavitacao?foo=bar',
+    );
   });
 });
