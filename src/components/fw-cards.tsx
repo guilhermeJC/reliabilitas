@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server';
+import { CATEGORIA_ROTULOS } from '@/lib/content/fw-a-rotulos';
 
 // A assinatura visual do método (DESIGN §1): a dupla Fw A (diagnóstico, roxo)
 // → Fw B (prescrição, verde) presente em toda página de modo de falha (BR-005).
@@ -13,17 +14,6 @@ interface FwB {
   decisao?: string;
   periodicidade?: string;
 }
-
-// Vocabulário canônico do método (IT-MNT-001 §3–4) — termos técnicos, não UI.
-// Exportado para o contexto do plano exportável (sessão 5): o CSV/MD carrega a
-// classificação Fw A por extenso.
-export const CATEGORIAS: Record<string, string> = {
-  infant: 'Infant Mortality',
-  random: 'Random',
-  wear_out: 'Wear-out',
-  mixed_complex: 'Mixed/Complex',
-  unknown: 'Unknown',
-};
 
 function Linha({ rotulo, valor, mono = true }: { rotulo: string; valor: string; mono?: boolean }) {
   return (
@@ -55,7 +45,13 @@ export async function FwCards({ fwA, fwB, pfTipico }: { fwA?: FwA; fwB?: FwB; pf
             <p className="mb-2 mt-0.5 text-xs text-slate-500">{t('aSub')}</p>
             <dl>
               {fwA.categoria && (
-                <Linha rotulo={t('categoria')} valor={CATEGORIAS[fwA.categoria] ?? fwA.categoria} />
+                <Linha
+                  rotulo={t('categoria')}
+                  valor={
+                    CATEGORIA_ROTULOS[fwA.categoria as keyof typeof CATEGORIA_ROTULOS] ??
+                    fwA.categoria
+                  }
+                />
               )}
               {fwA.beta != null && <Linha rotulo={t('beta')} valor={String(fwA.beta)} />}
             </dl>

@@ -1,6 +1,6 @@
 import { getTranslations, getLocale } from 'next-intl/server';
 import { ExportPlanoBotoes } from '@/components/export-plano-botoes';
-import { CATEGORIAS } from '@/components/fw-cards';
+import { CATEGORIA_ROTULOS } from '@/lib/content/fw-a-rotulos';
 import { textosPlanoDoc } from '@/lib/export/plano-textos';
 import type { ContextoPlano, TarefaPlano } from '@/lib/export/plano';
 import type { Locale } from '@/lib/content/schema';
@@ -49,7 +49,7 @@ export async function PlanoTable({
   const contextoCompleto: ContextoPlano = {
     ...contexto,
     fwA: fwA?.categoria
-      ? `${CATEGORIAS[fwA.categoria] ?? fwA.categoria}${fwA.beta != null ? ` · β: ${fwA.beta}` : ''}`
+      ? `${CATEGORIA_ROTULOS[fwA.categoria as keyof typeof CATEGORIA_ROTULOS] ?? fwA.categoria}${fwA.beta != null ? ` · β: ${fwA.beta}` : ''}`
       : undefined,
     fwB: decisaoLabel
       ? `${decisaoLabel}${fwB?.periodicidade ? ` · ${fwB.periodicidade}` : ''}`
