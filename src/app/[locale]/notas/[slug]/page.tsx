@@ -3,18 +3,11 @@ import { notFound } from 'next/navigation';
 import { hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
-import {
-  getNotaView,
-  getBacklinks,
-  getArestasDaNota,
-  listPublicadas,
-  type Nota,
-} from '@/lib/db/notas';
+import { getNotaView, getBacklinks, getArestasDaNota, listPublicadas } from '@/lib/db/notas';
 import { GrafoLocal } from '@/components/grafo-local';
 import { notaPath, sugerirPath } from '@/lib/routes';
 import { renderNoteHtml } from '@/lib/markdown/render';
 import { splitNiveis, extractH2, extractH3, montaSumarioHtml } from '@/lib/content/niveis';
-import { agrupaFontes, GRUPOS_FONTES, type GrupoFonte } from '@/lib/content/fontes';
 import { separaHtmlNoHeading } from '@/lib/content/split-html';
 import { hotspotsPorSlug } from '@/lib/anatomia/registry';
 import { AnatomiaInterativa } from '@/components/anatomia-interativa';
@@ -23,6 +16,8 @@ import { paiDireto } from '@/lib/content/taxonomia-nav';
 import { NIVEIS_LEITURA, type Locale } from '@/lib/content/schema';
 import { Breadcrumb } from '@/components/breadcrumb';
 import { Backlinks } from '@/components/backlinks';
+import { Badges } from '@/components/badges';
+import { RodapeNota } from '@/components/rodape-nota';
 import { FwCards } from '@/components/fw-cards';
 import { PlanoTable } from '@/components/plano-table';
 import { CurvaHq } from '@/components/calc/curva-hq';
@@ -59,110 +54,6 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
   if (view.estado !== 'published') return {};
   const resumo = view.nota.frontmatter.resumo as string | undefined;
   return { title: view.nota.titulo, description: resumo };
-}
-
-function Badges({ nota }: { nota: Nota }) {
-  const fwA = nota.frontmatter.fw_a as { categoria?: string } | undefined;
-  const fwB = nota.frontmatter.fw_b as { decisao?: string; periodicidade?: string } | undefined;
-  const iso = nota.frontmatter.iso14224_code as string | undefined;
-  return (
-    <div className="mt-3 flex flex-wrap gap-2 text-xs font-medium">
-      <span className="rounded px-2 py-1 text-white" style={{ background: 'var(--navy-700)' }}>
-        {nota.tipo_nota}
-      </span>
-      {iso && (
-        <span
-          className="rounded border bg-white px-2 py-1 font-mono"
-          style={{ borderColor: '#d3dae6' }}
-        >
-          ISO 14224: {iso}
-        </span>
-      )}
-      {fwA?.categoria && (
-        <span className="rounded px-2 py-1 text-white" style={{ background: 'var(--fw-a)' }}>
-          Fw A · {fwA.categoria}
-        </span>
-      )}
-      {fwB?.decisao && (
-        <span className="rounded px-2 py-1 text-white" style={{ background: 'var(--fw-b)' }}>
-          Fw B · {fwB.decisao}
-          {fwB.periodicidade ? ` (${fwB.periodicidade})` : ''}
-        </span>
-      )}
-    </div>
-  );
-}
-
-async function Rodape({ nota, locale }: { nota: Nota; locale: Locale }) {
-  const t = await getTranslations('nota');
-  const fontes = (nota.frontmatter.fontes as string[] | undefined) ?? [];
-  // Melhoria 1 do fundador (10/07): fontes recolhíveis (details nativo — o
-  // conteúdo permanece no HTML do SSR, BR-010) e agrupadas por natureza.
-  const grupos = agrupaFontes(fontes);
-  const rotulos: Record<GrupoFonte, string> = {
-    normas: t('fontesNormas'),
-    literatura: t('fontesLiteratura'),
-    artigos: t('fontesArtigos'),
-    outros: t('fontesOutros'),
-  };
-  return (
-    <footer className="mt-8 border-t pt-4" style={{ borderColor: '#e3e8f0' }}>
-      {fontes.length > 0 && (
-        <details>
-          <summary className="flex cursor-pointer list-none items-center gap-1.5 text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500 transition-colors hover:text-slate-700 [&::-webkit-details-marker]:hidden">
-            <svg
-              className="tree-chevron shrink-0"
-              width="10"
-              height="10"
-              viewBox="0 0 10 10"
-              aria-hidden="true"
-            >
-              <path
-                d="M3.5 1.5 L6.5 5 L3.5 8.5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            {t('fontes')}
-            <span className="font-mono text-[11px] normal-case tracking-normal text-slate-400">
-              {fontes.length}
-            </span>
-          </summary>
-          <div className="mt-2 space-y-3">
-            {GRUPOS_FONTES.map((g) =>
-              grupos[g].length > 0 ? (
-                <div key={g}>
-                  <h3 className="text-[11px] font-medium text-slate-400">{rotulos[g]}</h3>
-                  <ul className="mt-1 space-y-1 text-[13px] text-slate-600">
-                    {grupos[g].map((f) => (
-                      <li key={f}>{f}</li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null,
-            )}
-          </div>
-        </details>
-      )}
-      <p className="mt-3 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-        {nota.revisado_em && (
-          <span className="font-mono text-xs text-slate-500">
-            {t('revisado')} {nota.revisado_em}
-          </span>
-        )}
-      </p>
-      {/* T09: toda nota oferece o canal curado de correção (também no topo — melhoria do fundador, 11/07) */}
-      <div className="mt-3">
-        <SugerirCorrecaoLink
-          href={sugerirPath(locale, notaPath(locale, nota.slug))}
-          texto={t('sugerirCorrecao')}
-        />
-      </div>
-    </footer>
-  );
 }
 
 export default async function NotaPage({ params }: PageParams) {
@@ -420,7 +311,7 @@ export default async function NotaPage({ params }: PageParams) {
             locale={locale as Locale}
             titulo={t('grafo')}
           />
-          <Rodape nota={nota} locale={locale as Locale} />
+          <RodapeNota nota={nota} locale={locale as Locale} />
           <Backlinks notas={backlinks} locale={locale as Locale} />
         </div>
       </div>
