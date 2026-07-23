@@ -45,10 +45,17 @@ const handbookValido = {
     'modos_falha',
   ],
   componentes: ['rolamento', 'selo-mecanico'],
-  // BR-009 hard (Dia 4): anatomia é obrigatória em handbook — ver anatomia.test.ts
+  // BR-009 hard (Dia 4, endurecido DEV-083 #2 23/07): anatomia + foto
+  // licenciada são obrigatórias em handbook — ver anatomia.test.ts
   anatomia: {
     svg: '/anatomia/bomba-centrifuga.svg',
     alt: 'Corte meridional de bomba centrífuga com componentes numerados',
+    foto: {
+      arquivo: '/anatomia/bomba-centrifuga-foto.jpg',
+      fonte: 'https://commons.wikimedia.org/wiki/File:Exemplo.jpg',
+      licenca: 'CC BY-SA 4.0',
+      credito: 'Fulano de Tal, Wikimedia Commons',
+    },
   },
 };
 

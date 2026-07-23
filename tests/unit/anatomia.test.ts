@@ -3,8 +3,10 @@ import { validateFrontmatter, type NotaFrontmatter } from '@/lib/content/schema'
 import { validateBatch, type NotaParsed } from '@/lib/content/validate-batch';
 
 // BR-009 vira HARD (Dia 4/DEV-005 encerra a exceção): handbook de Tipo só
-// publica com anatomia ilustrada — SVG próprio obrigatório; foto é opcional e,
-// quando existe, exige fonte + licença + crédito (DEV-025: nunca rehosting).
+// publica com anatomia ilustrada — SVG próprio E foto real licenciada são o
+// mínimo (a regra sempre disse isso — DOCS_regras.json BR-009; só o schema
+// deixava foto .optional() até o schema endurecer, DEV-083 #2, 23/07). Foto
+// sempre exige fonte + licença + crédito (DEV-025: nunca rehosting).
 
 const handbookBase = {
   slug: 'bomba-centrifuga',
@@ -31,6 +33,12 @@ const handbookBase = {
 const anatomiaValida = {
   svg: '/anatomia/bomba-centrifuga.svg',
   alt: 'Corte meridional de bomba centrífuga com componentes numerados',
+  foto: {
+    arquivo: '/anatomia/bomba-centrifuga-foto.jpg',
+    fonte: 'https://commons.wikimedia.org/wiki/File:Exemplo.jpg',
+    licenca: 'CC BY-SA 4.0',
+    credito: 'Fulano de Tal, Wikimedia Commons',
+  },
 };
 
 describe('BR-009 hard — anatomia obrigatória no handbook de Tipo', () => {
@@ -40,8 +48,15 @@ describe('BR-009 hard — anatomia obrigatória no handbook de Tipo', () => {
     if (!r.ok) expect(r.issues.some((i) => i.path.includes('anatomia'))).toBe(true);
   });
 
-  it('handbook com anatomia (SVG próprio + alt) passa', () => {
+  it('handbook com anatomia completa (SVG próprio + alt + foto licenciada) passa', () => {
     expect(validateFrontmatter({ ...handbookBase, anatomia: anatomiaValida }).ok).toBe(true);
+  });
+
+  it('handbook com anatomia SEM foto é rejeitado (BR-009 endurecido — DEV-083 #2, 23/07)', () => {
+    const semFoto = { svg: anatomiaValida.svg, alt: anatomiaValida.alt };
+    const r = validateFrontmatter({ ...handbookBase, anatomia: semFoto });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.issues.some((i) => i.path.includes('foto'))).toBe(true);
   });
 
   it('svg fora do padrão /anatomia/<slug>.svg é rejeitado', () => {

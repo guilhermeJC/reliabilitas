@@ -142,16 +142,17 @@ const anatomiaSchema = z.strictObject({
     .string()
     .regex(/^\/anatomia\/[a-z0-9-]+\.svg$/, 'anatomia.svg: caminho /anatomia/<slug>.svg (asset próprio)'),
   alt: z.string().min(1, 'anatomia.alt: descrição acessível obrigatória'),
-  foto: z
-    .strictObject({
-      arquivo: z
-        .string()
-        .regex(/^\/anatomia\/[a-z0-9-]+\.(jpg|jpeg|png|webp)$/, 'anatomia.foto.arquivo: /anatomia/<slug>.<ext>'),
-      fonte: z.string().url('anatomia.foto.fonte: URL da origem'),
-      licenca: z.string().min(1, 'anatomia.foto.licenca: licença explícita (ex.: CC BY-SA 4.0)'),
-      credito: z.string().min(1, 'anatomia.foto.credito: autor/portal creditado'),
-    })
-    .optional(),
+  // BR-009 hard: foto real licenciada é o mínimo junto do SVG (só o render 3D
+  // progressivo, D18, pode faltar no lançamento) — endurecido DEV-083 #2,
+  // 23/07 (schema estava .optional(), atrás da regra já documentada).
+  foto: z.strictObject({
+    arquivo: z
+      .string()
+      .regex(/^\/anatomia\/[a-z0-9-]+\.(jpg|jpeg|png|webp)$/, 'anatomia.foto.arquivo: /anatomia/<slug>.<ext>'),
+    fonte: z.string().url('anatomia.foto.fonte: URL da origem'),
+    licenca: z.string().min(1, 'anatomia.foto.licenca: licença explícita (ex.: CC BY-SA 4.0)'),
+    credito: z.string().min(1, 'anatomia.foto.credito: autor/portal creditado'),
+  }),
 });
 
 const handbookSchema = baseSchema
