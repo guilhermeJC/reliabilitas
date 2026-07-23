@@ -49,13 +49,17 @@ export function SidebarShell({
 
   // Hidratação: lê a preferência SALVA; sem ela, o padrão depende do tamanho
   // de tela (recolhida no celular, aberta no desktop — decideColapsadoInicial).
+  // DEV-083 #1: sessionStorage, não localStorage — o site é 100% cookieless
+  // via sessionStorage (CLAUDE.md §9); localStorage era a única violação
+  // dessa invariante. Efeito colateral aceito: a preferência não sobrevive
+  // mais entre abas/sessões, só dentro da mesma aba (era o próprio achado).
   useEffect(() => {
     try {
-      const salvo = window.localStorage.getItem('sidebarOpen');
+      const salvo = window.sessionStorage.getItem('sidebarOpen');
       const ehMobile = window.matchMedia('(max-width: 767px)').matches;
       setCollapsed(decideColapsadoInicial(salvo, ehMobile));
     } catch {
-      // sessão privada bloqueia localStorage/matchMedia — segue com o default (aberta)
+      // sessão privada bloqueia sessionStorage/matchMedia — segue com o default (aberta)
     }
     setMounted(true);
   }, []);
@@ -64,7 +68,7 @@ export function SidebarShell({
   useEffect(() => {
     if (!mounted) return;
     try {
-      window.localStorage.setItem('sidebarOpen', collapsed ? '0' : '1');
+      window.sessionStorage.setItem('sidebarOpen', collapsed ? '0' : '1');
     } catch {
       /* noop */
     }
@@ -84,7 +88,7 @@ export function SidebarShell({
         data-collapsed={collapsed ? 'true' : undefined}
         className={
           // A transição só entra depois do mount (evita flash na hidratação
-          // quando o localStorage difere do default). print:hidden — a árvore
+          // quando o sessionStorage difere do default). print:hidden — a árvore
           // não deve aparecer no PDF gerado por window.print() (botão "Baixar PDF").
           `print:hidden shrink-0 md:sticky md:top-14 md:h-[calc(100vh-3.5rem)] md:self-start md:overflow-hidden ${mounted ? 'transition-[width] duration-200 ease-out' : ''} ` +
           (collapsed ? 'hidden w-8 md:block' : 'w-full md:w-[280px] md:overflow-y-auto')

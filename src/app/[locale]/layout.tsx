@@ -56,8 +56,8 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <SiteHeader locale={locale as Locale} />
           {/* Rodada 6 (09/07): shell client controla o toggle da arvore
-              (localStorage + evento do hamburger). SSR sempre renderiza
-              aberta — BR-010 intacto. */}
+              (sessionStorage — DEV-083 #1 — + evento do hamburger). SSR
+              sempre renderiza aberta — BR-010 intacto. */}
           <SidebarShell
             sidebar={<TreeNav locale={locale as Locale} />}
             labels={{
