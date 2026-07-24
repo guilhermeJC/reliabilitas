@@ -9,7 +9,7 @@ export async function SiteFooter({ locale }: { locale: Locale }) {
   const t = await getTranslations('termos');
   return (
     <footer
-      className="mt-auto border-t px-4 py-4 text-center text-xs text-slate-500 print:hidden"
+      className="border-t px-4 py-4 text-center text-xs text-slate-500 print:hidden"
       style={{ borderColor: '#e3e8f0' }}
     >
       <a href={termosPath(locale)} className="hover:underline" style={{ color: 'var(--wikilink)' }}>

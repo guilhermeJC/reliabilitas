@@ -38,10 +38,12 @@ function Chevron({ style }: { style?: React.CSSProperties }) {
 export function SidebarShell({
   sidebar,
   children,
+  footer,
   labels,
 }: {
   sidebar: React.ReactNode;
   children: React.ReactNode;
+  footer?: React.ReactNode;
   labels: { nav: string; collapse: string; expand: string };
 }) {
   const [collapsed, setCollapsed] = useState(false);
@@ -125,7 +127,17 @@ export function SidebarShell({
           </>
         )}
       </aside>
-      <main className="min-w-0 flex-1">{children}</main>
+      {/* footer DENTRO do <main>, não como irmão da linha inteira (G3): o
+          <aside> tem altura fixa de viewport (md:h-[calc(100vh-3.5rem)]) pra
+          habilitar o scroll interno da árvore — isso força a LINHA a ter no
+          mínimo 1 viewport de altura, sempre. Um footer fora dela, em página
+          curta (ex.: /termos), sobrava um vão enorme antes dele aparecer.
+          Como flex column com o conteúdo em flex-1, o footer gruda no fim da
+          coluna esticada (padrão "sticky footer") em vez de flutuar solto. */}
+      <main className="flex min-w-0 flex-1 flex-col">
+        <div className="min-w-0 flex-1">{children}</div>
+        {footer}
+      </main>
     </div>
   );
 }

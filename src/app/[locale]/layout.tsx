@@ -61,6 +61,7 @@ export default async function LocaleLayout({
               sempre renderiza aberta — BR-010 intacto. */}
           <SidebarShell
             sidebar={<TreeNav locale={locale as Locale} />}
+            footer={<SiteFooter locale={locale as Locale} />}
             labels={{
               nav: tTree('title'),
               collapse: tTree('collapse'),
@@ -69,7 +70,6 @@ export default async function LocaleLayout({
           >
             {children}
           </SidebarShell>
-          <SiteFooter locale={locale as Locale} />
         </NextIntlClientProvider>
       </body>
     </html>
