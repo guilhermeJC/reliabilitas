@@ -1,24 +1,28 @@
-# docs/ — documentos fundadores (LOCAL-ONLY)
+# docs/ — documentos internos do projeto (local-only)
 
-> ⚠️ Esta pasta é **ignorada pelo Git** (exceto este README). Contém os documentos fundadores do projeto — informação estratégica sensível que NÃO vai para o GitHub (D28).
+> Esta pasta é **ignorada pelo Git** (exceto este README) — documentos de trabalho do mantenedor: especificação, decisões técnicas, notas de negócio, design, metodologia e handoffs de desenvolvimento. Não fazem parte da distribuição pública do projeto — mesmo tratamento de `posicionamento/`, `CLAUDE.md` e `learning/` (ver `README.md` na raiz).
 
-**Fonte canônica:** Obsidian Vault do fundador (`D - RELIABILITAS/`).
-**Após clonar o repo**, copie os documentos manualmente do Vault ou de outra cópia local:
+O RELIABILITAS é um projeto de comunidade aberta: o código (`src/`, `data/`, `tests/`, `scripts/`, `bin/`) é licenciado sob **MIT** e o conteúdo editorial (`content/`) sob **CC BY-SA 4.0** — ambos versionados normalmente e abertos a qualquer pessoa. Esta pasta é a exceção deliberada: são anotações de processo e estratégia do mantenedor, não parte do produto distribuído.
 
-```
-xcopy "C:\Users\Administrador\OneDrive - FEI\Documents\Obsidian Vault\2.1. PROJECTS\D - RELIABILITAS\.reliabilitas\docs" "C:\dev\reliabilitas\docs" /E /Y
-```
+## Estrutura (por categoria)
 
-## Estrutura (por categoria, em ordem de leitura)
+| Pasta | Categoria |
+|---|---|
+| `00-mapa/` | Mapa geral da estrutura do projeto |
+| `01-spec/` | Especificação viva, registro de decisões e regras de conteúdo |
+| `02-base-tecnica/` | Roadmap técnico, stack e arquitetura |
+| `03-design/` | Direção de design (congelada desde o início do desenvolvimento) |
+| `04-negocio/` | Notas de modelo de negócio e estratégia |
+| `05-metodologia/` | Base metodológica dos dois frameworks de diagnóstico/prescrição usados em cada modo de falha |
+| `06-conteudo/` | Trilho editorial: fontes primárias e mapeamento de conteúdo por ativo |
+| `07-desenvolvimento/` | Handoffs e retrospectivas de cada sessão de desenvolvimento |
 
-| Pasta | Categoria | Arquivos |
-|---|---|---|
-| `01-spec/` | Especificação, decisões e regras | `PROJECT_SPEC.md` (v1.6) · `DECISOES_D01-D29.md` (registro-mestre) · `DOCS_regras.json` (13 regras hard BR-001–BR-013) |
-| `02-base-tecnica/` | Base técnica: roadmap, SDD F01–F08, stack, arquitetura, schema de frontmatter (§E) | `DOCS_base.md` |
-| `03-design/` | Design congelado: direção estética + 11 telas | `DESIGN_wireframe.md` |
-| `04-negocio/` | Modelo de negócio (M03, D23–D27) | `DOCS_modelo_negocio.md` |
-| `05-metodologia/` | Base metodológica dos dois frameworks (Fw A/B) | `PRO-MNT-001_Rev02_Dois_Frameworks.md` · `IT-MNT-001_Classificacao_Padroes_de_Falha.md` |
-| `06-conteudo/` | Trilho de conteúdo: biblioteca de fontes + modos de falha candidatos por ativo | `FONTES_E_MODOS_por_ativo.md` |
-| `07-desenvolvimento/` | Handoff do M04 | `M04_Kickoff_Handoff.md` |
+## Para colaboradores
 
-A mesma estrutura é espelhada na cópia do Vault (`.reliabilitas/docs/`); em divergência, o Vault é o canônico (D28/D22).
+Se você está contribuindo com o projeto e precisa de contexto que normalmente viveria aqui, o que é relevante para colaborar já está público onde faz sentido:
+
+- Regras de uso e licenciamento: `/termos` no site
+- Como propor conteúdo ou correções: "Colaborar" e "Sugerir correção" no site
+- Arquitetura e convenções de código: comentários no próprio código-fonte
+
+Para qualquer outra dúvida de contexto, abra uma issue ou entre em contato pelos canais indicados no site.
