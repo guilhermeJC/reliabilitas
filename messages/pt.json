@@ -553,5 +553,21 @@
     "acao": "Ação em desvio",
     "exportCsv": "CSV (SAP-PM/Maximo)",
     "exportMd": "Markdown"
+  },
+  "normas": {
+    "titulo": "Normas técnicas citadas",
+    "sub": "Índice de todas as normas e padrões técnicos referenciados no acervo, com as notas que citam cada uma.",
+    "citadaEm": "Citada em {n} nota(s)",
+    "vazio": "Nenhuma norma indexada ainda."
+  },
+  "sobre": {
+    "titulo": "Sobre",
+    "missao": "O RELIABILITAS existe porque profissionais de manutenção e confiabilidade não têm, hoje, onde consultar — de graça, em português e inglês, com rigor técnico citado — o que é uma falha, como detectá-la, que estratégia usar e qual a matemática por trás, equipamento por equipamento.",
+    "comunidade": "É um projeto de comunidade aberta: o conteúdo é licenciado sob CC BY-SA 4.0 e o código sob MIT — qualquer pessoa pode ler, reusar e contribuir. Gratuito para sempre, sustentado só por doações — sem plano de monetizar o acervo via API paga ou dados fechados.",
+    "quemFazTitulo": "Quem faz",
+    "quemFaz": "Mantido por Guilherme Joaquim Correia, engenheiro mecânico (CREA-SP) com experiência prática em confiabilidade industrial. O conteúdo é sintetizado a partir de normas técnicas e literatura de referência — nunca copiado —, revisado tecnicamente antes de publicar, e construído com o apoio do Claude Code (Anthropic) como ferramenta de par de programação.",
+    "metodologiaTitulo": "Como o método funciona",
+    "metodologiaTexto": "Todo modo de falha do acervo segue dois frameworks em sequência: primeiro o diagnóstico (padrão de taxa de falha), depois a prescrição (lógica de decisão de manutenção). É o mesmo método usado internamente antes de virar plataforma pública.",
+    "metodologiaLinkTexto": "Ver os dois frameworks em detalhe"
   }
 }

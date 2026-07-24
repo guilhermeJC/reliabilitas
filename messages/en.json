@@ -553,5 +553,21 @@
     "acao": "Action on deviation",
     "exportCsv": "CSV (SAP-PM/Maximo)",
     "exportMd": "Markdown"
+  },
+  "normas": {
+    "titulo": "Technical standards cited",
+    "sub": "Index of every technical standard referenced across the collection, with the notes that cite each one.",
+    "citadaEm": "Cited in {n} note(s)",
+    "vazio": "No standards indexed yet."
+  },
+  "sobre": {
+    "titulo": "About",
+    "missao": "RELIABILITAS exists because maintenance and reliability professionals today have nowhere to consult — for free, in Portuguese and English, with cited technical rigor — what a failure is, how to detect it, which strategy to use, and the math behind it, equipment by equipment.",
+    "comunidade": "It's an open community project: content is licensed under CC BY-SA 4.0 and the code under MIT — anyone can read, reuse, and contribute. Free forever, sustained only by donations — no plan to monetize the collection via a paid API or closed data.",
+    "quemFazTitulo": "Who's behind it",
+    "quemFaz": "Maintained by Guilherme Joaquim Correia, a mechanical engineer (CREA-SP, Brazil) with hands-on industrial reliability experience. Content is synthesized from technical standards and reference literature — never copied —, technically reviewed before publishing, and built with the help of Claude Code (Anthropic) as a pair-programming tool.",
+    "metodologiaTitulo": "How the method works",
+    "metodologiaTexto": "Every failure mode in the collection follows two frameworks in sequence: first the diagnosis (failure rate pattern), then the prescription (maintenance decision logic). It's the same method used internally before it became a public platform.",
+    "metodologiaLinkTexto": "See both frameworks in detail"
   }
 }

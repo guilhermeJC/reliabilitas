@@ -38,6 +38,18 @@ export function colaborarPath(locale: Locale): string {
   return `/${locale}/colaborar`;
 }
 
+// T07: índice curado de normas técnicas citadas no acervo (resto do Dia 5, 24/07).
+export function normasPath(locale: Locale): string {
+  return `/${locale}/normas`;
+}
+
+// T11: "quem faz" — fundador, missão, metodologia editorial. Complementa
+// /metodo (que já cobre os 2 frameworks desde a Revisão 4) sem duplicar
+// escopo — decisão de escopo tomada com o fundador em 24/07/2026.
+export function sobrePath(locale: Locale): string {
+  return `/${locale}/sobre`;
+}
+
 // T05: página 1 fica fora da URL (canônica); termo sempre codificado.
 export function buscaPath(locale: Locale, q?: string, pagina = 1): string {
   const base = `/${locale}/busca`;

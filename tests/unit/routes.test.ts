@@ -5,7 +5,9 @@ import {
   calculadorasPath,
   construirUrlLocale,
   metodoPath,
+  normasPath,
   notaPath,
+  sobrePath,
   sugerirPath,
   termosPath,
 } from '@/lib/routes';
@@ -29,6 +31,15 @@ describe('apoioPath / sugerirPath — apoio (T08/DEV-026) e correção (T09)', (
     expect(sugerirPath('pt', '/pt/notas/cavitacao')).toBe(
       '/pt/sugerir?pagina=%2Fpt%2Fnotas%2Fcavitacao',
     );
+  });
+});
+
+describe('normasPath / sobrePath — T07 (índice de normas) e T11 (quem faz)', () => {
+  it('monta as rotas por locale', () => {
+    expect(normasPath('pt')).toBe('/pt/normas');
+    expect(normasPath('en')).toBe('/en/normas');
+    expect(sobrePath('pt')).toBe('/pt/sobre');
+    expect(sobrePath('en')).toBe('/en/sobre');
   });
 });
 

@@ -1,6 +1,7 @@
 import 'server-only';
 import type { Locale } from '@/lib/content/schema';
 import { classificaNotaView } from '@/lib/content/nota-view';
+import type { NotaComFontes } from '@/lib/content/normas-index';
 import { admin } from '@/lib/db/client';
 
 // D11/BR-004 — invariante do acesso a dados: ver src/lib/db/client.ts.
@@ -54,6 +55,24 @@ export async function listPublicadas(locale: Locale): Promise<NotaResumo[]> {
     .order('titulo');
   if (error) throw new Error(`listPublicadas(${locale}): ${error.message}`);
   return (data ?? []) as NotaResumo[];
+}
+
+// T07 (resto do Dia 5): insumo do índice de normas — só slug/titulo/fontes,
+// direto do frontmatter (JSONB). A classificação/agregação é lógica pura em
+// src/lib/content/normas-index.ts (montaIndiceNormas), testada lá.
+export async function listFontesPublicadas(locale: Locale): Promise<NotaComFontes[]> {
+  const { data, error } = await admin()
+    .from('notas')
+    .select('slug,titulo,frontmatter')
+    .eq('locale', locale)
+    .eq('status', 'published');
+  if (error) throw new Error(`listFontesPublicadas(${locale}): ${error.message}`);
+  return (data ?? []).map((n) => ({
+    slug: n.slug as string,
+    titulo: n.titulo as string,
+    fontes:
+      ((n.frontmatter as Record<string, unknown> | null)?.fontes as string[] | undefined) ?? [],
+  }));
 }
 
 // Grafo local (Dia 3): TODAS as arestas tocando a nota, nos dois sentidos.
