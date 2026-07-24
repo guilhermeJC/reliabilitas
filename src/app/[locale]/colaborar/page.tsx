@@ -176,6 +176,52 @@ export default async function ColaborarPage({ params, searchParams }: PageProps)
             />
           </label>
 
+          {/* DEV-094 (24/07): identificação do autor, toda opcional (BR-011) —
+              pivot pra projeto aberto de comunidade. A pessoa escolhe o que
+              aparece no byline público da nota publicada (contatoVisibilidade). */}
+          <div className="border-t pt-4" style={{ borderColor: '#e3e8f0' }}>
+            <h2 className="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500">
+              {t('sobreVoceTitulo')}
+            </h2>
+            <p className="mt-1 text-xs text-slate-500">{t('sobreVoceSub')}</p>
+          </div>
+
+          <label className="block text-sm">
+            <span className="text-slate-700">{t('formacaoRotulo')}</span>
+            <input
+              type="text"
+              name="formacao"
+              maxLength={300}
+              placeholder={t('formacaoPlaceholder')}
+              className="mt-1 w-full rounded-md border bg-white px-3 py-2 text-sm"
+              style={{ borderColor: '#d3dae6' }}
+            />
+          </label>
+
+          <label className="block text-sm">
+            <span className="text-slate-700">{t('funcaoEmpresaRotulo')}</span>
+            <input
+              type="text"
+              name="funcaoEmpresa"
+              maxLength={200}
+              placeholder={t('funcaoEmpresaPlaceholder')}
+              className="mt-1 w-full rounded-md border bg-white px-3 py-2 text-sm"
+              style={{ borderColor: '#d3dae6' }}
+            />
+          </label>
+
+          <label className="block text-sm">
+            <span className="text-slate-700">{t('contatoVisibilidadeRotulo')}</span>
+            <textarea
+              name="contatoVisibilidade"
+              maxLength={500}
+              rows={2}
+              placeholder={t('contatoVisibilidadePlaceholder')}
+              className="mt-1 w-full rounded-md border bg-white px-3 py-2 text-sm"
+              style={{ borderColor: '#d3dae6' }}
+            />
+          </label>
+
           <label className="block text-sm">
             <span className="text-slate-700">{t('contatoRotulo')}</span>
             <input
@@ -186,14 +232,14 @@ export default async function ColaborarPage({ params, searchParams }: PageProps)
               className="mt-1 w-full rounded-md border bg-white px-3 py-2 text-sm"
               style={{ borderColor: '#d3dae6' }}
             />
-            <a
-              href={termosPath(locale as Locale, 'privacidade')}
-              className="mt-1 inline-block text-xs"
-              style={{ color: 'var(--wikilink)' }}
-            >
-              {t('contatoPrivacidadeLink')}
-            </a>
           </label>
+          <a
+            href={termosPath(locale as Locale, 'privacidade')}
+            className="-mt-2 inline-block text-xs"
+            style={{ color: 'var(--wikilink)' }}
+          >
+            {t('contatoPrivacidadeLink')}
+          </a>
 
           <button
             type="submit"

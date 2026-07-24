@@ -27,6 +27,12 @@ export interface ContribuicaoRow {
   resumo: string | null;
   corpo_md: string;
   contato: string | null;
+  // DEV-094 (24/07): identificação opcional do autor (pivot pra projeto
+  // aberto de comunidade) — o curador vê isso pra montar o byline da nota,
+  // se o contribuidor tiver preenchido e autorizado exibição.
+  formacao: string | null;
+  funcao_empresa: string | null;
+  contato_visibilidade: string | null;
   status: 'nova' | 'lida' | 'aceita' | 'rejeitada';
 }
 
@@ -43,7 +49,7 @@ export async function listContribuicoes(): Promise<ContribuicaoRow[]> {
   const { data, error } = await admin()
     .from('contribuicoes')
     .select(
-      'id,criado_em,locale,tipo_nota,taxonomia_pai,titulo_sugerido,resumo,corpo_md,contato,status',
+      'id,criado_em,locale,tipo_nota,taxonomia_pai,titulo_sugerido,resumo,corpo_md,contato,formacao,funcao_empresa,contato_visibilidade,status',
     )
     .order('criado_em', { ascending: false });
   if (error) throw new Error(`listContribuicoes: ${error.message}`);

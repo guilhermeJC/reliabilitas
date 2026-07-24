@@ -15,6 +15,9 @@ function base(overrides: Record<string, unknown> = {}) {
     corpoMd:
       '## Classificação\n\nBomba de deslocamento positivo rotativo, categoria API 676.'.repeat(2),
     contato: '',
+    formacao: '',
+    funcaoEmpresa: '',
+    contatoVisibilidade: '',
     locale: 'pt',
     ...overrides,
   };
@@ -70,6 +73,57 @@ describe('validaContribuicao — regras de conteúdo', () => {
 
   it('locale fora de pt/en é rejeitado', () => {
     const r = validaContribuicao(base({ locale: 'fr' }));
+    expect(r).toEqual({ ok: false, motivo: 'invalida' });
+  });
+});
+
+// DEV-094 (24/07): pivot pra projeto aberto de comunidade — 3 campos novos e
+// OPCIONAIS de identificação do autor (BR-011 continua exigindo que nenhum
+// campo pessoal seja obrigatório). formacao/funcaoEmpresa/contatoVisibilidade
+// seguem o MESMO padrão de `contato`: string vazia normaliza pra null.
+describe('validaContribuicao — campos de autoria (formação/função-empresa/contato-visibilidade), todos opcionais', () => {
+  it('os 3 campos vazios viram null — contribuição segue válida sem nenhuma identificação', () => {
+    const r = validaContribuicao(base());
+    expect(r.ok).toBe(true);
+    if (r.ok) {
+      expect(r.data.formacao).toBeNull();
+      expect(r.data.funcaoEmpresa).toBeNull();
+      expect(r.data.contatoVisibilidade).toBeNull();
+    }
+  });
+
+  it('os 3 campos preenchidos são aceitos e preservados (trim)', () => {
+    const r = validaContribuicao(
+      base({
+        formacao: '  Engenheiro Mecânico / Pós-graduado em Inspeção de Equipamentos — ITA  ',
+        funcaoEmpresa: 'Engenheiro de Confiabilidade / SpaceX',
+        contatoVisibilidade: 'LinkedIn: linkedin.com/in/exemplo · Mostrar: nome e cargo',
+      }),
+    );
+    expect(r.ok).toBe(true);
+    if (r.ok) {
+      expect(r.data.formacao).toBe(
+        'Engenheiro Mecânico / Pós-graduado em Inspeção de Equipamentos — ITA',
+      );
+      expect(r.data.funcaoEmpresa).toBe('Engenheiro de Confiabilidade / SpaceX');
+      expect(r.data.contatoVisibilidade).toBe(
+        'LinkedIn: linkedin.com/in/exemplo · Mostrar: nome e cargo',
+      );
+    }
+  });
+
+  it('rejeita formacao acima de 300 caracteres', () => {
+    const r = validaContribuicao(base({ formacao: 'x'.repeat(301) }));
+    expect(r).toEqual({ ok: false, motivo: 'invalida' });
+  });
+
+  it('rejeita funcaoEmpresa acima de 200 caracteres', () => {
+    const r = validaContribuicao(base({ funcaoEmpresa: 'x'.repeat(201) }));
+    expect(r).toEqual({ ok: false, motivo: 'invalida' });
+  });
+
+  it('rejeita contatoVisibilidade acima de 500 caracteres', () => {
+    const r = validaContribuicao(base({ contatoVisibilidade: 'x'.repeat(501) }));
     expect(r).toEqual({ ok: false, motivo: 'invalida' });
   });
 });

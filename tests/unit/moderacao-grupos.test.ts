@@ -29,6 +29,9 @@ function contribuicao(status: ContribuicaoRow['status'], id = 1): ContribuicaoRo
     resumo: null,
     corpo_md: 'teste',
     contato: null,
+    formacao: null,
+    funcao_empresa: null,
+    contato_visibilidade: null,
     status,
   };
 }

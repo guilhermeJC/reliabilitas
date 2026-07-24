@@ -15,6 +15,13 @@ export const TITULO_MAX = 200;
 export const RESUMO_MAX = 500;
 export const CORPO_MIN = 50;
 export const CORPO_MAX = 20000;
+// DEV-094 (24/07): 3 campos opcionais de identificação do autor (pivot pra
+// projeto aberto de comunidade) — mesmo padrão de `contato` (BR-011: nenhum
+// é obrigatório). `contatoVisibilidade` bundla LinkedIn/site/o que a pessoa
+// quer que apareça no byline público — a PRÓPRIA pessoa escolhe o que mostra.
+export const FORMACAO_MAX = 300;
+export const FUNCAO_EMPRESA_MAX = 200;
+export const CONTATO_VISIBILIDADE_MAX = 500;
 
 // Subconjunto de TIPOS_NOTA: classe/família/princípio são decisões de
 // arquitetura da taxonomia (AFC do fundador), não conteúdo de colaborador.
@@ -33,6 +40,15 @@ const contribuicaoSchema = z.strictObject({
   corpoMd: z.string().trim().min(CORPO_MIN).max(CORPO_MAX),
   contato: z
     .union([z.literal(''), z.string().trim().email().max(200)])
+    .transform((v) => (v === '' ? null : v)),
+  formacao: z
+    .union([z.literal(''), z.string().trim().max(FORMACAO_MAX)])
+    .transform((v) => (v === '' ? null : v)),
+  funcaoEmpresa: z
+    .union([z.literal(''), z.string().trim().max(FUNCAO_EMPRESA_MAX)])
+    .transform((v) => (v === '' ? null : v)),
+  contatoVisibilidade: z
+    .union([z.literal(''), z.string().trim().max(CONTATO_VISIBILIDADE_MAX)])
     .transform((v) => (v === '' ? null : v)),
 });
 
@@ -54,6 +70,9 @@ export function validaContribuicao(raw: Record<string, unknown>): ResultadoContr
     resumo: raw.resumo ?? '',
     corpoMd: raw.corpoMd,
     contato: raw.contato ?? '',
+    formacao: raw.formacao ?? '',
+    funcaoEmpresa: raw.funcaoEmpresa ?? '',
+    contatoVisibilidade: raw.contatoVisibilidade ?? '',
   });
   if (!parsed.success) return { ok: false, motivo: 'invalida' };
   return { ok: true, data: parsed.data };

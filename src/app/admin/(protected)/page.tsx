@@ -151,7 +151,17 @@ function CardContribuicao({ c }: { c: ContribuicaoRow }) {
       >
         {c.corpo_md}
       </pre>
-      {c.contato && <p className="mt-1 text-xs text-slate-500">Contato: {c.contato}</p>}
+      {(c.contato || c.formacao || c.funcao_empresa || c.contato_visibilidade) && (
+        <div
+          className="mt-2 space-y-0.5 rounded-md p-2 text-xs text-slate-600"
+          style={{ background: 'var(--canvas)' }}
+        >
+          {c.contato && <p>E-mail: {c.contato}</p>}
+          {c.formacao && <p>Formação: {c.formacao}</p>}
+          {c.funcao_empresa && <p>Função/Empresa: {c.funcao_empresa}</p>}
+          {c.contato_visibilidade && <p>Contato/visibilidade: {c.contato_visibilidade}</p>}
+        </div>
+      )}
       <div className="mt-3 flex gap-2">
         <AcaoStatus
           action={`/api/admin/contribuicoes/${c.id}/status`}
