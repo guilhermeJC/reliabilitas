@@ -2,6 +2,7 @@
   "name": "reliabilitas",
   "version": "0.0.1",
   "private": true,
+  "license": "MIT",
   "description": "Plataforma aberta de conhecimento em confiabilidade e manutenção industrial",
   "scripts": {
     "dev": "next dev",

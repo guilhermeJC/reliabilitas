@@ -6,6 +6,13 @@ docs/*
 # local-only, invisível (pedido do fundador, 11/07). Mesmo espírito do D28.
 posicionamento/
 
+# Journal/spec vivo de desenvolvimento — informal, pessoal, local-only desde
+# a decisão de tornar o repo público (24/07/2026, mesmo espírito do D28).
+# Continuam existindo no disco (sync entre ambientes fica fora do Git a
+# partir de agora — mesmo padrão já usado por docs/ e posicionamento/).
+CLAUDE.md
+learning/
+
 # Segredos — NUNCA versionar (CLAUDE.md §12)
 .env
 .env.*
