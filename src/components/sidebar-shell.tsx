@@ -39,11 +39,13 @@ export function SidebarShell({
   sidebar,
   children,
   footer,
+  rodapeSidebar,
   labels,
 }: {
   sidebar: React.ReactNode;
   children: React.ReactNode;
   footer?: React.ReactNode;
+  rodapeSidebar?: React.ReactNode;
   labels: { nav: string; collapse: string; expand: string };
 }) {
   const [collapsed, setCollapsed] = useState(false);
@@ -92,8 +94,10 @@ export function SidebarShell({
           // A transição só entra depois do mount (evita flash na hidratação
           // quando o sessionStorage difere do default). print:hidden — a árvore
           // não deve aparecer no PDF gerado por window.print() (botão "Baixar PDF").
+          // overflow-y-auto saiu daqui: agora só a árvore (bloco do meio) rola;
+          // o cabeçalho e o rodapé da sidebar (Sobre/Normas) ficam fixos.
           `print:hidden shrink-0 md:sticky md:top-14 md:h-[calc(100vh-3.5rem)] md:self-start md:overflow-hidden ${mounted ? 'transition-[width] duration-200 ease-out' : ''} ` +
-          (collapsed ? 'hidden w-8 md:block' : 'w-full md:w-[280px] md:overflow-y-auto')
+          (collapsed ? 'hidden w-8 md:block' : 'w-full md:w-[280px]')
         }
         style={{ background: 'var(--navy-900)' }}
       >
@@ -108,8 +112,8 @@ export function SidebarShell({
             <Chevron />
           </button>
         ) : (
-          <>
-            <div className="hidden items-center justify-between border-b border-white/5 px-2 py-1.5 md:flex">
+          <div className="flex h-full flex-col">
+            <div className="hidden shrink-0 items-center justify-between border-b border-white/5 px-2 py-1.5 md:flex">
               <span className="pl-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-slate-500">
                 {labels.nav}
               </span>
@@ -123,8 +127,9 @@ export function SidebarShell({
                 <Chevron style={{ transform: 'rotate(180deg)' }} />
               </button>
             </div>
-            {sidebar}
-          </>
+            <div className="min-h-0 flex-1 md:overflow-y-auto">{sidebar}</div>
+            {rodapeSidebar}
+          </div>
         )}
       </aside>
       {/* footer DENTRO do <main>, não como irmão da linha inteira (G3): o

@@ -8,6 +8,7 @@ import { getTranslations } from 'next-intl/server';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 import { SidebarShell } from '@/components/sidebar-shell';
+import { SidebarRodape } from '@/components/sidebar-rodape';
 import { TreeNav } from '@/components/tree-nav';
 import type { Locale } from '@/lib/content/schema';
 import '../globals.css';
@@ -62,6 +63,7 @@ export default async function LocaleLayout({
           <SidebarShell
             sidebar={<TreeNav locale={locale as Locale} />}
             footer={<SiteFooter locale={locale as Locale} />}
+            rodapeSidebar={<SidebarRodape locale={locale as Locale} />}
             labels={{
               nav: tTree('title'),
               collapse: tTree('collapse'),
