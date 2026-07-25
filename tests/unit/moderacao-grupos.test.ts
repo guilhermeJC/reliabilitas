@@ -14,6 +14,12 @@ function sugestao(status: SugestaoRow['status'], id = 1): SugestaoRow {
     pagina: '/pt/notas/bomba-centrifuga',
     mensagem: 'teste',
     contato: null,
+    nome: null,
+    formacao: null,
+    funcao_empresa: null,
+    linkedin_site: null,
+    deseja_contribuidor: false,
+    mostrar_publicamente: false,
     status,
   };
 }
@@ -29,9 +35,12 @@ function contribuicao(status: ContribuicaoRow['status'], id = 1): ContribuicaoRo
     resumo: null,
     corpo_md: 'teste',
     contato: null,
+    nome: null,
     formacao: null,
     funcao_empresa: null,
-    contato_visibilidade: null,
+    linkedin_site: null,
+    deseja_contribuidor: false,
+    mostrar_publicamente: false,
     status,
   };
 }

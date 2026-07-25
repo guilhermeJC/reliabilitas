@@ -1,5 +1,5 @@
 import { listSugestoes, listContribuicoes } from '@/lib/db/moderacao';
-import type { SugestaoRow, ContribuicaoRow } from '@/lib/db/moderacao';
+import type { AutoriaRow, SugestaoRow, ContribuicaoRow } from '@/lib/db/moderacao';
 import { agrupaSugestoes, agrupaContribuicoes } from '@/lib/moderacao-grupos';
 
 // Painel de aprovação (11/07) — fila por nota das sugestões (T09) e das
@@ -102,6 +102,33 @@ function Arquivo({
   );
 }
 
+// Bloco de autoria compartilhado (nome/formação/função-empresa/LinkedIn-site +
+// as 2 caixas de seleção) — pedido do fundador, 25/07 — mesmo conjunto agora
+// nas 2 filas de moderação (antes só Contribuição tinha, DEV-094).
+function BlocoAutoria({ a }: { a: AutoriaRow }) {
+  if (!a.nome && !a.formacao && !a.funcao_empresa && !a.linkedin_site && !a.deseja_contribuidor) {
+    return null;
+  }
+  return (
+    <div
+      className="mt-2 space-y-0.5 rounded-md p-2 text-xs text-slate-600"
+      style={{ background: 'var(--canvas)' }}
+    >
+      {a.nome && <p>Nome: {a.nome}</p>}
+      {a.formacao && <p>Formação: {a.formacao}</p>}
+      {a.funcao_empresa && <p>Função/Empresa: {a.funcao_empresa}</p>}
+      {a.linkedin_site && <p>LinkedIn/site: {a.linkedin_site}</p>}
+      <p className="font-medium">
+        {a.deseja_contribuidor ? '✓ Quer ser registrado como contribuidor' : '— Não pediu crédito'}
+        {a.deseja_contribuidor &&
+          (a.mostrar_publicamente
+            ? ' · autoriza exibição pública no byline'
+            : ' · NÃO autoriza exibição pública (crédito interno só)')}
+      </p>
+    </div>
+  );
+}
+
 function CardSugestao({ s }: { s: SugestaoRow }) {
   return (
     <li className="rounded-lg border bg-white p-4" style={{ borderColor: '#e3e8f0' }}>
@@ -113,6 +140,7 @@ function CardSugestao({ s }: { s: SugestaoRow }) {
       </div>
       <p className="mt-2 whitespace-pre-wrap text-sm text-slate-800">{s.mensagem}</p>
       {s.contato && <p className="mt-1 text-xs text-slate-500">Contato: {s.contato}</p>}
+      <BlocoAutoria a={s} />
       <div className="mt-3 flex gap-2">
         <AcaoStatus
           action={`/api/admin/sugestoes/${s.id}/status`}
@@ -151,17 +179,12 @@ function CardContribuicao({ c }: { c: ContribuicaoRow }) {
       >
         {c.corpo_md}
       </pre>
-      {(c.contato || c.formacao || c.funcao_empresa || c.contato_visibilidade) && (
-        <div
-          className="mt-2 space-y-0.5 rounded-md p-2 text-xs text-slate-600"
-          style={{ background: 'var(--canvas)' }}
-        >
-          {c.contato && <p>E-mail: {c.contato}</p>}
-          {c.formacao && <p>Formação: {c.formacao}</p>}
-          {c.funcao_empresa && <p>Função/Empresa: {c.funcao_empresa}</p>}
-          {c.contato_visibilidade && <p>Contato/visibilidade: {c.contato_visibilidade}</p>}
-        </div>
+      {c.contato && (
+        <p className="mt-2 text-xs text-slate-500" style={{ background: 'var(--canvas)' }}>
+          E-mail: {c.contato}
+        </p>
       )}
+      <BlocoAutoria a={c} />
       <div className="mt-3 flex gap-2">
         <AcaoStatus
           action={`/api/admin/contribuicoes/${c.id}/status`}

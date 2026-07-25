@@ -15,9 +15,10 @@ function base(overrides: Record<string, unknown> = {}) {
     corpoMd:
       '## Classificação\n\nBomba de deslocamento positivo rotativo, categoria API 676.'.repeat(2),
     contato: '',
+    nome: '',
     formacao: '',
     funcaoEmpresa: '',
-    contatoVisibilidade: '',
+    linkedinSite: '',
     locale: 'pt',
     ...overrides,
   };
@@ -77,39 +78,62 @@ describe('validaContribuicao — regras de conteúdo', () => {
   });
 });
 
-// DEV-094 (24/07): pivot pra projeto aberto de comunidade — 3 campos novos e
-// OPCIONAIS de identificação do autor (BR-011 continua exigindo que nenhum
-// campo pessoal seja obrigatório). formacao/funcaoEmpresa/contatoVisibilidade
-// seguem o MESMO padrão de `contato`: string vazia normaliza pra null.
-describe('validaContribuicao — campos de autoria (formação/função-empresa/contato-visibilidade), todos opcionais', () => {
-  it('os 3 campos vazios viram null — contribuição segue válida sem nenhuma identificação', () => {
+// DEV-094 (24/07) + pedido do fundador (25/07): campos OPCIONAIS de
+// identificação do autor (BR-011 continua exigindo que nenhum campo pessoal
+// seja obrigatório) — MESMO conjunto agora usado em Sugerir correção (fonte
+// única: src/lib/autoria.ts). `contatoVisibilidade` (texto livre) foi
+// substituído por `linkedinSite` (campo próprio) + 2 caixas de seleção
+// explícitas: desejaContribuidor e mostrarPublicamente.
+describe('validaContribuicao — campos de autoria (nome/formação/função-empresa/LinkedIn-site), todos opcionais', () => {
+  it('todos os campos ausentes viram null/false — contribuição segue válida sem nenhuma identificação', () => {
     const r = validaContribuicao(base());
     expect(r.ok).toBe(true);
     if (r.ok) {
+      expect(r.data.nome).toBeNull();
       expect(r.data.formacao).toBeNull();
       expect(r.data.funcaoEmpresa).toBeNull();
-      expect(r.data.contatoVisibilidade).toBeNull();
+      expect(r.data.linkedinSite).toBeNull();
+      expect(r.data.desejaContribuidor).toBe(false);
+      expect(r.data.mostrarPublicamente).toBe(false);
     }
   });
 
-  it('os 3 campos preenchidos são aceitos e preservados (trim)', () => {
+  it('campos preenchidos e as 2 caixas marcadas são aceitos e preservados (trim)', () => {
     const r = validaContribuicao(
       base({
-        formacao: '  Engenheiro Mecânico / Pós-graduado em Inspeção de Equipamentos — ITA  ',
+        nome: '  Ana Reliability  ',
+        formacao: 'Engenheiro Mecânico / Pós-graduado em Inspeção de Equipamentos — ITA',
         funcaoEmpresa: 'Engenheiro de Confiabilidade / SpaceX',
-        contatoVisibilidade: 'LinkedIn: linkedin.com/in/exemplo · Mostrar: nome e cargo',
+        linkedinSite: 'linkedin.com/in/exemplo',
+        desejaContribuidor: 'on',
+        mostrarPublicamente: 'on',
       }),
     );
     expect(r.ok).toBe(true);
     if (r.ok) {
+      expect(r.data.nome).toBe('Ana Reliability');
       expect(r.data.formacao).toBe(
         'Engenheiro Mecânico / Pós-graduado em Inspeção de Equipamentos — ITA',
       );
       expect(r.data.funcaoEmpresa).toBe('Engenheiro de Confiabilidade / SpaceX');
-      expect(r.data.contatoVisibilidade).toBe(
-        'LinkedIn: linkedin.com/in/exemplo · Mostrar: nome e cargo',
-      );
+      expect(r.data.linkedinSite).toBe('linkedin.com/in/exemplo');
+      expect(r.data.desejaContribuidor).toBe(true);
+      expect(r.data.mostrarPublicamente).toBe(true);
     }
+  });
+
+  it('quer ser contribuidor SEM autorizar exibição pública — combinação válida', () => {
+    const r = validaContribuicao(base({ nome: 'Discreto', desejaContribuidor: 'on' }));
+    expect(r.ok).toBe(true);
+    if (r.ok) {
+      expect(r.data.desejaContribuidor).toBe(true);
+      expect(r.data.mostrarPublicamente).toBe(false);
+    }
+  });
+
+  it('rejeita nome acima de 150 caracteres', () => {
+    const r = validaContribuicao(base({ nome: 'x'.repeat(151) }));
+    expect(r).toEqual({ ok: false, motivo: 'invalida' });
   });
 
   it('rejeita formacao acima de 300 caracteres', () => {
@@ -122,8 +146,8 @@ describe('validaContribuicao — campos de autoria (formação/função-empresa/
     expect(r).toEqual({ ok: false, motivo: 'invalida' });
   });
 
-  it('rejeita contatoVisibilidade acima de 500 caracteres', () => {
-    const r = validaContribuicao(base({ contatoVisibilidade: 'x'.repeat(501) }));
+  it('rejeita linkedinSite acima de 300 caracteres', () => {
+    const r = validaContribuicao(base({ linkedinSite: 'x'.repeat(301) }));
     expect(r).toEqual({ ok: false, motivo: 'invalida' });
   });
 });

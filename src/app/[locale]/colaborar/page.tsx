@@ -187,6 +187,18 @@ export default async function ColaborarPage({ params, searchParams }: PageProps)
           </div>
 
           <label className="block text-sm">
+            <span className="text-slate-700">{t('nomeRotulo')}</span>
+            <input
+              type="text"
+              name="nome"
+              maxLength={150}
+              placeholder={t('nomePlaceholder')}
+              className="mt-1 w-full rounded-md border bg-white px-3 py-2 text-sm"
+              style={{ borderColor: '#d3dae6' }}
+            />
+          </label>
+
+          <label className="block text-sm">
             <span className="text-slate-700">{t('formacaoRotulo')}</span>
             <input
               type="text"
@@ -211,12 +223,12 @@ export default async function ColaborarPage({ params, searchParams }: PageProps)
           </label>
 
           <label className="block text-sm">
-            <span className="text-slate-700">{t('contatoVisibilidadeRotulo')}</span>
-            <textarea
-              name="contatoVisibilidade"
-              maxLength={500}
-              rows={2}
-              placeholder={t('contatoVisibilidadePlaceholder')}
+            <span className="text-slate-700">{t('linkedinSiteRotulo')}</span>
+            <input
+              type="text"
+              name="linkedinSite"
+              maxLength={300}
+              placeholder={t('linkedinSitePlaceholder')}
               className="mt-1 w-full rounded-md border bg-white px-3 py-2 text-sm"
               style={{ borderColor: '#d3dae6' }}
             />
@@ -240,6 +252,26 @@ export default async function ColaborarPage({ params, searchParams }: PageProps)
           >
             {t('contatoPrivacidadeLink')}
           </a>
+
+          <label className="flex items-start gap-2 text-sm">
+            <input
+              type="checkbox"
+              name="desejaContribuidor"
+              className="mt-0.5"
+              style={{ accentColor: 'var(--accent)' }}
+            />
+            <span className="text-slate-700">{t('desejaContribuidorRotulo')}</span>
+          </label>
+
+          <label className="flex items-start gap-2 text-sm">
+            <input
+              type="checkbox"
+              name="mostrarPublicamente"
+              className="mt-0.5"
+              style={{ accentColor: 'var(--accent)' }}
+            />
+            <span className="text-slate-700">{t('mostrarPublicamenteRotulo')}</span>
+          </label>
 
           <button
             type="submit"

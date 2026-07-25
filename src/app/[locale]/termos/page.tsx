@@ -7,11 +7,11 @@ import { routing } from '@/i18n/routing';
 // G3 (Dia 5) — Termos de Uso + Política de Privacidade, página única com
 // 2 seções ancoradas (#uso / #privacidade). Atualizado no pivot pra projeto
 // aberto de comunidade (DEV-094, 24/07): conteúdo sob CC BY-SA 4.0, código
-// sob MIT (BR-004 reescrita). Cobre explicitamente a retenção dos 4 campos
-// opcionais de identificação do autor em Colaborar (DEV-083 #6 + DEV-094),
-// incl. o aviso de que parte disso pode virar público (byline da nota).
-// Rascunho: aviso visível até o fundador confirmar a versão final (mesmo
-// padrão de gate editorial do resto do conteúdo).
+// sob MIT (BR-004 reescrita). Cobre explicitamente a retenção dos campos
+// opcionais de identificação do autor, agora idênticos em Sugerir correção e
+// Colaborar (pedido do fundador, 25/07), incl. o aviso de que parte disso
+// pode virar público (byline da nota). Versão final confirmada pelo fundador
+// (25/07) — aviso de rascunho removido.
 
 export async function generateMetadata({
   params,
@@ -37,12 +37,6 @@ export default async function TermosPage({ params }: { params: Promise<{ locale:
           {t('titulo')}
         </h1>
         <p className="mt-1 text-xs text-slate-500">{t('atualizadoEm')}</p>
-        <p
-          className="mt-4 rounded-md border px-3 py-2 text-xs font-medium"
-          style={{ borderColor: '#f0c36d', background: '#fdf6e3', color: '#92660a' }}
-        >
-          {t('rascunhoAviso')}
-        </p>
 
         <nav className="mt-6 flex flex-wrap gap-2 text-xs">
           <a

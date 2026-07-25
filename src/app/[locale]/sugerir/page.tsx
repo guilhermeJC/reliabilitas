@@ -106,13 +106,91 @@ export default async function SugerirPage({ params, searchParams }: PageProps) {
               className="mt-1 w-full rounded-md border bg-white px-3 py-2 text-sm"
               style={{ borderColor: '#d3dae6' }}
             />
-            <a
-              href={termosPath(locale as Locale, 'privacidade')}
-              className="mt-1 inline-block text-xs"
-              style={{ color: 'var(--wikilink)' }}
-            >
-              {t('contatoPrivacidadeLink')}
-            </a>
+          </label>
+
+          {/* Pedido do fundador (25/07): mesmo bloco de identificação opcional
+              do Colaborar (DEV-094), agora também em Sugerir correção. */}
+          <div className="border-t pt-4" style={{ borderColor: '#e3e8f0' }}>
+            <h2 className="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500">
+              {t('sobreVoceTitulo')}
+            </h2>
+            <p className="mt-1 text-xs text-slate-500">{t('sobreVoceSub')}</p>
+          </div>
+
+          <label className="block text-sm">
+            <span className="text-slate-700">{t('nomeRotulo')}</span>
+            <input
+              type="text"
+              name="nome"
+              maxLength={150}
+              placeholder={t('nomePlaceholder')}
+              className="mt-1 w-full rounded-md border bg-white px-3 py-2 text-sm"
+              style={{ borderColor: '#d3dae6' }}
+            />
+          </label>
+
+          <label className="block text-sm">
+            <span className="text-slate-700">{t('formacaoRotulo')}</span>
+            <input
+              type="text"
+              name="formacao"
+              maxLength={300}
+              placeholder={t('formacaoPlaceholder')}
+              className="mt-1 w-full rounded-md border bg-white px-3 py-2 text-sm"
+              style={{ borderColor: '#d3dae6' }}
+            />
+          </label>
+
+          <label className="block text-sm">
+            <span className="text-slate-700">{t('funcaoEmpresaRotulo')}</span>
+            <input
+              type="text"
+              name="funcaoEmpresa"
+              maxLength={200}
+              placeholder={t('funcaoEmpresaPlaceholder')}
+              className="mt-1 w-full rounded-md border bg-white px-3 py-2 text-sm"
+              style={{ borderColor: '#d3dae6' }}
+            />
+          </label>
+
+          <label className="block text-sm">
+            <span className="text-slate-700">{t('linkedinSiteRotulo')}</span>
+            <input
+              type="text"
+              name="linkedinSite"
+              maxLength={300}
+              placeholder={t('linkedinSitePlaceholder')}
+              className="mt-1 w-full rounded-md border bg-white px-3 py-2 text-sm"
+              style={{ borderColor: '#d3dae6' }}
+            />
+          </label>
+
+          <a
+            href={termosPath(locale as Locale, 'privacidade')}
+            className="-mt-2 inline-block text-xs"
+            style={{ color: 'var(--wikilink)' }}
+          >
+            {t('contatoPrivacidadeLink')}
+          </a>
+
+          <label className="flex items-start gap-2 text-sm">
+            <input
+              type="checkbox"
+              name="desejaContribuidor"
+              className="mt-0.5"
+              style={{ accentColor: 'var(--accent)' }}
+            />
+            <span className="text-slate-700">{t('desejaContribuidorRotulo')}</span>
+          </label>
+
+          <label className="flex items-start gap-2 text-sm">
+            <input
+              type="checkbox"
+              name="mostrarPublicamente"
+              className="mt-0.5"
+              style={{ accentColor: 'var(--accent)' }}
+            />
+            <span className="text-slate-700">{t('mostrarPublicamenteRotulo')}</span>
           </label>
 
           <button

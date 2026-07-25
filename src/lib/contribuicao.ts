@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { SLUG_RE, LOCALES, TIPOS_NOTA } from '@/lib/content/schema';
+import { autoriaShape, normalizaAutoria } from '@/lib/autoria';
 
 // Colaborar (pedido do fundador, 11/07) — 2ª superfície de escrita do site,
 // mesma disciplina do T09 (sugestao.ts): honeypot separado do zod, todo campo
@@ -9,19 +10,17 @@ import { SLUG_RE, LOCALES, TIPOS_NOTA } from '@/lib/content/schema';
 // A aprovação NÃO publica direto (AFC do fundador, 11/07): vira matéria-prima
 // para o fluxo editorial de sempre (DEV-024) — o conteúdo aceito ainda passa
 // por reescrita/revisão e pelo Git→CI→ingest antes de ir ao ar.
+//
+// Campos de autoria (nome/formação/função-empresa/LinkedIn-site + as 2 caixas
+// de seleção) — pedido do fundador (25/07): mesmo conjunto do Sugerir
+// correção, fonte única em src/lib/autoria.ts. Substitui o antigo campo de
+// texto livre `contatoVisibilidade` (DEV-094) por controle explícito.
 
 export const TITULO_MIN = 3;
 export const TITULO_MAX = 200;
 export const RESUMO_MAX = 500;
 export const CORPO_MIN = 50;
 export const CORPO_MAX = 20000;
-// DEV-094 (24/07): 3 campos opcionais de identificação do autor (pivot pra
-// projeto aberto de comunidade) — mesmo padrão de `contato` (BR-011: nenhum
-// é obrigatório). `contatoVisibilidade` bundla LinkedIn/site/o que a pessoa
-// quer que apareça no byline público — a PRÓPRIA pessoa escolhe o que mostra.
-export const FORMACAO_MAX = 300;
-export const FUNCAO_EMPRESA_MAX = 200;
-export const CONTATO_VISIBILIDADE_MAX = 500;
 
 // Subconjunto de TIPOS_NOTA: classe/família/princípio são decisões de
 // arquitetura da taxonomia (AFC do fundador), não conteúdo de colaborador.
@@ -41,15 +40,7 @@ const contribuicaoSchema = z.strictObject({
   contato: z
     .union([z.literal(''), z.string().trim().email().max(200)])
     .transform((v) => (v === '' ? null : v)),
-  formacao: z
-    .union([z.literal(''), z.string().trim().max(FORMACAO_MAX)])
-    .transform((v) => (v === '' ? null : v)),
-  funcaoEmpresa: z
-    .union([z.literal(''), z.string().trim().max(FUNCAO_EMPRESA_MAX)])
-    .transform((v) => (v === '' ? null : v)),
-  contatoVisibilidade: z
-    .union([z.literal(''), z.string().trim().max(CONTATO_VISIBILIDADE_MAX)])
-    .transform((v) => (v === '' ? null : v)),
+  ...autoriaShape,
 });
 
 export type Contribuicao = z.infer<typeof contribuicaoSchema>;
@@ -70,9 +61,7 @@ export function validaContribuicao(raw: Record<string, unknown>): ResultadoContr
     resumo: raw.resumo ?? '',
     corpoMd: raw.corpoMd,
     contato: raw.contato ?? '',
-    formacao: raw.formacao ?? '',
-    funcaoEmpresa: raw.funcaoEmpresa ?? '',
-    contatoVisibilidade: raw.contatoVisibilidade ?? '',
+    ...normalizaAutoria(raw),
   });
   if (!parsed.success) return { ok: false, motivo: 'invalida' };
   return { ok: true, data: parsed.data };

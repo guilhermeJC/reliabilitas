@@ -1,9 +1,13 @@
 import { z } from 'zod';
+import { autoriaShape, normalizaAutoria } from '@/lib/autoria';
 
 // T09 — contrato da ÚNICA rota de escrita do site (G4/DEV-014). Todo campo é
 // input hostil: strings estritas, página só como path interno (nunca URL — a
 // rota redireciona de volta e um path externo viraria open redirect), honeypot
 // separado do zod para a rota FINGIR sucesso sem gravar.
+// Campos de autoria (nome/formação/função-empresa/LinkedIn-site + as 2 caixas
+// de seleção) — pedido do fundador (25/07): mesmo conjunto do Colaborar,
+// fonte única em src/lib/autoria.ts.
 
 export const MENSAGEM_MIN = 10;
 export const MENSAGEM_MAX = 2000;
@@ -19,6 +23,7 @@ const sugestaoSchema = z.strictObject({
   contato: z
     .union([z.literal(''), z.string().trim().email().max(200)])
     .transform((v) => (v === '' ? null : v)),
+  ...autoriaShape,
 });
 
 export type Sugestao = z.infer<typeof sugestaoSchema>;
@@ -35,6 +40,7 @@ export function validaSugestao(raw: Record<string, unknown>): ResultadoSugestao 
     mensagem: raw.mensagem,
     pagina: raw.pagina,
     contato: raw.contato ?? '',
+    ...normalizaAutoria(raw),
   });
   if (!parsed.success) return { ok: false, motivo: 'invalida' };
   return { ok: true, data: parsed.data };

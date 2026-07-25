@@ -34,9 +34,12 @@ export async function POST(req: NextRequest) {
     resumo: r.data.resumo,
     corpo_md: r.data.corpoMd,
     contato: r.data.contato,
+    nome: r.data.nome,
     formacao: r.data.formacao,
     funcao_empresa: r.data.funcaoEmpresa,
-    contato_visibilidade: r.data.contatoVisibilidade,
+    linkedin_site: r.data.linkedinSite,
+    deseja_contribuidor: r.data.desejaContribuidor,
+    mostrar_publicamente: r.data.mostrarPublicamente,
   });
   if (ins.error) return volta('erro');
   return volta('ok');

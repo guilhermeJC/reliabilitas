@@ -7,7 +7,19 @@ import { admin } from '@/lib/db/client';
 // checam auth — quem chama é sempre uma rota já protegida (mesmo invariante
 // de src/lib/db/*: banco só tocado por módulos server-only com service key).
 
-export interface SugestaoRow {
+// Campos de autoria compartilhados (nome/formação/função-empresa/LinkedIn-site
+// + as 2 caixas de seleção) — pedido do fundador, 25/07 — mesmo conjunto nas
+// 2 filas de moderação, fonte única em src/lib/autoria.ts.
+export interface AutoriaRow {
+  nome: string | null;
+  formacao: string | null;
+  funcao_empresa: string | null;
+  linkedin_site: string | null;
+  deseja_contribuidor: boolean;
+  mostrar_publicamente: boolean;
+}
+
+export interface SugestaoRow extends AutoriaRow {
   id: number;
   criado_em: string;
   locale: string;
@@ -17,7 +29,7 @@ export interface SugestaoRow {
   status: 'nova' | 'lida' | 'resolvida';
 }
 
-export interface ContribuicaoRow {
+export interface ContribuicaoRow extends AutoriaRow {
   id: number;
   criado_em: string;
   locale: string;
@@ -27,19 +39,16 @@ export interface ContribuicaoRow {
   resumo: string | null;
   corpo_md: string;
   contato: string | null;
-  // DEV-094 (24/07): identificação opcional do autor (pivot pra projeto
-  // aberto de comunidade) — o curador vê isso pra montar o byline da nota,
-  // se o contribuidor tiver preenchido e autorizado exibição.
-  formacao: string | null;
-  funcao_empresa: string | null;
-  contato_visibilidade: string | null;
   status: 'nova' | 'lida' | 'aceita' | 'rejeitada';
 }
+
+const AUTORIA_COLS =
+  'nome,formacao,funcao_empresa,linkedin_site,deseja_contribuidor,mostrar_publicamente';
 
 export async function listSugestoes(): Promise<SugestaoRow[]> {
   const { data, error } = await admin()
     .from('sugestoes')
-    .select('id,criado_em,locale,pagina,mensagem,contato,status')
+    .select(`id,criado_em,locale,pagina,mensagem,contato,status,${AUTORIA_COLS}`)
     .order('criado_em', { ascending: false });
   if (error) throw new Error(`listSugestoes: ${error.message}`);
   return (data ?? []) as SugestaoRow[];
@@ -49,7 +58,7 @@ export async function listContribuicoes(): Promise<ContribuicaoRow[]> {
   const { data, error } = await admin()
     .from('contribuicoes')
     .select(
-      'id,criado_em,locale,tipo_nota,taxonomia_pai,titulo_sugerido,resumo,corpo_md,contato,formacao,funcao_empresa,contato_visibilidade,status',
+      `id,criado_em,locale,tipo_nota,taxonomia_pai,titulo_sugerido,resumo,corpo_md,contato,status,${AUTORIA_COLS}`,
     )
     .order('criado_em', { ascending: false });
   if (error) throw new Error(`listContribuicoes: ${error.message}`);
