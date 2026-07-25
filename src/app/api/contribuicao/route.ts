@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import * as Sentry from '@sentry/nextjs';
 import { admin } from '@/lib/db/client';
 import { validaContribuicao } from '@/lib/contribuicao';
 import { criaRateLimiter } from '@/lib/rate-limit';
@@ -41,6 +42,14 @@ export async function POST(req: NextRequest) {
     deseja_contribuidor: r.data.desejaContribuidor,
     mostrar_publicamente: r.data.mostrarPublicamente,
   });
-  if (ins.error) return volta('erro');
+  if (ins.error) {
+    // DEV-100 (25/07): mesmo gap do /api/sugestao — um INSERT falho aqui não
+    // deixava rastro nenhum (nem Sentry, nem log), só um redirect genérico.
+    // Foi assim que a migração 0007 ausente passou 1 dia sem ser notada.
+    Sentry.captureException(new Error('Falha ao gravar contribuição em public.contribuicoes'), {
+      extra: { supabaseError: ins.error },
+    });
+    return volta('erro');
+  }
   return volta('ok');
 }
