@@ -3,7 +3,8 @@ import { notFound } from 'next/navigation';
 import { hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
-import { DOACAO_LINKS } from '@/lib/apoio';
+import { DOACAO_LINKS, DOACAO_QRCODES } from '@/lib/apoio';
+import { BotaoCopiar } from '@/components/botao-copiar';
 
 // T08 — Apoiar (G4/DEV-026). Free para sempre para pessoas (D23); doações são o
 // funding principal (D24). Canais renderizam quando o fundador fornecer as
@@ -40,7 +41,51 @@ export default async function ApoiarPage({ params }: { params: Promise<{ locale:
           <h2 className="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500">
             {t('canaisTitulo')}
           </h2>
-          {DOACAO_LINKS.length > 0 ? (
+          {DOACAO_QRCODES.length > 0 && (
+            <div className="mt-4 grid gap-6 sm:grid-cols-2">
+              {DOACAO_QRCODES.map((c) => (
+                <div key={c.rotulo} className="flex flex-col items-center text-center">
+                  <p className="text-sm font-medium" style={{ color: 'var(--navy-700)' }}>
+                    {c.rotulo}
+                  </p>
+                  {/* eslint-disable-next-line @next/next/no-img-element -- projeto não usa next/image (DEV-087) */}
+                  <img
+                    src={c.imagem}
+                    alt={`QR Code ${c.rotulo}`}
+                    width={c.largura}
+                    height={c.altura}
+                    className="mt-2 rounded-md border"
+                    style={{ borderColor: '#e3e8f0' }}
+                  />
+                  {(c.copiavel ?? c.href) && (
+                    <p className="mt-2 text-xs text-slate-500">{t('escanearOuCopiar')}</p>
+                  )}
+                  {c.copiavel && (
+                    <div className="mt-2">
+                      <BotaoCopiar
+                        texto={c.copiavel}
+                        labelCopiar={t('copiarCodigo')}
+                        labelCopiado={t('codigoCopiado')}
+                      />
+                    </div>
+                  )}
+                  {c.href && (
+                    <a
+                      href={c.href}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                      className="mt-2 text-xs"
+                      style={{ color: 'var(--wikilink)' }}
+                    >
+                      {c.href}
+                    </a>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {DOACAO_LINKS.length > 0 && (
             <div className="mt-4 grid gap-3 sm:grid-cols-3">
               {DOACAO_LINKS.map((c) => (
                 <a
@@ -55,7 +100,9 @@ export default async function ApoiarPage({ params }: { params: Promise<{ locale:
                 </a>
               ))}
             </div>
-          ) : (
+          )}
+
+          {DOACAO_QRCODES.length === 0 && DOACAO_LINKS.length === 0 && (
             <p className="mt-3 text-sm text-slate-500">{t('canaisEmBreve')}</p>
           )}
         </div>
