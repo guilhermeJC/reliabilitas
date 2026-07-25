@@ -101,7 +101,6 @@ export default async function TermosPage({ params }: { params: Promise<{ locale:
           <ul className="mt-2 list-disc space-y-1 pl-5 text-[15px] leading-relaxed text-slate-700">
             <li>{t('privacidadeNaoColetaItem1')}</li>
             <li>{t('privacidadeNaoColetaItem2')}</li>
-            <li>{t('privacidadeNaoColetaItem3')}</li>
           </ul>
 
           <h3 className="mt-5 text-sm font-medium text-slate-800">{t('privacidadeColeta')}</h3>
