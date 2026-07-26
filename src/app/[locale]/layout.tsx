@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { headers } from 'next/headers';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
+import { montaBeaconCloudflare } from '@/lib/analytics';
 import { IBM_Plex_Sans, JetBrains_Mono } from 'next/font/google';
 import { routing } from '@/i18n/routing';
 import { getTranslations } from 'next-intl/server';
@@ -52,6 +54,12 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
   const tTree = await getTranslations('tree');
 
+  // DEV-109 — beacon do Cloudflare Web Analytics com o nonce da requisição
+  // (o middleware já o injeta em x-nonce). Sem CF_ANALYTICS_TOKEN no ambiente,
+  // `beacon` é null e nada é renderizado.
+  const nonce = (await headers()).get('x-nonce') ?? undefined;
+  const beacon = montaBeaconCloudflare(process.env.CF_ANALYTICS_TOKEN, nonce);
+
   return (
     <html lang={locale} className={`${plexSans.variable} ${jetBrainsMono.variable}`}>
       <body>
@@ -73,6 +81,14 @@ export default async function LocaleLayout({
             {children}
           </SidebarShell>
         </NextIntlClientProvider>
+        {beacon && (
+          <script
+            src={beacon.src}
+            nonce={beacon.nonce}
+            data-cf-beacon={beacon.dataCfBeacon}
+            defer
+          />
+        )}
       </body>
     </html>
   );

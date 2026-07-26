@@ -29,7 +29,10 @@ export function montaCabecalhoCsp(nonce: string, isDev: boolean): string {
     // era zero (o server-side não passa por CSP e sempre funcionou). Wildcard
     // de subdomínio porque o host do DSN varia por org/região (oXXXX.ingest.
     // us.sentry.io); só o domínio da ingestão, nunca '*'.
-    "connect-src 'self' https://*.ingest.sentry.io https://*.ingest.us.sentry.io",
+    // DEV-109 acrescenta o cloudflareinsights.com (destino do POST do beacon
+    // de Web Analytics) — sem ele, o script carregaria pelo nonce mas o envio
+    // morreria aqui, repetindo o bug do DEV-107 em silêncio.
+    "connect-src 'self' https://*.ingest.sentry.io https://*.ingest.us.sentry.io https://cloudflareinsights.com",
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",

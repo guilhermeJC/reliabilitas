@@ -48,6 +48,19 @@ describe('montaCabecalhoCsp — connect-src permite a ingestao do Sentry (DEV-10
   });
 });
 
+// DEV-109: o beacon do Cloudflare Web Analytics envia os dados por POST pro
+// cloudflareinsights.com — sem esta diretiva, cairia no MESMO bug do DEV-107
+// (script carrega pelo nonce, mas o envio morre na CSP e o analytics fica
+// mudo sem ninguém perceber).
+describe('montaCabecalhoCsp — connect-src permite o beacon de analytics (DEV-109)', () => {
+  it('inclui o host do Cloudflare Insights em connect-src', () => {
+    const connectSrc = montaCabecalhoCsp('n', false)
+      .split('; ')
+      .find((d) => d.startsWith('connect-src'));
+    expect(connectSrc).toContain('https://cloudflareinsights.com');
+  });
+});
+
 describe('montaCabecalhoCsp', () => {
   it('inclui o nonce em script-src com strict-dynamic e self', () => {
     const csp = montaCabecalhoCsp('abc123', false);
