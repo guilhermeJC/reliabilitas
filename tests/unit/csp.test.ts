@@ -27,6 +27,27 @@ describe('geraNonce', () => {
   });
 });
 
+// DEV-107 (auditoria 25/07): connect-src era 'self' puro, o que BLOQUEAVA no
+// browser o POST do SDK do Sentry pro endpoint de ingestao — todo erro de
+// cliente (os 3 error boundaries) morria silenciosamente na CSP. Provado ao
+// vivo contra producao com fetch() no console: "BLOQUEADO pela CSP".
+describe('montaCabecalhoCsp — connect-src permite a ingestao do Sentry (DEV-107)', () => {
+  it('inclui o host de ingestao do Sentry em connect-src', () => {
+    const csp = montaCabecalhoCsp('nonce123', false);
+    const connectSrc = csp.split('; ').find((d) => d.startsWith('connect-src'));
+    expect(connectSrc).toContain('https://*.ingest.sentry.io');
+    expect(connectSrc).toContain('https://*.ingest.us.sentry.io');
+  });
+
+  it('mantem self em connect-src (nao abre a diretiva pra qualquer origem)', () => {
+    const csp = montaCabecalhoCsp('nonce123', false);
+    const connectSrc = csp.split('; ').find((d) => d.startsWith('connect-src'));
+    expect(connectSrc).toContain("'self'");
+    expect(connectSrc).not.toContain('*;');
+    expect(connectSrc).not.toMatch(/connect-src[^;]*\s\*\s*$/);
+  });
+});
+
 describe('montaCabecalhoCsp', () => {
   it('inclui o nonce em script-src com strict-dynamic e self', () => {
     const csp = montaCabecalhoCsp('abc123', false);

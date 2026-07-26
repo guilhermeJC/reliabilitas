@@ -23,7 +23,13 @@ export function montaCabecalhoCsp(nonce: string, isDev: boolean): string {
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: https:",
     "font-src 'self'",
-    "connect-src 'self'",
+    // DEV-107: 'self' puro bloqueava o POST do SDK do Sentry pro endpoint de
+    // ingestão — os 3 error boundaries capturavam o erro e o browser matava o
+    // envio na CSP, sem nenhum aviso. Resultado: observabilidade de CLIENTE
+    // era zero (o server-side não passa por CSP e sempre funcionou). Wildcard
+    // de subdomínio porque o host do DSN varia por org/região (oXXXX.ingest.
+    // us.sentry.io); só o domínio da ingestão, nunca '*'.
+    "connect-src 'self' https://*.ingest.sentry.io https://*.ingest.us.sentry.io",
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",
