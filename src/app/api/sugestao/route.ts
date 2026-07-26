@@ -4,6 +4,7 @@ import { admin } from '@/lib/db/client';
 import { PAGINA_INTERNA_RE, validaSugestao } from '@/lib/sugestao';
 import { criaRateLimiter } from '@/lib/rate-limit';
 import { extraiIp } from '@/lib/request-ip';
+import { extraiRequestId, log } from '@/lib/log';
 
 // T09 — a ÚNICA rota de escrita do site (G4). Ordem das defesas:
 // honeypot (bot recebe sucesso FALSO, nada é gravado) → rate limit por IP
@@ -54,6 +55,15 @@ export async function POST(req: NextRequest) {
     // Sentry nem log — porque o erro nunca vira exceção, só um redirect
     // genérico. Foi assim que a migração 0007 ausente passou 1 dia sem ser
     // notada (Colaborar falhando em silêncio). Capturar aqui fecha esse gap.
+    // DEV-108: além do Sentry, log estruturado — o `evento` abaixo é grep-ável
+    // e leva direto a esta linha.
+    log({
+      nivel: 'error',
+      evento: 'sugestao.insert_falhou',
+      requestId: extraiRequestId(req.headers),
+      rota: '/api/sugestao',
+      detalhe: { code: ins.error.code, message: ins.error.message, tabela: 'sugestoes' },
+    });
     Sentry.captureException(new Error('Falha ao gravar sugestão em public.sugestoes'), {
       extra: { supabaseError: ins.error },
     });

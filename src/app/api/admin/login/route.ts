@@ -3,6 +3,7 @@ import { criaTokenSessao, senhaCorreta } from '@/lib/admin-auth';
 import { criaRateLimiter } from '@/lib/rate-limit';
 import { extraiIp } from '@/lib/request-ip';
 import { ADMIN_SESSION_COOKIE } from '@/lib/admin-session';
+import { extraiRequestId, log } from '@/lib/log';
 
 // Painel de aprovação (11/07) — login por senha única (sem conta de usuário,
 // Auth completo adiado pra Fase 2/3 — DEV-018/DEV-046). Rate limit por IP
@@ -28,11 +29,29 @@ export async function POST(req: NextRequest) {
   const senha = String(form.get('senha') ?? '');
 
   const ip = extraiIp(req.headers);
+  const requestId = extraiRequestId(req.headers);
+
+  // DEV-108: os 2 eventos abaixo são o sinal de força bruta no painel. Nunca
+  // logar a senha tentada (nem hash dela) — só o fato, o IP e o requestId.
   if (!permite(ip)) {
+    log({
+      nivel: 'warn',
+      evento: 'admin_login.rate_limit',
+      requestId,
+      rota: '/api/admin/login',
+      detalhe: { ip },
+    });
     return NextResponse.redirect(new URL('/admin/login?st=limite', req.url), 303);
   }
 
   if (!senhaCorreta(senha, senhaEsperada())) {
+    log({
+      nivel: 'warn',
+      evento: 'admin_login.senha_incorreta',
+      requestId,
+      rota: '/api/admin/login',
+      detalhe: { ip },
+    });
     return NextResponse.redirect(new URL('/admin/login?st=erro', req.url), 303);
   }
 

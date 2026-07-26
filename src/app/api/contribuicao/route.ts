@@ -4,6 +4,7 @@ import { admin } from '@/lib/db/client';
 import { validaContribuicao } from '@/lib/contribuicao';
 import { criaRateLimiter } from '@/lib/rate-limit';
 import { extraiIp } from '@/lib/request-ip';
+import { extraiRequestId, log } from '@/lib/log';
 
 // Colaborar — 2ª (e última planejada no MVP) rota de escrita pública do site.
 // Mesma ordem de defesas do T09 (/api/sugestao): honeypot (bot recebe sucesso
@@ -46,6 +47,14 @@ export async function POST(req: NextRequest) {
     // DEV-100 (25/07): mesmo gap do /api/sugestao — um INSERT falho aqui não
     // deixava rastro nenhum (nem Sentry, nem log), só um redirect genérico.
     // Foi assim que a migração 0007 ausente passou 1 dia sem ser notada.
+    // DEV-108: log estruturado + Sentry (o `evento` é grep-ável até aqui).
+    log({
+      nivel: 'error',
+      evento: 'contribuicao.insert_falhou',
+      requestId: extraiRequestId(req.headers),
+      rota: '/api/contribuicao',
+      detalhe: { code: ins.error.code, message: ins.error.message, tabela: 'contribuicoes' },
+    });
     Sentry.captureException(new Error('Falha ao gravar contribuição em public.contribuicoes'), {
       extra: { supabaseError: ins.error },
     });
