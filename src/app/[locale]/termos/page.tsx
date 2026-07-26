@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
+import { EMAIL_CONTATO, LINKEDIN_URL } from '@/lib/contato';
 
 // G3 (Dia 5) — Termos de Uso + Política de Privacidade, página única com
 // 2 seções ancoradas (#uso / #privacidade). Atualizado no pivot pra projeto
@@ -131,7 +132,19 @@ export default async function TermosPage({ params }: { params: Promise<{ locale:
           </p>
 
           <p className="mt-5 text-[15px] leading-relaxed text-slate-700">
-            {t('privacidadeContato')}
+            {t('privacidadeContato')}{' '}
+            <a
+              href={LINKEDIN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: 'var(--wikilink)' }}
+            >
+              {t('privacidadeContatoLinkedin')}
+            </a>
+            {' · '}
+            <a href={`mailto:${EMAIL_CONTATO}`} style={{ color: 'var(--wikilink)' }}>
+              {EMAIL_CONTATO}
+            </a>
           </p>
         </section>
       </div>

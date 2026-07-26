@@ -128,7 +128,8 @@
     "privacidadeTerceirosTexto": "O site roda sobre infraestrutura de terceiros que processam dados técnicos de operação (nunca conteúdo pessoal além do descrito acima): Vercel (hospedagem), Supabase (banco de dados), Sentry (registro de erros, quando configurado) e Cloudflare (proteção de borda). O código e o conteúdo também ficam hospedados publicamente no GitHub (repositório aberto). Cada provedor opera sob sua própria política de privacidade.",
     "privacidadeDireitos": "Seus direitos",
     "privacidadeDireitosTexto": "Você pode pedir a qualquer momento a exclusão de qualquer informação pessoal que informou em algum formulário — incluindo remover sua identificação de uma nota já publicada — ou perguntar o que temos associado a você, pelo contato abaixo.",
-    "privacidadeContato": "Contato para questões de privacidade: use o formulário \"Sugerir correção\" ou escreva para o e-mail informado nos canais de apoio."
+    "privacidadeContato": "Contato para questões de privacidade, ou qualquer outro assunto: LinkedIn ou e-mail abaixo.",
+    "privacidadeContatoLinkedin": "LinkedIn"
   },
   "tree": {
     "title": "Taxonomia",

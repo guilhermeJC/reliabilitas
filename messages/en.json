@@ -128,7 +128,8 @@
     "privacidadeTerceirosTexto": "The site runs on third-party infrastructure that processes technical operational data (never personal content beyond what is described above): Vercel (hosting), Supabase (database), Sentry (error logging, when configured), and Cloudflare (edge protection). The code and content are also publicly hosted on GitHub (open repository). Each provider operates under its own privacy policy.",
     "privacidadeDireitos": "Your rights",
     "privacidadeDireitosTexto": "You may request, at any time, the deletion of any personal information you provided in a form — including removing your identification from an already-published note — or ask what we have associated with you, via the contact below.",
-    "privacidadeContato": "Contact for privacy questions: use the \"Suggest a correction\" form or write to the email listed in the support channels."
+    "privacidadeContato": "Contact for privacy questions, or anything else: LinkedIn or email below.",
+    "privacidadeContatoLinkedin": "LinkedIn"
   },
   "tree": {
     "title": "Taxonomy",

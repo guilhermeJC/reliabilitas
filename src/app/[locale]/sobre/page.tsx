@@ -4,15 +4,15 @@ import { hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { calculadorasPath, colaborarPath, metodoPath, notaPath, sugerirPath } from '@/lib/routes';
+import { LINKEDIN_URL } from '@/lib/contato';
 import type { Locale } from '@/lib/content/schema';
 
 // T11 (resto do Dia 5, 24/07) — "Sobre": missão + "quem faz" + como o site
 // funciona. Reescrito por pedido do fundador (24/07, rodada 2): pitch mais
 // completo do produto, seção "quem faz" com foto/LinkedIn em destaque, e
 // "como o site funciona" no lugar do resumo genérico de metodologia (que
-// segue coberto em detalhe por /metodo, linkado daqui). LinkedIn do
-// fundador: linkedin.com/in/guilherme-correia-gjc.
-const LINKEDIN_URL = 'https://www.linkedin.com/in/guilherme-correia-gjc/';
+// segue coberto em detalhe por /metodo, linkado daqui). LINKEDIN_URL agora
+// em src/lib/contato.ts (fonte única, também usado em /termos).
 
 function LinkedInIcon() {
   return (
