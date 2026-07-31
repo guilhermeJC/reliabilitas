@@ -1,6 +1,48 @@
 import { describe, expect, it } from 'vitest';
 import { renderNoteHtml } from '@/lib/markdown/render';
 
+// DEV-110 (auditoria 25/07, achado #5) — o renderer de link do marked emitia
+// o href COMO VEIO, então `[x](javascript:alert(1))` virava um href executável.
+// Não era explorável hoje (só conteúdo do curador, vindo do Git, chega ao
+// render — e a CSP sem 'unsafe-inline' bloquearia a execução), mas vira um
+// buraco real no dia em que a Fase 3 publicar conteúdo de terceiro. Allowlist
+// de protocolo é provadamente segura aqui: auditados os 124 arquivos de
+// content/, o ÚNICO protocolo usado é https (30 ocorrências).
+describe('renderNoteHtml — allowlist de protocolo em link (DEV-110)', () => {
+  it('neutraliza javascript: no href', () => {
+    const html = renderNoteHtml('[clique](javascript:alert(1))', 'pt');
+    expect(html).not.toContain('href="javascript:');
+    expect(html).toContain('clique');
+  });
+
+  it('neutraliza data: e vbscript: (mesmos vetores de execução)', () => {
+    expect(renderNoteHtml('[a](data:text/html,<script>alert(1)</script>)', 'pt')).not.toContain(
+      'href="data:',
+    );
+    expect(renderNoteHtml('[a](vbscript:msgbox(1))', 'pt')).not.toContain('href="vbscript:');
+  });
+
+  it('ignora maiúsculas e espaço à esquerda (JaVaScRiPt: / " javascript:")', () => {
+    expect(renderNoteHtml('[a](JaVaScRiPt:alert(1))', 'pt')).not.toContain('href="JaVaScRiPt:');
+    expect(renderNoteHtml('[a](\tjavascript:alert(1))', 'pt')).not.toMatch(/href="\s*javascript:/i);
+  });
+
+  it('PRESERVA os protocolos legítimos que o acervo realmente usa', () => {
+    expect(renderNoteHtml('[a](https://api.org/610)', 'pt')).toContain(
+      'href="https://api.org/610"',
+    );
+    expect(renderNoteHtml('[a](http://exemplo.com)', 'pt')).toContain('href="http://exemplo.com"');
+    expect(renderNoteHtml('[a](mailto:x@y.com)', 'pt')).toContain('href="mailto:x@y.com"');
+  });
+
+  it('PRESERVA link relativo e âncora (não têm protocolo, nunca executam)', () => {
+    expect(renderNoteHtml('[a](/pt/notas/cavitacao)', 'pt')).toContain(
+      'href="/pt/notas/cavitacao"',
+    );
+    expect(renderNoteHtml('[a](#secao)', 'pt')).toContain('href="#secao"');
+  });
+});
+
 describe('renderNoteHtml — Markdown com mecânica Obsidian (D09)', () => {
   it('converte markdown básico em HTML', () => {
     const html = renderNoteHtml('## Sintomas\n\nRuído de cascalho.', 'pt');
