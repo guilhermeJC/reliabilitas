@@ -24,6 +24,13 @@ export interface BeaconCloudflare {
   nonce: string;
   dataCfBeacon: string;
   defer: true;
+  /**
+   * O snippet oficial do painel usa `type='module'`. O arquivo servido hoje é
+   * um IIFE clássico (verificado: 31 KB, sem export/import de topo) e
+   * funcionaria como script comum — seguir o contrato do fornecedor protege
+   * contra ele passar a servir um bundle ESM de verdade.
+   */
+  type: 'module';
 }
 
 const BEACON_SRC = 'https://static.cloudflareinsights.com/beacon.min.js';
@@ -40,5 +47,6 @@ export function montaBeaconCloudflare(
     // o atributo HTML e viraria injeção.
     dataCfBeacon: JSON.stringify({ token }),
     defer: true,
+    type: 'module',
   };
 }

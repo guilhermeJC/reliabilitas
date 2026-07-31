@@ -83,6 +83,7 @@ export default async function LocaleLayout({
         </NextIntlClientProvider>
         {beacon && (
           <script
+            type={beacon.type}
             src={beacon.src}
             nonce={beacon.nonce}
             data-cf-beacon={beacon.dataCfBeacon}

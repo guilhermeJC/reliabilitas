@@ -39,4 +39,12 @@ describe('montaBeaconCloudflare', () => {
   it('o beacon é defer (nunca bloqueia o render da página)', () => {
     expect(montaBeaconCloudflare('token-abc', 'nonce123')!.defer).toBe(true);
   });
+
+  // O snippet oficial do painel da Cloudflare usa type='module'. O arquivo em
+  // si é um IIFE clássico (verificado: 31 KB, sem export/import de topo), então
+  // funcionaria como script clássico — mas seguir o contrato do fornecedor
+  // protege contra ele passar a servir um bundle ESM de verdade no futuro.
+  it('usa type=module, igual ao snippet oficial da Cloudflare', () => {
+    expect(montaBeaconCloudflare('token-abc', 'nonce123')!.type).toBe('module');
+  });
 });
