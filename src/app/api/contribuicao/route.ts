@@ -4,7 +4,7 @@ import { admin } from '@/lib/db/client';
 import { validaContribuicao } from '@/lib/contribuicao';
 import { criaRateLimiter } from '@/lib/rate-limit';
 import { extraiIp } from '@/lib/request-ip';
-import { extraiRequestId, log } from '@/lib/log';
+import { erroSeguroParaTelemetria, extraiRequestId, log } from '@/lib/log';
 
 // Colaborar — 2ª (e última planejada no MVP) rota de escrita pública do site.
 // Mesma ordem de defesas do T09 (/api/sugestao): honeypot (bot recebe sucesso
@@ -53,10 +53,12 @@ export async function POST(req: NextRequest) {
       evento: 'contribuicao.insert_falhou',
       requestId: extraiRequestId(req.headers),
       rota: '/api/contribuicao',
-      detalhe: { code: ins.error.code, message: ins.error.message, tabela: 'contribuicoes' },
+      detalhe: { ...erroSeguroParaTelemetria(ins.error), tabela: 'contribuicoes' },
     });
+    // DEV-116: NUNCA mandar `ins.error` cru — o campo `details` do Postgres
+    // carrega a linha inteira que falhou (e-mail e texto do visitante).
     Sentry.captureException(new Error('Falha ao gravar contribuição em public.contribuicoes'), {
-      extra: { supabaseError: ins.error },
+      extra: { supabaseError: erroSeguroParaTelemetria(ins.error) },
     });
     return volta('erro');
   }

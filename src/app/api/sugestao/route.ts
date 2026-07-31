@@ -4,7 +4,7 @@ import { admin } from '@/lib/db/client';
 import { PAGINA_INTERNA_RE, validaSugestao } from '@/lib/sugestao';
 import { criaRateLimiter } from '@/lib/rate-limit';
 import { extraiIp } from '@/lib/request-ip';
-import { extraiRequestId, log } from '@/lib/log';
+import { erroSeguroParaTelemetria, extraiRequestId, log } from '@/lib/log';
 
 // T09 — a ÚNICA rota de escrita do site (G4). Ordem das defesas:
 // honeypot (bot recebe sucesso FALSO, nada é gravado) → rate limit por IP
@@ -62,10 +62,12 @@ export async function POST(req: NextRequest) {
       evento: 'sugestao.insert_falhou',
       requestId: extraiRequestId(req.headers),
       rota: '/api/sugestao',
-      detalhe: { code: ins.error.code, message: ins.error.message, tabela: 'sugestoes' },
+      detalhe: { ...erroSeguroParaTelemetria(ins.error), tabela: 'sugestoes' },
     });
+    // DEV-116: NUNCA mandar `ins.error` cru — o campo `details` do Postgres
+    // carrega a linha inteira que falhou (e-mail e texto do visitante).
     Sentry.captureException(new Error('Falha ao gravar sugestão em public.sugestoes'), {
-      extra: { supabaseError: ins.error },
+      extra: { supabaseError: erroSeguroParaTelemetria(ins.error) },
     });
     return volta('erro');
   }

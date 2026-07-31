@@ -62,6 +62,32 @@ export function extraiRequestId(headers: Headers): string | undefined {
   return headers.get('x-vercel-id') ?? headers.get('x-request-id') ?? undefined;
 }
 
+/**
+ * DEV-116 (adversarial review, 25/07) — extrai de um erro do Supabase/Postgres
+ * APENAS os campos seguros para telemetria.
+ *
+ * Motivo, comprovado contra o banco real: numa violação de CHECK constraint o
+ * Postgres devolve `details` = "Failing row contains (216, …, <mensagem do
+ * visitante>, <e-mail do visitante>, …)" — ou seja, a LINHA INTEIRA. Mandar o
+ * objeto de erro cru para o Sentry publicaria PII do visitante num terceiro,
+ * contrariando a Política de Privacidade (contato "nunca publicado", retenção
+ * limitada) e sem base legal para esse processamento.
+ *
+ * `message` e `code` são seguros: identificam a constraint violada, não o dado.
+ * `details` e `hint` NUNCA são propagados.
+ */
+export function erroSeguroParaTelemetria(erro: unknown): Record<string, unknown> {
+  if (!erro || typeof erro !== 'object') return { tipo: typeof erro };
+  const e = erro as Record<string, unknown>;
+  const seguro: Record<string, unknown> = {};
+  if (typeof e.code === 'string') seguro.code = e.code;
+  if (typeof e.message === 'string') seguro.message = e.message;
+  // Sinaliza que havia detalhe (útil pra investigar) sem transportar o conteúdo.
+  if (e.details != null) seguro.detailsOmitido = true;
+  if (e.hint != null) seguro.hintOmitido = true;
+  return seguro;
+}
+
 export function log(e: EntradaLog): void {
   const linha = formataLinhaLog(e);
   if (e.nivel === 'error') console.error(linha);

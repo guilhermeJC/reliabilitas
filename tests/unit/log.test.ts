@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { extraiRequestId, formataLinhaLog, type EntradaLog } from '@/lib/log';
+import {
+  erroSeguroParaTelemetria,
+  extraiRequestId,
+  formataLinhaLog,
+  type EntradaLog,
+} from '@/lib/log';
 
 // DEV-108 (auditoria 25/07) — o projeto não tinha NENHUM log: zero console.*
 // em src/. Um erro em branch de controle (o `if (ins.error)` que causou o
@@ -70,6 +75,54 @@ describe('formataLinhaLog', () => {
       formataLinhaLog({ nivel: 'error', evento: 'contribuicao.insert_falhou' }, AGORA),
     );
     expect(linha.evento).toMatch(/^[a-z_]+\.[a-z_]+$/);
+  });
+});
+
+// DEV-116 (adversarial review 25/07) — comprovado contra o banco REAL: numa
+// violação de CHECK constraint, o Postgres devolve `details` com a linha
+// inteira, incluindo e-mail e texto escritos pelo visitante. Mandar o erro cru
+// pro Sentry vazaria PII pra um terceiro. Estes testes travam isso.
+describe('erroSeguroParaTelemetria — nunca propaga PII do visitante', () => {
+  // Cópia fiel do erro real capturado na sonda contra produção.
+  const erroReal = {
+    code: '23514',
+    details:
+      'Failing row contains (216, 2026-07-31 17:46:43+00, pt, /pt, mensagem-privada-do-visitante, visitante@exemplo.com, nova, null, null, null, null, f, f).',
+    hint: null,
+    message: 'new row for relation "sugestoes" violates check constraint "sugestoes_contato_check"',
+  };
+
+  it('NÃO propaga details (é onde o Postgres põe a linha inteira)', () => {
+    const s = erroSeguroParaTelemetria(erroReal);
+    expect(s.details).toBeUndefined();
+    expect(JSON.stringify(s)).not.toContain('visitante@exemplo.com');
+    expect(JSON.stringify(s)).not.toContain('mensagem-privada-do-visitante');
+  });
+
+  it('preserva code e message — identificam a constraint, não o dado', () => {
+    const s = erroSeguroParaTelemetria(erroReal);
+    expect(s.code).toBe('23514');
+    expect(s.message).toContain('sugestoes_contato_check');
+  });
+
+  it('sinaliza que havia details, sem transportar o conteúdo', () => {
+    expect(erroSeguroParaTelemetria(erroReal).detailsOmitido).toBe(true);
+  });
+
+  it('não quebra com erro nulo, string ou objeto vazio', () => {
+    expect(() => erroSeguroParaTelemetria(null)).not.toThrow();
+    expect(() => erroSeguroParaTelemetria('falha')).not.toThrow();
+    expect(erroSeguroParaTelemetria({})).toEqual({});
+  });
+
+  it('ignora campos desconhecidos — allowlist, não denylist', () => {
+    const s = erroSeguroParaTelemetria({
+      code: '1',
+      message: 'm',
+      campoNovoDaLib: 'visitante@exemplo.com',
+    });
+    expect(JSON.stringify(s)).not.toContain('visitante@exemplo.com');
+    expect(Object.keys(s).sort()).toEqual(['code', 'message']);
   });
 });
 
