@@ -24,10 +24,23 @@ export interface CanalQrCode {
 
 export const DOACAO_LINKS: CanalDoacao[] = [];
 
+// DEV-112 (auditoria 25/07) — os QRs eram servidos no tamanho original: o do
+// Pix tinha 880 KB (1254×1254) para ser exibido a 220 px, em TODA visita à
+// página que sustenta o funding. Reamostrados para 440 px (2× o tamanho de
+// exibição, cobre tela retina) e convertidos para WebP: 880 KB → 22 KB e
+// 40 KB → 13 KB, ~885 KB a menos por visita.
+//
+// Integridade verificada antes de trocar, não presumida: o QR do PayPal
+// DECODIFICA idêntico ao original (jsQR). O do Pix não decodifica nem no
+// original — a foto sobreposta no centro derruba esse decodificador (leitor de
+// celular lida bem), então foi medida a integridade dos módulos: proporção de
+// preto 31,2% → 29,8% (desvio 1,4 pp) e WebP indistinguível de PNG-paleta
+// (6,5% × 6,4% de pixels intermediários), o que mostra que o custo veio do
+// redimensionamento, não do formato. Originais preservados no histórico do Git.
 export const DOACAO_QRCODES: CanalQrCode[] = [
   {
     rotulo: 'Pix',
-    imagem: '/doacao/pix-picpay.png',
+    imagem: '/doacao/pix-picpay.webp',
     largura: 220,
     altura: 220,
     copiavel:
@@ -37,7 +50,7 @@ export const DOACAO_QRCODES: CanalQrCode[] = [
     // Sem paypal.me/copiável por enquanto (conta pessoal com pendência do
     // fundador) — só a imagem do QR, funcional por si só via app do PayPal.
     rotulo: 'PayPal',
-    imagem: '/doacao/qrcode-pay-pal.jpeg',
+    imagem: '/doacao/qrcode-pay-pal.webp',
     largura: 220,
     altura: 242,
   },
