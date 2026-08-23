@@ -77,9 +77,8 @@ export function LinhaResultado({
   );
 }
 
-// Formatação numérica das calculadoras: notação fixa curta; científica só
-// quando o valor é minúsculo (taxas de falha).
-export function fmt(n: number, casas = 2): string {
-  if (n !== 0 && Math.abs(n) < 0.001) return n.toExponential(2);
-  return n.toLocaleString('en-US', { maximumFractionDigits: casas, minimumFractionDigits: 0 });
-}
+// DEV-118: `fmt` mudou para `src/lib/calc/formato.ts` — lógica pura num `.tsx`
+// era intestável (a suíte roda em `node`, sem JSX), e foi por isso que um
+// defeito de formatação publicado sobreviveu. Reexportado aqui para não quebrar
+// os imports existentes.
+export { fmt } from '@/lib/calc/formato';

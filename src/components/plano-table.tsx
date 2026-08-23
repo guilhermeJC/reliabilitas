@@ -57,7 +57,7 @@ export async function PlanoTable({
     decisao: fwB?.decisao,
     pfTipico,
     revisadoEm,
-    url: `https://reliabilitas.io${notaPath(locale, slug)}`,
+    url: `https://reliabilitas.com${notaPath(locale, slug)}`,
   };
 
   const disclaimer = textos.disclaimer
@@ -89,40 +89,47 @@ export async function PlanoTable({
         <strong className="text-slate-700">⚠ {textos.disclaimerTitulo}:</strong> {disclaimer}
       </p>
 
-      <table className="mt-3 w-full text-[13px]">
-        <thead>
-          <tr className="text-left text-xs text-slate-500">
-            <th className="pb-2 pr-4 font-medium">{t('tarefa')}</th>
-            <th className="pb-2 pr-4 font-medium">{t('metodo')}</th>
-            {temCriterio && <th className="pb-2 pr-4 font-medium">{t('criterio')}</th>}
-            <th className="pb-2 font-medium">{t('periodicidade')}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {plano.map((linha, i) => (
-            <tr key={i} className="border-t align-top" style={{ borderColor: '#eef1f6' }}>
-              <td className="py-2 pr-4">
-                <span className="font-medium text-slate-800">{linha.tarefa}</span>
-                {linha.condicao && (
-                  <span className="mt-0.5 block text-[11px] text-slate-500">
-                    {t('condicao')}: {linha.condicao}
-                  </span>
-                )}
-              </td>
-              <td className="py-2 pr-4 text-slate-600">{linha.metodo}</td>
-              {temCriterio && (
-                <td className="py-2 pr-4 text-slate-600">
-                  {linha.criterio}
-                  {linha.acao && (
-                    <span className="mt-0.5 block text-[11px] text-slate-500">→ {linha.acao}</span>
+      {/* DEV-119: sem este wrapper a pagina INTEIRA rolava lateralmente no
+          celular (medido: scrollWidth 472 em viewport de 375). O fix do
+          DEV-059 so cobriu tabelas de markdown; esta e JSX e escapou. */}
+      <div className="mt-3 overflow-x-auto">
+        <table className="w-full text-[13px]">
+          <thead>
+            <tr className="text-left text-xs text-slate-500">
+              <th className="pb-2 pr-4 font-medium">{t('tarefa')}</th>
+              <th className="pb-2 pr-4 font-medium">{t('metodo')}</th>
+              {temCriterio && <th className="pb-2 pr-4 font-medium">{t('criterio')}</th>}
+              <th className="pb-2 font-medium">{t('periodicidade')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {plano.map((linha, i) => (
+              <tr key={i} className="border-t align-top" style={{ borderColor: '#eef1f6' }}>
+                <td className="py-2 pr-4">
+                  <span className="font-medium text-slate-800">{linha.tarefa}</span>
+                  {linha.condicao && (
+                    <span className="mt-0.5 block text-[11px] text-slate-500">
+                      {t('condicao')}: {linha.condicao}
+                    </span>
                   )}
                 </td>
-              )}
-              <td className="py-2 font-mono text-xs text-slate-700">{linha.periodicidade}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                <td className="py-2 pr-4 text-slate-600">{linha.metodo}</td>
+                {temCriterio && (
+                  <td className="py-2 pr-4 text-slate-600">
+                    {linha.criterio}
+                    {linha.acao && (
+                      <span className="mt-0.5 block text-[11px] text-slate-500">
+                        → {linha.acao}
+                      </span>
+                    )}
+                  </td>
+                )}
+                <td className="py-2 font-mono text-xs text-slate-700">{linha.periodicidade}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </section>
   );
 }

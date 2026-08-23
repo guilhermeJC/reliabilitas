@@ -70,7 +70,7 @@ export interface TextosPlanoDoc {
 
 const PT: TextosPlanoDoc = {
   tagline: 'Conhecimento de confiabilidade industrial, aberto a todos',
-  site: 'reliabilitas.io',
+  site: 'reliabilitas.com',
   tituloPorDecisao: {
     cbm: 'PLANO DE MANUTENÇÃO PREDITIVA (CBM)',
     tbm: 'PLANO DE MANUTENÇÃO PREVENTIVA (TBM)',
@@ -144,7 +144,7 @@ const PT: TextosPlanoDoc = {
 
 const EN: TextosPlanoDoc = {
   tagline: 'Industrial reliability knowledge, open to everyone',
-  site: 'reliabilitas.io',
+  site: 'reliabilitas.com',
   tituloPorDecisao: {
     cbm: 'PREDICTIVE MAINTENANCE PLAN (CBM)',
     tbm: 'PREVENTIVE MAINTENANCE PLAN (TBM)',

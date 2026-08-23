@@ -105,9 +105,21 @@ Balanced seal ($B \approx 0.75$) on a 50 mm shaft, chamber pressure 10 bar (1.0 
 
 $$v = \pi \, d \, n = \pi \times 0.05 \times (1{,}800/60) \approx 4.71 \text{ m/s}$$
 
-$$PV = P_{\text{face}} \times v \approx (0.75 \times 1.0 \times 10^6) \times 4.71 \approx 3.5 \times 10^6 \text{ Pa·m/s}$$
+The pressure that actually closes the faces is **not** $B \times \Delta p$. The film between the faces has a **pressure gradient**, captured by the factor $k$ (≈ 0.5 for a linear gradient, the usual design assumption), plus the mechanical spring contribution:
 
-Against a typical limit for reference carbon×SiC faces (on the order of $3$–$5 \times 10^6$ Pa·m/s depending on the material pair and piping plan), this operating point is already at the ceiling — any partial loss of the cooling/lubrication plan (e.g. a partially clogged Plan 11) or an increase in pressure/speed pushes the pair out of the safe window, precipitating film flashing. This is why unbalanced seals ($B > 1$) are only justified at low pressures: the same PV reasoning explains why the balance ratio is the first variable to review when a seal keeps failing in the same service.
+$$P_{\text{face}} = (B - k)\,\Delta p + P_{\text{spring}} \approx (0.75 - 0.5) \times 1.0 + 0.15 \approx 0.40 \text{ MPa}$$
+
+$$PV = P_{\text{face}} \times v \approx 0.40 \times 10^6 \times 4.71 \approx 1.9 \times 10^6 \text{ Pa·m/s}$$
+
+Against a typical limit for reference carbon×SiC faces (on the order of $3$–$5 \times 10^6$ Pa·m/s depending on the material pair and piping plan), this point runs with roughly 2× margin — comfortable, not at the limit.
+
+**Now swap the same seal for an unbalanced one** ($B \approx 1.0$) in the identical service:
+
+$$P_{\text{face}} = (1.0 - 0.5) \times 1.0 + 0.15 = 0.65 \text{ MPa}$$
+
+That gives $PV \approx 3.1 \times 10^6$ Pa·m/s — this one does reach the ceiling band: any partial loss of the cooling/lubrication plan (e.g. a partially clogged Plan 11) or an increase in pressure/speed pushes the pair out of the safe window, precipitating film flashing. It is this difference — 1.9 versus 3.1 × 10⁶ with the same fluid, pressure and speed — that explains why unbalanced seals are only justified at low pressures, and why the balance ratio is the first variable to review when a seal keeps failing in the same service.
+
+> **Common error to avoid:** using $B \times \Delta p$ directly as face pressure, without the $k$ factor or the spring, overestimates PV by roughly 2–3× and makes a comfortable service look critical.
 
 ## Selection and good practice
 

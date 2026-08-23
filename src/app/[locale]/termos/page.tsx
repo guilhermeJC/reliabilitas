@@ -104,6 +104,23 @@ export default async function TermosPage({ params }: { params: Promise<{ locale:
             <li>{t('privacidadeNaoColetaItem2')}</li>
           </ul>
 
+          {/* DEV-117: o texto anterior afirmava "não usa cookies" e "nenhum
+              analytics de terceiros" — ambos factualmente FALSOS em produção
+              (cookie NEXT_LOCALE do next-intl + beacon do Cloudflare Web
+              Analytics). Declarados aqui de forma explícita e honesta. */}
+          <h3 className="mt-5 text-sm font-medium text-slate-800">
+            {t('privacidadeCookieTitulo')}
+          </h3>
+          <p className="mt-2 text-[15px] leading-relaxed text-slate-700">
+            {t('privacidadeCookieTexto')}
+          </p>
+
+          <h3 className="mt-5 text-sm font-medium text-slate-800">
+            {t('privacidadeAnalyticsTitulo')}
+          </h3>
+          <p className="mt-2 text-[15px] leading-relaxed text-slate-700">
+            {t('privacidadeAnalyticsTexto')}
+          </p>
           <h3 className="mt-5 text-sm font-medium text-slate-800">{t('privacidadeColeta')}</h3>
           <p className="mt-2 text-[15px] leading-relaxed text-slate-700">
             {t('privacidadeColetaSugerir')}

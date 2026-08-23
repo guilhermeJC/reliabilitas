@@ -36,7 +36,7 @@ const contexto = {
   fwB: 'CBM · P-F/2',
   decisao: 'cbm',
   pfTipico: '~1 semana a ~6 meses',
-  url: 'https://reliabilitas.io/pt/notas/cavitacao',
+  url: 'https://reliabilitas.com/pt/notas/cavitacao',
   revisadoEm: '2026-07-10',
 };
 
@@ -45,7 +45,7 @@ describe('planoParaMd — o documento completo no template RELIABILITAS', () => 
 
   it('abre com o logotipo em caracteres e o título da decisão (CBM)', () => {
     expect(md).toContain('R E L I A B I L I T A S');
-    expect(md).toContain('reliabilitas.io');
+    expect(md).toContain('reliabilitas.com');
     expect(md).toContain('# PLANO DE MANUTENÇÃO PREDITIVA (CBM)');
     expect(md).toContain('## Bomba Centrífuga — Cavitação');
   });
@@ -98,7 +98,7 @@ describe('planoParaMd — o documento completo no template RELIABILITAS', () => 
     expect(md).toContain('EXECUTADO POR (nome/matrícula)');
     expect(md).toContain('HOUVE DESVIO DE PLANEJAMENTO?');
     expect(md).toContain('Gerado por RELIABILITAS');
-    expect(md).toContain('https://reliabilitas.io/pt/notas/cavitacao');
+    expect(md).toContain('https://reliabilitas.com/pt/notas/cavitacao');
     expect(md).toContain('2026-07-10');
   });
 

@@ -105,9 +105,21 @@ Selo balanceado ($B \approx 0{,}75$) em eixo de 50 mm, pressão de câmara 10 ba
 
 $$v = \pi \, d \, n = \pi \times 0{,}05 \times (1.800/60) \approx 4{,}71 \text{ m/s}$$
 
-$$PV = P_{\text{face}} \times v \approx (0{,}75 \times 1{,}0 \times 10^6) \times 4{,}71 \approx 3{,}5 \times 10^6 \text{ Pa·m/s}$$
+A pressão que efetivamente fecha as faces **não é** $B \times \Delta p$. O filme entre as faces tem um **gradiente de pressão**, representado pelo fator $k$ (≈ 0,5 para gradiente linear, hipótese usual de projeto), e soma-se a parcela mecânica da mola:
 
-Contra um limite típico de faces carbono×SiC de referência (ordem de $3$–$5 \times 10^6$ Pa·m/s conforme o par de materiais e o plano de selagem), esse ponto de operação já está no teto — qualquer perda parcial do plano de refrigeração/lubrificação (ex.: Plano 11 parcialmente obstruído) ou aumento de pressão/rotação empurra o par para fora da janela segura, precipitando *flashing* do filme. É por isso que selos não-balanceados ($B > 1$) só se justificam em pressões baixas: o mesmo raciocínio de PV explica por que a razão de balanceamento é a primeira variável a revisar quando um selo falha repetidamente no mesmo serviço.
+$$P_{\text{face}} = (B - k)\,\Delta p + P_{\text{mola}} \approx (0{,}75 - 0{,}5) \times 1{,}0 + 0{,}15 \approx 0{,}40 \text{ MPa}$$
+
+$$PV = P_{\text{face}} \times v \approx 0{,}40 \times 10^6 \times 4{,}71 \approx 1{,}9 \times 10^6 \text{ Pa·m/s}$$
+
+Contra um limite típico de faces carbono×SiC de referência (ordem de $3$–$5 \times 10^6$ Pa·m/s conforme o par de materiais e o plano de selagem), esse ponto opera com folga de aproximadamente 2× — confortável, não no limite.
+
+**Agora troque o mesmo selo por um não-balanceado** ($B \approx 1{,}0$), no serviço idêntico:
+
+$$P_{\text{face}} = (1{,}0 - 0{,}5) \times 1{,}0 + 0{,}15 = 0{,}65 \text{ MPa}$$
+
+Isso leva a $PV \approx 3{,}1 \times 10^6$ Pa·m/s — esse sim entra na faixa do teto: qualquer perda parcial do plano de refrigeração/lubrificação (ex.: Plano 11 parcialmente obstruído) ou aumento de pressão/rotação empurra o par para fora da janela segura, precipitando *flashing* do filme. É essa diferença — 1,9 contra 3,1 × 10⁶ com o mesmo fluido, mesma pressão e mesma rotação — que explica por que selos não-balanceados só se justificam em pressões baixas, e por que a razão de balanceamento é a primeira variável a revisar quando um selo falha repetidamente no mesmo serviço.
+
+> **Erro comum a evitar:** usar $B \times \Delta p$ direto como pressão de face, sem o fator $k$ nem a mola, superestima o PV em cerca de 2–3× e faz um serviço folgado parecer crítico.
 
 ## Seleção e boas práticas
 

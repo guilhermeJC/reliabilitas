@@ -12,6 +12,7 @@ import { separaHtmlNoHeading } from '@/lib/content/split-html';
 import { hotspotsPorSlug } from '@/lib/anatomia/registry';
 import { AnatomiaInterativa } from '@/components/anatomia-interativa';
 import { widgetExtraDaNota, type WidgetKey } from '@/lib/widgets/registry';
+import { SITE_URL } from '@/lib/seo/site';
 import { paiDireto } from '@/lib/content/taxonomia-nav';
 import { NIVEIS_LEITURA, type Locale } from '@/lib/content/schema';
 import { Breadcrumb } from '@/components/breadcrumb';
@@ -53,7 +54,34 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
   if (view.estado === 'archived') return { robots: { index: false } };
   if (view.estado !== 'published') return {};
   const resumo = view.nota.frontmatter.resumo as string | undefined;
-  return { title: view.nota.titulo, description: resumo };
+  // DEV-121 (adversarial review 25/07) — as notas saíam com title+description e
+  // MAIS NADA: sem canonical, sem hreflang e sem Open Graph. Num site cujo único
+  // motor de aquisição é SEO/GEO (D26), com 62 pares PT/EN, isso significava
+  // (a) nenhum sinal de qual é a versão canônica de cada idioma, e (b) todo link
+  // compartilhado no LinkedIn renderizando como URL nua, justamente no GTM.
+  const url = `${SITE_URL}${notaPath(locale as Locale, slug)}`;
+  return {
+    title: view.nota.titulo,
+    description: resumo,
+    alternates: {
+      canonical: url,
+      // O par PT/EN de uma nota tem SLUGS DIFERENTES (cavitacao × cavitation),
+      // e não existe hoje um mapa nota-a-nota entre os idiomas — declarar um
+      // hreflang adivinhado apontaria o crawler para 404 (mesma decisão
+      // registrada no sitemap, DEV-111). Declara-se o que é verdade: a própria
+      // URL como canônica do seu idioma.
+      languages: { [locale]: url },
+    },
+    openGraph: {
+      type: 'article',
+      title: view.nota.titulo,
+      description: resumo,
+      url,
+      siteName: 'RELIABILITAS',
+      locale: locale === 'pt' ? 'pt_BR' : 'en_US',
+    },
+    twitter: { card: 'summary', title: view.nota.titulo, description: resumo },
+  };
 }
 
 export default async function NotaPage({ params }: PageParams) {
@@ -118,7 +146,7 @@ export default async function NotaPage({ params }: PageParams) {
           <ExportNotaBotoes
             titulo={nota.titulo}
             corpoMd={nota.corpo_md}
-            url={`https://reliabilitas.io${notaPath(locale, nota.slug)}`}
+            url={`https://reliabilitas.com${notaPath(locale, nota.slug)}`}
             slug={nota.slug}
             revisadoEm={nota.revisado_em ?? undefined}
             labelRevisado={t('revisado')}
@@ -212,6 +240,7 @@ export default async function NotaPage({ params }: PageParams) {
                 slug: nota.slug,
                 taxonomia: nota.taxonomia,
                 ehHandbook,
+                locale: locale as Locale,
               });
               const WidgetComponente = widget ? WIDGET_COMPONENTES[widget.key] : null;
               const idxApos = widget?.apos ? h2s.findIndex((s) => s.id === widget.apos) : -1;
@@ -226,7 +255,11 @@ export default async function NotaPage({ params }: PageParams) {
               // CurvaHq (média da nota, condicionada ao split) e CurvaQp (fim
               // da nota, sem split nenhum).
               const mostraWidgetNoMeio = Boolean(widget?.apos) && divisaoWidget !== null;
-              const mostraWidgetNoFim = Boolean(widget) && !widget?.apos;
+              // DEV-120: o fallback é a rede de segurança do achado — antes, se a
+              // âncora não fosse encontrada (era o caso de TODA nota em inglês, com
+              // a âncora em slug PT), o widget não entrava nem no meio nem no fim:
+              // sumia calado. Agora, âncora não resolvida degrada para o fim da nota.
+              const mostraWidgetNoFim = Boolean(widget) && !mostraWidgetNoMeio;
 
               // Anatomia interativa (melhoria 2, 10/07): quando o handbook tem
               // hotspots registrados, o corpo é dividido no heading SEGUINTE à

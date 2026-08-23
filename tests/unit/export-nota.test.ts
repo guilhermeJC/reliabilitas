@@ -10,7 +10,7 @@ describe('notaParaMd — exporta o conteúdo íntegro da nota em Markdown', () =
     const md = notaParaMd({
       titulo: 'Cavitação',
       corpoMd: '## Classificação\n\nTexto.',
-      url: 'https://reliabilitas.io/pt/notas/cavitacao',
+      url: 'https://reliabilitas.com/pt/notas/cavitacao',
     });
     expect(md.startsWith('# Cavitação')).toBe(true);
   });
@@ -19,7 +19,7 @@ describe('notaParaMd — exporta o conteúdo íntegro da nota em Markdown', () =
     const md = notaParaMd({
       titulo: 'Cavitação',
       corpoMd: '## Mecanismo\n\nVer [[bomba-centrifuga]] e $NPSH_r$.',
-      url: 'https://reliabilitas.io/pt/notas/cavitacao',
+      url: 'https://reliabilitas.com/pt/notas/cavitacao',
     });
     expect(md).toContain('## Mecanismo');
     expect(md).toContain('[[bomba-centrifuga]]');
@@ -30,17 +30,17 @@ describe('notaParaMd — exporta o conteúdo íntegro da nota em Markdown', () =
     const md = notaParaMd({
       titulo: 'Cavitação',
       corpoMd: 'Texto.',
-      url: 'https://reliabilitas.io/pt/notas/cavitacao',
+      url: 'https://reliabilitas.com/pt/notas/cavitacao',
     });
     expect(md).toContain('RELIABILITAS');
-    expect(md).toContain('https://reliabilitas.io/pt/notas/cavitacao');
+    expect(md).toContain('https://reliabilitas.com/pt/notas/cavitacao');
   });
 
   it('inclui a data de revisão quando fornecida', () => {
     const md = notaParaMd({
       titulo: 'Cavitação',
       corpoMd: 'Texto.',
-      url: 'https://reliabilitas.io/pt/notas/cavitacao',
+      url: 'https://reliabilitas.com/pt/notas/cavitacao',
       revisadoEm: '2026-07-11',
     });
     expect(md).toContain('2026-07-11');
@@ -50,7 +50,7 @@ describe('notaParaMd — exporta o conteúdo íntegro da nota em Markdown', () =
     const md = notaParaMd({
       titulo: 'Cavitação',
       corpoMd: 'Texto.',
-      url: 'https://reliabilitas.io/pt/notas/cavitacao',
+      url: 'https://reliabilitas.com/pt/notas/cavitacao',
     });
     expect(md).not.toContain('undefined');
   });

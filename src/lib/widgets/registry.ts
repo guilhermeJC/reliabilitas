@@ -1,3 +1,4 @@
+import type { Locale } from '@/lib/content/schema';
 // Registro de widgets extras por nota (aprofundamento 18/07,
 // /improve-codebase-architecture): generaliza o mesmo padrão de
 // src/lib/anatomia/registry.ts (registry por slug, retornando DADO, não
@@ -16,7 +17,18 @@ export interface NotaParaWidget {
   slug: string;
   taxonomia: string[];
   ehHandbook: boolean;
+  // DEV-120: o locale entrou aqui porque a âncora `apos` é o ID de um heading,
+  // e headings são TRADUZIDOS — ver AncoraPorLocale abaixo.
+  locale: Locale;
 }
+
+// DEV-120 (adversarial review 25/07) — `apos` era uma string única com o slug
+// PT ('principio-de-funcionamento'). Em inglês o heading é "Working principle"
+// → id 'working-principle', então o findIndex da página não achava a âncora e o
+// widget da curva H-Q simplesmente NÃO RENDERIZAVA em /en — em nenhum lugar,
+// sem erro e sem aviso. Nenhum dos testes percebeu porque o registry era testado
+// sem locale. A âncora agora é declarada por idioma.
+export type AncoraPorLocale = Record<Locale, string>;
 
 export interface WidgetExtra {
   key: WidgetKey;
@@ -25,8 +37,12 @@ export interface WidgetExtra {
   apos?: string;
 }
 
-interface EntradaRegistro extends WidgetExtra {
+interface EntradaRegistro {
+  key: WidgetKey;
   quando: (nota: NotaParaWidget) => boolean;
+  // Âncora por idioma — obrigatoriamente completa (Record<Locale, string>),
+  // então um locale novo quebra o TYPECHECK em vez de sumir com o widget.
+  ancora?: AncoraPorLocale;
 }
 
 const REGISTRO: EntradaRegistro[] = [
@@ -38,7 +54,7 @@ const REGISTRO: EntradaRegistro[] = [
     // 'dinamicas' na taxonomia mas nunca mostraram o widget.
     quando: (n) => n.ehHandbook && n.taxonomia.includes('dinamicas'),
     key: 'curva-hq',
-    apos: 'principio-de-funcionamento',
+    ancora: { pt: 'principio-de-funcionamento', en: 'working-principle' },
   },
   {
     // Widget Q×P (sessão 8): comparativo específico desta nota de princípio,
@@ -50,5 +66,6 @@ const REGISTRO: EntradaRegistro[] = [
 
 export function widgetExtraDaNota(nota: NotaParaWidget): WidgetExtra | null {
   const entrada = REGISTRO.find((r) => r.quando(nota));
-  return entrada ? { key: entrada.key, apos: entrada.apos } : null;
+  if (!entrada) return null;
+  return { key: entrada.key, apos: entrada.ancora?.[nota.locale] };
 }
