@@ -24,7 +24,7 @@ export interface CanalQrCode {
 
 export const DOACAO_LINKS: CanalDoacao[] = [];
 
-// DEV-112 (auditoria 25/07) — os QRs eram servidos no tamanho original: o do
+// DEV-112 (auditoria 25/07, aplicado em 31/07) — os QRs eram servidos no tamanho original: o do
 // Pix tinha 880 KB (1254×1254) para ser exibido a 220 px, em TODA visita à
 // página que sustenta o funding. Reamostrados para 440 px (2× o tamanho de
 // exibição, cobre tela retina) e convertidos para WebP: 880 KB → 22 KB e

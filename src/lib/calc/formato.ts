@@ -1,4 +1,4 @@
-// DEV-118 (adversarial review 25/07) — extraído de `components/calc/campos.tsx`.
+// DEV-118 (adversarial review 31/07) — extraído de `components/calc/campos.tsx`.
 //
 // Por que mudou de lugar: `fmt` vivia num arquivo `.tsx`, e a suíte roda em
 // ambiente `node` sem plugin JSX — ou seja, era IMPOSSÍVEL testá-la. Foi

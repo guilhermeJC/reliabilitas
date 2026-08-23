@@ -78,7 +78,7 @@ describe('formataLinhaLog', () => {
   });
 });
 
-// DEV-116 (adversarial review 25/07) — comprovado contra o banco REAL: numa
+// DEV-116 (adversarial review 31/07) — comprovado contra o banco REAL: numa
 // violação de CHECK constraint, o Postgres devolve `details` com a linha
 // inteira, incluindo e-mail e texto escritos pelo visitante. Mandar o erro cru
 // pro Sentry vazaria PII pra um terceiro. Estes testes travam isso.

@@ -69,7 +69,7 @@ describe('widgetExtraDaNota — registro único, critérios preservados', () => 
   });
 });
 
-// DEV-120 (adversarial review 25/07) — a âncora do widget era uma string única
+// DEV-120 (adversarial review 31/07) — a âncora do widget era uma string única
 // com o slug PT ('principio-de-funcionamento'). Em inglês o heading é "Working
 // principle" → id 'working-principle', então a página não achava a âncora e o
 // widget da curva H-Q NÃO RENDERIZAVA em /en, em lugar nenhum, sem erro nem

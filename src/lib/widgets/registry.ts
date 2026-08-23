@@ -22,7 +22,7 @@ export interface NotaParaWidget {
   locale: Locale;
 }
 
-// DEV-120 (adversarial review 25/07) — `apos` era uma string única com o slug
+// DEV-120 (adversarial review 31/07) — `apos` era uma string única com o slug
 // PT ('principio-de-funcionamento'). Em inglês o heading é "Working principle"
 // → id 'working-principle', então o findIndex da página não achava a âncora e o
 // widget da curva H-Q simplesmente NÃO RENDERIZAVA em /en — em nenhum lugar,

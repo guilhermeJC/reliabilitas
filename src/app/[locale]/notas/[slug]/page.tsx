@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
   if (view.estado === 'archived') return { robots: { index: false } };
   if (view.estado !== 'published') return {};
   const resumo = view.nota.frontmatter.resumo as string | undefined;
-  // DEV-121 (adversarial review 25/07) — as notas saíam com title+description e
+  // DEV-121 (adversarial review 31/07) — as notas saíam com title+description e
   // MAIS NADA: sem canonical, sem hreflang e sem Open Graph. Num site cujo único
   // motor de aquisição é SEO/GEO (D26), com 62 pares PT/EN, isso significava
   // (a) nenhum sinal de qual é a versão canônica de cada idioma, e (b) todo link

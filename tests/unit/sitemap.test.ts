@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { montaEntradasSitemap, ROTAS_ESTATICAS_INDEXAVEIS } from '@/lib/seo/sitemap';
 
-// DEV-111 (auditoria 25/07) — /sitemap.xml devolvia 404 e o robots.txt servido
+// DEV-111 (auditoria 25/07, aplicado em 31/07) — /sitemap.xml devolvia 404 e o robots.txt servido
 // era um boilerplate da Cloudflare SEM NENHUMA diretiva (só comentários de
 // content-signals). Como TODO o modelo de aquisição do projeto é SEO/GEO
 // (D26: sem ads pagos), um domínio novo com 124 páginas sem sitemap é o pior

@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { LOCALES } from '@/lib/content/schema';
 
-// DEV-111 (auditoria técnica, 25/07/2026) — `/sitemap.xml` devolvia 404 e o
+// DEV-111 (auditoria 25/07, aplicado em 31/07/2026) — `/sitemap.xml` devolvia 404 e o
 // `robots.txt` servido era um boilerplate injetado pela Cloudflare SEM NENHUMA
 // diretiva (só comentários de content-signals; o origin devolvia 404). Como
 // TODO o modelo de aquisição do projeto é SEO/GEO (D26 — sem ads pagos), um

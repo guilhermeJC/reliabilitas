@@ -63,7 +63,7 @@ export function extraiRequestId(headers: Headers): string | undefined {
 }
 
 /**
- * DEV-116 (adversarial review, 25/07) — extrai de um erro do Supabase/Postgres
+ * DEV-116 (adversarial review, 31/07) — extrai de um erro do Supabase/Postgres
  * APENAS os campos seguros para telemetria.
  *
  * Motivo, comprovado contra o banco real: numa violação de CHECK constraint o

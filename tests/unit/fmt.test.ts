@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { fmt } from '@/lib/calc/formato';
 
-// DEV-118 (adversarial review 25/07) — a guarda de notação científica disparava
+// DEV-118 (adversarial review 31/07) — a guarda de notação científica disparava
 // só ABAIXO de 0,001, então a faixa [0,001; 0,005) caía no toLocaleString com
 // 2 casas e era arredondada para "0". Efeito publicado: uma taxa de falha real
 // de 0,001 falhas/h aparecia como "0 falhas/h" sob a legenda "risco de falhar

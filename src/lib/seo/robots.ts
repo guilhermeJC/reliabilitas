@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { LOCALES } from '@/lib/content/schema';
 
-// DEV-111 (auditoria 25/07) — o site não servia robots.txt próprio: o origin
+// DEV-111 (auditoria 25/07, aplicado em 31/07) — o site não servia robots.txt próprio: o origin
 // devolvia 404 e o que chegava ao visitante era um boilerplate injetado pela
 // borda da Cloudflare, com ZERO diretivas (só comentários de content-signals).
 // Ou seja: nenhum sitemap declarado e nenhuma expressão da BR-010.

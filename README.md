@@ -63,4 +63,4 @@ Toda contribuição de conteúdo é curada — veja "Colaborar" no site. Correç
 
 ---
 
-_Deploy alvo: 27/07/2026 em reliabilitas.com._
+_Deploy alvo: 26/08/2026 em reliabilitas.com._
