@@ -2,6 +2,7 @@ import createMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
 import { routing } from './i18n/routing';
 import { geraNonce, montaCabecalhoCsp } from './lib/csp';
+import { destinoCanonico } from './lib/host-canonico';
 
 // F12: negociação de locale + hreflang (alternate links) por padrão.
 const intlMiddleware = createMiddleware(routing);
@@ -17,6 +18,19 @@ const intlMiddleware = createMiddleware(routing);
 // /admin fica fora do next-intl (PT-only, DEV-046) mas AGORA entra no
 // matcher — também precisa do nonce, só não passa pelo roteamento de locale.
 export default function middleware(request: NextRequest) {
+  // DEV-129 (achado de segurança, 04/09) — PRIMEIRA coisa do middleware: o
+  // origin da Vercel atendia por fora da Cloudflare, tornando WAF, rate limit
+  // de borda e allowlist de crawlers contornáveis por quem soubesse a URL.
+  // Redirecionar para o domínio canônico força todo o tráfego de produção a
+  // atravessar a borda. Vem antes de tudo para não gastar trabalho (nonce,
+  // roteamento de locale) numa requisição que será redirigida.
+  const canonico = destinoCanonico(
+    request.url,
+    request.headers.get('host'),
+    process.env.VERCEL_ENV,
+  );
+  if (canonico) return NextResponse.redirect(canonico, 308);
+
   const nonce = geraNonce();
   const isDev = process.env.NODE_ENV === 'development';
   const csp = montaCabecalhoCsp(nonce, isDev);
@@ -26,8 +40,13 @@ export default function middleware(request: NextRequest) {
   requestHeaders.set('Content-Security-Policy', csp);
   const requestComNonce = new NextRequest(request, { headers: requestHeaders });
 
-  const isAdmin = request.nextUrl.pathname.startsWith('/admin');
-  const response = isAdmin
+  // /admin (PT-only) e /api (JSON) não passam pelo roteamento de locale; ambos
+  // seguem recebendo o nonce. /api entrou no matcher em DEV-129 — sem isso, a
+  // rota mais sensível a força bruta (/api/admin/login) continuaria alcançável
+  // pelo origin, que é exatamente o buraco que este middleware fecha.
+  const { pathname } = request.nextUrl;
+  const foraDoIntl = pathname.startsWith('/admin') || pathname.startsWith('/api');
+  const response = foraDoIntl
     ? NextResponse.next({ request: { headers: requestHeaders } })
     : intlMiddleware(requestComNonce);
 
@@ -36,7 +55,8 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // /api segue fora (JSON não precisa de CSP de documento); /admin agora
-  // entra (precisa do nonce, mesmo não passando pelo next-intl).
-  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
+  // DEV-129: /api ENTROU no matcher. Antes ficava de fora ("JSON não precisa de
+  // CSP de documento"), o que era verdade para CSP mas deixava as rotas de API
+  // fora da checagem de host canônico — justamente as mais sensíveis.
+  matcher: ['/((?!_next|_vercel|.*\\..*).*)'],
 };

@@ -14,6 +14,15 @@ import { erroSeguroParaTelemetria, extraiRequestId, log } from '@/lib/log';
 const permite = criaRateLimiter({ maxNaJanela: 3, janelaMs: 60 * 60 * 1000 });
 
 export async function POST(req: NextRequest) {
+  // DEV-129: o rate limit ficava DEPOIS de `req.formData()` e depois do
+  // honeypot — ou seja, o corpo era parseado antes de qualquer defesa, e
+  // um bot que preenchesse o honeypot nunca consumia quota (recebe sucesso
+  // falso e volta). Agora a contagem por IP vem primeiro: gasta-se o mínimo
+  // possível antes de decidir atender. O teto real continua sendo o do
+  // Cloudflare — que só protege de verdade desde que o origin parou de
+  // responder por fora da borda (ver host-canonico.ts).
+  const ip = extraiIp(req.headers);
+  const dentroDoLimite = permite(ip);
   const form = await req.formData();
   const raw: Record<string, unknown> = Object.fromEntries(form.entries());
   const locale = raw.locale === 'en' ? 'en' : 'pt';
@@ -22,9 +31,7 @@ export async function POST(req: NextRequest) {
 
   const r = validaContribuicao(raw);
   if (!r.ok && r.motivo === 'bot') return volta('ok'); // honeypot: finge sucesso
-
-  const ip = extraiIp(req.headers);
-  if (!permite(ip)) return volta('limite');
+  if (!dentroDoLimite) return volta('limite');
 
   if (!r.ok) return volta('erro');
 

@@ -72,3 +72,45 @@ describe('senhaCorreta — comparação timing-safe', () => {
     expect(senhaCorreta('Minha-Senha-Forte', 'minha-senha-forte')).toBe(false);
   });
 });
+
+describe('verificaTokenSessao — robustez contra cookie hostil (DEV-129)', () => {
+  const SEGREDO = 'segredo-de-teste';
+  const exp = String(Date.now() + 60_000);
+
+  // ACHADO 04/09: a guarda comparava o comprimento em CARACTERES e só depois
+  // convertia para Buffer, que conta BYTES. Uma assinatura de 64 caracteres com
+  // qualquer caractere multi-byte produz um buffer maior que os 64 bytes do hex
+  // esperado, e timingSafeEqual LANÇA em vez de devolver false. Um cookie
+  // assim virava erro 500 numa função de autenticação — reproduzido antes da
+  // correção com 'é'.repeat(32) + 'a'.repeat(32) (64 chars, 96 bytes).
+  it('assinatura de 64 CHARS mas mais de 64 BYTES é rejeitada, não lança', () => {
+    const multibyte = 'é'.repeat(32) + 'a'.repeat(32);
+    expect(multibyte.length).toBe(64);
+    expect(Buffer.byteLength(multibyte)).toBeGreaterThan(64);
+    expect(() => verificaTokenSessao(`${exp}.${multibyte}`, SEGREDO)).not.toThrow();
+    expect(verificaTokenSessao(`${exp}.${multibyte}`, SEGREDO)).toBe(false);
+  });
+
+  it('emoji e outros pontos de código fora do BMP também são rejeitados sem lançar', () => {
+    for (const s of ['🔓'.repeat(32), '\u00e9\u00e8'.repeat(32), 'ü'.repeat(64)]) {
+      expect(() => verificaTokenSessao(`${exp}.${s}`, SEGREDO), s).not.toThrow();
+      expect(verificaTokenSessao(`${exp}.${s}`, SEGREDO), s).toBe(false);
+    }
+  });
+
+  it('token com separadores demais é rejeitado', () => {
+    expect(verificaTokenSessao(`${exp}.abc.def`, SEGREDO)).toBe(false);
+  });
+
+  it('payload não numérico é rejeitado mesmo com assinatura VÁLIDA para ele', () => {
+    // Assina corretamente um payload que não é timestamp: a assinatura confere,
+    // mas Number('abc') é NaN e a expiração não pode ser verificada.
+    const token = criaTokenSessao(SEGREDO);
+    const [, assinatura] = token.split('.');
+    expect(verificaTokenSessao(`abc.${assinatura}`, SEGREDO)).toBe(false);
+  });
+
+  it('segredo vazio não autentica um token qualquer', () => {
+    expect(verificaTokenSessao(`${exp}.${'a'.repeat(64)}`, '')).toBe(false);
+  });
+});

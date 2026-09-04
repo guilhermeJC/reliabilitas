@@ -33,10 +33,17 @@ export function verificaTokenSessao(
   if (!payload || !assinatura) return false;
 
   const esperada = assina(payload, segredo);
-  // Tamanho fixo (hex sha256 = 64 chars) — mas confere antes de comparar para
-  // nunca passar buffers de tamanhos diferentes ao timingSafeEqual (lança).
-  if (assinatura.length !== esperada.length) return false;
-  if (!timingSafeEqual(Buffer.from(assinatura), Buffer.from(esperada))) return false;
+  // DEV-129: a guarda comparava CARACTERES e só depois convertia para Buffer,
+  // que conta BYTES. Uma assinatura de 64 caracteres com qualquer caractere
+  // multi-byte (ex.: 'é'.repeat(32) + 'a'.repeat(32) = 64 chars, 96 bytes)
+  // passava pela guarda e fazia o timingSafeEqual LANÇAR — erro 500 vindo de
+  // uma função de autenticação, disparável por qualquer um que setasse o
+  // cookie. Agora converte primeiro e compara o tamanho em BYTES, que é a
+  // unidade que o timingSafeEqual exige.
+  const bufAssinatura = Buffer.from(assinatura, 'utf8');
+  const bufEsperada = Buffer.from(esperada, 'utf8');
+  if (bufAssinatura.length !== bufEsperada.length) return false;
+  if (!timingSafeEqual(bufAssinatura, bufEsperada)) return false;
 
   const exp = Number(payload);
   if (!Number.isFinite(exp)) return false;
