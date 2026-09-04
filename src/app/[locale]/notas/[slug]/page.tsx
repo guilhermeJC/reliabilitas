@@ -13,6 +13,7 @@ import { hotspotsPorSlug } from '@/lib/anatomia/registry';
 import { AnatomiaInterativa } from '@/components/anatomia-interativa';
 import { widgetExtraDaNota, type WidgetKey } from '@/lib/widgets/registry';
 import { SITE_URL } from '@/lib/seo/site';
+import { OG_IMAGE } from '@/lib/seo/metadados';
 import { paiDireto } from '@/lib/content/taxonomia-nav';
 import { NIVEIS_LEITURA, type Locale } from '@/lib/content/schema';
 import { Breadcrumb } from '@/components/breadcrumb';
@@ -80,8 +81,18 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
       url,
       siteName: 'RELIABILITAS',
       locale: locale === 'pt' ? 'pt_BR' : 'en_US',
+      // DEV-133: declarar `openGraph` aqui SOBRESCREVE o do layout inteiro —
+      // não é mesclagem campo a campo. Sem repetir a imagem, toda nota
+      // compartilhada saía sem preview visual, que é justamente o conteúdo
+      // com mais chance de ser compartilhado ao longo do tempo.
+      images: [{ url: `${SITE_URL}${OG_IMAGE}`, width: 1200, height: 630, alt: 'RELIABILITAS' }],
     },
-    twitter: { card: 'summary', title: view.nota.titulo, description: resumo },
+    twitter: {
+      card: 'summary_large_image',
+      title: view.nota.titulo,
+      description: resumo,
+      images: [`${SITE_URL}${OG_IMAGE}`],
+    },
   };
 }
 
