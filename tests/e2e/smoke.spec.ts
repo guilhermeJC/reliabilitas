@@ -68,3 +68,20 @@ test.describe('troca de idioma', () => {
     await expect(page).toHaveURL('/en/busca?q=rolamento&p=1');
   });
 });
+
+test.describe('byline do autor e fontes (DEV-127)', () => {
+  test('autor em destaque no topo e no fim; Fontes já vêm abertas', async ({ page }) => {
+    await page.goto('/pt/notas/cavitacao');
+    // 2 ocorrências: antes do sumário e no fim do artigo (antes das Fontes).
+    const bylines = page.getByRole('complementary', { name: 'Autor' });
+    await expect(bylines).toHaveCount(2);
+    await expect(bylines.first().getByText('Guilherme Joaquim Correia')).toBeVisible();
+    await expect(bylines.last().getByText('Guilherme Joaquim Correia')).toBeVisible();
+    // <details open>: a lista de fontes está visível sem nenhum clique.
+    const fontes = page
+      .locator('details')
+      .filter({ has: page.locator('summary', { hasText: 'Fontes' }) });
+    await expect(fontes).toHaveJSProperty('open', true);
+    await expect(fontes.locator('li').first()).toBeVisible();
+  });
+});

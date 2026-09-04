@@ -19,6 +19,7 @@ import { Breadcrumb } from '@/components/breadcrumb';
 import { Backlinks } from '@/components/backlinks';
 import { Badges } from '@/components/badges';
 import { RodapeNota } from '@/components/rodape-nota';
+import { AutorNota } from '@/components/autor-nota';
 import { FwCards } from '@/components/fw-cards';
 import { PlanoTable } from '@/components/plano-table';
 import { CurvaHq } from '@/components/calc/curva-hq';
@@ -157,6 +158,11 @@ export default async function NotaPage({ params }: PageParams) {
             texto={t('sugerirCorrecao')}
           />
         </div>
+
+        {/* Byline do autor no topo (pedido do fundador, 04/09 — DEV-127): antes
+            do sumário, seja o sumário visual (nota não-nivelada) ou o seletor
+            de níveis (modo de falha). */}
+        <AutorNota locale={locale as Locale} />
 
         {ehModoFalha && niveis ? (
           <>
@@ -335,6 +341,10 @@ export default async function NotaPage({ params }: PageParams) {
             })()}
           </>
         )}
+
+        {/* ...e de novo no fim do artigo, antes das Fontes (DEV-127). Fora do
+            print:hidden de propósito: o autor sai no PDF, o grafo não. */}
+        <AutorNota locale={locale as Locale} />
 
         <div className="print:hidden">
           <GrafoLocal

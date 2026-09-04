@@ -82,7 +82,7 @@
   "apoio": {
     "titulo": "Apoie o RELIABILITAS",
     "missao": "O RELIABILITAS existe para dar a profissionais de engenharia, confiabilidade e manutenção — do estagiário ao engenheiro — acesso gratuito, em PT e EN, ao conhecimento técnico que normalmente fica trancado em normas pagas e treinamentos caros.",
-    "promessa": "Para pessoa física, é SEMPRE free: sem paywall, sem cadastro obrigatório.",
+    "promessa": "Sem paywall, sem cadastro obrigatório.",
     "promessaDoacoes": "Doações são o que mantém a infraestrutura no ar.",
     "canaisTitulo": "Canais de doação",
     "canaisEmBreve": "Os canais de doação (Pix, PayPal e Ko-fi) serão publicados aqui em breve.",
@@ -529,7 +529,11 @@
     "grafo": "Grafo local",
     "sugerirCorrecao": "Sugerir correção",
     "baixarMd": "Baixar Markdown",
-    "baixarPdf": "Baixar PDF"
+    "baixarPdf": "Baixar PDF",
+    "autorRotulo": "Autor",
+    "autorFotoAlt": "Foto de Guilherme Joaquim Correia",
+    "autorCargo": "Engenheiro mecânico (CREA-SP) — experiência prática em manutenção e planejamento industrial",
+    "autorSobre": "Sobre o autor →"
   },
   "niveis": {
     "beginner": "Entender",

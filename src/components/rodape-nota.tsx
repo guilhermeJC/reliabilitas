@@ -13,6 +13,9 @@ export async function RodapeNota({ nota, locale }: { nota: Nota; locale: Locale 
   const fontes = (nota.frontmatter.fontes as string[] | undefined) ?? [];
   // Melhoria 1 do fundador (10/07): fontes recolhíveis (details nativo — o
   // conteúdo permanece no HTML do SSR, BR-010) e agrupadas por natureza.
+  // Abertas por padrão desde 04/09 (DEV-127, pedido do fundador): a lista de
+  // fontes é parte do argumento de credibilidade da nota, não um apêndice —
+  // continua recolhível, só inverte o estado inicial.
   const grupos = agrupaFontes(fontes);
   const rotulos: Record<GrupoFonte, string> = {
     normas: t('fontesNormas'),
@@ -23,7 +26,7 @@ export async function RodapeNota({ nota, locale }: { nota: Nota; locale: Locale 
   return (
     <footer className="mt-8 border-t pt-4" style={{ borderColor: '#e3e8f0' }}>
       {fontes.length > 0 && (
-        <details>
+        <details open>
           <summary className="flex cursor-pointer list-none items-center gap-1.5 text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500 transition-colors hover:text-slate-700 [&::-webkit-details-marker]:hidden">
             <svg
               className="tree-chevron shrink-0"
