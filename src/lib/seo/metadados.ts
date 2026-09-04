@@ -11,7 +11,12 @@ import type { Locale } from '@/lib/content/schema';
 // época (SEO de conteúdo). A home nunca entrou porque ninguém a compartilhava
 // ainda; hoje ela é o cartão de visita.
 
-export const OG_IMAGE = '/og-reliabilitas.png';
+// O nome carrega VERSÃO de propósito. Redes sociais (LinkedIn à frente) baixam
+// e guardam a imagem nos servidores delas por dias, indexada pela URL. Reenviar
+// bytes novos na MESMA URL não adianta: o Post Inspector revalida os metadados,
+// mas reusa a imagem em cache. Trocar a URL é o único jeito confiável de forçar
+// a rebusca — então, ao mudar a arte, incremente o sufixo em vez de sobrescrever.
+export const OG_IMAGE = '/og-reliabilitas-v2.png';
 
 const TEXTO: Record<Locale, { titulo: string; descricao: string; ogLocale: string }> = {
   pt: {

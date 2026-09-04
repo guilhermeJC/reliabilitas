@@ -57,3 +57,19 @@ describe('metadadosBase — Open Graph do site inteiro', () => {
     expect(pt.description).toBeTruthy();
   });
 });
+
+describe('OG_IMAGE — a URL precisa ser versionada (DEV-134)', () => {
+  // O fundador reportou que o Post Inspector do LinkedIn continuava mostrando a
+  // arte antiga mesmo depois do deploy. A produção servia os bytes novos (hash
+  // conferido com contorno de cache) — quem guardava a versão velha era o
+  // LinkedIn, que indexa a imagem pela URL e a mantém por dias. Trocar bytes na
+  // mesma URL não força rebusca; trocar a URL, sim.
+  it('carrega um sufixo de versão, para que trocar a arte troque a URL', () => {
+    expect(OG_IMAGE).toMatch(/-v\d+\.png$/);
+  });
+
+  it('aponta para um arquivo que existe em public/', async () => {
+    const { existsSync } = await import('node:fs');
+    expect(existsSync(`public${OG_IMAGE}`)).toBe(true);
+  });
+});
