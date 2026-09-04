@@ -2,24 +2,73 @@
 
 Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) · Versionamento: [SemVer](https://semver.org/lang/pt-BR/).
 
-## [Unreleased]
+## [0.1.0] — 2026-09-04
 
-### Added
+Primeira versão pública, no ar em [reliabilitas.com](https://reliabilitas.com). Acervo de 124 notas
+(62 em português, 62 em inglês), 324 ligações de grafo e 486 testes.
 
-- Busca FTS ponderada (Dia 3): coluna `fts` com pesos título > tags > corpo, configurações `pt/en_unaccent` (consulta sem acento), strip de markdown do índice e RPC `busca_notas` parametrizada com EXECUTE negado a anon; página `/busca` (T05) com form GET puro, trecho destacado e empty state; campo de busca no header.
-- Home real (T01): hero navy com busca central, grid dos 5 ativos do MVP (ordem D07 — publicado linka, ausente "em breve"), bloco do método Fw A→B e apoio condicionado aos links de doação.
-- 3 calculadoras de confiabilidade (BR-012), validadas contra a literatura em teste antes da UI: Weibull 2P (R(t), h(t), MTTF via Γ-Lanczos, B10, leitura Fw A ao vivo pelo β), MTBF/MTTR/Disponibilidade e intervalo P-F; página `/calculadoras` indexável e Weibull embutida no nível Engineer do T03; slider shadcn vendorizado sobre Radix + curvas Recharts, 100% client-side.
-- Export do plano de manutenção da página atual (F02/BR-004): CSV (separador `;`, BOM UTF-8, guarda anti CSV-injection) e Markdown, gerados no client via Blob — nenhum endpoint novo.
-- Grafo local da nota em SVG próprio (layout radial determinístico), nós clicáveis com paleta própria.
-- KaTeX server-side no corpo da nota: `$...$` inline (cifrão sem espaço encostado — moeda imune) e `$$...$$` bloco, `trust:false`/`throwOnError:false`; fórmula NPSH da nota-semente convertida como exemplo canônico da convenção.
-- Fundação M04: scaffold Next.js 15 + TypeScript + Tailwind, CI de 4 estágios a cada commit (lint → audit → semgrep → testes → build), `bin/setup` e `bin/deploy` (`.ps1`/`.sh`), estrutura de learning journal (XP).
-- Pipeline endurecido pós-review da Fase 0: frontmatter estrito com allowlist de `tags` (F7), 3 níveis de leitura validados no corpo (F8), coerência da cadeia taxonômica e das gêmeas de locale (F2), warning de wikilink para nota não publicada (F5), testes de RLS contra a instância viva no CI (F6).
+### Conteúdo
 
-### Changed
+- **Handbook de bomba centrífuga no padrão editorial completo**: princípio de funcionamento
+  (Bernoulli → Euler), anatomia interativa com 14 pontos clicáveis e linha de fluxo, velocidade
+  específica, leis de afinidade, NPSH, curva H-Q ao vivo com região preferida de operação, seção de
+  instalação com quatro diagramas próprios, clusterização por seis eixos e fotografia licenciada.
+- **Dois componentes aprofundados** — rolamento e selo mecânico — com **dez modos de falha**
+  próprios, cada um em três níveis de leitura (Entender / Aplicar / Dominar) e com plano de
+  manutenção exportável.
+- **Taxonomia funcional validada contra a ISO 14224**: oito classes por função sobre o fluido, com
+  famílias, princípios construtivos, fichas de marca e modelo, e notas de estratégia (TBM, CBM,
+  proof test, run-to-failure, redesenho).
+- **Todo modo de falha carrega o método visível**: Framework A (padrão de taxa de falha, Nowlan &
+  Heap) para o diagnóstico e Framework B (lógica de decisão RCM, SAE JA1011 / Moubray) para a
+  prescrição, com o plano de manutenção derivado na estrutura mínima de procedimento.
+- Página **"Como usar as calculadoras"**, com teoria, parâmetros, estimativa e leitura de resultado.
+- Página de **normas técnicas citadas**, agregando as fontes primárias usadas no acervo.
 
-- Ingest grava via Postgres em transação única com reconciliação de notas removidas (F4/F1); `revisado_em` gravada e `atualizado_em` renovada no upsert (F10); nomenclatura única de chaves Supabase (F17); CI dispara push apenas em `main` (F18).
+### Aplicação
 
-### Security
+- **Navegação em grafo**: wikilinks entre notas, backlinks automáticos, grafo local em SVG próprio e
+  árvore taxonômica lateral com trilha de navegação.
+- **Busca em texto completo** com pesos (título > tags > corpo), busca sem acento em ambos os
+  idiomas e trecho destacado no resultado.
+- **Três calculadoras de confiabilidade**, validadas contra exemplos da literatura _antes_ de virarem
+  interface: Weibull de dois parâmetros (confiabilidade, taxa de risco, MTTF, B10, leitura do
+  Framework A ao vivo pelo β), MTBF/MTTR/disponibilidade e intervalo P-F.
+- **Exportação** do plano de manutenção e da nota em CSV e Markdown, gerada no navegador.
+- **Fórmulas renderizadas** no servidor com KaTeX.
+- **Bilíngue de verdade**: PT e EN com URLs próprias, e a troca de idioma preserva a página e a busca.
+- **Seletor de estratégia RCM**: quatro perguntas levam à decisão de manutenção e ao plano-base.
+- Duas superfícies de participação: **"Sugerir correção"** em qualquer página e **"Colaborar"** para
+  propor uma nota nova. Nenhum dado pessoal é obrigatório.
 
-- Alvo de wikilink só vira `href` se for slug canônico — elimina injeção de atributo no render SSR (F3).
-- Asserções de RLS afirmam o código `42501` nos três caminhos anon (F16); suíte falha em glob vazio (F9).
+### Segurança
+
+- **Row Level Security** negando acesso anônimo em todas as tabelas, provado por teste contra a
+  instância viva no CI, afirmando o código de erro exato do Postgres.
+- **Nenhuma credencial no navegador**: o acesso ao banco vive em módulos `server-only`, e a única
+  variável pública é o endpoint de telemetria, que não é segredo.
+- **Content-Security-Policy com nonce por requisição**, sem `unsafe-inline` em scripts.
+- **Busca via função parametrizada** no banco, com execução negada a usuários anônimos.
+- **Rate limit** nas rotas de escrita e no login do painel, com honeypot que devolve sucesso falso a
+  robôs, sem gravar nada.
+- **Alvo de wikilink só vira link** se for um identificador canônico, o que torna injeção de atributo
+  impossível por construção; links em Markdown passam por lista de protocolos permitidos.
+- **Painel de moderação** protegido por senha e cookie assinado, com verificação independente em cada
+  rota que altera dados.
+- **Todo o tráfego passa pela borda**: o servidor de origem redireciona para o domínio canônico, de
+  modo que nenhuma requisição escapa das regras de firewall e limite de taxa.
+- Cabeçalhos de segurança, HSTS e política de permissões ativos em todas as respostas.
+
+### Infraestrutura
+
+- **Publicação travada atrás do CI**: o deploy só dispara depois que estilo, tipos, auditoria de
+  dependências, análise estática, testes e build de produção passam. Build vermelho não publica.
+- **Validação de conteúdo no build**: frontmatter inválido, cadeia taxonômica quebrada ou wikilink
+  órfão derrubam o CI antes de qualquer publicação.
+- **Ingest transacional** com reconciliação: notas removidas do repositório saem do banco.
+- **Observabilidade**: verificação de saúde, rastreamento de erros e log estruturado com
+  identificador de correlação por requisição.
+- `sitemap.xml` e `robots.txt` próprios, com 144 endereços e permissão explícita para rastreadores.
+- Medição de audiência sem cookies.
+
+[0.1.0]: https://github.com/guilhermeJC/reliabilitas/releases/tag/v0.1.0

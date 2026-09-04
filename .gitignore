@@ -11,9 +11,14 @@ posicionamento/
 # Continuam existindo no disco (sync entre ambientes fica fora do Git a
 # partir de agora — mesmo padrão já usado por docs/ e posicionamento/).
 CLAUDE.md
+
+# Ferramental de revisão assistida — instrumento de trabalho do mantenedor,
+# não parte do produto. Fica no disco (segue funcionando), fora do repo público.
+.agents/
+skills-lock.json
 learning/
 
-# Segredos — NUNCA versionar (CLAUDE.md §12)
+# Segredos — NUNCA versionar
 .env
 .env.*
 !.env.example

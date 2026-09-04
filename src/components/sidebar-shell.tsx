@@ -54,7 +54,7 @@ export function SidebarShell({
   // Hidratação: lê a preferência SALVA; sem ela, o padrão depende do tamanho
   // de tela (recolhida no celular, aberta no desktop — decideColapsadoInicial).
   // DEV-083 #1: sessionStorage, não localStorage — o site é 100% cookieless
-  // via sessionStorage (CLAUDE.md §9); localStorage era a única violação
+  // via sessionStorage (regra do projeto: nada em localStorage); era a única violação
   // dessa invariante. Efeito colateral aceito: a preferência não sobrevive
   // mais entre abas/sessões, só dentro da mesma aba (era o próprio achado).
   useEffect(() => {

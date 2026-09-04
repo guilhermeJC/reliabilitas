@@ -6,6 +6,8 @@ O RELIABILITAS é esse lugar: um handbook digital de engenharia de confiabilidad
 
 **Gratuito para pessoas, para sempre.** Projeto aberto, mantido por doações — sem plano de monetização via API paga ou dados fechados. Código sob MIT (`LICENSE`), conteúdo editorial sob CC BY-SA 4.0 (`LICENSE-CONTENT.md`): qualquer pessoa pode ler, reusar e adaptar, desde que credite e mantenha a mesma licença aberta.
 
+🌐 **[reliabilitas.com](https://reliabilitas.com)**
+
 ## O que é / o que não é
 
 | É                                                        | Não é                               |
@@ -14,6 +16,15 @@ O RELIABILITAS é esse lugar: um handbook digital de engenharia de confiabilidad
 | Handbook por equipamento + modos de falha + planos       | Fórum ou comunidade (isso é Fase 3) |
 | Calculadoras de confiabilidade (Weibull, MTBF/MTTR, P-F) | Repositório de PDFs de terceiros    |
 | Conteúdo aberto, com contribuição da comunidade (curada) | Produto fechado ou proprietário     |
+
+## Estado atual
+
+|         |                                                     |
+| ------- | --------------------------------------------------- |
+| Acervo  | 124 notas (62 PT + 62 EN) · 324 arestas de grafo    |
+| Suíte   | 486 testes (unit + integração) · 5 cenários E2E     |
+| Banco   | Postgres com RLS negando `anon` em todas as tabelas |
+| Idiomas | PT e EN, com URLs próprias por locale               |
 
 ## Rodando localmente
 
@@ -31,27 +42,28 @@ Um comando: instala dependências, cria `.env` a partir do exemplo (preencha as 
 
 ## Como funciona (arquitetura em uma linha)
 
-Curador escreve notas Markdown + frontmatter YAML em `content/` → CI valida frontmatter, cadeia taxonômica e wikilinks (build falha se inválido) → ingest grava no Supabase Postgres (JSONB + FTS + RLS) → Next.js SSR/ISR serve página a página. Detalhes de engenharia: `CLAUDE.md` (spec viva).
+Notas Markdown + frontmatter YAML em `content/` → CI valida frontmatter, cadeia taxonômica e wikilinks (o build falha se algo estiver inválido) → `npm run ingest` grava no Supabase Postgres (JSONB + FTS + RLS) → Next.js App Router serve a página no servidor.
+
+Duas consequências dessa arquitetura que valem saber: **publicar conteúdo e publicar código são canais independentes** (o ingest não passa pelo deploy), e **nenhuma credencial de banco chega ao navegador** — o acesso ao Postgres vive em módulos `server-only`, e o visitante recebe apenas o HTML renderizado.
 
 ## Estrutura
 
-| Pasta       | Conteúdo                                                                                                         |
-| ----------- | ---------------------------------------------------------------------------------------------------------------- |
-| `src/`      | Aplicação Next.js 15 (App Router) + bibliotecas de conteúdo/ingest                                               |
-| `content/`  | Notas-semente MD+YAML por locale (`content/pt/...`, `content/en/...`)                                            |
-| `data/`     | Migrations SQL do Postgres (schema, RLS)                                                                         |
-| `tests/`    | Suíte Vitest (unit + integração)                                                                                 |
-| `scripts/`  | Pipeline de ingest e utilitários de banco                                                                        |
-| `bin/`      | `setup` e `deploy` — um comando cada, `.ps1` + `.sh`                                                             |
-| `assets/`   | SVGs originais (anatomia D18) e imagens licenciadas                                                              |
-| `learning/` | Journal de desenvolvimento (XP) — **local-only, gitignored** (anotações internas, não faz parte do repo público) |
-| `docs/`     | Documentos fundadores — **local-only, gitignored** (ver `docs/README.md`)                                        |
+| Pasta       | Conteúdo                                                                      |
+| ----------- | ----------------------------------------------------------------------------- |
+| `src/`      | Aplicação Next.js 15 (App Router) + bibliotecas de conteúdo, cálculo e ingest |
+| `content/`  | Notas em Markdown + YAML por locale (`content/pt/…`, `content/en/…`)          |
+| `data/`     | Migrations SQL do Postgres (schema, RLS, busca)                               |
+| `tests/`    | Suíte Vitest (unit + integração) e cenários Playwright em `tests/e2e/`        |
+| `scripts/`  | Pipeline de ingest e utilitários de banco                                     |
+| `bin/`      | `setup` e `deploy` — um comando cada, `.ps1` + `.sh`                          |
+| `public/`   | SVGs de anatomia, imagens licenciadas e demais assets estáticos               |
+| `messages/` | Strings de interface por idioma (next-intl)                                   |
+
+Documentos internos de trabalho (especificação, decisões e journal de desenvolvimento) ficam fora do repositório público — ver `docs/README.md`.
 
 ## Princípios de engenharia
 
-TDD sempre (test-first, ratio teste/código ≥ 1.0) · CI a cada commit (lint → audit → security scan → testes → build) · cada commit em `main` é production-ready · calculadoras validadas contra exemplos da literatura (Smith, Moubray) · segurança desde o commit #0 (RLS, headers, rate limit).
-
-Desenvolvido com o auxílio do [Claude Code](https://claude.com/claude-code) (Anthropic) como ferramenta de par de programação — as decisões técnicas e de produto são do mantenedor.
+Test-first sempre (a suíte cresce junto com o código) · CI a cada commit, com o deploy travado atrás dele: build vermelho não publica · calculadoras validadas contra exemplos da literatura (Smith, Moubray) antes de virarem interface · segurança desde o primeiro commit — RLS negando acesso anônimo, headers de segurança, CSP com nonce por requisição, rate limit nas rotas de escrita.
 
 ## Licença
 
@@ -59,8 +71,8 @@ Código: MIT (`LICENSE`). Conteúdo em `content/`: CC BY-SA 4.0 (`LICENSE-CONTEN
 
 ## Contribuindo
 
-Toda contribuição de conteúdo é curada — veja "Colaborar" no site. Correções técnicas: "Sugerir correção" em qualquer página. Termos completos: `/termos` no site publicado.
+Toda contribuição de conteúdo é curada — veja "Colaborar" no site. Correções técnicas: "Sugerir correção" em qualquer página. Termos completos em [reliabilitas.com/pt/termos](https://reliabilitas.com/pt/termos).
 
 ---
 
-_Deploy alvo: 26/08/2026 em reliabilitas.com._
+_Mantido por Guilherme Joaquim Correia — engenheiro mecânico (CREA-SP). No ar desde 04/09/2026._

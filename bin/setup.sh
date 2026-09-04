@@ -3,7 +3,10 @@
 set -euo pipefail
 
 echo '==> Instalando dependências'
-npm install
+# `npm ci` e não `npm install`: instala EXATAMENTE o que está no lock e não
+# o reescreve. `npm install` pode podar dependências transitivas do lock
+# (satisfeitas pela árvore local) e quebrar o CI depois, sem aviso local.
+npm ci
 
 if [ ! -f .env ]; then
   cp .env.example .env

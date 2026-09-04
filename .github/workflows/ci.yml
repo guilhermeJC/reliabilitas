@@ -22,7 +22,7 @@ jobs:
           cache: npm
 
       # A imagem do Node 22 traz npm 10.x, mas o desenvolvimento roda em npm 11 —
-      # e um lock gerado pelo npm 11 pode ser REJEITADO pelo npm 10 (CLAUDE.md §7).
+      # e um lock gerado pelo npm 11 pode ser REJEITADO pelo npm 10.
       # Isso já derrubou o CI 3 vezes, a última custando 5 dias de atraso silencioso
       # (DEV-125). Alinhar a versão aqui elimina a classe inteira de falha, em vez
       # de depender de lembrar a regra de regenerar o lock a cada mudança.

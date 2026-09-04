@@ -2,7 +2,10 @@
 $ErrorActionPreference = 'Stop'
 
 Write-Host '==> Instalando dependências'
-npm install
+# `npm ci` e nao `npm install`: instala EXATAMENTE o que esta no lock e nao
+# o reescreve. `npm install` pode podar dependencias transitivas do lock
+# (satisfeitas pela arvore local) e quebrar o CI depois, sem aviso local.
+npm ci
 
 if (-not (Test-Path .env)) {
     Copy-Item .env.example .env

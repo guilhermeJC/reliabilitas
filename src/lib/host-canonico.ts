@@ -6,9 +6,9 @@ import { SITE_URL } from '@/lib/seo/site';
 // que devolve 403 em /wp-admin no domínio canônico devolvia 307 no origin.
 // Consequência: WAF, rate limit de borda e allowlist de crawlers eram TODOS
 // contornáveis por quem soubesse a URL do origin — inclusive para força bruta
-// no /admin/login e para o scraping em massa nomeado como ameaça nº 1 no
-// CLAUDE.md §9. O canonical/sitemap já apontavam certo, então o SEO estava
-// protegido; o buraco era de acesso.
+// no /admin/login e para o scraping em massa, que é a ameaça nº 1 do projeto.
+// O canonical/sitemap já apontavam certo, então o SEO estava protegido; o
+// buraco era de acesso.
 //
 // A defesa é redirecionar para o domínio canônico, forçando todo o tráfego de
 // produção a atravessar a borda. Lógica pura aqui, testável em `node`; o

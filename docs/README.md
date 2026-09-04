@@ -1,6 +1,6 @@
 # docs/ — documentos internos do projeto (local-only)
 
-> Esta pasta é **ignorada pelo Git** (exceto este README) — documentos de trabalho do mantenedor: especificação, decisões técnicas, notas de negócio, design, metodologia e handoffs de desenvolvimento. Não fazem parte da distribuição pública do projeto — mesmo tratamento de `posicionamento/`, `CLAUDE.md` e `learning/` (ver `README.md` na raiz).
+> Esta pasta é **ignorada pelo Git** (exceto este README) — documentos de trabalho do mantenedor: especificação, decisões técnicas, notas de negócio, design, metodologia e handoffs de desenvolvimento. Não fazem parte da distribuição pública do projeto — mesmo tratamento de `posicionamento/` e `learning/`.
 
 O RELIABILITAS é um projeto de comunidade aberta: o código (`src/`, `data/`, `tests/`, `scripts/`, `bin/`) é licenciado sob **MIT** e o conteúdo editorial (`content/`) sob **CC BY-SA 4.0** — ambos versionados normalmente e abertos a qualquer pessoa. Esta pasta é a exceção deliberada: são anotações de processo e estratégia do mantenedor, não parte do produto distribuído.
 

@@ -85,7 +85,7 @@ const baseSchema = z.strictObject({
   // ausente = fallback alfabético por título (tree.ts). Uso pontual: só quando a
   // ordem alfabética não reflete a relevância didática pretendida.
   ordem: z.number().int().optional(),
-  // F7: única extensão livre permitida — insumo manual da busca FTS em PT (CLAUDE.md §7)
+  // F7: única extensão livre permitida no frontmatter — insumo manual da busca FTS em PT
   tags: z.array(z.string().min(1)).optional(),
   autor: autorSchema.optional(),
 });
