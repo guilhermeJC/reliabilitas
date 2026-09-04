@@ -1,9 +1,9 @@
 name: Deploy
 
-# G2/DEV-051/053 — fecha o gate de deploy: a Vercel para de publicar `main`
-# sozinha (vercel.json: git.deploymentEnabled.main=false) e só recebe build
-# novo depois que o workflow "CI" (ci.yml) terminar com sucesso. Preview de
-# PR continua automático pela Vercel (não passa por produção).
+# G2 — fecha o gate de deploy: a Vercel para de publicar `main` sozinha
+# (vercel.json: git.deploymentEnabled.main=false) e só recebe build novo depois
+# que o workflow "CI" (ci.yml) terminar com sucesso. Preview de PR continua
+# automático pela Vercel (não passa por produção).
 on:
   workflow_run:
     workflows: ['CI']
@@ -13,12 +13,54 @@ on:
 permissions:
   contents: read
 
+# Dois pushes em sequência não podem disputar o mesmo deploy: a fila garante
+# ordem, e `cancel-in-progress: false` evita cancelar uma publicação no meio.
+concurrency:
+  group: deploy-producao
+  cancel-in-progress: false
+
 jobs:
   deploy:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
+      # DEV-131 — CORRIDA REAL, observada em produção em 04/09/2026.
+      #
+      # O Deploy Hook da Vercel publica o HEAD do branch no momento em que é
+      # chamado, e NÃO o commit que o CI aprovou. Com dois pushes próximos, isso
+      # abre uma janela concreta:
+      #
+      #   20:16:32  CI do commit A começa
+      #   20:19:15  push do commit B  ->  CI de B começa
+      #   ~20:19:3x CI de A termina VERDE
+      #   20:19:35  Deploy dispara (workflow_run de A) e publica o HEAD... que já é B
+      #
+      # Resultado: B foi para produção sem o próprio CI ter terminado. O gate
+      # prometia "só publica com CI verde" e na prática publicava "o HEAD atual,
+      # quando ALGUM CI anterior fica verde" — que é uma promessa diferente.
+      #
+      # A guarda abaixo só libera a publicação quando o commit aprovado pelo CI
+      # ainda é o HEAD de main. Se não for, este deploy é abandonado de
+      # propósito: o CI do commit mais novo já está rodando e dispara o deploy
+      # dele quando terminar. Nenhuma publicação é perdida, só adiada para a
+      # execução que de fato a valida.
+      - name: Conferir se o commit aprovado ainda é o HEAD de main
+        id: guarda
+        env:
+          APROVADO: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          ATUAL=$(git ls-remote "https://github.com/${{ github.repository }}" refs/heads/main | cut -f1)
+          echo "CI aprovou : $APROVADO"
+          echo "main está em: $ATUAL"
+          if [ "$ATUAL" = "$APROVADO" ]; then
+            echo "publicar=sim" >> "$GITHUB_OUTPUT"
+          else
+            echo "publicar=nao" >> "$GITHUB_OUTPUT"
+            echo "::notice::main avançou para $ATUAL depois deste CI. Publicação adiada para o CI desse commit — nada é perdido."
+          fi
+
       - name: Disparar deploy de produção (Vercel Deploy Hook)
+        if: steps.guarda.outputs.publicar == 'sim'
         run: |
           if [ -z "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}" ]; then
             echo "::error::VERCEL_DEPLOY_HOOK_URL não configurado — crie o Deploy Hook na Vercel (Project Settings > Git > Deploy Hooks, branch main) e cadastre como secret do repositório no GitHub"
