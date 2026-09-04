@@ -531,7 +531,7 @@
     "baixarMd": "Baixar Markdown",
     "baixarPdf": "Baixar PDF",
     "autorRotulo": "Autor",
-    "autorFotoAlt": "Foto de Guilherme Joaquim Correia",
+    "autorFotoAlt": "Foto de {nome}",
     "autorCargo": "Engenheiro mecânico (CREA-SP) — experiência prática em manutenção e planejamento industrial",
     "autorSobre": "Sobre o autor →"
   },

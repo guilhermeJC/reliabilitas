@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { FORMACAO_MAX, FUNCAO_EMPRESA_MAX, LINKEDIN_SITE_MAX, NOME_MAX } from '../autoria';
 
 // Contrato do frontmatter (DOCS_base §E + DOCS_regras). BR-006: frontmatter inválido
 // derruba o build — este módulo é a fonte única dessa validação (usado pelo ingest e pelo CI).
@@ -41,6 +42,32 @@ export type Locale = (typeof LOCALES)[number];
 export const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const slugSchema = z.string().regex(SLUG_RE, 'slug deve ser kebab-case (a-z, 0-9, hífens)');
 
+// Byline por nota (DEV-128, 04/09). Ausente = autor padrão do acervo (o curador —
+// contato.ts, resolvido em content/autor.ts). Mesmos campos e limites do
+// formulário de contribuição (autoria.ts): ao aprovar uma contribuição com
+// mostrarPublicamente=true, o curador copia-os pra cá, nos 2 locales (BR-011:
+// consentimento explícito; só o nome é obrigatório). Estrito (F7).
+const autorSchema = z.strictObject({
+  nome: z
+    .string()
+    .trim()
+    .min(1, 'autor.nome: obrigatório quando o bloco autor existe')
+    .max(NOME_MAX),
+  formacao: z.string().trim().min(1).max(FORMACAO_MAX).optional(),
+  funcaoEmpresa: z.string().trim().min(1).max(FUNCAO_EMPRESA_MAX).optional(),
+  // Vira href no byline: só URL completa em https (sem http, sem esquema solto).
+  linkedinSite: z
+    .string()
+    .max(LINKEDIN_SITE_MAX)
+    .regex(/^https:\/\/[^\s/]+\.[^\s/]+/, 'autor.linkedinSite: URL completa em https:// (vira href no byline)')
+    .optional(),
+  // Asset próprio, mesmo padrão de anatomia.foto — nunca hotlink (BR-003).
+  foto: z
+    .string()
+    .regex(/^\/autores\/[a-z0-9-]+\.(jpg|jpeg|png|webp)$/, 'autor.foto: /autores/<slug>.<ext> (asset próprio)')
+    .optional(),
+});
+
 const baseSchema = z.strictObject({
   slug: slugSchema,
   tipo_nota: z.enum(TIPOS_NOTA),
@@ -60,6 +87,7 @@ const baseSchema = z.strictObject({
   ordem: z.number().int().optional(),
   // F7: única extensão livre permitida — insumo manual da busca FTS em PT (CLAUDE.md §7)
   tags: z.array(z.string().min(1)).optional(),
+  autor: autorSchema.optional(),
 });
 
 // Nota-semente (D17): Classe/Família/Princípio/Marca-Modelo/Componente/Estratégia

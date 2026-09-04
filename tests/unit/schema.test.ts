@@ -321,3 +321,65 @@ describe('plano_manutencao — estrutura minima PRO-MNT-001 par. 8 (sessao 5)', 
     expect(validateFrontmatter(fm).ok).toBe(false);
   });
 });
+
+describe('autor — byline por nota (DEV-128; ausente = autor padrão do acervo)', () => {
+  // Mesmos campos do formulário de contribuição (autoria.ts): ao aprovar uma
+  // contribuição com mostrarPublicamente=true, o curador copia-os pra cá.
+  const autorCompleto = {
+    nome: 'Ana Souza',
+    formacao: 'Engenheira química',
+    funcaoEmpresa: 'Confiabilidade · Petroquímica X',
+    linkedinSite: 'https://www.linkedin.com/in/ana-souza/',
+    foto: '/autores/ana-souza.jpg',
+  };
+  const caminhos = (r: ReturnType<typeof validateFrontmatter>) =>
+    r.ok ? [] : r.issues.map((i) => i.path);
+
+  it('aceita autor completo em qualquer tipo de nota', () => {
+    expect(validateFrontmatter({ ...sementeValida, autor: autorCompleto }).ok).toBe(true);
+    expect(validateFrontmatter({ ...modoFalhaValido, autor: autorCompleto }).ok).toBe(true);
+    expect(validateFrontmatter({ ...handbookValido, autor: autorCompleto }).ok).toBe(true);
+  });
+
+  it('aceita autor só com nome — todo o resto é opcional (BR-011)', () => {
+    const r = validateFrontmatter({ ...sementeValida, autor: { nome: 'Ana Souza' } });
+    expect(r.ok).toBe(true);
+    if (r.ok) expect((r.data as { autor?: { nome: string } }).autor?.nome).toBe('Ana Souza');
+  });
+
+  it('sem autor, segue válido — o padrão é resolvido na renderização, não no schema', () => {
+    const r = validateFrontmatter(sementeValida);
+    expect(r.ok).toBe(true);
+    if (r.ok) expect('autor' in r.data).toBe(false);
+  });
+
+  it('rejeita autor sem nome, apontando o campo', () => {
+    const r = validateFrontmatter({ ...sementeValida, autor: { formacao: 'Eng.' } });
+    expect(r.ok).toBe(false);
+    expect(caminhos(r)).toContain('autor.nome');
+  });
+
+  it('rejeita linkedinSite que não seja https:// — vira href no byline', () => {
+    for (const ruim of ['http://linkedin.com/in/x', 'javascript:alert(1)', 'linkedin.com/in/x']) {
+      const r = validateFrontmatter({ ...sementeValida, autor: { nome: 'A', linkedinSite: ruim } });
+      expect(r.ok, ruim).toBe(false);
+      expect(caminhos(r), ruim).toContain('autor.linkedinSite');
+    }
+  });
+
+  it('rejeita foto fora de /autores/ — asset próprio, mesmo padrão da anatomia', () => {
+    for (const ruim of ['/sobre/guilherme.jpg', 'https://x.com/a.jpg', '/autores/a.gif']) {
+      const r = validateFrontmatter({ ...sementeValida, autor: { nome: 'A', foto: ruim } });
+      expect(r.ok, ruim).toBe(false);
+      expect(caminhos(r), ruim).toContain('autor.foto');
+    }
+  });
+
+  it('F7: rejeita campo desconhecido dentro de autor — typo não some em silêncio', () => {
+    const r = validateFrontmatter({
+      ...sementeValida,
+      autor: { ...autorCompleto, email: 'ana@exemplo.com' },
+    });
+    expect(r.ok).toBe(false);
+  });
+});

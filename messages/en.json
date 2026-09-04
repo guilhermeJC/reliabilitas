@@ -531,7 +531,7 @@
     "baixarMd": "Download Markdown",
     "baixarPdf": "Download PDF",
     "autorRotulo": "Author",
-    "autorFotoAlt": "Photo of Guilherme Joaquim Correia",
+    "autorFotoAlt": "Photo of {nome}",
     "autorCargo": "Mechanical engineer (CREA-SP, Brazil) — hands-on experience in industrial maintenance and planning",
     "autorSobre": "About the author →"
   },
