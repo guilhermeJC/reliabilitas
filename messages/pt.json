@@ -563,7 +563,9 @@
       "proof_test": "Proof Test",
       "rtf": "RTF",
       "redesenho": "Redesenho"
-    }
+    },
+    "alertaCausaRaizTitulo": "Atenção — padrão infantil",
+    "alertaCausaRaizTexto": "Este modo tem β < 1: as falhas se concentram logo após a intervenção. O monitoramento acima é aplicável e detecta a falha a tempo, mas **não elimina a causa** — e revisar por idade tende a piorar, porque cada intervenção reinicia o período de maior risco (Nowlan & Heap). A ação de fundo é atacar a causa raiz: procedimento de montagem, ferramenta correta, torque, alinhamento, qualificação de quem executa e verificação antes do start-up."
   },
   "plano": {
     "titulo": "Plano de manutenção",

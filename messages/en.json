@@ -563,7 +563,9 @@
       "proof_test": "Proof Test",
       "rtf": "RTF",
       "redesenho": "Redesign"
-    }
+    },
+    "alertaCausaRaizTitulo": "Caution — infant mortality pattern",
+    "alertaCausaRaizTexto": "This mode has β < 1: failures cluster right after intervention. The monitoring above is applicable and does detect the failure in time, but it **does not remove the cause** — and age-based overhaul tends to make things worse, since every intervention restarts the high-risk period (Nowlan & Heap). The underlying action is to attack the root cause: assembly procedure, correct tooling, torque, alignment, installer qualification and pre-start-up verification."
   },
   "plano": {
     "titulo": "Maintenance plan",

@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { CATEGORIA_ROTULOS } from '@/lib/content/fw-a-rotulos';
+import { alertaCausaRaiz } from '@/lib/content/fw-alerta';
 
 // A assinatura visual do método (DESIGN §1): a dupla Fw A (diagnóstico, roxo)
 // → Fw B (prescrição, verde) presente em toda página de modo de falha (BR-005).
@@ -32,6 +33,11 @@ function Linha({ rotulo, valor, mono = true }: { rotulo: string; valor: string; 
 export async function FwCards({ fwA, fwB, pfTipico }: { fwA?: FwA; fwB?: FwB; pfTipico?: string }) {
   const t = await getTranslations('fw');
   if (!fwA && !fwB) return null;
+
+  // DEV-136: padrão infantil prescrito como CBM. O monitoramento é aplicável,
+  // mas não elimina a causa — e o leitor precisa saber disso NA NOTA, não só
+  // no seletor interativo, que era o único lugar onde esse aviso aparecia.
+  const mostraAlerta = alertaCausaRaiz(fwA, fwB);
 
   return (
     <div className="mt-6 grid gap-4 md:grid-cols-2">
@@ -83,6 +89,19 @@ export async function FwCards({ fwA, fwB, pfTipico }: { fwA?: FwA; fwB?: FwB; pf
             </dl>
           </div>
         </section>
+      )}
+      {mostraAlerta && (
+        <aside
+          className="rounded-lg border border-l-4 bg-white p-4 md:col-span-2"
+          style={{ borderColor: '#e3e8f0', borderLeftColor: 'var(--accent)' }}
+        >
+          <h3 className="text-[13px] font-medium" style={{ color: 'var(--accent)' }}>
+            {t('alertaCausaRaizTitulo')}
+          </h3>
+          <p className="mt-1 text-[13px] leading-relaxed text-slate-700">
+            {t('alertaCausaRaizTexto')}
+          </p>
+        </aside>
       )}
     </div>
   );
