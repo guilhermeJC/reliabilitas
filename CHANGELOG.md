@@ -5,7 +5,7 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) · Versiona
 ## [0.1.0] — 2026-09-04
 
 Primeira versão pública, no ar em [reliabilitas.com](https://reliabilitas.com). Acervo de 124 notas
-(62 em português, 62 em inglês), 324 ligações de grafo e 486 testes.
+(62 em português, 62 em inglês), 324 ligações de grafo e 501 testes.
 
 ### Conteúdo
 
@@ -24,6 +24,10 @@ Primeira versão pública, no ar em [reliabilitas.com](https://reliabilitas.com)
   prescrição, com o plano de manutenção derivado na estrutura mínima de procedimento.
 - Página **"Como usar as calculadoras"**, com teoria, parâmetros, estimativa e leitura de resultado.
 - Página de **normas técnicas citadas**, agregando as fontes primárias usadas no acervo.
+- **Alerta de causa raiz em padrão infantil**: quando um modo de falha tem β < 1 e a prescrição é
+  monitoramento por condição, a nota avisa que monitorar detecta mas **não elimina a causa**, e que
+  revisar por idade tende a piorar — porque cada intervenção reinicia o período de maior risco
+  (Nowlan & Heap). Vale automaticamente para qualquer modo de falha futuro.
 
 ### Aplicação
 
